@@ -7681,9 +7681,9 @@ contract hello{
 <p><img alt="image.png" src="../img/gvky4mitkp8at739/1587428406369-b6266434-8cc1-49af-8430-65ff1a761a24-479047.png" /></p>
 <p>点击那个 Details，来到 WEB3DEPLOY</p>
 <p><img alt="image.png" src="../img/gvky4mitkp8at739/1587435398048-9c4306df-6767-4a1d-bd93-14090ba4aab0-355229.png" /></p>
-<p>把第一行的 <code>var_greeting = /* var of type string her e*/;</code>
-改成 <code>var_greeting = "hello world";</code>
-第 6 行的 <code>from: web3.eth.account[0]</code>
+<p>把第一行的 <code>var_greeting = /* var of type string her e*/;</code><br />
+改成 <code>var_greeting = "hello world";</code><br />
+第 6 行的 <code>from: web3.eth.account[0]</code><br />
 改为 <code>from: web3.eth.account[2]</code> 修改部署账户</p>
 <pre><code class="language-javascript">var _greeting = &quot;hello world&quot;;
 var helloContract = web3.eth.contract([{&quot;constant&quot;:true,&quot;inputs&quot;:[],&quot;name&quot;:&quot;say&quot;,&quot;outputs&quot;:[{&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;string&quot;}],&quot;payable&quot;:false,&quot;stateMutability&quot;:&quot;view&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;inputs&quot;:[{&quot;name&quot;:&quot;_greeting&quot;,&quot;type&quot;:&quot;string&quot;}],&quot;payable&quot;:false,&quot;stateMutability&quot;:&quot;nonpayable&quot;,&quot;type&quot;:&quot;constructor&quot;}]);
@@ -7702,10 +7702,10 @@ var hello = helloContract.new(
 </code></pre>
 <p>先看一下现在的账户</p>
 <p><img alt="image.png" src="../img/gvky4mitkp8at739/1587447491481-86b0a2d6-d6f7-4a30-98bb-434cf87e061c-810373.png" /></p>
-<p>将上面这一段复制到 geth 的控制台（先开始挖矿⛏）
+<p>将上面这一段复制到 geth 的控制台（先开始挖矿⛏）<br />
 如果提示这样，是因为 u2 没有解锁账户</p>
 <p><img alt="image.png" src="../img/gvky4mitkp8at739/1587452119167-fe497d6d-69d3-4403-872c-c3845754bb3b-726367.png" /></p>
-<p>解锁
+<p>解锁<br />
 <code>personal.unlockAccount(u2,'123456')</code></p>
 <p><img alt="image.png" src="../img/gvky4mitkp8at739/1587452176816-03eb1258-f817-4816-bffd-37d9d1d8b2f5-869266.png" /></p>
 <p>部署成功</p>
@@ -7746,7 +7746,7 @@ var hello = helloContract.new(
 </tr>
 </tbody>
 </table>
-<p>当 Token 被从一个账户转移到另一个账户的时候
+<p>当 Token 被从一个账户转移到另一个账户的时候<br />
 比如一笔从 0x32rd....w3ed 转 10 个 Token 到 0x2ejs....we3c 的时候，将发生这样的变化</p>
 <table>
 <thead>
@@ -7774,7 +7774,7 @@ var hello = helloContract.new(
 </tr>
 </tbody>
 </table>
-<p>如果该 Token 允许，我们可以更改 Token 的总供给
+<p>如果该 Token 允许，我们可以更改 Token 的总供给<br />
 可以通过构造新的 Token 来增加，构造 50 个 Token 并放到 0x2ejs....we3c 中，将导致如下变化：</p>
 <table>
 <thead>
@@ -7859,32 +7859,32 @@ var hello = helloContract.new(
 <h3 id="etc-20-token">ETC-20 Token合约</h3>
 <p>可以简单的理解为以太坊上的一个代币协议，所有基于以太坊开发的代币都要遵循此协议。遵守协议的代币是标准化的代币，可以得到各种以太坊钱包的支持，用在不同的平台和项目中</p>
 <h3 id="erc-20">ERC-20标准接口</h3>
-<p>name()：返回 ERC-20 代币的名字（string 类型）例如："my_Token"
+<p>name()：返回 ERC-20 代币的名字（string 类型）例如："my_Token"<br />
 function name() constant returns (string name)</p>
-<p>symbol()：返回代币的简称，例如："TNT"，简称通常三四个字母
+<p>symbol()：返回代币的简称，例如："TNT"，简称通常三四个字母<br />
 function symbol() constant returns (string symbol)</p>
-<p>decimals()：返回 Token 使用的小数位数，例如设置为3，表示支持三位小数
+<p>decimals()：返回 Token 使用的小数位数，例如设置为3，表示支持三位小数<br />
 function decimals() constant returns (uint8 decimals)</p>
 <blockquote>
-<p>补充：确定要取的小数位数时，应遵循如下原则：
-- Token 合约表示的是一个不可切分的物体嘛？如果是，就将小数设置为 0
-- Token 合约表示的是一个有特定小数位数的物体吗？如果是就将小数设置为那个数字
+<p>补充：确定要取的小数位数时，应遵循如下原则：<br />
+- Token 合约表示的是一个不可切分的物体嘛？如果是，就将小数设置为 0<br />
+- Token 合约表示的是一个有特定小数位数的物体吗？如果是就将小数设置为那个数字<br />
 - 如果上述两者都不是，将小数位数设置为 18</p>
 <p>被创建的 Token 的数量，应该等于全部 Token 的数量（要求是 10的倍数）</p>
 </blockquote>
-<p>totalSupply()：返回 Token 的总供给量
+<p>totalSupply()：返回 Token 的总供给量<br />
 function totalSupply() constant returns (uint totalSupply)</p>
-<p>balanceOf()：返回某个账户地址余额，给个地址就可以查到余额，所有数据在区块链上是公开的
+<p>balanceOf()：返回某个账户地址余额，给个地址就可以查到余额，所有数据在区块链上是公开的<br />
 function balanceOf(address _owner) constant returns (uint balance) </p>
-<p>transfer()：从代币合约的调用者地址上转移 _value 数量的 Token 到地址 _to，且必须触发 transfer 事件
-function transfer(address _to, uint _value) returns (bool success)
+<p>transfer()：从代币合约的调用者地址上转移 _value 数量的 Token 到地址 _to，且必须触发 transfer 事件<br />
+function transfer(address _to, uint _value) returns (bool success)<br />
 当使用 Token 对智能合约中的一个函数进行支付的时候他就不起作用了。因为智能合约运行的时候，他没有办法获得“从那个地址转账到哪里”的细节，也就无法保证合约用户已经支付了启动合约的资金</p>
 <p>想象一下，有一个 hello 合约被部署在网络上，该合约有一个函数 sayHello()，该函数要 10 个 Token 才能运行起来，账户 A 已经有 20 个 Token，他希望调用这个函数，他该怎么把足够的 Token 支付给 Hello 合约呐？</p>
-<p>这时就需要下面这里俩了：
-transferFrom()：从地址 _from 发送数量为 _value 的 Token 到地址 _to，且必须触发 transfer 事件。该方法用于允许合约代理某人转移 Token，条件是 from 账户必须是经过 approve()
-function transferFrom(address _from,address _to,uint _value) returns (bool success)
- 
-approve()：允许 _spender 多次取回账户余额，最高金额设置为 value，如果此次调用此函数，将以 _value 覆盖当前金额
+<p>这时就需要下面这里俩了：<br />
+transferFrom()：从地址 _from 发送数量为 _value 的 Token 到地址 _to，且必须触发 transfer 事件。该方法用于允许合约代理某人转移 Token，条件是 from 账户必须是经过 approve()<br />
+function transferFrom(address _from,address _to,uint _value) returns (bool success)<br />
+<br />
+approve()：允许 _spender 多次取回账户余额，最高金额设置为 value，如果此次调用此函数，将以 _value 覆盖当前金额<br />
 function approve(address _spender,uint _value) returns (bool success)</p>
 <p>当持有者向一个地址（常常是智能合约）转移最大特定数量的 Token，也就是所谓的 “配额”时，Token 持有者使用 approve() 来提供这些信息</p>
 <p>下面这个表括号里的内容是我加上的方便称呼</p>
@@ -7919,17 +7919,17 @@ function approve(address _spender,uint _value) returns (bool success)</p>
 </tr>
 </tbody>
 </table>
-<p>A 可以向 Y 合约转移 15 个 Token，即配额为 15 个 Token
+<p>A 可以向 Y 合约转移 15 个 Token，即配额为 15 个 Token<br />
 B 可以向 Y 合约转移 5 个 Token，即配额为 5 个 Token</p>
 <p>一旦一个许可被创建，合约就可以在一个账户的配额中占用许可数量的 Token，作为合约的一部分运行，账户 A 可以调用 sayHello()，而 sayHello() 可以使用 transferFrom() 从账户 A 的余额中获得 10 个 Token 并开始他的工作，如果余额不足 10 或配额不足 10，sayHello() 就会停止运行。所以 B 就不能调用，以为 B 配额为 5</p>
-<p>allowance()：返回 _spender 仍然被允许从 _owner 提取的金额，函数用于指定从一个给定地址转移到另一个给定地址的 Token 数量
-function allowance(address _owner,address _spender) constant returns (uint remaining)
+<p>allowance()：返回 _spender 仍然被允许从 _owner 提取的金额，函数用于指定从一个给定地址转移到另一个给定地址的 Token 数量<br />
+function allowance(address _owner,address _spender) constant returns (uint remaining)<br />
 配额可以超过一个地址的余额，所以使用 allowance() 函数的时候要考虑用户余额问题</p>
-<p>transfer() 和 approval 属于事件（Event）是为了方便获取日志提供的
-前者在代币被转移时触发，用于描述 Token 从一个地址转移到另一个地址的细节
-后者在调用 approve() 方法时触发，用于描述 Token 被允许从一个地址转移到另一个地址的细节
+<p>transfer() 和 approval 属于事件（Event）是为了方便获取日志提供的<br />
+前者在代币被转移时触发，用于描述 Token 从一个地址转移到另一个地址的细节<br />
+后者在调用 approve() 方法时触发，用于描述 Token 被允许从一个地址转移到另一个地址的细节<br />
 他们都可以用于跟踪地址余额和配额的变化，无需查询区块链</p>
-<p>在 Token 构造时，会发出一个带有 0 地址的 transfer 事件作为源
+<p>在 Token 构造时，会发出一个带有 0 地址的 transfer 事件作为源<br />
 被销毁时没有事件发出，ERC-20 Token 合约通过 transfer() 将 Token 发送到 0 地址来代替真正的“销毁”Token</p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/geth/nnvua7">https://www.yuque.com/hxfqg9/geth/nnvua7</a></p>

@@ -7612,12 +7612,12 @@
 
 <h2 id="hexo">语雀自动同步到hexo博客</h2>
 <blockquote>
-<p>hexo+github pages+yuque-hexo插件+github actions+serverless云函数+语雀
+<p>hexo+github pages+yuque-hexo插件+github actions+serverless云函数+语雀<br />
 实现语雀写完文章能够自动同步到 hexo 博客</p>
 </blockquote>
 <p>本文针对已经搭建好 hexo 博客的，如果没有搭好正常的 hexo 博客的可以去网上找一下，很方便</p>
 <h2 id="hexo_1">hexo同步语雀内容</h2>
-<p>用到了这个项目：<a href="https://github.com/x-cold/yuque-hexo">https://github.com/x-cold/yuque-hexo</a>
+<p>用到了这个项目：<a href="https://github.com/x-cold/yuque-hexo">https://github.com/x-cold/yuque-hexo</a><br />
 安装：npm i -g yuque-hexo</p>
 <p>然后把 package.json 的内容添加上下面这些</p>
 <pre><code class="language-json">  &quot;yuqueConfig&quot;: {
@@ -7640,10 +7640,10 @@
     &quot;version&quot;: &quot;4.2.1&quot;
   },
 </code></pre>
-<p>这里说一下里面的 baseurl 是固定的
+<p>这里说一下里面的 baseurl 是固定的<br />
 login 和 repo 是如下图这样对应的，个人界面和团队界面都可以</p>
 <p><img alt="image.png" src="../img/yBUyH-7RYTg39Lid/1594906415602-fa6f487a-b51b-4dbc-8ee7-49cbadeb94aa-334381.png" /></p>
-<p>token 是在右上角头像 -&gt; 账户设置 -&gt; Token 添加的，权限的话只给读取就可以
+<p>token 是在右上角头像 -&gt; 账户设置 -&gt; Token 添加的，权限的话只给读取就可以<br />
 ps.公开的知识库也要设置 Token</p>
 <p><img alt="image.png" src="../img/yBUyH-7RYTg39Lid/1594906494636-a353aa41-83de-478c-bd10-908e927671ad-468834.png" /></p>
 <p>在 "scripts" 中添加</p>
@@ -7703,15 +7703,15 @@ ps.公开的知识库也要设置 Token</p>
 }
 </code></pre>
 <p>这时候用 <code>yuque-hexo sync</code> 就会把语雀的文章给下载下来，下载到 \source_posts</p>
-<p>然后 <code>hexo g &amp;&amp; hexo s</code> 就可以访问 <code>127.0.0.1:4000</code> 本地看一下了
+<p>然后 <code>hexo g &amp;&amp; hexo s</code> 就可以访问 <code>127.0.0.1:4000</code> 本地看一下了<br />
 手动发布是 <code>hexo g &amp;&amp; hexo d</code></p>
-<p><strong>针对语雀图片无法正常显示的解决办法</strong>
+<p><strong>针对语雀图片无法正常显示的解决办法</strong><br />
 在主题的 layout 文件夹中的 post.ejs 文件中加上一句</p>
 <pre><code class="language-html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
 </code></pre>
 <p><img alt="image.png" src="../img/yBUyH-7RYTg39Lid/1594907231130-a2e3c7c0-d207-4151-9242-1f50e0d7ce7e-493719.png" /></p>
 <h2 id="github-actions">github actions自动更新</h2>
-<p>在 github 上创建一个私有仓库（因为会涉及到一些 token 啥的）仓库名字无所谓
+<p>在 github 上创建一个私有仓库（因为会涉及到一些 token 啥的）仓库名字无所谓<br />
 <strong>注意</strong>：在仓库里面再放一个仓库是没法把里面那个仓库 push 到 github 的，只会传一个空文件夹，导致后期博客成了空白页面，最简单粗暴的办法就是把你 git clone 的 hexo 主题里的 <code>.git</code> 文件夹给删掉</p>
 <p>然后在 hexo 的目录下运行如下命令</p>
 <pre><code class="language-git">git init
@@ -7728,8 +7728,8 @@ git push -u origin master
 <p>生成了 token 之后一定要记下来，再回来就没法看了</p>
 <p>然后来到刚才创建的私有仓库的 settings</p>
 <p><img alt="image.png" src="../img/yBUyH-7RYTg39Lid/1594907596811-6c001063-9e2a-4f7d-86b3-0fe426dfc794-102204.png" /></p>
-<p>添加两个 secret
-<strong>GH_REF</strong> 是你博客的仓库地址 github.com/yichen115/yichen115.github.io
+<p>添加两个 secret<br />
+<strong>GH_REF</strong> 是你博客的仓库地址 github.com/yichen115/yichen115.github.io<br />
 注意去掉前面 https://</p>
 <p><strong>GH_TOKEN</strong> 是刚才生成的 token</p>
 <p>然后来到 actions，点击 set up a workflow yourself</p>
@@ -7782,7 +7782,7 @@ jobs:
 <p>下面那个 user.name 和 user.email 根据自己的情况改一下，注意对齐</p>
 <p>弄完之后每当 push 或 repository_dispatch 的时候都会自动的进行更新</p>
 <h2 id="serverless">配置serverless云函数</h2>
-<p>来这里 https://console.cloud.tencent.com/scf/ 注册个账号
+<p>来这里 https://console.cloud.tencent.com/scf/ 注册个账号<br />
 新建一个函数服务</p>
 <p><img alt="image.png" src="../img/yBUyH-7RYTg39Lid/1594908198919-65a8454a-6c7f-423c-9f1c-8f2303dba8e1-007774.png" /></p>
 <p><img alt="image.png" src="../img/yBUyH-7RYTg39Lid/1594908241755-2c116717-6257-4157-b901-c5f815fa0746-719975.png" /></p>
@@ -7802,7 +7802,7 @@ def main_handler(event, context):
     else:
         return r.status_code
 </code></pre>
-<p>post 请求里只需要改用户名和仓库名（yichen115/blog）后面是固定的
+<p>post 请求里只需要改用户名和仓库名（yichen115/blog）后面是固定的<br />
 那个 token 是带着的，完整的就是 'Authorization': 'token xxxxxxxxxxxxxx'</p>
 <p>点下面那个测试，返回 This's OK!</p>
 <p><img alt="image.png" src="../img/yBUyH-7RYTg39Lid/1594908381040-ed7eea9c-3a31-4aa9-b5bf-f52aedbc3b2c-440450.png" /></p>
@@ -7818,8 +7818,8 @@ def main_handler(event, context):
 <p>在知识库中选择设置</p>
 <p><img alt="image.png" src="../img/yBUyH-7RYTg39Lid/1594908818070-60085ef8-46d5-44b3-af0b-e6946125f6dd-530546.png" /></p>
 <p>触发规则自己定就好啦</p>
-<p><img alt="image.png" src="../img/yBUyH-7RYTg39Lid/1594908880210-34a97734-e0a4-4d64-89bd-8e6976ce7a37-729064.png" />
-<a href="https://yichen115.github.io/">
+<p><img alt="image.png" src="../img/yBUyH-7RYTg39Lid/1594908880210-34a97734-e0a4-4d64-89bd-8e6976ce7a37-729064.png" /><br />
+<a href="https://yichen115.github.io/"><br />
 </a></p>
 <p>这篇文章更新的时候发现有失败的可能</p>
 <p><img alt="image.png" src="../img/yBUyH-7RYTg39Lid/1594909836406-93471a4a-4ea0-4417-89d3-d1230ca044f7-861705.png" /></p>

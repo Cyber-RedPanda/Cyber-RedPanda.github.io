@@ -7553,34 +7553,34 @@
 <p>然后再扫描端口就能扫到 80 端口了</p>
 <p><img alt="image.png" src="../img/6nlc1XfqsMR8M77i/1601018773902-29497ff3-87b8-4fdd-854d-ec9d1120333b-974282.png" /></p>
 <p>有个登录页面，但是没有测出来 sql 注入，旁边有个提示说是个 demo，然后爆破出来 demo/demo123 的账号密码</p>
-<p>通过 cookie laravel_session 可以知道这是个 Laravel 的框架，登录后存在文件上传，但是文件名是随机编码的，没法解析
-那些图片可以下载下来，有个 filename 的参数，然后发现过滤掉了 <code>../</code>
-使用 download?filename=..././public/index.php（双写绕过）可以把 php 文件下载下来
+<p>通过 cookie laravel_session 可以知道这是个 Laravel 的框架，登录后存在文件上传，但是文件名是随机编码的，没法解析<br />
+那些图片可以下载下来，有个 filename 的参数，然后发现过滤掉了 <code>../</code><br />
+使用 download?filename=..././public/index.php（双写绕过）可以把 php 文件下载下来<br />
 另外还有它的数据库文件 ../app/database/production.sqlite 下载下来用 navicat 打开</p>
 <p><img alt="image.png" src="../img/6nlc1XfqsMR8M77i/1601022567982-4eb08ac8-72c0-4774-9ba5-87054f94c91c-093820.png" /></p>
-<p>保存下这些账号密码，然后去 shh 登录一下试试（那些 password 是明文存储的）
-dean/FumKivcenfodErk0Chezauggyokyait5fojEpCayclEcyaj2heTwef0OlNiphAnA
+<p>保存下这些账号密码，然后去 shh 登录一下试试（那些 password 是明文存储的）<br />
+dean/FumKivcenfodErk0Chezauggyokyait5fojEpCayclEcyaj2heTwef0OlNiphAnA<br />
 登录成功了！</p>
 <p><img alt="image.png" src="../img/6nlc1XfqsMR8M77i/1601022920532-263ef207-e526-4544-b5d2-ec10a14fb9f2-381173.png" /></p>
 <p>目录下有个 message.txt</p>
 <p><img alt="image.png" src="../img/6nlc1XfqsMR8M77i/1601023325420-f3bf2fe7-a3a1-4cd4-84e7-c51d52a24662-199338.png" /></p>
 <p>通过同一目录下的 read_docker 来读取文件，他会自己在后面加上 /Dockerfile</p>
 <p><img alt="image.png" src="../img/6nlc1XfqsMR8M77i/1601023408306-bb9b00e6-4e61-4c3f-b4bc-e33def7cc2f5-660439.png" /></p>
-<p>那我们可以通过软链接把 robin 的密钥跟 Dockerfile 链接起来
+<p>那我们可以通过软链接把 robin 的密钥跟 Dockerfile 链接起来<br />
 <code>ln -s /home/robin/.ssh/id_rsa Dockerfile</code></p>
 <p><img alt="image.png" src="../img/6nlc1XfqsMR8M77i/1601023979548-24d177ec-5e0a-40d8-b0c8-cc5ef7f87988-492197.png" /></p>
-<p>保存i下来，然后通过这个密钥登录 robin（注意文件权限别太高 600 就行，不然不能登录）
+<p>保存i下来，然后通过这个密钥登录 robin（注意文件权限别太高 600 就行，不然不能登录）<br />
 <code>ssh -i 1.rsa robin@192.168.149.200</code></p>
 <p><img alt="image.png" src="../img/6nlc1XfqsMR8M77i/1601024275165-b4b68df6-8103-40f0-acf3-8c68eb477e34-822110.png" /></p>
 <p>里面有 docker</p>
 <p><img alt="image.png" src="../img/6nlc1XfqsMR8M77i/1601026082114-ed2fdced-fbf8-4539-bba4-844b6eb1adaf-066953.png" /></p>
-<p>然后给一个 ubuntu 镜像挂载 /root/ 目录，想用哪个挂在哪个
-<code>docker run -v /root:/root/ -it ubuntu</code>
+<p>然后给一个 ubuntu 镜像挂载 /root/ 目录，想用哪个挂在哪个<br />
+<code>docker run -v /root:/root/ -it ubuntu</code><br />
 <img alt="image.png" src="../img/6nlc1XfqsMR8M77i/1601025961992-d0244ddc-e7d7-451f-8e70-022013f92a40-448989.png" /></p>
 <p><img alt="image.png" src="../img/6nlc1XfqsMR8M77i/1601026044098-dba4dfa5-3648-49e4-95e2-0ce91cb0c005-440675.png" /></p>
 <p>通过 sudo -l 可以发现 /opt/start_apache/restart.sh 下面的不需要密码就可以 sudo 运行</p>
 <p><img alt="image.png" src="../img/6nlc1XfqsMR8M77i/1601026293874-27d5fddd-c81d-41f3-a3d0-a47e77e34c6d-224539.png" /></p>
-<p>那可以直接挂载 /opt 到 docker 然后改一下 /opt/start_apache/restart.sh
+<p>那可以直接挂载 /opt 到 docker 然后改一下 /opt/start_apache/restart.sh<br />
 然后 sudo /opt/start_apache/restart.sh 就可以拿到 root 权限了</p>
 <p><img alt="image.png" src="../img/6nlc1XfqsMR8M77i/1601026513333-d434353b-6ad1-41b9-9702-5ba47ce3ac15-789113.png" /></p>
 <blockquote>

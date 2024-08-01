@@ -7596,15 +7596,15 @@
 
 <h2 id="_1">编写主引导扇区代码</h2>
 <blockquote>
-<p>DB 定义的变量为字节型 Define Byte
-DW 定义的变量为字类型（双字节）Define Word
-DD 定义的变量为双字型（4字节）Define Double Word
-DQ 定义的变量为4字型（8字节）Define Quadra Word
+<p>DB 定义的变量为字节型 Define Byte<br />
+DW 定义的变量为字类型（双字节）Define Word<br />
+DD 定义的变量为双字型（4字节）Define Double Word<br />
+DQ 定义的变量为4字型（8字节）Define Quadra Word<br />
 DT 定义的变量为10字节型 Define Ten Byte</p>
 </blockquote>
 <h2 id="_2">调试例子</h2>
-<p>在处理器加电或复位后硬盘如果是首选启动设备，bios 会读取硬盘 0 面 0 道 1 扇区（主引导扇区 MBR）主引导扇区有 512 字节，bios 将他加载到 0x0000:0x7c00 处，也就是物理地址的 0x07c00（有效的主引导扇区最后两字节应该是 0x55 和 0xaa），如果 bios 检测主引导扇区有效的话就会跳到 0x07c00 这里继续执行
-0xB8000～0xBFFFF 这段物理地 址空间，是留给显卡的，由显卡来提供，用来显示文本
+<p>在处理器加电或复位后硬盘如果是首选启动设备，bios 会读取硬盘 0 面 0 道 1 扇区（主引导扇区 MBR）主引导扇区有 512 字节，bios 将他加载到 0x0000:0x7c00 处，也就是物理地址的 0x07c00（有效的主引导扇区最后两字节应该是 0x55 和 0xaa），如果 bios 检测主引导扇区有效的话就会跳到 0x07c00 这里继续执行<br />
+0xB8000～0xBFFFF 这段物理地 址空间，是留给显卡的，由显卡来提供，用来显示文本<br />
 源码如下：</p>
 <pre><code>       ;代码清单5-1 
        ;文件名：c05_mbr.asm
@@ -7708,21 +7708,21 @@ number db 0,0,0,0,0
 times 203 db 0
           db 0x55,0xaa
 </code></pre>
-<p>用 bochsdbg 调试，start 之后来到一开始的位置，我们直接下个断点到 0x7c00，因为计算机启动后会把主引导程序加载到 0x7c00 处（约定没有为什么）：<code>b 0x7c00</code>
-然后让 bochs 继续执行到断点处：<code>c</code>
-<img alt="image.png" src="../img/uRB6s5sjO1RF4Ftk/1637060045460-2cdf5290-2359-4d64-aff7-7502face3471-191895.png" />
-显示的是接下来要执行的指令，可以通过 <code>s</code> 单步执行
-可以通过 <code>r</code> 来查看此时寄存器的值
-<img alt="image.png" src="../img/uRB6s5sjO1RF4Ftk/1637060062616-13b53517-e003-4305-88a2-60a3e13da431-121701.png" />
+<p>用 bochsdbg 调试，start 之后来到一开始的位置，我们直接下个断点到 0x7c00，因为计算机启动后会把主引导程序加载到 0x7c00 处（约定没有为什么）：<code>b 0x7c00</code><br />
+然后让 bochs 继续执行到断点处：<code>c</code><br />
+<img alt="image.png" src="../img/uRB6s5sjO1RF4Ftk/1637060045460-2cdf5290-2359-4d64-aff7-7502face3471-191895.png" /><br />
+显示的是接下来要执行的指令，可以通过 <code>s</code> 单步执行<br />
+可以通过 <code>r</code> 来查看此时寄存器的值<br />
+<img alt="image.png" src="../img/uRB6s5sjO1RF4Ftk/1637060062616-13b53517-e003-4305-88a2-60a3e13da431-121701.png" /><br />
 首先是这两句，把 es 段寄存器赋值 0xb800，0xB8000～0xBFFFF，留给显卡显示字符</p>
 <pre><code class="language-c">mov ax,0xb800                 ;指向文本模式的显示缓冲区
 mov es,ax
 </code></pre>
-<p>使用 <code>sreg</code> 查看段寄存器
-<img alt="image.png" src="../img/uRB6s5sjO1RF4Ftk/1637064297953-a2c5484b-347a-4365-b8cb-754a5e2f31d4-306264.png" />
-然后从第 10 行到第 35 行就是往这里写字符了，把想要显示的字符放在对应的地址上，每个字符需要两个字节，前一个是字符，后一个是属性
-比如：<code>mov byte [es:0x00],'L'</code>  <code>mov byte [es:0x01],0x07</code> 是字符 L，属性按照如下表格设置：
-在这里 7 二进制是 111 也就是普通的白色
+<p>使用 <code>sreg</code> 查看段寄存器<br />
+<img alt="image.png" src="../img/uRB6s5sjO1RF4Ftk/1637064297953-a2c5484b-347a-4365-b8cb-754a5e2f31d4-306264.png" /><br />
+然后从第 10 行到第 35 行就是往这里写字符了，把想要显示的字符放在对应的地址上，每个字符需要两个字节，前一个是字符，后一个是属性<br />
+比如：<code>mov byte [es:0x00],'L'</code>  <code>mov byte [es:0x01],0x07</code> 是字符 L，属性按照如下表格设置：<br />
+在这里 7 二进制是 111 也就是普通的白色<br />
 <a href="https://blog.csdn.net/gooding300/article/details/90127513">https://blog.csdn.net/gooding300/article/details/90127513</a></p>
 <table>
 <thead>
@@ -7812,30 +7812,30 @@ mov es,ax
 </tr>
 </tbody>
 </table>
-<p>都写完之后使用 xp/7 0xb8000，看一下内存中是不是写上了
-<img alt="image.png" src="../img/uRB6s5sjO1RF4Ftk/1637064883300-cde35e85-cffa-4090-80f4-9ffbd6da529a-225398.png" />
-然后使用 <code>mov ax,number</code> 取 number 偏移地址 0x12e 放在 ax 中，这个偏移是相对于整个汇编程序的机器码的数量确定的，我们不好计算，是编译的时候自动替换的，在 bochs 中显示的是 <code>mov ax, 0x012e</code>
+<p>都写完之后使用 xp/7 0xb8000，看一下内存中是不是写上了<br />
+<img alt="image.png" src="../img/uRB6s5sjO1RF4Ftk/1637064883300-cde35e85-cffa-4090-80f4-9ffbd6da529a-225398.png" /><br />
+然后使用 <code>mov ax,number</code> 取 number 偏移地址 0x12e 放在 ax 中，这个偏移是相对于整个汇编程序的机器码的数量确定的，我们不好计算，是编译的时候自动替换的，在 bochs 中显示的是 <code>mov ax, 0x012e</code><br />
 把它放在 ax 中作为被除数，然后把 bx 里放上 0xa 也就是十进制的 10 作为除数，用来分解每个位上的数，<strong>在 32 位下 dx:ax 放的是被除数，然后商放在 ax，余数放在 dx</strong>，这里把 dx 置为 0 只用 ax 就够了</p>
-<p>接下来使用<code>div bx</code> 
-ax 中存的是 0x012e，除以 bx 的 0xa
-<img alt="image.png" src="../img/uRB6s5sjO1RF4Ftk/1637140400144-693730ce-2b39-46e3-8e94-d967bde5d40c-858981.png" />
-也就是 302 除以 10，商是 30 也就是 0x1e 放在了 ax 中，余数是 2 放在了 dx 中
-<img alt="image.png" src="../img/uRB6s5sjO1RF4Ftk/1637140404401-ba299d05-290f-4c65-83a8-5205a3edb5da-873545.png" />
-因为只用了一位，所以只需要拿 dl 中的值即可，这一步是把个位数放在 0x7c00+0x12e+0x00 那里
+<p>接下来使用<code>div bx</code> <br />
+ax 中存的是 0x012e，除以 bx 的 0xa<br />
+<img alt="image.png" src="../img/uRB6s5sjO1RF4Ftk/1637140400144-693730ce-2b39-46e3-8e94-d967bde5d40c-858981.png" /><br />
+也就是 302 除以 10，商是 30 也就是 0x1e 放在了 ax 中，余数是 2 放在了 dx 中<br />
+<img alt="image.png" src="../img/uRB6s5sjO1RF4Ftk/1637140404401-ba299d05-290f-4c65-83a8-5205a3edb5da-873545.png" /><br />
+因为只用了一位，所以只需要拿 dl 中的值即可，这一步是把个位数放在 0x7c00+0x12e+0x00 那里<br />
 <code>mov [0x7c00+number+0x00],dl</code></p>
 <p>后面同样，操作不重复了。到第 70 行开始，从高位开始，取值放在显示文字那里</p>
-<p>最后是一个 jmp 到他自己使得程序进入无限循环
+<p>最后是一个 jmp 到他自己使得程序进入无限循环<br />
 <code>number db 0,0,0,0,0</code>其中<code>db</code>意思是声明字节（Declare Byte）会保留出 5 个字节的位置</p>
 <blockquote>
 <p>DW（Declare Word）用于声明字数据，DD（Declare Double Word）用于声明双字（两个字）数据，DQ（Declare Quad Word）用于声明四字数据</p>
 </blockquote>
-<p>第 102 行的<code>times 203 db 0</code>中的 times 指令后面跟的两个参数是<strong>循环次数</strong>和<strong>执行的指令</strong>
+<p>第 102 行的<code>times 203 db 0</code>中的 times 指令后面跟的两个参数是<strong>循环次数</strong>和<strong>执行的指令</strong><br />
 在这里就是循环 203 次<code>db 0</code></p>
 <p>最后加一个 0x55 0xaa 表示主引导扇区结束（一个有效的主引导扇区，其最后两个字节的数据必须是0x55 和0xAA）</p>
-<p>运行结果
+<p>运行结果<br />
 <img alt="image.png" src="../img/uRB6s5sjO1RF4Ftk/1637063918116-f41203f4-0499-481e-aa90-c1ca36ee24e9-611777.png" /></p>
 <h2 id="_3">改一下</h2>
-<p>既然第一次学，肯定得输出一个 hello world 才算圆满，但是这次用个不同的方法，把一堆数据放在开头声明出来
+<p>既然第一次学，肯定得输出一个 hello world 才算圆满，但是这次用个不同的方法，把一堆数据放在开头声明出来<br />
 对应书中 c06_mbr.asm</p>
 <pre><code>         jmp near start               ;因为开头不是代码，所以跳转到代码的位置
 
@@ -7889,11 +7889,11 @@ ax 中存的是 0x012e，除以 bx 的 0xa
   times 510-($-$$) db 0
                    db 0x55,0xaa
 </code></pre>
-<p>在第 18 行，使用了<code>rep movsw</code>指令来批量从一个地方复制到另一个地方，它的复制单位是以字为单位
-还有个<code>movsb</code>是传送以字节为单位，源地址段寄存器用 DS 偏移地址用 SI，即 DS:SI，目标地址段寄存器用 ES 偏移地址用 DI，即 ES:DI，要传送单位数用 CX 来确定。每次复制一个单位，SI 和 DI 地址都相应的加一个单位
-除此之外还有 DF 方向标志位来确定他是从高地址往低地址复制（置为 1 时）还是从低地址往高地址复制（置为 0 时）cld 是置零。功能相反的是 std 置为一
+<p>在第 18 行，使用了<code>rep movsw</code>指令来批量从一个地方复制到另一个地方，它的复制单位是以字为单位<br />
+还有个<code>movsb</code>是传送以字节为单位，源地址段寄存器用 DS 偏移地址用 SI，即 DS:SI，目标地址段寄存器用 ES 偏移地址用 DI，即 ES:DI，要传送单位数用 CX 来确定。每次复制一个单位，SI 和 DI 地址都相应的加一个单位<br />
+除此之外还有 DF 方向标志位来确定他是从高地址往低地址复制（置为 1 时）还是从低地址往高地址复制（置为 0 时）cld 是置零。功能相反的是 std 置为一<br />
 所以这里的意思是：从数据段的 mytext 处复制到附加段从 0 开始处，复制的 12 个字，如果是用 movsb 的话就不用除 2 了，复制 24 个字节</p>
-<p>后面循环分解位数也是用 CX 来保存循环的次数，<code>inc</code>是加一，<code>dec</code>是减一
+<p>后面循环分解位数也是用 CX 来保存循环的次数，<code>inc</code>是加一，<code>dec</code>是减一<br />
 <img alt="image.png" src="../img/uRB6s5sjO1RF4Ftk/1637372989947-48aaf388-34a2-4ac5-b019-12af20fabc31-929631.png" /></p>
 <h2 id="_4">定义栈</h2>
 <p>第七章介绍了用栈来存放数据</p>
@@ -7966,10 +7966,10 @@ ax 中存的是 0x012e，除以 bx 的 0xa
 times 510-($-$$) db 0
                  db 0x55,0xaa
 </code></pre>
-<p>想要用栈需要定义好 ss 段寄存器和 sp 栈指针，这里全都是 0，等到实际用到的时候 sp 指针就是 0 - 2 = 0xfffe
-查看栈上的值
-<img alt="image.png" src="../img/uRB6s5sjO1RF4Ftk/1657980160881-ef91561b-ad9a-4df7-b215-9e32d237587a-323585.png" />
-print-stack 是 bochs 里面自带的查看栈的命令
+<p>想要用栈需要定义好 ss 段寄存器和 sp 栈指针，这里全都是 0，等到实际用到的时候 sp 指针就是 0 - 2 = 0xfffe<br />
+查看栈上的值<br />
+<img alt="image.png" src="../img/uRB6s5sjO1RF4Ftk/1657980160881-ef91561b-ad9a-4df7-b215-9e32d237587a-323585.png" /><br />
+print-stack 是 bochs 里面自带的查看栈的命令<br />
 <img alt="image.png" src="../img/uRB6s5sjO1RF4Ftk/1657981104987-e0f15b3b-00db-4e71-8f87-9a8449fd8e4d-472868.png" /></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/bin/gmbwuw">https://www.yuque.com/hxfqg9/bin/gmbwuw</a></p>

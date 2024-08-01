@@ -7553,22 +7553,22 @@
 <p><img alt="image.png" src="../img/NFV3jrjqZYr-l75j/1588550778237-2cdc193d-c444-4a1b-b22d-67039e7e870e-377240.png" /></p>
 <p>保存成 txt 爆破一下</p>
 <p><img alt="image.png" src="../img/NFV3jrjqZYr-l75j/1588552399020-88684a41-78e9-478b-af61-b9f038a56d7e-080063.png" /></p>
-<p>john 密码文件 –wordlist ="字典" 不加字典路径的话就用默认的字典
+<p>john 密码文件 –wordlist ="字典" 不加字典路径的话就用默认的字典<br />
 跑出来 john 密码是 turtle</p>
 <p><img alt="image.png" src="../img/NFV3jrjqZYr-l75j/1588556791212-c010fc57-75ec-4261-9bd8-f3468ee0f758-988913.png" /></p>
-<p>因为没截好图，所以直接看结果，这里也涨了个知识
-john 工具对于同一个 shadow 文件只会进行一次爆破，如果第二次执行 john shadow 是不会得到结果的
+<p>因为没截好图，所以直接看结果，这里也涨了个知识<br />
+john 工具对于同一个 shadow 文件只会进行一次爆破，如果第二次执行 john shadow 是不会得到结果的<br />
 如果想查看上一次爆破的结果，可以加上个 --show</p>
 <p>目录扫描发现了 user 是一个登陆界面</p>
 <p><img alt="image.png" src="../img/NFV3jrjqZYr-l75j/1588552884659-73d525c1-2967-4cac-9614-6085c1e47fdc-414476.png" /></p>
 <p><img alt="image.png" src="../img/NFV3jrjqZYr-l75j/1588552918858-856b7b01-82c9-43e4-8d6e-a67f68663d80-972546.png" /></p>
 <p>登上去之后找到一个可以编辑的界面，nc 反弹一个 shell</p>
-<p><img alt="image.png" src="../img/NFV3jrjqZYr-l75j/1588554690941-6b047d57-888c-442c-8171-b6cd696f113c-832835.png" />
+<p><img alt="image.png" src="../img/NFV3jrjqZYr-l75j/1588554690941-6b047d57-888c-442c-8171-b6cd696f113c-832835.png" /><br />
 在 contact us 时得到 shell</p>
 <p><img alt="image.png" src="../img/NFV3jrjqZYr-l75j/1588554777865-b6844c79-147f-422c-9783-a08699d0a536-594025.png" /></p>
-<p>find / -perm -u=s -type f 2&gt;/dev/null 搜一下看看能不能 suid 提权
-<a href="https://www.exploit-db.com/exploits/46996">https://www.exploit-db.com/exploits/46996</a>
-直接复制然后写到 tmp 目录下面，然后 chmod 777 exp.sh 给他权限
+<p>find / -perm -u=s -type f 2&gt;/dev/null 搜一下看看能不能 suid 提权<br />
+<a href="https://www.exploit-db.com/exploits/46996">https://www.exploit-db.com/exploits/46996</a><br />
+直接复制然后写到 tmp 目录下面，然后 chmod 777 exp.sh 给他权限<br />
 ./exp.sh -m netcat 拿到权限</p>
 <p><img alt="image.png" src="../img/NFV3jrjqZYr-l75j/1588556153113-09e750e6-65f0-4533-a663-873f71d193c7-231810.png" /></p>
 <p><img alt="image.png" src="../img/NFV3jrjqZYr-l75j/1588556245824-d3ba96a2-26bd-4ab3-94e0-4a46384dcb5e-470693.png" /></p>

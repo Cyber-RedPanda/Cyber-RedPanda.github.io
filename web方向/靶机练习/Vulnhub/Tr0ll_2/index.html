@@ -7549,14 +7549,14 @@
 <p><img alt="image.png" src="../img/HcoWxwozKk1A5Rx7/1596510787515-8455db20-3c63-4720-99d7-92ecb645da8d-255721.png" /></p>
 <p>robots.txt 中有很多目录</p>
 <p><img alt="image.png" src="../img/HcoWxwozKk1A5Rx7/1596510655541-e0433843-406d-4a36-b10c-2487f754f17e-819099.png" /></p>
-<p>去访问了一下，在
-dont_bother
-keep_trying
-noob
-ok_this_is_it
+<p>去访问了一下，在<br />
+dont_bother<br />
+keep_trying<br />
+noob<br />
+ok_this_is_it<br />
 这四个目录下有图片，下载下来，发现 dont_bother 跟其他图片的 md5 不一样</p>
 <p><img alt="image.png" src="../img/HcoWxwozKk1A5Rx7/1596542592567-97895a68-748b-494e-a679-a24f12ff2ea4-775105.png" /></p>
-<p>用 winhex 看，最后有一行 Look Deep within y0ur_self for the answer
+<p>用 winhex 看，最后有一行 Look Deep within y0ur_self for the answer<br />
 去访问一下，得到一个文件</p>
 <p><img alt="image.png" src="../img/HcoWxwozKk1A5Rx7/1596544121756-840c870a-6e98-400a-95be-d19c27a4a14d-894248.png" /></p>
 <p>文件中是一些 base64 编码后的东西</p>
@@ -7580,7 +7580,7 @@ file_out.close()
 <p><img alt="image.png" src="../img/HcoWxwozKk1A5Rx7/1596544813966-2cbc4790-c565-4cf0-b29a-f6124548b067-316230.png" /></p>
 <p>用 winhex 打开压缩包里的文件，看上去是私钥</p>
 <p><img alt="image.png" src="../img/HcoWxwozKk1A5Rx7/1596544904169-11d4cf03-e6b7-43d4-b068-a3b2934562bb-934285.png" /></p>
-<p>尝试去登陆 ssh -i noob noob@192.168.149.192
+<p>尝试去登陆 ssh -i noob noob@192.168.149.192<br />
 -i 是指定密钥的，我猜用户名就是 noob</p>
 <p><img alt="image.png" src="../img/HcoWxwozKk1A5Rx7/1596545650814-7700b12c-a751-420d-a7f9-214ceaaaf6fb-812557.png" /></p>
 <p>但是提示说权限有问题？</p>
@@ -7590,7 +7590,7 @@ file_out.close()
 <p>用这种方式绕过：</p>
 <pre><code class="language-shell">ssh -i noob noob@192.168.149.192 '() { :;}; /bin/bash'
 </code></pre>
-<p>还是用 python 弄个交互的：python -c 'import pty; pty.spawn("/bin/bash")'
+<p>还是用 python 弄个交互的：python -c 'import pty; pty.spawn("/bin/bash")'<br />
 嗷，涨知识了</p>
 <p><img alt="image.png" src="../img/HcoWxwozKk1A5Rx7/1596546517965-b5d39eb1-a48b-4df9-9615-f7f36ac2db52-393483.png" /></p>
 <p>在 /nothing_to_see_here/choose_wisely 中每个文件夹有二进制文件，都有 s 的权限</p>

@@ -7837,8 +7837,8 @@
 <p>对比一下：</p>
 <p><img alt="1583831710280-f534af95-40c8-49a7-8145-36e980424a20.png" src="../img/551828_zb4br0m9g4e47zdk/1583831710280-f534af95-40c8-49a7-8145-36e980424a20-133487.png" /></p>
 <h3 id="mongodb_1">MongoDB安装</h3>
-<p>kali上安装运行出现 <strong>段错误 </strong>未解决
-ubuntu上一次性成功
+<p>kali上安装运行出现 <strong>段错误 </strong>未解决<br />
+ubuntu上一次性成功<br />
 <a href="https://www.yuque.com/attachments/yuque/0/2020/tgz/268938/1583930673254-c9d36d87-2079-4a2f-8cc5-c5ce29403965.tgz?_lake_card=%7B%22uid%22%3A%221583930645387-0%22%2C%22src%22%3A%22https%3A%2F%2Fwww.yuque.com%2Fattachments%2Fyuque%2F0%2F2020%2Ftgz%2F268938%2F1583930673254-c9d36d87-2079-4a2f-8cc5-c5ce29403965.tgz%22%2C%22name%22%3A%22mongodb-linux-x86_64-3.0.6.tgz%22%2C%22size%22%3A40282490%2C%22type%22%3A%22application%2Fx-compressed%22%2C%22ext%22%3A%22tgz%22%2C%22progress%22%3A%7B%22percent%22%3A99%7D%2C%22status%22%3A%22done%22%2C%22percent%22%3A0%2C%22id%22%3A%22kU0eB%22%2C%22card%22%3A%22file%22%7D">mongodb-linux-x86_64-3.0.6.tgz</a></p>
 <pre><code>tar -xvzf mongodb-linux-x86_64-3.0.6.tgz    //解压
 mv mongodb-linux-x86_64-3.0.6 /usr/local/mongodb      //将解压后的文件移动到指定目录并改名
@@ -7884,7 +7884,7 @@ fork = true  #以守护程序的方式启用，即在后台运行
 <pre><code>cd /usr/local/mongodb/bin
  ./mongod -shutdown -dbpath=/usr/local/mongodb/data/db  //停止mongodb
 </code></pre>
-<p>参考：
+<p>参考：<br />
 https://www.jianshu.com/p/d8f471bdfa3b</p>
 <h3 id="_3">基础命令</h3>
 <p>创建数据库：use database_name，如果有直接拿来用，没有会自动创建 <code>use yichen</code></p>
@@ -7904,7 +7904,7 @@ https://www.jianshu.com/p/d8f471bdfa3b</p>
 <p><img alt="image.png" src="../img/551828_zb4br0m9g4e47zdk/1583928255769-ac4e02f2-010b-48a8-97d6-1cf523c0f0ac-855212.png" /></p>
 <p>也可以先把数据定义为一个变量再插入到文档里</p>
 <p><img alt="image.png" src="../img/551828_zb4br0m9g4e47zdk/1583928426150-506643e5-3c0f-41c2-bc84-dbf7de07065b-667720.png" /></p>
-<p>更新：
+<p>更新：<br />
 <code>db.writeup.update({name:'yiyichen'},{$set:{name:'y1chen'}})</code></p>
 <p>会把 name 为 yiyichen 的 name 改为 y1chen</p>
 <p>pretty() 可以更加美观的显示结果</p>
@@ -7953,9 +7953,9 @@ https://www.jianshu.com/p/d8f471bdfa3b</p>
 </tr>
 </tbody>
 </table>
-<p>and 条件(多个条件用逗号隔开)：
+<p>and 条件(多个条件用逗号隔开)：<br />
 <code>db.writeup.find({key1:value1, key2:value2}).pretty()</code></p>
-<p>or 条件：
+<p>or 条件：<br />
 <code>db.writeup.find({$or:[{"name":"yichen"},{"name": "yiyichen"}]}).pretty()</code></p>
 <h2 id="nosql_2">NoSQL注入</h2>
 <blockquote>

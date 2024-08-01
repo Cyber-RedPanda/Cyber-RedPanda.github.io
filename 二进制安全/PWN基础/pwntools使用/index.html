@@ -7657,40 +7657,40 @@
 </blockquote>
 <h2 id="_2">基本使用</h2>
 <p>首先需要 <code>from pwn import *</code> 把 pwntools 导入进来，它同时会把一些系统库给导入进来</p>
-<p>本地打的话 <code>p=process('./filename')</code>，远程的话 <code>p=remote('192.168.1.103',10001)</code>
+<p>本地打的话 <code>p=process('./filename')</code>，远程的话 <code>p=remote('192.168.1.103',10001)</code><br />
 p.close()  <code>关闭</code></p>
-<p>发送 payload
-<code>p.send(payload)</code>   发送 payload
-<code>p.sendline(payload)</code>   发送 payload，并进行换行（末尾\n）
-<code>p.sendafter(some_string, payload)</code>   接收到 some_string 后, 发送你的 payload
+<p>发送 payload<br />
+<code>p.send(payload)</code>   发送 payload<br />
+<code>p.sendline(payload)</code>   发送 payload，并进行换行（末尾\n）<br />
+<code>p.sendafter(some_string, payload)</code>   接收到 some_string 后, 发送你的 payload<br />
 <code>p.sendlineafter(some_string, payload)</code>   接收到 some_string 后, 发送你的 payload，加个换行</p>
-<p>接收返回内容
-<code>p.recvn(N)</code>   接受 N(数字) 字符
-<code>p.recvline()</code>  接收一行输出
-<code>p.recvlines(N)</code>   接收 N(数字) 行输出
-<code>p.recvuntil(some_string)</code>   接收到 some_string 为止
+<p>接收返回内容<br />
+<code>p.recvn(N)</code>   接受 N(数字) 字符<br />
+<code>p.recvline()</code>  接收一行输出<br />
+<code>p.recvlines(N)</code>   接收 N(数字) 行输出<br />
+<code>p.recvuntil(some_string)</code>   接收到 some_string 为止<br />
 <code>p.interactive()</code>    直接进行交互，相当于回到shell的模式，一般在取得shell之后使用</p>
-<p>生成 shellcode
+<p>生成 shellcode<br />
 <code>asm(shellcraft.sh())</code></p>
 <h2 id="elf">ELF</h2>
 <p>首先需要 <code>elf=ELF('./filename')</code> 来产生一个对象</p>
-<p><code>elf.symbols['a_function']</code>  找到 a_function 的地址
-<code>elf.got['a_function']</code>  找到 a_function的 got
-<code>elf.plt['a_function']</code>  找到 a_function 的 plt
+<p><code>elf.symbols['a_function']</code>  找到 a_function 的地址<br />
+<code>elf.got['a_function']</code>  找到 a_function的 got<br />
+<code>elf.plt['a_function']</code>  找到 a_function 的 plt<br />
 <code>elf.next(e.search("some_characters"))</code>  找到包含 some_characters 可以是字符串，汇编代码或者某个数值的地址</p>
 <h2 id="rop">ROP</h2>
 <p><code>rop = ROP('./filename')</code> 还是要先创建一个对象</p>
-<p><code>rop.raw('a'*32)</code>   在构造的 rop 链里面写 32 个 a
-<code>rop.call('read', (0, elf.bss(0x80)))</code>  调用一个函数，可以简写成：<code>rop.read(0, elf.bss(0x80))</code>
-<code>rop.chain()</code>   就是整个 rop 链，发送的 payload
-<code>rop.dump()</code>  直观地展示当前的 rop 链
-<code>rop.migrate(base_stage)</code>   将程序流程转移到 base_stage（地址）
-<code>rop.unresolve(value)</code>  给出一个地址，反解析出符号
- <code>rop.search(regs=['ecx','ebx'])</code>   搜索对 eax 进行操作的 gadgets
+<p><code>rop.raw('a'*32)</code>   在构造的 rop 链里面写 32 个 a<br />
+<code>rop.call('read', (0, elf.bss(0x80)))</code>  调用一个函数，可以简写成：<code>rop.read(0, elf.bss(0x80))</code><br />
+<code>rop.chain()</code>   就是整个 rop 链，发送的 payload<br />
+<code>rop.dump()</code>  直观地展示当前的 rop 链<br />
+<code>rop.migrate(base_stage)</code>   将程序流程转移到 base_stage（地址）<br />
+<code>rop.unresolve(value)</code>  给出一个地址，反解析出符号<br />
+<code>rop.search(regs=['ecx','ebx'])</code>   搜索对 eax 进行操作的 gadgets<br />
 <code>rop.find_gadget(['pop eax','ret'])</code>   搜索 pop eax ret 这样的 gadgets</p>
 <p><img alt="image.png" src="../img/551835_vq60cpx1tg01s2ac/1583645719544-d599cb73-5c7b-45da-80f8-3fac37f0c026-808402.png" /></p>
 <h2 id="shellcraft">shellcraft</h2>
-<p><a href="https://www.zerocre.com/pwn/pwntools%20shellcraft%20%E6%B7%B1%E5%85%A5%E6%8E%A2%E7%B4%A2.html">https://www.zerocre.com/pwn/pwntools%20shellcraft%20%E6%B7%B1%E5%85%A5%E6%8E%A2%E7%B4%A2.html</a>
+<p><a href="https://www.zerocre.com/pwn/pwntools%20shellcraft%20%E6%B7%B1%E5%85%A5%E6%8E%A2%E7%B4%A2.html">https://www.zerocre.com/pwn/pwntools%20shellcraft%20%E6%B7%B1%E5%85%A5%E6%8E%A2%E7%B4%A2.html</a><br />
 <a href="https://blog.betamao.me/2017/12/25/shellcode/">https://blog.betamao.me/2017/12/25/shellcode/</a></p>
 <h2 id="dynelf">DynELF</h2>
 <p>使用的话要先定义一个 leak 函数用来泄漏地址，然后就能找一个函数的地址了例如：</p>
@@ -7701,8 +7701,8 @@ d = DynELF(leak,'./file')
 sys_addr = d.lookup('system','libc')
 </code></pre>
 <p>所以主要问题还是在构造 leak 函数上面</p>
-<p>参考：
-<a href="http://brieflyx.me/2015/python-module/pwntools-intro/">http://brieflyx.me/2015/python-module/pwntools-intro/</a>
+<p>参考：<br />
+<a href="http://brieflyx.me/2015/python-module/pwntools-intro/">http://brieflyx.me/2015/python-module/pwntools-intro/</a><br />
 <a href="https://icepng.github.io/2017/04/18/pwntools/">https://icepng.github.io/2017/04/18/pwntools/</a></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/bin/yxegb6">https://www.yuque.com/hxfqg9/bin/yxegb6</a></p>

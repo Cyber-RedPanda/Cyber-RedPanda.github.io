@@ -7770,29 +7770,29 @@
 <p>有个想法，这一块学的也挺长时间了，但是自己去做题的时候还是做不出来，想整理一下出现的漏洞与对应的利用方法，做个总结，也无从下手，就从一开始学的那里开始吧</p>
 <h2 id="off-by-null">Off By Null</h2>
 <h3 id="asis-ctf-2016-b00ks"><a href="https://www.yuque.com/hxfqg9/bin/nsmgp5#mi9qo">Asis CTF 2016 b00ks</a></h3>
-<p><strong>题目漏洞</strong>：输入的时候存在 off by null
+<p><strong>题目漏洞</strong>：输入的时候存在 off by null<br />
 <strong>题目思路</strong>：程序每次添加一本书都会把书的相关结构的指针放在一个地址上面，这个地址紧挨在了 name 后面。只要 name 写满了，输出的时候不会被截断就能把这个指针一起输出来，从而得到 heap_base 的地址</p>
 <p>通过编辑一个 book 的描述，可以覆盖掉下一个的描述堆块的 prev_inuse 给改为 0，提前布置的 fake chunk 的 fd 跟 bk 为 <code>book4 的结构的地址``-0x18</code> 与 <code>book4的结构的地址``-0x10</code> ，然后再去 free5 的时候因为前面是 free 的，所以会 unlink，实现的效果是就：<code>book4 的结构的中 desc 指针指向它 -0x18 的地方</code></p>
-<p>这时候再去编辑 book4 可以编辑存放 desc 指针的那个地方，那么你把 book4 的结构中的 desc 指针改成什么，待会 edit 就可以编辑啥、show 就可以看啥
+<p>这时候再去编辑 book4 可以编辑存放 desc 指针的那个地方，那么你把 book4 的结构中的 desc 指针改成什么，待会 edit 就可以编辑啥、show 就可以看啥<br />
 <strong>总结</strong>：通过 off by null 改掉 prev_inuse，构造 fake chunk 的 fd、bk，unlink 来达到控制指针的目的</p>
 <h2 id="off-by-one">Off By One</h2>
 <h3 id="hitcon-trainging-lab13"><a href="https://www.yuque.com/hxfqg9/bin/ucozlv#KzN2g">HITCON Trainging lab13</a></h3>
-<p><strong>题目漏洞</strong>：edit 的时候存在 off by one
-<strong>题目思路</strong>：当我们去 create 一个 heap 的时候，程序会先 malloc 一个 0x10 大小的 chunk 来存放我们主动申请的 heap 的 size 和指针，我们通过 off by one 直接改掉下一个的 size 大一点，把后面那个包括进去，这样 free 之后再去 malloc 回来就能编辑到后面那个存着指针的 chunk 了，改指针为某个地址就能读写了
+<p><strong>题目漏洞</strong>：edit 的时候存在 off by one<br />
+<strong>题目思路</strong>：当我们去 create 一个 heap 的时候，程序会先 malloc 一个 0x10 大小的 chunk 来存放我们主动申请的 heap 的 size 和指针，我们通过 off by one 直接改掉下一个的 size 大一点，把后面那个包括进去，这样 free 之后再去 malloc 回来就能编辑到后面那个存着指针的 chunk 了，改指针为某个地址就能读写了<br />
 <strong>总结</strong>：通过 off by one 修改 size，造成 overlapping 控制指针</p>
 <h2 id="_2">堆溢出</h2>
 <h3 id="2014-hitcon-stkof"><a href="https://www.yuque.com/hxfqg9/bin/uae87q#ygPHU">2014 HITCON stkof</a></h3>
-<p><strong>题目漏洞</strong>：在 edit 的时候没有检查 size 是不是合法的，可以编辑任意大小的
+<p><strong>题目漏洞</strong>：在 edit 的时候没有检查 size 是不是合法的，可以编辑任意大小的<br />
 <strong>题目思路</strong>：题目在 bss 段某处维护着一个存放申请的指针的结构，可以直接用前面 off by null 的方式伪造 fake chunk，然后 unlink 控制那个 bss 段的指针。</p>
-<p>对指针的改写操作如下：
-改写为：free@got、puts@got、atoi@got
-然后通过 edit 去改掉 free@got 为 puts@plt，delete 写为 puts@got 的就能输出 puts 函数的真实地址
+<p>对指针的改写操作如下：<br />
+改写为：free@got、puts@got、atoi@got<br />
+然后通过 edit 去改掉 free@got 为 puts@plt，delete 写为 puts@got 的就能输出 puts 函数的真实地址<br />
 然后计算出来，再把 atoi@got 改为 system 的地址，然后直接输入 /bin/sh 的地址就行了</p>
 <p><strong>总结</strong>：这实际上跟 off by null 的方法一样啊，改掉 prev_inuse，构造 fake chunk 的 fd、bk，unlink 来达到控制指针的目的</p>
 <h3 id="2016-zctf-note2"><a href="https://www.yuque.com/hxfqg9/bin/uae87q#xmtJn">2016 ZCTF note2</a></h3>
-<p><strong>题目漏洞</strong>：在读入的时候，变量 i 类型是 unsigned，我们的 size 是 int，如果 size 为 0，size - 1 是 -1，但是跟 i 比较的时候会按照 unsigned 类型当作是一个最大的数，造成堆溢出
-<strong>题目思路</strong>：申请的时候构造 fake chunk，通过上面那个漏洞实现堆溢出进行 unlink，控制存放指针的位置
-因为之前伪造的都是紧挨着的，这次构造 fake chunk 的时候注意到了一个之前没注意到的点：你伪造的那个 chunk 要根据它的 size 伪造好下个 chunk 的 prev_size
+<p><strong>题目漏洞</strong>：在读入的时候，变量 i 类型是 unsigned，我们的 size 是 int，如果 size 为 0，size - 1 是 -1，但是跟 i 比较的时候会按照 unsigned 类型当作是一个最大的数，造成堆溢出<br />
+<strong>题目思路</strong>：申请的时候构造 fake chunk，通过上面那个漏洞实现堆溢出进行 unlink，控制存放指针的位置<br />
+因为之前伪造的都是紧挨着的，这次构造 fake chunk 的时候注意到了一个之前没注意到的点：你伪造的那个 chunk 要根据它的 size 伪造好下个 chunk 的 prev_size<br />
 例如：</p>
 <pre><code>gdb-peda$ x/30gx 0x603000
 0x603000:   0x0000000000000000  0x0000000000000041 这是申请的正常的
@@ -7817,16 +7817,16 @@
 0x603070:   0x6161616161616100  0x6161616161616161
 0x603080:   0x0000000000000000  0x0000000000000000
 </code></pre>
-<p>害，就把他伪造成挨着的就没啥事了
-这样伪造好之后把指针改为 atoi@got 然后 show 泄漏地址，计算 libc 基址，edit 改 atoi@got 为 system 的地址
+<p>害，就把他伪造成挨着的就没啥事了<br />
+这样伪造好之后把指针改为 atoi@got 然后 show 泄漏地址，计算 libc 基址，edit 改 atoi@got 为 system 的地址<br />
 <strong>总结</strong>：还是跟 off by null 一样啊不过又多了解了一点它的检查机制</p>
 <h3 id="2016-zctf-note3"><a href="https://www.yuque.com/hxfqg9/bin/uae87q#B0fBN">2016 ZCTF note3</a></h3>
 <p>这道题跟上面相比少了 show 的功能，可以通过把指针改为 free@got、puts@got，然后 edit free@got 为 puts@plt，这样 free 的时候就能泄漏函数地址了</p>
 <p>这里有个小tips，往 free@got 写 puts@plt 时 <code>edit(0,p64(puts_plt)[:-1])</code> 用了个 [:-1]</p>
 <h2 id="use-after-free">Use After Free</h2>
 <h3 id="hitcon-training-lab10-hacknote"><a href="https://www.yuque.com/hxfqg9/bin/hudwg3#hLUj0">HITCON training lab10 hacknote</a></h3>
-<p><strong>题目漏洞</strong>：指针没有写为 0
-<strong>题目思路</strong>：通过特定大小的 chunk 的 malloc 和 free 去控制 print 函数的指针，修改为后门地址，通过 show 执行
+<p><strong>题目漏洞</strong>：指针没有写为 0<br />
+<strong>题目思路</strong>：通过特定大小的 chunk 的 malloc 和 free 去控制 print 函数的指针，修改为后门地址，通过 show 执行<br />
 用户申请两个，程序自己也会申请 2 个，程序自己申请的存放的是 print 函数的指针与 content 的指针，依次 free index0 和 index1，后进先出，去 malloc 0x8 大小的时候会用之前程序自己申请的 chunk，先用 index1 的，剩下 index0 就是分配给我们的了，修改掉 print 指针的地址为后门地址，show 执行后门</p>
 <p><strong>总结</strong>：感觉，纯粹是为了了解 UAF 的危害的，指针 free 之后没有置为 null，所以才能 show，然而早就改掉了原本存着的 print 函数指针</p>
 <blockquote>

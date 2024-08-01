@@ -7577,26 +7577,26 @@
   <h1>环境配置</h1>
 
 <h2 id="_1">环境配置</h2>
-<p>看的这本书《x86汇编语言：从实模式到保护模式》
+<p>看的这本书《x86汇编语言：从实模式到保护模式》<br />
 软件直接下载安装就行了，一般情况下选择用 <a href="https://www.virtualbox.org/wiki/Downloads">virtualbox </a>观察，<a href="https://sourceforge.net/projects/bochs/">bochs</a> 调试</p>
 <h2 id="virtualbox">virtualbox</h2>
-<p>首先用 virtualbox 创建空白的 vhd 硬盘
-<img alt="image.png" src="../img/9zGxaAiN3944OuxW/1636985288324-b8f24b7c-ceee-4009-9600-f6367d1692c2-246434.png" />
-使用随书附件 fixvhdw2，选择好之后写入，这个 bin 文件是汇编编译后的
-<img alt="image.png" src="../img/9zGxaAiN3944OuxW/1636985477484-ce37b4a3-0b2d-4537-9b4a-110541aed5c2-454992.png" />
-然后打开虚拟机，可以看到如下界面：
-<img alt="image.png" src="../img/9zGxaAiN3944OuxW/1636985604447-4be502af-1c66-4009-9478-5573f3cc59f3-677185.png" />
+<p>首先用 virtualbox 创建空白的 vhd 硬盘<br />
+<img alt="image.png" src="../img/9zGxaAiN3944OuxW/1636985288324-b8f24b7c-ceee-4009-9600-f6367d1692c2-246434.png" /><br />
+使用随书附件 fixvhdw2，选择好之后写入，这个 bin 文件是汇编编译后的<br />
+<img alt="image.png" src="../img/9zGxaAiN3944OuxW/1636985477484-ce37b4a3-0b2d-4537-9b4a-110541aed5c2-454992.png" /><br />
+然后打开虚拟机，可以看到如下界面：<br />
+<img alt="image.png" src="../img/9zGxaAiN3944OuxW/1636985604447-4be502af-1c66-4009-9478-5573f3cc59f3-677185.png" /><br />
 这就成功了</p>
 <h2 id="bochs">bochs</h2>
-<p>打开 bochsdbg，在选项这里，双击 Disk&amp;Boot 
-<img alt="image.png" src="../img/9zGxaAiN3944OuxW/1636985681273-5be92ae8-0c68-48c1-a7e9-fe80fe43e84b-724153.png" />
-对应填好，其中磁盘的柱面数、磁头数，以及每磁道扇区数
-<img alt="image.png" src="../img/9zGxaAiN3944OuxW/1636985768750-9474ae27-a32e-4fdb-9677-ab4b2904f67a-296474.png" />
-根据 FixVhdWr.exe 查看
-<img alt="image.png" src="../img/9zGxaAiN3944OuxW/1636986049559-a87db03b-72f4-47e2-bb2e-0c69821f002d-764608.png" />
-boot 里面选择 disk，然点击 save 把这个配置保存好，以后只需要 load 就行了
-<img alt="image.png" src="../img/9zGxaAiN3944OuxW/1636986044758-de1da87f-e935-457f-bdf2-92d64b181bc5-616439.png" />
-点击 start 出现下图就 ok 了
+<p>打开 bochsdbg，在选项这里，双击 Disk&amp;Boot <br />
+<img alt="image.png" src="../img/9zGxaAiN3944OuxW/1636985681273-5be92ae8-0c68-48c1-a7e9-fe80fe43e84b-724153.png" /><br />
+对应填好，其中磁盘的柱面数、磁头数，以及每磁道扇区数<br />
+<img alt="image.png" src="../img/9zGxaAiN3944OuxW/1636985768750-9474ae27-a32e-4fdb-9677-ab4b2904f67a-296474.png" /><br />
+根据 FixVhdWr.exe 查看<br />
+<img alt="image.png" src="../img/9zGxaAiN3944OuxW/1636986049559-a87db03b-72f4-47e2-bb2e-0c69821f002d-764608.png" /><br />
+boot 里面选择 disk，然点击 save 把这个配置保存好，以后只需要 load 就行了<br />
+<img alt="image.png" src="../img/9zGxaAiN3944OuxW/1636986044758-de1da87f-e935-457f-bdf2-92d64b181bc5-616439.png" /><br />
+点击 start 出现下图就 ok 了<br />
 <img alt="image.png" src="../img/9zGxaAiN3944OuxW/1636986944579-29412964-8e8c-4140-8f1d-e908341c2c6d-082252.png" /></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/bin/ta5eqc">https://www.yuque.com/hxfqg9/bin/ta5eqc</a></p>

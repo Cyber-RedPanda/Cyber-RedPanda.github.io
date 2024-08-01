@@ -7867,7 +7867,7 @@
 <h2 id="_1">僵尸攻击人类</h2>
 <h2 id="_2">僵尸攻击人类</h2>
 <h3 id="mappingaddress">映射（Mapping）和地址（Address）</h3>
-<p>我们通过给数据库中的僵尸指定“主人”， 来支持“多玩家”模式
+<p>我们通过给数据库中的僵尸指定“主人”， 来支持“多玩家”模式<br />
 如此一来，我们需要引入2个新的数据类型：mapping（映射） 和 address（地址）</p>
 <h4 id="addresses">Addresses （地址）</h4>
 <p>以太坊区块链由 _ account _ (账户)组成，你可以把它想象成银行账户。一个帐户的余额是<strong>以太</strong>（在以太坊区块链上使用的币种），你可以和其他帐户之间支付和接受以太币，就像你的银行帐户可以电汇资金到其他银行帐户一样</p>
@@ -7875,11 +7875,11 @@
 <blockquote>
 <p>0x0cE446255506E92DF41614C46F1d6df9Cc969183</p>
 </blockquote>
-<p>（这是 CryptoZombies 团队的地址，如果你喜欢 CryptoZombies 的话，请打赏我们一些以太币！😉）
+<p>（这是 CryptoZombies 团队的地址，如果你喜欢 CryptoZombies 的话，请打赏我们一些以太币！😉）<br />
 我们将在后面的课程中介绍地址的细节，现在你只需要了解地址属于特定用户（或智能合约）的</p>
 <p>所以我们可以指定“地址”作为僵尸主人的 ID。当用户通过与我们的应用程序交互来创建新的僵尸时，新僵尸的所有权被设置到调用者的以太坊地址下</p>
 <h4 id="mapping">Mapping（映射）</h4>
-<p>在第一课中，我们看到了 结构体 和 数组。<strong>映射是另一种在 Solidity 中存储有组织数据的方法</strong>
+<p>在第一课中，我们看到了 结构体 和 数组。<strong>映射是另一种在 Solidity 中存储有组织数据的方法</strong><br />
 映射是这样定义的：</p>
 <pre><code class="language-javascript">//对于金融应用程序，将用户的余额保存在一个 uint类型的变量中：
 mapping (address =&gt; uint) public accountBalance;
@@ -7920,7 +7920,7 @@ contract ZombieFactory {
 }
 </code></pre>
 <h3 id="msgsender">Msg.sender</h3>
-<p>现在有了一套映射来记录僵尸的所有权了，我们可以修改 _createZombie 方法来运用它们
+<p>现在有了一套映射来记录僵尸的所有权了，我们可以修改 _createZombie 方法来运用它们<br />
 为了做到这一点，我们要用到 msg.sender</p>
 <p>在 Solidity 中，有一些全局变量可以被所有函数调用。 其中一个就是 msg.sender，它指的是当前调用者（或智能合约）的 address</p>
 <blockquote>
@@ -7939,7 +7939,7 @@ function whatIsMyNumber() public view returns (uint) {
  return favoriteNumber[msg.sender];
 }
 </code></pre>
-<p>在这个小小的例子中，任何人都可以调用 setMyNumber 在我们的合约中存下一个 uint 并且与他们的地址相绑定。 然后，他们调用 whatIsMyNumber 就会返回他们存储的 uint
+<p>在这个小小的例子中，任何人都可以调用 setMyNumber 在我们的合约中存下一个 uint 并且与他们的地址相绑定。 然后，他们调用 whatIsMyNumber 就会返回他们存储的 uint<br />
 使用 msg.sender 很安全，因为它具有以太坊区块链的安全保障 —— 除非窃取与以太坊地址相关联的私钥，否则是没有办法修改其他人的数据的</p>
 <p>我们来修改第1课的 _createZombie 方法，将僵尸分配给函数调用者吧。</p>
 <ul>
@@ -7979,7 +7979,7 @@ contract ZombieFactory {
 <h3 id="require">Require</h3>
 <p>在第一课中，我们成功让用户通过调用 createRandomZombie函数并输入一个名字来创建新的僵尸。 但是，如果用户能持续调用这个函数来创建出无限多个僵尸加入他们的军团，这游戏就太没意思了！</p>
 <p>于是，我们作出限定：每个玩家只能调用一次这个函数。 这样一来，新玩家可以在刚开始玩游戏时通过调用它，为其军团创建初始僵尸。</p>
-<p>我们怎样才能限定每个玩家只调用一次这个函数呢？
+<p>我们怎样才能限定每个玩家只调用一次这个函数呢？<br />
 答案是使用 require。 <strong>require使得函数在执行过程中，当不满足某些条件时抛出错误，并停止执行</strong>：</p>
 <pre><code class="language-javascript">function sayHiToVitalik(string _name) public returns (string) {
  // 比较 _name 是否等于 &quot;Vitalik&quot;. 如果不成立，抛出异常并终止程序
@@ -7990,7 +7990,7 @@ contract ZombieFactory {
  return &quot;Hi!&quot;;
 }
 </code></pre>
-<p>如果你这样调用函数 sayHiToVitalik（“Vitalik”） ,它会返回“Hi！”。而如果调用的时候使用了其他参数，它则会抛出错误并停止执行。
+<p>如果你这样调用函数 sayHiToVitalik（“Vitalik”） ,它会返回“Hi！”。而如果调用的时候使用了其他参数，它则会抛出错误并停止执行。<br />
 因此，在调用一个函数之前，用 require 验证前置条件是非常有必要的</p>
 <pre><code class="language-javascript">pragma solidity ^0.4.19;
 contract ZombieFactory {
@@ -8023,7 +8023,7 @@ contract ZombieFactory {
 }
 </code></pre>
 <h3 id="_3">继承</h3>
-<p>我们的游戏代码越来越长。 当代码过于冗长的时候，最好将代码和逻辑分拆到多个不同的合约中，以便于管理
+<p>我们的游戏代码越来越长。 当代码过于冗长的时候，最好将代码和逻辑分拆到多个不同的合约中，以便于管理<br />
 有个让 Solidity 的代码易于管理的功能，就是合约 inheritance (继承)：</p>
 <pre><code class="language-javascript">contract Doge {
  function catchphrase() public returns (string) {
@@ -8036,7 +8036,7 @@ contract BabyDoge is Doge {
  }
 }
 </code></pre>
-<p>由于 BabyDoge 是从 Doge 那里 inherits （继承)过来的。 这意味着当你编译和部署了 BabyDoge，它将可以访问 catchphrase() 和 anotherCatchphrase()和其他我们在 Doge 中定义的其他公共函数
+<p>由于 BabyDoge 是从 Doge 那里 inherits （继承)过来的。 这意味着当你编译和部署了 BabyDoge，它将可以访问 catchphrase() 和 anotherCatchphrase()和其他我们在 Doge 中定义的其他公共函数<br />
 这可以用于逻辑继承（比如表达子类的时候，Cat 是一种 Animal）。 但也可以简单地将类似的逻辑组合到不同的合约中以组织代码</p>
 <p>在接下来的章节中，我们将要为僵尸实现各种功能，让它可以“猎食”和“繁殖”。通过将这些运算放到父类 ZombieFactory 中，使得所有 ZombieFactory 的继承者合约都可以使用这些方法</p>
 <ul>
@@ -8076,7 +8076,7 @@ contract ZombieFeeding is ZombieFactory {
 }
 </code></pre>
 <h3 id="import">引入（Import）</h3>
-<p>代码已经够长了，我们把它分成多个文件以便于管理。 通常情况下，当 Solidity 项目中的代码太长的时候我们就是这么做的。
+<p>代码已经够长了，我们把它分成多个文件以便于管理。 通常情况下，当 Solidity 项目中的代码太长的时候我们就是这么做的。<br />
 在 Solidity 中，当你有多个文件并且想把一个文件导入另一个文件时，可以使用 import 语句：</p>
 <pre><code class="language-javascript">import &quot;./someothercontract.sol&quot;;
 contract newContract is SomeOtherContract {
@@ -8126,10 +8126,10 @@ contract ZombieFactory {
 }
 </code></pre>
 <h3 id="storage-memory">Storage 与 Memory</h3>
-<p>在 Solidity 中，有两个地方可以存储变量 —— storage 或 memory
-<strong>Storage 变量是指永久存储在区块链中的变量。 Memory 变量则是临时的，当外部函数对某合约调用完成时，内存型变量即被移除。 你可以把它想象成存储在你电脑的硬盘或是RAM中数据的关系</strong>
-**
-大多数时候你都用不到这些关键字，默认情况下 Solidity 会自动处理它们。 状态变量（在函数之外声明的变量）默认为“存储”形式，并永久写入区块链；而在函数内部声明的变量是“内存”型的，它们函数调用结束后消失
+<p>在 Solidity 中，有两个地方可以存储变量 —— storage 或 memory<br />
+<strong>Storage 变量是指永久存储在区块链中的变量。 Memory 变量则是临时的，当外部函数对某合约调用完成时，内存型变量即被移除。 你可以把它想象成存储在你电脑的硬盘或是RAM中数据的关系</strong><br />
+**<br />
+大多数时候你都用不到这些关键字，默认情况下 Solidity 会自动处理它们。 状态变量（在函数之外声明的变量）默认为“存储”形式，并永久写入区块链；而在函数内部声明的变量是“内存”型的，它们函数调用结束后消失<br />
 然而也有一些情况下，你需要手动声明存储类型，主要用于处理函数内的 结构体 和 数组 时：</p>
 <pre><code class="language-javascript">contract SandwichFactory {
  struct Sandwich {
@@ -8159,9 +8159,9 @@ contract ZombieFactory {
  }
 }
 </code></pre>
-<p>如果你还没有完全理解究竟应该使用哪一个，也不用担心，在本教程中，我们将告诉你何时使用 storage 或是 memory，并且当你不得不使用到这些关键字的时候，Solidity 编译器也发警示提醒你的
+<p>如果你还没有完全理解究竟应该使用哪一个，也不用担心，在本教程中，我们将告诉你何时使用 storage 或是 memory，并且当你不得不使用到这些关键字的时候，Solidity 编译器也发警示提醒你的<br />
 现在，只要知道在某些场合下也需要你显式地声明 storage 或 memory就够了！</p>
-<p>是时候给我们的僵尸增加“猎食”和“繁殖”功能了！
+<p>是时候给我们的僵尸增加“猎食”和“繁殖”功能了！<br />
 当一个僵尸猎食其他生物体时，它自身的DNA将与猎物生物的DNA结合在一起，形成一个新的僵尸DNA</p>
 <ul>
 <li>创建一个名为 feedAndMultiply 的函数。 使用两个参数：_zombieId（ uint类型 ）和_targetDna （也是 uint 类型）。 设置属性为 public 的</li>
@@ -8183,8 +8183,8 @@ contract ZombieFeeding is ZombieFactory {
 }
 </code></pre>
 <h3 id="dna">僵尸的DNA</h3>
-<p>我们来把 feedAndMultiply 函数写完吧。
-获取新的僵尸DNA的公式很简单：计算猎食僵尸DNA和被猎僵尸DNA之间的平均值。
+<p>我们来把 feedAndMultiply 函数写完吧。<br />
+获取新的僵尸DNA的公式很简单：计算猎食僵尸DNA和被猎僵尸DNA之间的平均值。<br />
 例如：</p>
 <pre><code class="language-javascript">function testDnaSplicing() public {
  uint zombieDna = 2222222222222222;
@@ -8213,8 +8213,8 @@ contract ZombieFeeding is ZombieFactory {
 </code></pre>
 <h3 id="_4">更多关于函数可见性</h3>
 <p>我们上一课的代码有问题！编译的时候编译器就会报错，错误在于，我们尝试从 ZombieFeeding 中调用 _createZombie 函数，但 _createZombie 却是 ZombieFactory 的 private （私有）函数。这意味着任何继承自 ZombieFactory 的子合约都不能访问它</p>
-<p>除 public 和 private 属性之外，Solidity 还使用了另外两个描述函数可见性的修饰词：internal（内部） 和 external（外部）
-<strong>internal</strong> 和 private 类似，不过， <strong>如果某个合约继承自其父合约，这个合约即可以访问父合约中定义的“内部”函数</strong>。（嘿，这听起来正是我们想要的那样！）
+<p>除 public 和 private 属性之外，Solidity 还使用了另外两个描述函数可见性的修饰词：internal（内部） 和 external（外部）<br />
+<strong>internal</strong> 和 private 类似，不过， <strong>如果某个合约继承自其父合约，这个合约即可以访问父合约中定义的“内部”函数</strong>。（嘿，这听起来正是我们想要的那样！）<br />
 <strong>external</strong> 与 public 类似，只不过<strong>这些函数只能在合约之外调用，它们不能被合约内的其他函数调用</strong>。稍后我们将讨论什么时候使用 external 和 public</p>
 <p>声明函数 internal 或 external 类型的语法，与声明 private 和 public 类 型相同：</p>
 <pre><code class="language-javascript">contract Sandwich {
@@ -8267,15 +8267,15 @@ contract ZombieFactory {
 }
 </code></pre>
 <h3 id="_5">僵尸吃什么?</h3>
-<p>是时候让我们的僵尸去捕猎！ 那僵尸最喜欢的食物是什么呢？
-Crypto 僵尸喜欢吃的是...
-CryptoKitties！ 😱😱😱
-（正经点，我可不是开玩笑😆）
-（补充一下，这是那个迷恋猫）
+<p>是时候让我们的僵尸去捕猎！ 那僵尸最喜欢的食物是什么呢？<br />
+Crypto 僵尸喜欢吃的是...<br />
+CryptoKitties！ 😱😱😱<br />
+（正经点，我可不是开玩笑😆）<br />
+（补充一下，这是那个迷恋猫）<br />
 <img alt="image.png" src="../img/gag22w3ol54fdiem/1587730525070-96f2906c-96d5-4774-9952-9466e0bff357-116181.png" /></p>
-<p>为了做到这一点，我们要读出 CryptoKitties 智能合约中的 kittyDna。这些数据是公开存储在区块链上的。区块链是不是很酷？
+<p>为了做到这一点，我们要读出 CryptoKitties 智能合约中的 kittyDna。这些数据是公开存储在区块链上的。区块链是不是很酷？<br />
 别担心，我们的游戏并不会伤害到任何真正的 CryptoKitty。 我们只读取 CryptoKitties 数据，但却无法在物理上删除它</p>
-<p>如果我们的合约需要和区块链上的其他的合约会话，则需先定义一个 interface (接口)
+<p>如果我们的合约需要和区块链上的其他的合约会话，则需先定义一个 interface (接口)<br />
 先举一个简单的栗子。 假设在区块链上有这么一个合约：</p>
 <pre><code class="language-javascript">contract LuckyNumber {
  mapping(address =&gt; uint) numbers;
@@ -8288,19 +8288,19 @@ CryptoKitties！ 😱😱😱
 }
 </code></pre>
 <p>这是个很简单的合约，您可以用它存储自己的幸运号码，并将其与您的以太坊地址关联。 这样其他人就可以通过您的地址查找您的幸运号码了</p>
-<p>现在假设我们有一个外部合约，使用 getNum 函数可读取其中的数据
+<p>现在假设我们有一个外部合约，使用 getNum 函数可读取其中的数据<br />
 首先，我们定义 LuckyNumber 合约的 interface：</p>
 <pre><code class="language-javascript">contract NumberInterface {
  function getNum(address _myAddress) public view returns (uint);
 }
 </code></pre>
-<p>请注意，这个过程虽然看起来像在定义一个合约，但其实内里不同：
-首先，我们只声明了要与之交互的函数，在本例中为 getNum 在其中我们没有使用到任何其他的函数或状态变量
-其次，我们并没有使用大括号 { 和 } 定义函数体，我们单单用分号 ; 结束了函数声明。这使它看起来像一个合约框架
+<p>请注意，这个过程虽然看起来像在定义一个合约，但其实内里不同：<br />
+首先，我们只声明了要与之交互的函数，在本例中为 getNum 在其中我们没有使用到任何其他的函数或状态变量<br />
+其次，我们并没有使用大括号 { 和 } 定义函数体，我们单单用分号 ; 结束了函数声明。这使它看起来像一个合约框架<br />
 编译器就是靠这些特征认出它是一个接口的</p>
-<p>在我们的 app 代码中使用这个接口，合约就知道其他合约的函数是怎样的，应该如何调用，以及可期待什么类型的返回值
+<p>在我们的 app 代码中使用这个接口，合约就知道其他合约的函数是怎样的，应该如何调用，以及可期待什么类型的返回值<br />
 在下一课中，我们将真正调用其他合约的函数。目前我们只要声明一个接口，用于调用 CryptoKitties 合约就行了</p>
-<p>我们已经为你查看过了 CryptoKitties 的源代码，并且找到了一个名为 getKitty的函数，它返回所有的加密猫的数据，包括它的“基因”（我们的僵尸游戏要用它生成新的僵尸）。
+<p>我们已经为你查看过了 CryptoKitties 的源代码，并且找到了一个名为 getKitty的函数，它返回所有的加密猫的数据，包括它的“基因”（我们的僵尸游戏要用它生成新的僵尸）。<br />
 该函数如下所示：</p>
 <pre><code class="language-javascript">function getKitty(uint256 _id) external view returns (
    bool isGestating,
@@ -8328,7 +8328,7 @@ CryptoKitties！ 😱😱😱
    genes = kit.genes;
 }
 </code></pre>
-<p>这个函数看起来跟我们习惯的函数不太一样。 它竟然返回了...一堆不同的值！ 如果您用过 JavaScript 之类的编程语言，一定会感到奇怪 —— 在 Solidity中，您可以让一个函数返回多个值
+<p>这个函数看起来跟我们习惯的函数不太一样。 它竟然返回了...一堆不同的值！ 如果您用过 JavaScript 之类的编程语言，一定会感到奇怪 —— 在 Solidity中，您可以让一个函数返回多个值<br />
 现在我们知道这个函数长什么样的了，就可以用它来创建一个接口：</p>
 <ul>
 <li>定义一个名为 KittyInterface 的接口。 请注意，因为我们使用了 contract 关键字， 这过程看起来就像创建一个新的合约一样</li>
@@ -8477,7 +8477,7 @@ contract ZombieFeeding is ZombieFactory {
 }
 </code></pre>
 <h3 id="kitty">奖励: Kitty 基因</h3>
-<p>给从小猫制造出的僵尸添加些特征，以显示他们是猫僵尸，要做到这一点，咱们在新僵尸的 DNA 中添加一些特殊的小猫代码
+<p>给从小猫制造出的僵尸添加些特征，以显示他们是猫僵尸，要做到这一点，咱们在新僵尸的 DNA 中添加一些特殊的小猫代码<br />
 还记得吗，第一课中我们提到，我们目前只使用16位DNA的前12位数来指定僵尸的外观。所以现在我们可以使用最后 2 个数字来处理“特殊”的特征</p>
 <p>这样吧，把猫僵尸DNA的最后两个数字设定为 99。所以在我们这么来写代码：如果这个僵尸是一只猫变来的，就将它 DNA 的最后两位数字设置为99。</p>
 <h4 id="if">if 语句</h4>

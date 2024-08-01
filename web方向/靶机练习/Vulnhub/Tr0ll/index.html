@@ -7627,7 +7627,7 @@
   <h1>Tr0ll</h1>
 
 <h2 id="tr0ll">Tr0ll</h2>
-<p>nmap 扫一下端口：
+<p>nmap 扫一下端口：<br />
 <code>nmap -p- -A 192.168.149.174</code></p>
 <p><img alt="image.png" src="../img/4ex4tZQ4lbhKXek4/1592184461494-ae605e5d-29e9-4ed7-8e2a-c077c4be2f90-421371.png" /></p>
 <p>访问一下 80 端口，只有一张图片</p>
@@ -7636,7 +7636,7 @@
 <p><img alt="image.png" src="../img/4ex4tZQ4lbhKXek4/1592184626574-ff3e274a-0dba-4627-aa50-b6f58b99f88d-506587.png" /></p>
 <p>去访问一下仍然只有一张图片</p>
 <p><img alt="image.png" src="../img/4ex4tZQ4lbhKXek4/1592184778266-683cd004-e5df-4655-b0c2-1ae6f30f3fcf-228941.png" /></p>
-<p>之前 nmap 扫端口的时候，说了可以匿名登录 ftp
+<p>之前 nmap 扫端口的时候，说了可以匿名登录 ftp<br />
 以及还有个流量包 lol.pcap</p>
 <p><img alt="image.png" src="../img/4ex4tZQ4lbhKXek4/1592185153412-79be18d4-abeb-4380-9a14-4b77be6cece0-421037.png" /></p>
 <p>直接连接上去</p>
@@ -7645,7 +7645,7 @@
 <p><img alt="image.png" src="../img/4ex4tZQ4lbhKXek4/1592186070836-b1e3e2be-4840-43c5-9e78-c399edb4a484-935453.png" /></p>
 <p>还有这样一组信息</p>
 <p><img alt="image.png" src="../img/4ex4tZQ4lbhKXek4/1592186296892-712a49df-e90d-4ccd-904c-4abb20b7837b-706341.png" /></p>
-<p>Well, well, well, aren't you just a clever little devil, you almost found the sup3rs3cr3tdirlol :-P\n
+<p>Well, well, well, aren't you just a clever little devil, you almost found the sup3rs3cr3tdirlol :-P\n<br />
 去访问一下目录试试</p>
 <p><img alt="image.png" src="../img/4ex4tZQ4lbhKXek4/1592186426748-5172627e-a440-4c09-a6c3-30efc41b244c-774283.png" /></p>
 <p>这竟然是一个 ELF 文件，执行一下试试</p>
@@ -7653,15 +7653,15 @@
 <p>又得到一个路径 0x0856BF，再去访问一下</p>
 <p><img alt="image.png" src="../img/4ex4tZQ4lbhKXek4/1592186665340-0609da38-6bdd-43da-bb7b-23e7ee455351-903751.png" /></p>
 <p><img alt="image.png" src="../img/4ex4tZQ4lbhKXek4/1592186724995-140bff39-45ec-4f15-8ccc-3a27b3edfb0e-702277.png" /></p>
-<p>good_luck 目录中有个 txt，作为用户名
-this_folder_contains_the_password 目录中有个 pass.txt
+<p>good_luck 目录中有个 txt，作为用户名<br />
+this_folder_contains_the_password 目录中有个 pass.txt<br />
 然而这个文件名就是 password</p>
-<p>爆破一下 ssh
-hydra -L user.txt -w 10 -P pass.txt -t 10 -v 192.168.149.174 ssh
--L user.txt      指定爆破账号字典为 user.txt
--w 10             设置最大超时时间10s，默认30s
--P pass.txt      指定密码字典为 pass.txt
--t 10               指定爆破线程为 10 个
+<p>爆破一下 ssh<br />
+hydra -L user.txt -w 10 -P pass.txt -t 10 -v 192.168.149.174 ssh<br />
+-L user.txt      指定爆破账号字典为 user.txt<br />
+-w 10             设置最大超时时间10s，默认30s<br />
+-P pass.txt      指定密码字典为 pass.txt<br />
+-t 10               指定爆破线程为 10 个<br />
 -v                   指定显示爆破过程</p>
 <p>拿到一对：overflow/Pass.txt</p>
 <p><img alt="image.png" src="../img/4ex4tZQ4lbhKXek4/1592187861524-784cd904-3f88-464e-b50c-c0bab40bcd5e-276117.png" /></p>
@@ -7671,7 +7671,7 @@ hydra -L user.txt -w 10 -P pass.txt -t 10 -v 192.168.149.174 ssh
 <p><img alt="image.png" src="../img/4ex4tZQ4lbhKXek4/1592188934192-c5497a70-3267-49a2-a8b4-edf8cd3e2fef-220979.png" /></p>
 <p>直接搜一下提权的脚本</p>
 <p><img alt="image.png" src="../img/4ex4tZQ4lbhKXek4/1592189467036-991a0654-86fa-49dd-9500-453f732ddef4-622711.png" /></p>
-<p>复制出来cp /usr/share/exploitdb/exploits/linux/local/37292.c hack.c
+<p>复制出来cp /usr/share/exploitdb/exploits/linux/local/37292.c hack.c<br />
 在目标机器上复制上，然后编译好 gcc hack.c -o hack</p>
 <pre><code class="language-python">/*
 # Exploit Title: ofs.c - overlayfs local root in ubuntu
@@ -7830,7 +7830,7 @@ main(int argc, char **argv)
 <p><img alt="image.png" src="../img/4ex4tZQ4lbhKXek4/1592189387876-4a3674eb-748b-4851-9bf9-e6c0fd5d38ac-718666.png" /></p>
 <h2 id="_1">计划任务提权</h2>
 <p>通过写入 ssh 密钥获得权限</p>
-<p>连上之后发现过一段时间就会断开，系统有个计划任务，查找一下日志
+<p>连上之后发现过一段时间就会断开，系统有个计划任务，查找一下日志<br />
 <code>cat /var/log/cronlog</code></p>
 <p>发现是一个 cleaner.py 的文件，find 查找一下</p>
 <p><img alt="image.png" src="../img/4ex4tZQ4lbhKXek4/1592190554083-cc0ae49c-ab19-46f1-a687-aa059d5466eb-236713.png" /></p>
@@ -7865,7 +7865,7 @@ except:
 </code></pre>
 <p>要记得把 id_rsa 复制到 /root/.ssh/ 这里</p>
 <p><img alt="image.png" src="../img/4ex4tZQ4lbhKXek4/1592193213034-5c073be7-c154-4122-ab36-50219646c2f2-147570.png" /></p>
-<p>还有很多，但都是用那个脚本配合的
+<p>还有很多，但都是用那个脚本配合的<br />
 参考：https://blog.csdn.net/weixin_44214107/article/details/100742919</p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/web/bgxup4">https://www.yuque.com/hxfqg9/web/bgxup4</a></p>

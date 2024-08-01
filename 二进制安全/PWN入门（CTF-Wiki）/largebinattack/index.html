@@ -7577,10 +7577,10 @@
   <h1>Largebinattack</h1>
 
 <h2 id="largebin-attack">largebin attack</h2>
-<p>还是先了解一下 largebin 是啥
-大小：大于 1024 字节
-双向循环链表，先进先出，按照从大到小排序
-当有空闲块相邻的时候，chunk 会被合并
+<p>还是先了解一下 largebin 是啥<br />
+大小：大于 1024 字节<br />
+双向循环链表，先进先出，按照从大到小排序<br />
+当有空闲块相邻的时候，chunk 会被合并<br />
 除了 fd、bk 指针还有 fd_nextsize 和 bk_nextsize</p>
 <h2 id="largebin-attack_1">largebin Attack</h2>
 <pre><code class="language-c">#include&lt;stdio.h&gt;
@@ -7641,14 +7641,14 @@ int main()
     return 0;
 }
 </code></pre>
-<p><code>gcc -g 1.c</code>
+<p><code>gcc -g 1.c</code><br />
 首先申请了几个 chunk</p>
 <p><img alt="image.png" src="../img/lhYZKSbRKKodceJ7/1601726112454-9d1e1a28-8a3e-4bd6-9466-3f0a191e4f82-278636.png" /></p>
 <p>接下来释放掉前两个</p>
 <p><img alt="image.png" src="../img/lhYZKSbRKKodceJ7/1601726161559-7a577348-14be-4379-98bb-5353469a6bbb-202673.png" /></p>
 <p>接下来去申请一个 0x90 大小的，他会把前面那个 0x320 大小的切割</p>
 <p><img alt="image.png" src="../img/lhYZKSbRKKodceJ7/1601726360130-dfaf8ba3-83bb-4197-89aa-9754c73ff259-232295.png" /></p>
-<p>同时因为我们去申请了，他就会给 unsortedbin 中的 free chunk 进行整理划分，把那两块大的放到 largebin
+<p>同时因为我们去申请了，他就会给 unsortedbin 中的 free chunk 进行整理划分，把那两块大的放到 largebin<br />
 接下来去修改 p2，之前：</p>
 <p><img alt="image.png" src="../img/lhYZKSbRKKodceJ7/1601727735498-a7be3820-c7a0-4621-9b1c-f9db8cb960df-689097.png" /></p>
 <p>之后：</p>
@@ -7667,13 +7667,13 @@ victim-&gt;fd = fwd;
 fwd-&gt;bk = victim;
 bck-&gt;fd = victim;
 </code></pre>
-<p>把 2 带入 4 得到：fwd-&gt;bk_nextsize-&gt;fd_nextsize=victim
-同时下面有：fwd-&gt;bk=victim
-也就是说之前我们伪造的 p2 的 bk 跟 bk_nextsize 指向的地址被改为了 victim
+<p>把 2 带入 4 得到：fwd-&gt;bk_nextsize-&gt;fd_nextsize=victim<br />
+同时下面有：fwd-&gt;bk=victim<br />
+也就是说之前我们伪造的 p2 的 bk 跟 bk_nextsize 指向的地址被改为了 victim<br />
 即 (unsigned long)(&amp;stack_var1 - 2) 与 (unsigned long)(&amp;stack_var2 - 4) 被改为了 victim</p>
 <p><img alt="image.png" src="../img/lhYZKSbRKKodceJ7/1601728189811-ef2c685b-3f20-4b30-93be-b8995387c989-294055.png" /></p>
 <h2 id="2019-storm_note">2019 西湖论剑 Storm_note</h2>
-<p>这道题涉及 largebin attack、Chunk Extend
+<p>这道题涉及 largebin attack、Chunk Extend<br />
 首先还是把程序的功能实现一下方便调用</p>
 <pre><code class="language-python">def cmd(choice):
   p.sendlineafter(('Choice: '),str(choice))
@@ -7696,16 +7696,16 @@ def edit(index,content):
 <p>int mallopt(int param,int value)为内存分配控制函数，此处param参数取值为M_MXFAST，控制着fastbin大小上限，此处设置为1，表示禁用fastbin</p>
 </blockquote>
 <p><img alt="image.png" src="../img/lhYZKSbRKKodceJ7/1598602040951-f97dd6c2-e926-45ee-ad79-914146303060-319141.png" /></p>
-<p>找了很多 exp 都打不通Orz，我又都是跟着 exp 一点一点理解的，很难受Orz
+<p>找了很多 exp 都打不通Orz，我又都是跟着 exp 一点一点理解的，很难受Orz<br />
 不管打不打得通了，直接调试看看吧，</p>
 <p><img alt="image.png" src="../img/lhYZKSbRKKodceJ7/1598620534078-59e46665-12bb-4661-be6b-4c263563ab2a-836465.png" /></p>
 <p>修改一下最后一个 0x10 的最后 0x8 字节的内容（不理解，待会再看）</p>
 <p><img alt="image.png" src="../img/lhYZKSbRKKodceJ7/1598621185514-0bca624b-9a61-447e-9808-d05984c0bcc4-104113.png" /></p>
-<p>然后把第 1 个释放掉，编辑第 0 个，通过 off by null 来把第一个的 size 位改成 0x500（原本是 0x510）
+<p>然后把第 1 个释放掉，编辑第 0 个，通过 off by null 来把第一个的 size 位改成 0x500（原本是 0x510）<br />
 改掉之后可以看到整个都偏了</p>
 <p><img alt="image.png" src="../img/lhYZKSbRKKodceJ7/1598621497631-f4fa4965-16c9-48af-9bb3-576e983f6816-961746.png" /></p>
-<p>现在，我们之前在第 1 个留的 0x500 就是 2 的 prev_size 了
-接下来申请一个 0x18 一个 0x4d8（这俩都是在改掉大小后的 index1 那里正好占起来）
+<p>现在，我们之前在第 1 个留的 0x500 就是 2 的 prev_size 了<br />
+接下来申请一个 0x18 一个 0x4d8（这俩都是在改掉大小后的 index1 那里正好占起来）<br />
 然后 create(0x30) 之后 index2 和 index7 就重合了。。。又不懂了</p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/bin/mdrz9g">https://www.yuque.com/hxfqg9/bin/mdrz9g</a></p>

@@ -7541,7 +7541,7 @@
   <h1>StableDiffusionWebUI试玩</h1>
 
 <h2 id="stable-diffusion-webui">Stable Diffusion WebUI试玩</h2>
-<p>眼馋好久了，本地搭一个，首先安装一个 <a href="https://docs.conda.io/projects/miniconda/en/latest/">conda</a> 用来管理 python 版本，直接默认下一步就行
+<p>眼馋好久了，本地搭一个，首先安装一个 <a href="https://docs.conda.io/projects/miniconda/en/latest/">conda</a> 用来管理 python 版本，直接默认下一步就行<br />
 创建一个新环境</p>
 <pre><code class="language-bash">conda create --name py310 python=3.10    #创建一个python3.10的环境
 conda info -e    #列出当前系统中的环境
@@ -7550,41 +7550,41 @@ conda activate py310    #进入某个环境
 conda deactivate py310  #退出某个环境
 conda remove -n &quot;py310&quot; --all   #移除某个环境
 </code></pre>
-<p>下载 git：https://git-scm.com/download/win
-下载 Stable Diffusion WebUI：https://github.com/AUTOMATIC1111/stable-diffusion-webui/releases
-进到你的虚拟环境，切到 stable_diffusion 的目录，执行：<code>pip install -r requirements.txt</code>
-安装过程报错了，缺什么库自己再装一下，我纳了闷了，你写这个 requirements.txt 文件不是为了安装库的吗，怎么写不全啊
+<p>下载 git：https://git-scm.com/download/win<br />
+下载 Stable Diffusion WebUI：https://github.com/AUTOMATIC1111/stable-diffusion-webui/releases<br />
+进到你的虚拟环境，切到 stable_diffusion 的目录，执行：<code>pip install -r requirements.txt</code><br />
+安装过程报错了，缺什么库自己再装一下，我纳了闷了，你写这个 requirements.txt 文件不是为了安装库的吗，怎么写不全啊<br />
 安装完成之后运行 <code>webui-user.bat</code>会去 github 拉一些仓库，国内这网不评价了，给 git 设置一下代理吧</p>
 <pre><code class="language-bash">git config --global http.proxy http://127.0.0.1:7890
 git config --global https.proxy https://127.0.0.1:7890
 </code></pre>
-<p>然后就会拉起来网页了
-<img alt="image.png" src="../img/e0AQ0Fim3Y7Frj6V/1704726528654-2a9c44dc-1e84-4abe-b3c0-89ec9d727667-394578.png" />
-默认的模型通过简单的提示词画出来的效果并不好，训练模型写提示词也是个学问，为了简单体验，可以去一些发布模型的网站（https://civitai.com/models）下载别人训练好的模型，然后复制他们的提示词直接拿来用
-首先要区分一下 Stable Diffusion 的模型类型，<strong>checkpoint</strong> 是最主要的模型，包含了很多基础场景，一般体积很大，我们先去找个这个类型的模型，比如这个：Cetus-Mix
-<img alt="image.png" src="../img/e0AQ0Fim3Y7Frj6V/1704893187399-97dbd508-106a-4d40-8069-5e74cb97acbf-389234.png" />
-下载到自己的 models\Stable-diffusion 文件夹下，可以顺便下载一张图片以模型的名字命名，这样 Stable Diffusion 在展示模型的时候就会像在网站上看到的一样，有个封面图比较直观
-<img alt="image.png" src="../img/e0AQ0Fim3Y7Frj6V/1704893373450-2e314c8f-e283-4679-adf7-a2c700e457c0-371766.png" />
-点开网站上的图片就有相关的参数设置，可以直接复制来用
-<img alt="image.png" src="../img/e0AQ0Fim3Y7Frj6V/1704893560417-de544dcc-8d0b-4b24-a7c2-04b82ef8343a-080672.png" />
-选择好 checkpoint 模型，填好相关提示词，生成就可以了
-<img alt="image.png" src="../img/e0AQ0Fim3Y7Frj6V/1704893680276-6edb9c6c-6420-4a41-b3fc-855073f3f3a5-744391.png" />
-除了 checkpoint 在网站上还有一类比较常见的模型，叫 LoRA，比如这个
-<img alt="image.png" src="../img/e0AQ0Fim3Y7Frj6V/1704893823627-2ecbba7e-75eb-416f-b635-017d4aeb8145-753491.png" />
-这种模型属于是锦上添花，在你 checkpoint 基础上增加一些亮点，比如这个 moxin 是把画面变得像是国画，LoRA 模型要下载到 models\Lora 下，同样可以添加一个封面图
-<img alt="image.png" src="../img/e0AQ0Fim3Y7Frj6V/1704893925546-bf449bdc-9dff-4955-808b-7a622897b918-055270.png" />
-调用的时候在提示词里面加上：<code>&lt;lora:MoXinV1:1&gt;</code>即可，其中冒号后面的是所占的比重，可以用多个 LoRA 组合起来生成图片，这是仅 MoXin 生成的图片
-<img alt="image.png" src="../img/e0AQ0Fim3Y7Frj6V/1704894264965-78810355-11ad-489c-bf0e-89c4322b7f82-750249.png" />
-这是加上 cyberPunk 出来的图片，checkpoint 模型本身就是动漫风，感觉 cyberpunk 看不太出来
-<img alt="image.png" src="../img/e0AQ0Fim3Y7Frj6V/1704894595086-eaea073e-81ca-47d8-a4a0-90bd727267b8-697569.png" />
-还有个比较实用的功能叫 PNG info，直接把别人的图片拖到这里，会解析一些参数还能一键带入 txt2img
-<img alt="image.png" src="../img/e0AQ0Fim3Y7Frj6V/1704896530299-11254a79-b1b3-4a68-96fc-01db60170111-406386.png" />
-带入参数之后直接点击生成就行了（模型：majicMIX realistic 麦橘写实）
-<img alt="image.png" src="../img/e0AQ0Fim3Y7Frj6V/1704896512720-e74985f8-f76f-4ec6-b34e-f07799d50205-139971.png" />
-<img alt="659400badd0341d58ca3e62b2e2610b.png" src="../img/e0AQ0Fim3Y7Frj6V/1704896647682-5ac71d24-2a11-4cd2-be8f-9a77d19244e7-537528.png" />
-切换到中文，先在 extentions 里面安装个中文语言包
-<img alt="image.png" src="../img/e0AQ0Fim3Y7Frj6V/1705046530911-8408fc1c-6037-43a3-8582-118ce6af7cc9-651609.png" />
-然后设置里面改一下语言，保存后重启即可
+<p>然后就会拉起来网页了<br />
+<img alt="image.png" src="../img/e0AQ0Fim3Y7Frj6V/1704726528654-2a9c44dc-1e84-4abe-b3c0-89ec9d727667-394578.png" /><br />
+默认的模型通过简单的提示词画出来的效果并不好，训练模型写提示词也是个学问，为了简单体验，可以去一些发布模型的网站（https://civitai.com/models）下载别人训练好的模型，然后复制他们的提示词直接拿来用<br />
+首先要区分一下 Stable Diffusion 的模型类型，<strong>checkpoint</strong> 是最主要的模型，包含了很多基础场景，一般体积很大，我们先去找个这个类型的模型，比如这个：Cetus-Mix<br />
+<img alt="image.png" src="../img/e0AQ0Fim3Y7Frj6V/1704893187399-97dbd508-106a-4d40-8069-5e74cb97acbf-389234.png" /><br />
+下载到自己的 models\Stable-diffusion 文件夹下，可以顺便下载一张图片以模型的名字命名，这样 Stable Diffusion 在展示模型的时候就会像在网站上看到的一样，有个封面图比较直观<br />
+<img alt="image.png" src="../img/e0AQ0Fim3Y7Frj6V/1704893373450-2e314c8f-e283-4679-adf7-a2c700e457c0-371766.png" /><br />
+点开网站上的图片就有相关的参数设置，可以直接复制来用<br />
+<img alt="image.png" src="../img/e0AQ0Fim3Y7Frj6V/1704893560417-de544dcc-8d0b-4b24-a7c2-04b82ef8343a-080672.png" /><br />
+选择好 checkpoint 模型，填好相关提示词，生成就可以了<br />
+<img alt="image.png" src="../img/e0AQ0Fim3Y7Frj6V/1704893680276-6edb9c6c-6420-4a41-b3fc-855073f3f3a5-744391.png" /><br />
+除了 checkpoint 在网站上还有一类比较常见的模型，叫 LoRA，比如这个<br />
+<img alt="image.png" src="../img/e0AQ0Fim3Y7Frj6V/1704893823627-2ecbba7e-75eb-416f-b635-017d4aeb8145-753491.png" /><br />
+这种模型属于是锦上添花，在你 checkpoint 基础上增加一些亮点，比如这个 moxin 是把画面变得像是国画，LoRA 模型要下载到 models\Lora 下，同样可以添加一个封面图<br />
+<img alt="image.png" src="../img/e0AQ0Fim3Y7Frj6V/1704893925546-bf449bdc-9dff-4955-808b-7a622897b918-055270.png" /><br />
+调用的时候在提示词里面加上：<code>&lt;lora:MoXinV1:1&gt;</code>即可，其中冒号后面的是所占的比重，可以用多个 LoRA 组合起来生成图片，这是仅 MoXin 生成的图片<br />
+<img alt="image.png" src="../img/e0AQ0Fim3Y7Frj6V/1704894264965-78810355-11ad-489c-bf0e-89c4322b7f82-750249.png" /><br />
+这是加上 cyberPunk 出来的图片，checkpoint 模型本身就是动漫风，感觉 cyberpunk 看不太出来<br />
+<img alt="image.png" src="../img/e0AQ0Fim3Y7Frj6V/1704894595086-eaea073e-81ca-47d8-a4a0-90bd727267b8-697569.png" /><br />
+还有个比较实用的功能叫 PNG info，直接把别人的图片拖到这里，会解析一些参数还能一键带入 txt2img<br />
+<img alt="image.png" src="../img/e0AQ0Fim3Y7Frj6V/1704896530299-11254a79-b1b3-4a68-96fc-01db60170111-406386.png" /><br />
+带入参数之后直接点击生成就行了（模型：majicMIX realistic 麦橘写实）<br />
+<img alt="image.png" src="../img/e0AQ0Fim3Y7Frj6V/1704896512720-e74985f8-f76f-4ec6-b34e-f07799d50205-139971.png" /><br />
+<img alt="659400badd0341d58ca3e62b2e2610b.png" src="../img/e0AQ0Fim3Y7Frj6V/1704896647682-5ac71d24-2a11-4cd2-be8f-9a77d19244e7-537528.png" /><br />
+切换到中文，先在 extentions 里面安装个中文语言包<br />
+<img alt="image.png" src="../img/e0AQ0Fim3Y7Frj6V/1705046530911-8408fc1c-6037-43a3-8582-118ce6af7cc9-651609.png" /><br />
+然后设置里面改一下语言，保存后重启即可<br />
 <img alt="image.png" src="../img/e0AQ0Fim3Y7Frj6V/1705046614578-89ac2098-aa98-4a69-9874-ada4f1dd5065-243477.png" /></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/ai/mycme6bice45l1oh">https://www.yuque.com/hxfqg9/ai/mycme6bice45l1oh</a></p>

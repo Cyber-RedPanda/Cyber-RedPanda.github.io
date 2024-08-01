@@ -7779,7 +7779,7 @@ p.sendline(payload2)
 p.interactive()
 </code></pre>
 <h2 id="gyctf_2020_some_thing_exceting">gyctf_2020_some_thing_exceting</h2>
-<p>去申请的时候会先申请 0x10 大小的 chunk 来存放用户申请的 chunk 的指针，free 的时候没有置为 NULL，存在 UAF
+<p>去申请的时候会先申请 0x10 大小的 chunk 来存放用户申请的 chunk 的指针，free 的时候没有置为 NULL，存在 UAF<br />
 在一开始的时候会把 flag 读到 0x6020A8 这里，只要能 show 这个地址的内容就行</p>
 <p><img alt="image.png" src="../img/XAm9l-GV9TMZvoj2/1602403722084-a96fb9a1-ebcd-42fd-9134-00f2a7cfd820-389610.png" /></p>
 <p>一开始申请两个与 0x10 不一样大的，然后 free 掉，再去申请 0x10 大小的时候就会申请到那个存储指针的那里，修改指针为 bss 段放 flag 的地址</p>
@@ -7815,8 +7815,8 @@ p.interactive()
 </code></pre>
 <p><img alt="image.png" src="../img/XAm9l-GV9TMZvoj2/1602403846706-4b9d9c41-bee6-43e3-a791-2b565655a758-399992.png" /></p>
 <h2 id="actf_2019_babystack">actf_2019_babystack</h2>
-<p>只能栈溢出 0x10 大小的，栈迁移
-给出了写到的地址，一开始通过栈迁移执行 puts 函数来拿到函数的地址，从而获得 libc 的地址
+<p>只能栈溢出 0x10 大小的，栈迁移<br />
+给出了写到的地址，一开始通过栈迁移执行 puts 函数来拿到函数的地址，从而获得 libc 的地址<br />
 然后再一次栈迁移执行 system 函数</p>
 <pre><code class="language-python"># coding=utf-8
 from pwn import *
@@ -7896,7 +7896,7 @@ p.sendline('./flag')
 p.interactive()
 </code></pre>
 <h2 id="picoctf_2018_can_you_gets_me">picoctf_2018_can_you_gets_me</h2>
-<p>静态链接的程序，直接 rop chain
+<p>静态链接的程序，直接 rop chain<br />
 ROPgadget --binary pwn --ropchain</p>
 <pre><code class="language-python"># coding=utf-8
 from pwn import *
@@ -8009,8 +8009,8 @@ p.sendlineafter('Your choice :','/bin/sh\x00')
 p.interactive()
 </code></pre>
 <h2 id="ciscn_2019_s_9">ciscn_2019_s_9</h2>
-<p>存在栈溢出
-hint 函数中 jmp esp 的地址 0x8048554
+<p>存在栈溢出<br />
+hint 函数中 jmp esp 的地址 0x8048554<br />
 如果 shellcode 直接放后面会不够大</p>
 <pre><code class="language-python">from pwn import *
 p = process('./pwn')

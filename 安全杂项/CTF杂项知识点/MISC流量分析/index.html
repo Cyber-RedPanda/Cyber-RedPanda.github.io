@@ -7780,10 +7780,10 @@ echo $b;
 <p><img alt="image.png" src="../img/eXfJlH4DUx_G3Umq/1629979799071-446ac859-4b66-4406-bdcf-299326e7951e-651205.png" /></p>
 <p>原始数据显示并保存出来</p>
 <p><img alt="image.png" src="../img/eXfJlH4DUx_G3Umq/1629979873288-4f42885b-f056-4826-bf36-4baba0b7c97c-429395.png" /></p>
-<p>但是打开会要求输入密码
+<p>但是打开会要求输入密码<br />
 这时候别忘了上面还有一些 base64，解码一下没啥东西</p>
 <p><img alt="image.png" src="../img/eXfJlH4DUx_G3Umq/1629980459385-70e5b83d-1898-466d-953b-a7443420c62c-005188.png" /></p>
-<p>别气馁，再找找别的 base64，最终在 流18 中的 z2 找到了这样一串字符串
+<p>别气馁，再找找别的 base64，最终在 流18 中的 z2 找到了这样一串字符串<br />
 <img alt="image.png" src="../img/eXfJlH4DUx_G3Umq/1629980842232-0c9fb4a8-ee83-4f03-b89b-7ddc0633b9c1-888947.png" /></p>
 <p><img alt="image.png" src="../img/eXfJlH4DUx_G3Umq/1629980733143-20bc5b21-0350-455f-acd6-dfb875bb91d0-539439.png" /></p>
 <pre><code class="language-php">cd /d &quot;c:\inetpub\wwwroot\&quot;&amp;C:\progra~1\WinRAR\rar a C:\Inetpub\wwwroot\backup\wwwroot.rar C:\Inetpub\wwwroot\backup\1.gif -hpJJBoom&amp;echo [S]&amp;cd&amp;echo [E]
@@ -7795,8 +7795,8 @@ sekurlsa::minidump D:\anquan\Atemp\1.gif
 sekurlsa::logonpasswords full
 </code></pre>
 <p><img alt="image.png" src="../img/eXfJlH4DUx_G3Umq/1629981216229-f28ea679-66a4-4eaa-b0d2-264c9186ec80-909444.png" /></p>
-<p>知识点：统计 -&gt; Conversations 可以比较方便的查看数据包的大小
-winrar 的命令行用法 hp 后面跟的是密码
+<p>知识点：统计 -&gt; Conversations 可以比较方便的查看数据包的大小<br />
+winrar 的命令行用法 hp 后面跟的是密码<br />
 文件头 MDMP 是 dump 文件，可以用 mimikatz 获取明文</p>
 <h3 id="attachment">attachment</h3>
 <p>附件有个提示，私钥</p>
@@ -7837,7 +7837,7 @@ AnbJ4Z6opJCGu+UP2c8SC8m0bhZJDelPRC8IKE28eB6SotgP61ZqaVmQ+HLJ1/wH
 <p><img alt="image.png" src="../img/eXfJlH4DUx_G3Umq/1629984556927-fe86dc5b-3545-4cbd-bcb2-1a3246640484-969830.png" /></p>
 <p>这时候随便追踪一个 TLS 流就能找到 flag 了</p>
 <p><img alt="image.png" src="../img/eXfJlH4DUx_G3Umq/1629984632046-764684d4-3e95-43ee-9688-12db1f9c8aa6-231126.png" /></p>
-<p>知识点：base64 解码是图片数据的脚本
+<p>知识点：base64 解码是图片数据的脚本<br />
 wireshark 私钥导入直接看 TLS 明文</p>
 <h3 id="lx100pcap">lx100.pcap</h3>
 <p>随便追踪 TCP 流，发现了一些视频相关的字符串，如：4K、MP4 等</p>
@@ -7861,17 +7861,17 @@ while 1:
 </code></pre>
 <p>有很多，其中几张会有 flag</p>
 <p><img alt="image.png" src="../img/eXfJlH4DUx_G3Umq/1629986906755-be34dd31-fdc1-4865-b6dc-c80a11ccad00-125823.png" /></p>
-<p>不知道为啥，binwalk 和 foremost 识别不出来？
-知识点：视频流量是 UDP 协议
-jpg 中含有 &amp;'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz
+<p>不知道为啥，binwalk 和 foremost 识别不出来？<br />
+知识点：视频流量是 UDP 协议<br />
+jpg 中含有 &amp;'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz<br />
 编写脚本拆分 jpg</p>
 <h2 id="usb">USB流量分析</h2>
-<p>区分鼠标与键盘协议看数据包间隔时间：鼠标一般是 0.001 级别，键盘一般是 0.1 级别
-tshark 提取：tshark -r xxxx.pcapng -T fields -e usb.capdata &gt;1.txt
+<p>区分鼠标与键盘协议看数据包间隔时间：鼠标一般是 0.001 级别，键盘一般是 0.1 级别<br />
+tshark 提取：tshark -r xxxx.pcapng -T fields -e usb.capdata &gt;1.txt<br />
 关于 usb.capdata 怎么找，即我这里应该是 usbhid.data</p>
 <p><img alt="image.png" src="../img/eXfJlH4DUx_G3Umq/1629987627922-43c48de2-9a95-4790-81d7-943320d249f6-784829.png" /></p>
 <h3 id="_1">键盘流量</h3>
-<p>tshark 提取数据 tshark -r keyboard.pcapng -T fields -e  usbhid.data &gt; 1.txt
+<p>tshark 提取数据 tshark -r keyboard.pcapng -T fields -e  usbhid.data &gt; 1.txt<br />
 然后是用脚本读取</p>
 <pre><code class="language-python"># -*- coding: utf-8 -*-
 # Python2
@@ -7897,8 +7897,8 @@ print 'output :\n' + output
 </code></pre>
 <p><img alt="image.png" src="../img/eXfJlH4DUx_G3Umq/1629987876828-0e57ebfd-4f4c-44e6-a112-4da6a4ca9af4-736811.png" /></p>
 <h3 id="_2">鼠标流量</h3>
-<p>同样提取数据 tshark -r mouse.pcapng -T fields -e  usbhid.data &gt; 1.txt
-可以通过 notepad++ 的编辑 -&gt; 行操作 -&gt; 移除空行
+<p>同样提取数据 tshark -r mouse.pcapng -T fields -e  usbhid.data &gt; 1.txt<br />
+可以通过 notepad++ 的编辑 -&gt; 行操作 -&gt; 移除空行<br />
 通过脚本分析 x 与 y 最终生成的 result.txt 是一个 x y 形式的坐标集合，直接用 gnuplot 画图</p>
 <pre><code class="language-python"># -*- coding: utf-8 -*-
 nums = []
@@ -7921,25 +7921,25 @@ for line in keys:
         result.write(str(posx)+' '+str(-posy)+'\n')
 keys.close()
 </code></pre>
-<p>x、y、btn_flag 的位置需要自己试出来
+<p>x、y、btn_flag 的位置需要自己试出来<br />
 然后用 <code>gnuplot -e "plot 'result.txt'" -p</code> 画出图片出来</p>
 <p><img alt="image.png" src="../img/eXfJlH4DUx_G3Umq/1629988457780-28219ae8-5c01-4b24-ba33-36ee06ecc7b8-619357.png" /></p>
 <p>gnuplot 直接官网下安装就行</p>
-<p>知识点：通过 tshark 提取鼠标键盘流量，通过脚本分析流量
+<p>知识点：通过 tshark 提取鼠标键盘流量，通过脚本分析流量<br />
 gnuplot 根据坐标画图</p>
-<p><img alt="image.png" src="../img/eXfJlH4DUx_G3Umq/1629988694151-a8467d18-fd7f-4b2c-ac5b-8f20b20a50fb-815797.png" />
+<p><img alt="image.png" src="../img/eXfJlH4DUx_G3Umq/1629988694151-a8467d18-fd7f-4b2c-ac5b-8f20b20a50fb-815797.png" /><br />
 <img alt="image.png" src="../img/eXfJlH4DUx_G3Umq/1629988650623-0bd03af3-74bc-4b03-a52f-d250598b2249-801168.png" /></p>
 <h2 id="_3">无线流量</h2>
 <h3 id="misc-datapack">MISC-datapack</h3>
 <p>打开流量包，发现了都是 802.11 的协议</p>
 <p><img alt="image.png" src="../img/eXfJlH4DUx_G3Umq/1630022167031-f096324a-0714-4b3f-866a-a7f4f311f284-475108.png" /></p>
-<p>使用 aircrack-ng 破解密码：
+<p>使用 aircrack-ng 破解密码：<br />
 首先 <code>aircrack-ng cacosmia.cap</code> 获取 MAC 地址（BSSID）与 ESSID</p>
 <p><img alt="image.png" src="../img/eXfJlH4DUx_G3Umq/1630023188474-2fcd5932-a1f0-4b2e-a186-7d4174a0e894-109210.png" /></p>
-<p>使用 -w 指定字典 -b 指定 BSSID 地址破解密码
+<p>使用 -w 指定字典 -b 指定 BSSID 地址破解密码<br />
 <code>aircrack-ng -w /usr/share/wordlists/rockyou.txt -b 1A:D7:17:98:D0:51 cacosmia.cap</code></p>
 <p><img alt="image.png" src="../img/eXfJlH4DUx_G3Umq/1630023292165-6c735dba-85bd-4c5b-9455-e3d836214315-713714.png" /></p>
-<p>然后使用 <code>airdecap-ng cacosmia.cap -e mamawoxiangwantiequan -p 12345678</code> 提取流量包
+<p>然后使用 <code>airdecap-ng cacosmia.cap -e mamawoxiangwantiequan -p 12345678</code> 提取流量包<br />
 -e 指定 ESSID，-p 指定密码</p>
 <p><img alt="image.png" src="../img/eXfJlH4DUx_G3Umq/1630023388589-3b09ed41-10e4-4e27-bcd1-d94bc69fa333-393186.png" /></p>
 <p>用 wireshark 打开解密出来的流量包，追踪一下 TCP 流看到有张 png，同时下面还有个压缩包</p>
@@ -7951,7 +7951,7 @@ gnuplot 根据坐标画图</p>
 </code></pre>
 <p><img alt="image.png" src="../img/eXfJlH4DUx_G3Umq/1630024140684-8460df4b-8d53-4a41-9072-d8d2f9f78c98-876881.png" /></p>
 <p>然后就去找 DNS 里面的网址，发现是 26rsfb.dnslog.cn，打开即可</p>
-<p>知识点：无线数据包需要先用 aircrack-ng 跑出密码，然后 airdecap-ng 提取流量包再进行分析
+<p>知识点：无线数据包需要先用 aircrack-ng 跑出密码，然后 airdecap-ng 提取流量包再进行分析<br />
 jwt 格式是三部分每部分用 . 分隔开</p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/misc/btg45s">https://www.yuque.com/hxfqg9/misc/btg45s</a></p>

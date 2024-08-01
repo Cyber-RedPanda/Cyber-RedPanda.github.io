@@ -8039,10 +8039,10 @@
 <h2 id="_6">服务器端校验</h2>
 <h3 id="content-type">content-type字段校验</h3>
 <h4 id="_7">原理</h4>
-<p>在http请求里面会显示传输的文件MIME类型
+<p>在http请求里面会显示传输的文件MIME类型<br />
 检验是不是允许的MIME类型</p>
 <h4 id="_8">解决</h4>
-<p>1、正常上传，抓包改MIME
+<p>1、正常上传，抓包改MIME<br />
 2、上传允许的文件类型，抓包改文件后缀</p>
 <p>一般允许的MIME类型：</p>
 <table>
@@ -8087,27 +8087,27 @@
 <h4 id="_12">解决</h4>
 <h5 id="_13">不在黑名单，但能解析后缀名</h5>
 <p><img alt="image.png" src="../img/551828_ckue2pnmvk6cigai/1594542130867-30eb7a05-93d9-4469-abc4-00f0072f051c-790994.png" /></p>
-<p>大小写绕过：PhP/pHP...
-php/php3/php4/php5/php7/pht/phtml/phps
-Win下 <strong>xx.jpg[空格]</strong> 或<strong>xx.jpg.</strong>这两类文件都是不允许存在的，若这样命名，windows会默认除去空格或点
+<p>大小写绕过：PhP/pHP...<br />
+php/php3/php4/php5/php7/pht/phtml/phps<br />
+Win下 <strong>xx.jpg[空格]</strong> 或<strong>xx.jpg.</strong>这两类文件都是不允许存在的，若这样命名，windows会默认除去空格或点<br />
 上传的时候可以用burp加上空格或点，逃出了黑名单后windows会把空格或点去掉</p>
 <h5 id="apachehtaccess">配合apache的.htaccess文件</h5>
-<p>（分布式配置文件）上传解析：
-.htaccess文件：提供了针对目录改变配置的方法，在特定的文档目录放置一个包含一个或多个指令的文件，一次用作此目录及其所有子目录。作为用户，所能使用的命令受到限制，作为管理员可以通过Apache的AllowOverride指令来设置
-传入文件为：.htaccess，文件类型为所有类型
-内容：
-<code>AddType  application/x-httpd-php    .jpg</code>
-把所有jpg当成php来解析
+<p>（分布式配置文件）上传解析：<br />
+.htaccess文件：提供了针对目录改变配置的方法，在特定的文档目录放置一个包含一个或多个指令的文件，一次用作此目录及其所有子目录。作为用户，所能使用的命令受到限制，作为管理员可以通过Apache的AllowOverride指令来设置<br />
+传入文件为：.htaccess，文件类型为所有类型<br />
+内容：<br />
+<code>AddType  application/x-httpd-php    .jpg</code><br />
+把所有jpg当成php来解析<br />
 或</p>
 <pre><code class="language-php">&lt;FilesMatch &quot;ma.jpg&quot;&gt;
 SetHandler application/x-httpd-php
 &lt;/FilesMatch&gt;
 </code></pre>
-<p>把指定的ma.jpg当成php
-制作：先创建一个1.txt，写入上面的内容，然后当前目录下打开cmd输入：
+<p>把指定的ma.jpg当成php<br />
+制作：先创建一个1.txt，写入上面的内容，然后当前目录下打开cmd输入：<br />
 ren 1.txt .htaccess</p>
 <h5 id="00">%00截断</h5>
-<p>（大多数在老版本里，现在已经不多了）
+<p>（大多数在老版本里，现在已经不多了）<br />
 0x00是十六进制表示方法，是ascii码为0的字符，在有些函数处理时，会把这个字符当做结束符</p>
 <pre><code class="language-php">name = getname(http request) //假如这时候获取到的文件名是trst.asp.jpg(asp后面是0x00)
 type = gettype(name) //而在gettype()函数里处理方式是从后往前扫描拓展名，所以判断为jpg
@@ -8117,7 +8117,7 @@ SaveFileToPath(UploadPath.name,name) //但在这里却是以0x00 作为文件名
 </code></pre>
 <h5 id="_14">超长文件名</h5>
 <h5 id="data">后缀加::$DATA</h5>
-<p>php在window的时候,如果文件名+"::$DATA"会把::$DATA之后的数据当成文件流处理,不会检测后缀名.且保持"::$DATA"之前的文件名
+<p>php在window的时候,如果文件名+"::$DATA"会把::$DATA之后的数据当成文件流处理,不会检测后缀名.且保持"::$DATA"之前的文件名<br />
 （pass-08，我这个地方做的时候想访问试试，访问的时候访问.php，不要带上后面的::$DATA）</p>
 <h5 id="_15">双写绕过</h5>
 <p>如后缀写成：<strong>p</strong>php<strong>hp</strong></p>
@@ -8127,10 +8127,10 @@ SaveFileToPath(UploadPath.name,name) //但在这里却是以0x00 作为文件名
 <h4 id="apache">配合apache解析缺陷</h4>
 <p>apache读到不能识别的比如：test.php.bak，bak不能识别，会往前识别php</p>
 <h4 id="_18">内容头校验</h4>
-<p>getimagesize()函数，是图片，就返回相关信息，不是就返回false
+<p>getimagesize()函数，是图片，就返回相关信息，不是就返回false<br />
 这个函数检验的是文件头，水的很</p>
 <h4 id="_19">竞争上传</h4>
-<p>文件上传后先保留在服务器，检验后不合法再删掉
+<p>文件上传后先保留在服务器，检验后不合法再删掉<br />
 利用方法：让上传的文件自己生成另一个文件，在访问生成的文件就行了</p>
 <pre><code class="language-php">&lt;?php
 $file = 'web.php';

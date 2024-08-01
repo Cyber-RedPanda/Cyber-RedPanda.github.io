@@ -7541,23 +7541,23 @@
   <h1>HackRF介绍</h1>
 
 <h2 id="hackrf">HackRF介绍</h2>
-<p>HackRF 有一个 micro usb 用来连接电脑和供电，当插上 usb 之后就会有灯亮起来，最先亮起来的是 3v3、1v8、RF，他们是电源信号，正常情况下只要通电就会亮。usb 灯表示电脑已经将 HackRF 识别为 usb 设备，可以开始工作了，因此会比前三个灯亮的慢一些
-RX 和 TX 分别表示接收和发射，所以只有当接收或发射信号的时候才会亮
-这些灯的颜色不同，但是没关系，他们只是来区分不同的灯的，颜色本身没有啥含义
-<img alt="image.png" src="../img/QFremWZOAxJPs5Tf/1667716940604-4ce410e8-c9cb-451d-80c1-4bd833b3fae7-697253.png" />
-同时这一边还有两个摁键，RESET 可以用来重置 HackRF 内部的 ECU，相当于拔掉电源重新插入的操作
-DFU 是用来进入固件升级模式的，使用方法是摁着 DFU 摁键重新拔插 usb 线或者摁着 DFU 摁键摁一下 RESET，进入 DFU 模式之后只会有 3V3 亮着，其他的不会亮或者不会正常亮
+<p>HackRF 有一个 micro usb 用来连接电脑和供电，当插上 usb 之后就会有灯亮起来，最先亮起来的是 3v3、1v8、RF，他们是电源信号，正常情况下只要通电就会亮。usb 灯表示电脑已经将 HackRF 识别为 usb 设备，可以开始工作了，因此会比前三个灯亮的慢一些<br />
+RX 和 TX 分别表示接收和发射，所以只有当接收或发射信号的时候才会亮<br />
+这些灯的颜色不同，但是没关系，他们只是来区分不同的灯的，颜色本身没有啥含义<br />
+<img alt="image.png" src="../img/QFremWZOAxJPs5Tf/1667716940604-4ce410e8-c9cb-451d-80c1-4bd833b3fae7-697253.png" /><br />
+同时这一边还有两个摁键，RESET 可以用来重置 HackRF 内部的 ECU，相当于拔掉电源重新插入的操作<br />
+DFU 是用来进入固件升级模式的，使用方法是摁着 DFU 摁键重新拔插 usb 线或者摁着 DFU 摁键摁一下 RESET，进入 DFU 模式之后只会有 3V3 亮着，其他的不会亮或者不会正常亮<br />
 ANT 是天线接口，另外一侧的两个接口是时钟输入输出接口，接上时钟可以保证 HackRF 更精准的时钟运行， 在 CLK IN 上接着 10MHz 的时钟 HackRF 会自动同步，收发开始时 HackRF 会先判断 CLK IN 是否有信号，有的话就用，没有的话就用自己的</p>
-<p>来尝试一下 hackrf 的配套命令行工具，安装：<code>sudo apt install hackrf</code>
-hackrf_info 查看版本
-<img alt="image.png" src="../img/QFremWZOAxJPs5Tf/1667718207969-bc2de54f-180d-4242-a789-0461784be616-926379.png" />
-hackrf_transfer，可以用来收发数据，如果用它来接收会从 usb 流入并保存到一个文件里，如果用来发射数据，文件内容会通过 usb 发往 hackrf 并通过天线发射出去
-<img alt="image.png" src="../img/QFremWZOAxJPs5Tf/1667718313968-b70c309f-2951-4b96-93ed-543ef6a7639f-278972.png" />
-我们通过<code>hackrf_transfer -r /dev/null</code>来测试一下能不能正常接收数据，可以看到我们的采样率是每秒 10M，但是实际每秒得到了 20M，这是因为每个采样点包含两个数值，每个数值都是有符号的 8 位整数
-<img alt="image.png" src="../img/QFremWZOAxJPs5Tf/1667719136325-65610c3b-fde0-4ca9-9779-cb3b1f334c38-216153.png" />
-可以通过 -s 参数指定采样率，比如<code>hackrf_transfer -r /dev/null -s 20000000</code>
-<img alt="image.png" src="../img/QFremWZOAxJPs5Tf/1667719421159-aba9968a-83aa-4c53-8887-e2c2d34bacd5-230391.png" />
-<code>hackrf_spiflash -w filename</code>用来刷写固件，刷写完后重新拔插 usb 或者摁一下 RESET 才会在 hackrf_info 里面看到新的固件版本
+<p>来尝试一下 hackrf 的配套命令行工具，安装：<code>sudo apt install hackrf</code><br />
+hackrf_info 查看版本<br />
+<img alt="image.png" src="../img/QFremWZOAxJPs5Tf/1667718207969-bc2de54f-180d-4242-a789-0461784be616-926379.png" /><br />
+hackrf_transfer，可以用来收发数据，如果用它来接收会从 usb 流入并保存到一个文件里，如果用来发射数据，文件内容会通过 usb 发往 hackrf 并通过天线发射出去<br />
+<img alt="image.png" src="../img/QFremWZOAxJPs5Tf/1667718313968-b70c309f-2951-4b96-93ed-543ef6a7639f-278972.png" /><br />
+我们通过<code>hackrf_transfer -r /dev/null</code>来测试一下能不能正常接收数据，可以看到我们的采样率是每秒 10M，但是实际每秒得到了 20M，这是因为每个采样点包含两个数值，每个数值都是有符号的 8 位整数<br />
+<img alt="image.png" src="../img/QFremWZOAxJPs5Tf/1667719136325-65610c3b-fde0-4ca9-9779-cb3b1f334c38-216153.png" /><br />
+可以通过 -s 参数指定采样率，比如<code>hackrf_transfer -r /dev/null -s 20000000</code><br />
+<img alt="image.png" src="../img/QFremWZOAxJPs5Tf/1667719421159-aba9968a-83aa-4c53-8887-e2c2d34bacd5-230391.png" /><br />
+<code>hackrf_spiflash -w filename</code>用来刷写固件，刷写完后重新拔插 usb 或者摁一下 RESET 才会在 hackrf_info 里面看到新的固件版本<br />
 升级 cpld 的话 xsvf 就是 cpld 配置文件：<code>haackrf_cpldjtag -x filename</code></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/taxcve">https://www.yuque.com/hxfqg9/iot/taxcve</a></p>

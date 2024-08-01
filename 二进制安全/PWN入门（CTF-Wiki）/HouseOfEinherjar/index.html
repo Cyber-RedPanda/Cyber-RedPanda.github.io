@@ -7578,7 +7578,7 @@
 
 <h2 id="house-of-einherjar">House Of Einherjar</h2>
 <h2 id="house-of-einherjar_1">House Of Einherjar原理</h2>
-<p>用 how2heap 的例子看一下
+<p>用 how2heap 的例子看一下<br />
 参考：<a href="http://blog.topsec.com.cn/pwn的艺术浅谈（二）：linux堆相关/">http://blog.topsec.com.cn/pwn的艺术浅谈（二）：linux堆相关/</a></p>
 <pre><code class="language-c">#include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
@@ -7656,11 +7656,11 @@ int main()
 <p>然后申请一个 chunk b，因为前面申请的 chunk 的大小是 0x38，所以 chunk a 共用了 chunk b 的 chunk 头的 0x8，也就是说我们写 chunk a 的最后 0x8 字节可以直接更改掉 chunk b 的 prev_size，这里为了让他能找到我们的 fake chunk，所以用 chunk b 的地址减去 fake chunk 的地址，0x603040-0x7fffffffdca0=0xffff8000006053a0</p>
 <p>同时假设存在一个 off by null 的漏洞，可以更改掉 chunk b 的 prev_inuse 为 0</p>
 <p><img alt="image.png" src="../img/bnBYDyhHIr2jvzPF/1599748630595-d2dd3efb-4027-41c5-ae8e-4a4d790d08ad-659194.png" /></p>
-<p>然后我们释放掉 b，这时候 b 因为与 top chunk 挨着，会跟 top chunk 合并，然后因为 prev_inuse 是 0，所以会根据 prev_size 去找前面的 free chunk，然而 prev_size 被我们改了，他去找的时候找到的是 fake chunk，然后两个合并，新的 top chunk 起点就成了 fake chunk，再次分配的时候就会分配到 fake chunk 那里了
+<p>然后我们释放掉 b，这时候 b 因为与 top chunk 挨着，会跟 top chunk 合并，然后因为 prev_inuse 是 0，所以会根据 prev_size 去找前面的 free chunk，然而 prev_size 被我们改了，他去找的时候找到的是 fake chunk，然后两个合并，新的 top chunk 起点就成了 fake chunk，再次分配的时候就会分配到 fake chunk 那里了<br />
 ps.按照这个道理 <code>d = malloc(0x200)</code> 这行代码还没执行的时候，<code>p main_arena</code> 应该看到 top 被改成了 fake chunk 地址的，但是调试的时候显示的是 chunk b 的地址，然而 malloc 之后才显示 top 为 fake chunk 的地址，然而此时 d 的地址已经是在 fake chunk 那里了，不知道为啥</p>
 <p>再深入理解为啥会跟 top chunk 合并之类这些问题大概要把 libc 的源码看一下才能理解，等以后吧 Orz</p>
 <h2 id="2016-seccon-tinypad">2016 Seccon tinypad</h2>
-<p>参考：<a href="https://xz.aliyun.com/t/6556">https://xz.aliyun.com/t/6556</a>
+<p>参考：<a href="https://xz.aliyun.com/t/6556">https://xz.aliyun.com/t/6556</a><br />
 在 read 的时候有一个 off by null</p>
 <p><img alt="image.png" src="../img/bnBYDyhHIr2jvzPF/1599805157537-de1c47db-ef0d-4b13-97f3-0357e121d18f-618370.png" /></p>
 <p>程序在 0x602140 这里记录了申请的 chunk 的 size 与指针</p>
@@ -7694,8 +7694,8 @@ delete(1)
 create(0x18, '1'*0x10 + p64(offset))
 delete(2)
 </code></pre>
-<p>这一块首先是通过计算算出了 heap_addr + 0x20 与 tinypd+0x20 的地址的偏移（实际上是 heap_addr 与 tinypad 的偏移），然后伪造了一个 fake chunk，它的大小是 0x101，fd 跟 bk 都是 tinypad + 0x20 的地址值
-然后通过 edit(2) 来吧内容写到 0x0602040 这里，此时在 0x602060 处就是我们的 fake chunk
+<p>这一块首先是通过计算算出了 heap_addr + 0x20 与 tinypd+0x20 的地址的偏移（实际上是 heap_addr 与 tinypad 的偏移），然后伪造了一个 fake chunk，它的大小是 0x101，fd 跟 bk 都是 tinypad + 0x20 的地址值<br />
+然后通过 edit(2) 来吧内容写到 0x0602040 这里，此时在 0x602060 处就是我们的 fake chunk<br />
 （edit 的时候先写到 0x0602040 这里，然后复制到指定的位置。真的，大部分问题可能都出在看不懂程序上 Orz）</p>
 <p><img alt="image.png" src="../img/bnBYDyhHIr2jvzPF/1599907207630-32fddaca-a7e8-4304-9fa0-763b36ce6ed3-323742.png" /></p>
 <p>对 chunk1 先 free 然后申请回来，同时把 offset 写到 chunk2 的 prev_size 位上，加上程序的 off by null 的漏洞，可以把 chunk2 的 prev_inuse 位给改为 0，所以再去 free chunk2 的时候就成功利用了 House Of Einherjar</p>
@@ -7719,8 +7719,8 @@ quit()
 </code></pre>
 <p>然后申请的时候就申请到了 fake chunk 那里，同时把 tinypad+0x100 那里的指针改成 size 跟 environ 的地址，通过 environ 函数泄漏 main 函数 retn 的地址，然后把这个地址覆盖为 one_gadget</p>
 <p><img alt="image.png" src="../img/bnBYDyhHIr2jvzPF/1599975425284-ce4533f5-6374-441c-a3d2-b6405d3163c0-254234.png" /></p>
-<p>接下来直接在 chunk1 的 content 处就可以看到 0x7ffff7dd3f38 处的 0x7fffffffde48
-然后要根据这个来算出距离 main_ret 处的偏移
+<p>接下来直接在 chunk1 的 content 处就可以看到 0x7ffff7dd3f38 处的 0x7fffffffde48<br />
+然后要根据这个来算出距离 main_ret 处的偏移<br />
 （直接在快要 ret 的那里下个断点，然后 <code>c</code> 运行到那里）</p>
 <p><img alt="image.png" src="../img/bnBYDyhHIr2jvzPF/1599980540990-da334df6-9e0b-46b4-b845-695679346ab5-395754.png" /></p>
 <p>接下来通过编辑第二个 chunk 把之前写 environ_pointer 的地址改成 main_ret 的地址，然后通过编辑 chunk1 把 main_ret 改成 one_gadget 然后正常的退出就可以啦</p>

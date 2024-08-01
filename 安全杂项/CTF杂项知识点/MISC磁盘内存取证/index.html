@@ -7681,37 +7681,37 @@
 <p><img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630025803358-237c6b6f-63e7-4c5e-ac80-8f339bd5a61f-346223.png" /></p>
 <p>用 VeraCrypt 挂载 0.fat，选中一个盘符，选择好文件，加载即可</p>
 <p><img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630030983442-33e2d0dd-f04f-47e3-8aac-b918dbc87772-837301.png" /></p>
-<p>会要求密码，题目给了，rctf
+<p>会要求密码，题目给了，rctf<br />
 <img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630031055335-f830f76e-ba26-457d-9afc-acb7290105dd-218058.png" /></p>
-<p>挂载成功
+<p>挂载成功<br />
 <img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630031081707-c482dd17-95a3-4a80-a795-0de1f21ce5cd-722504.png" /></p>
 <p>打开有个 password.txt 给了另外一个密码</p>
 <p><img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630031106752-fa96cc6b-75e0-47b9-ba20-7c4b9c2a8ec4-069220.png" /></p>
 <p>先卸载，再用这个密码挂载上，这次打不开</p>
 <p><img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630031271175-2e11feb9-6dea-4667-aa87-5d10fb0e86ae-670560.png" /></p>
 <p>用 winhex 打开硬盘（winhex 管理员方式打开）文件系统是 FAT32</p>
-<p><img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630032671841-6ac6cb46-c593-49cf-a17f-e72c8973d45c-879071.png" />
-<img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630032685968-8200ab67-d23d-465b-bb51-2fc5ea7602e9-885642.png" />
+<p><img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630032671841-6ac6cb46-c593-49cf-a17f-e72c8973d45c-879071.png" /><br />
+<img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630032685968-8200ab67-d23d-465b-bb51-2fc5ea7602e9-885642.png" /><br />
 <img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630032720459-b2610fc6-a829-4804-b11c-aa2e35c84957-506364.png" /></p>
 <p>随便翻翻找到后半段 flag</p>
-<p>知识点：VeraCrypt 可以使用密码挂载磁盘
+<p>知识点：VeraCrypt 可以使用密码挂载磁盘<br />
 使用不同密码挂载显示的不一样</p>
 <h2 id="_2">内存取证</h2>
 <h3 id="easy_dumpimg">easy_dump.img</h3>
 <p>首先 vol -f easy_dump.img imageinfo 查看基本信息</p>
 <p><img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630044653471-70ab365d-2e03-4262-9c79-d7e96187331e-254906.png" /></p>
-<p>然后找一下进程 <code>vol.py -f easy_dump.img --profile=Win7SP1x64 pstree</code>
-发现有 notepad，考虑会不会写在 notepad 里面了，使用 memdump 把 notepad 的内存保存出来
+<p>然后找一下进程 <code>vol.py -f easy_dump.img --profile=Win7SP1x64 pstree</code><br />
+发现有 notepad，考虑会不会写在 notepad 里面了，使用 memdump 把 notepad 的内存保存出来<br />
 <code>vol.py -f easy_dump.img --profile=Win7SP1x64 memdump -p 2616  -D ./</code></p>
-<p><code>strings -e l 2616.dmp | grep flag</code>
+<p><code>strings -e l 2616.dmp | grep flag</code><br />
 按照字符大小和顺序排序，发现假的 flag 给了个提示，说放在了一个 jpg 里面了</p>
 <p><img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630045327135-b8238655-edb0-4ca1-9665-6dd3c208b477-843102.png" /></p>
-<p>搜索图片 <code>vol.py -f easy_dump.img --profile=Win7SP1x64 filescan | grep -E 'png|jpg'</code>
+<p>搜索图片 <code>vol.py -f easy_dump.img --profile=Win7SP1x64 filescan | grep -E 'png|jpg'</code><br />
 并保存 <code>vol.py -f easy_dump.img --profile=Win7SP1x64 dumpfiles -Q 0x000000002408c460 -D ./</code></p>
 <p><img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630044760392-44f7da3e-7e16-4946-be40-9dbe80559b48-337588.png" /></p>
 <p>然后用 foremost 分离文件，找到一个压缩包，里面是 message.img，使用 file 检查一下发现是个 linux 下的 ext2 磁盘</p>
 <p><img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630045534120-94a463af-c041-4a46-a927-044bed9a762f-030296.png" /></p>
-<p>使用 mount 挂载，打开有个 hint.txt 里面是些坐标使用 gnuplot 画出来，扫码结果是
+<p>使用 mount 挂载，打开有个 hint.txt 里面是些坐标使用 gnuplot 画出来，扫码结果是<br />
 Here is the vigenere key: aeolus, but i deleted the encrypted message。</p>
 <p><img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630046097459-afc866e6-3721-49b1-8a64-2feda3576fa9-089922.png" /></p>
 <p>ls -al 逛逛，发现了 .swp 文件，使用 vim -r 读取</p>
@@ -7719,10 +7719,10 @@ Here is the vigenere key: aeolus, but i deleted the encrypted message。</p>
 <p>内容是：yise!dmsx_tthv_aar_didvi</p>
 <p><img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630046290170-f72b642d-6e4e-4b27-a569-e096e9b7d335-903133.png" /></p>
 <p><img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630046512192-a0a3a9eb-127b-4687-8395-e3aa74a0378d-006713.png" /></p>
-<p>知识点：volatility 使用 
+<p>知识点：volatility 使用 <br />
 .swp 读取（vim -r）</p>
 <h3 id="memdumpzipdiskzip">memdump.zip+disk.zip</h3>
-<p>首先使用 FTK 挂载磁盘
+<p>首先使用 FTK 挂载磁盘<br />
 <img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630048978012-df376076-9d33-4f69-b513-9601a02f309c-930619.png" /></p>
 <p>注意选择挂载方法可写那个</p>
 <p><img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630048731068-5b75cca2-6aff-4d32-a71a-38272394fc9d-097123.png" /></p>
@@ -7737,24 +7737,24 @@ Here is the vigenere key: aeolus, but i deleted the encrypted message。</p>
 <p><img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630049289583-66ad6950-8eef-41ee-9360-e959c93ebcfa-554993.png" /></p>
 <p>空着就行</p>
 <p><img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630049302622-d23749ae-9e6f-4023-9175-b443915a8afe-494829.png" /></p>
-<p>注意改成 0
+<p>注意改成 0<br />
 以及目标位置要是 C 盘</p>
 <p><img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630049532343-0b73b592-e15b-4e69-af66-b0b1047211bc-910595.png" /></p>
 <p>等生成完了把后缀名改为 img，再用 V2V 转换为 vmdk 格式</p>
-<p><img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630050111716-97eb58af-6577-451d-856c-1c1e6065397f-769753.png" />
-<img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630050157502-7f578891-3057-47a2-9fc6-0b35e1c3f0ec-637949.png" />
+<p><img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630050111716-97eb58af-6577-451d-856c-1c1e6065397f-769753.png" /><br />
+<img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630050157502-7f578891-3057-47a2-9fc6-0b35e1c3f0ec-637949.png" /><br />
 <img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630050167570-ba0d7ab0-e740-4952-9ea6-c3203e207e57-230977.png" /></p>
 <p>然后打开 vmware，新建虚拟机，选择使用现有的虚拟磁盘</p>
 <p><img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630050654138-1b2c121b-e6f7-4ad0-b0b1-2de735cc36ea-912844.png" /></p>
-<p>开机就可以啦
-<img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630050857439-8a0e2d1b-aa98-4ed4-b089-4ddd7e100587-360757.png" />
-但是都有密码，进不去，转过头来分析一下内存文件，volatility 插件 mimikatz 获取密码
+<p>开机就可以啦<br />
+<img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630050857439-8a0e2d1b-aa98-4ed4-b089-4ddd7e100587-360757.png" /><br />
+但是都有密码，进不去，转过头来分析一下内存文件，volatility 插件 mimikatz 获取密码<br />
 <code>XiaoMing::xiaoming_handsome</code></p>
 <p><img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630051157760-65f3f042-e05d-4d84-aeb2-9052264051fd-377069.png" /></p>
 <p>登录成功，桌面上便签重叠了，藏了一个，以及 F 盘用了 bitlocker 加密</p>
 <p><img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630051579996-f6ab6f3c-ffe9-4f4c-b316-606d877ceebe-177803.png" /></p>
 <p>首先使用 EFDD 来获取恢复密钥</p>
-<p><img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630051826619-6bf66a81-e9ef-4c79-a8c6-86c86dd126d7-845389.png" />
+<p><img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630051826619-6bf66a81-e9ef-4c79-a8c6-86c86dd126d7-845389.png" /><br />
 <img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630051838554-a933df90-4033-403f-b637-c5d5ab1cec4c-788372.png" /></p>
 <p>把 memdump.mem 放到虚拟机里面</p>
 <p><img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630051993537-d5bffedd-b7de-4177-bcdf-0fece3d1fbac-768924.png" /></p>
@@ -7770,7 +7770,7 @@ Algorithm:'BitLocker' (incl. 'To Go') Volume Master Key
 Key data (hex): 9dc9d924d0c693aa9ec9fb9b389e2f24c96c11c231a18ea9dbd3722a6440bb9f
 </code></pre>
 <p><img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630052115006-9d2f7a8a-1c1c-4668-a9d9-64216c86f521-563309.png" /></p>
-<p>拿到恢复的密钥
+<p>拿到恢复的密钥<br />
 549714-116633-006446-278597-176000-708532-618101-131406</p>
 <p>使用 DiskGenius 解锁磁盘</p>
 <p><img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630052272413-58f54295-8634-4a8a-824b-9f3792782087-801249.png" /></p>
@@ -7781,14 +7781,14 @@ Key data (hex): 9dc9d924d0c693aa9ec9fb9b389e2f24c96c11c231a18ea9dbd3722a6440bb9f
 <p>wireshark 追踪了一个 UDP 流发现有 rar，保存出来打开，压缩包密码是开机密码 xiaoming_handsome</p>
 <p><img alt="image.png" src="../img/O93AjBatW9ZLCjsI/1630052739237-0325c07b-2f3f-4935-ae02-86a6e42543f0-769551.png" /></p>
 <p>文档也有个密码，桌面便签写着了 xiaoming1314</p>
-<p>知识点：
-使用 FTK 转换磁盘格式为 img，使用 V2V 转换磁盘格式为 vmdk，然后使用 vmware 打开磁盘仿真
-便签可以移动
+<p>知识点：<br />
+使用 FTK 转换磁盘格式为 img，使用 V2V 转换磁盘格式为 vmdk，然后使用 vmware 打开磁盘仿真<br />
+便签可以移动<br />
 EFDD 通过内存文件找到恢复密钥，然后使用 DiskGenius 解密 bitlocker</p>
 <h2 id="png">补充PNG相关</h2>
-<p>PNG格式
-(1)分成很多IDAT数据块，然后每一块里面数据是以zlib格式压缩的
-(2)第一块IDAT数据块，他有一个zlib格式的标志，比如说789c
+<p>PNG格式<br />
+(1)分成很多IDAT数据块，然后每一块里面数据是以zlib格式压缩的<br />
+(2)第一块IDAT数据块，他有一个zlib格式的标志，比如说789c<br />
 (3)所以说一个图片按理来说只有一个789c这种标志</p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/misc/hrvdo2">https://www.yuque.com/hxfqg9/misc/hrvdo2</a></p>

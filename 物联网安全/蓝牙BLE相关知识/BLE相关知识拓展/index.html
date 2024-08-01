@@ -7895,62 +7895,62 @@
   <h1>BLE相关知识拓展</h1>
 
 <h2 id="ble">BLE相关知识拓展</h2>
-<p>做了一遍 BLE_CTF 貌似只是学习了如何是用工具与 ble 设备进行通信，希望扩展一下学些知识
+<p>做了一遍 BLE_CTF 貌似只是学习了如何是用工具与 ble 设备进行通信，希望扩展一下学些知识<br />
 参考：<a href="http://doc.iotxx.com/index.php?title=BLE%E6%8A%80%E6%9C%AF%E6%8F%AD%E7%A7%98">http://doc.iotxx.com/index.php?title=BLE技术揭秘</a></p>
 <h2 id="_1">角色</h2>
-<p>低功耗蓝牙设备主要分为两种角色：主机（Central）和从机（Peripheral），主机与从机建立连接之后才能互相收发数据，主机可以发起对从机的扫描（例如手机），从机只能广播并接受主机的链接（例如智能手环）
-另外还有观察者和广播者暂不讨论
+<p>低功耗蓝牙设备主要分为两种角色：主机（Central）和从机（Peripheral），主机与从机建立连接之后才能互相收发数据，主机可以发起对从机的扫描（例如手机），从机只能广播并接受主机的链接（例如智能手环）<br />
+另外还有观察者和广播者暂不讨论<br />
 蓝牙协议栈没有限制设备的角色，一个设备可以是主机也可以是从机（称为主从一体），可以发起连接也可以被别人连接</p>
 <h2 id="_2">广播</h2>
-<p>从机每隔一段时间发送一次广播数据包，时间间隔称为广播间隔，只有从机处于广播状态时主机才能够发现从机
-广播包最多能携带 31 字节的数据，一般包含可读的设备名称，设备是否可连接等信息
+<p>从机每隔一段时间发送一次广播数据包，时间间隔称为广播间隔，只有从机处于广播状态时主机才能够发现从机<br />
+广播包最多能携带 31 字节的数据，一般包含可读的设备名称，设备是否可连接等信息<br />
 当主机收到从机广播的数据包后，它可以再发送获取更多数据包的请求，这个时候从机将广播扫描回应数据包，扫描回应数据包和广播包一样，可以携带31个字节的数据</p>
 <h2 id="_3">扫描</h2>
 <p>主机通过扫描，可以获得从机的广播包以及扫描回应数据包，可以对已扫描到的从机发起连接请求，从而进行连接并通信</p>
 <h2 id="_4">连接</h2>
-<p>连接的时候采用跳频方案，在特定时间、特定频道上通信
+<p>连接的时候采用跳频方案，在特定时间、特定频道上通信<br />
 这里解释一下为啥要在没连接的时候开始抓包，因为 CC2540 USB Dongle 只能抓一个信道的数据，BLE 广播的时候在 37，38，39 随机选取一个信道，建立连接时根据一些设定好的参数跳频通信，只要抓到下面说的这个包，就可以跟着跳频通信</p>
 <h3 id="_5">跳频算法</h3>
-<p>在建立连接的这个 ADV_CONNECT_REQ 包里面的 LLData 数据段中，有 ChM 和 Hop，这两个字段，其中 ChM 表示那些频道可用，Hop 表示跳频计算时的一个“参数”
-例如我这个
+<p>在建立连接的这个 ADV_CONNECT_REQ 包里面的 LLData 数据段中，有 ChM 和 Hop，这两个字段，其中 ChM 表示那些频道可用，Hop 表示跳频计算时的一个“参数”<br />
+例如我这个<br />
 <img alt="image.png" src="../img/vKztXgCUuV673a-V/1646990546727-3de341c4-2445-4c3c-9901-3ebc33b47fdc-508145.png" /></p>
 <pre><code>ChM                    Hop
 0c 01 00 00 1f         07
 
 ChM 转为二进制是 00001100 00000001 00000000 00000000 00011111
 </code></pre>
-<p>ChM 二进制从右往左是各个频道的可用状态，1 为可用，0 为不可用
-在这里可用频道就有 use=[0,1,2,3,4,24,34,35]，可用频道数量为8
+<p>ChM 二进制从右往左是各个频道的可用状态，1 为可用，0 为不可用<br />
+在这里可用频道就有 use=[0,1,2,3,4,24,34,35]，可用频道数量为8<br />
 计算下一次使用频道的公式为 <code>fn+1 = (fn + hop) mod 37</code>，其中第一次fn为0</p>
-<p>所以下一次使用的频道是 fn+1=(0+7) mod 37 = 7，但是可用频道列表里面没有7
-就用 use[ 7 mod 可用信道数 ] 即 use[7 mod 8] 即 use[7] = 35 即 0x23
-上一次的fn+1作为下一次的fn，再来一遍上面的操作
-fn+1 = (7+7) mod 37 = 14，14不可用，所以use[14 mod 8] = 34 即 0x22
-fn+1 = (14+7) mod 37 = 21，21不可用，所以use[21 mod 8]= 24 即 0x18
-fn+1 = (21+7) mod 37 = 28，28不可用，use[28 mod 8] = 4 即 0x4
-......
-验证一下：
-<img alt="image.png" src="../img/vKztXgCUuV673a-V/1646991007989-e477c757-80b2-47f6-82fd-6d884cad53a2-753199.png" />
-交换 Feature 和 Version
-<img alt="image.png" src="../img/vKztXgCUuV673a-V/1647001794631-3e31649e-4a4b-4974-a13a-f44a6263fbbf-039046.png" />
-LL_Connect_Update_Req
+<p>所以下一次使用的频道是 fn+1=(0+7) mod 37 = 7，但是可用频道列表里面没有7<br />
+就用 use[ 7 mod 可用信道数 ] 即 use[7 mod 8] 即 use[7] = 35 即 0x23<br />
+上一次的fn+1作为下一次的fn，再来一遍上面的操作<br />
+fn+1 = (7+7) mod 37 = 14，14不可用，所以use[14 mod 8] = 34 即 0x22<br />
+fn+1 = (14+7) mod 37 = 21，21不可用，所以use[21 mod 8]= 24 即 0x18<br />
+fn+1 = (21+7) mod 37 = 28，28不可用，use[28 mod 8] = 4 即 0x4<br />
+......<br />
+验证一下：<br />
+<img alt="image.png" src="../img/vKztXgCUuV673a-V/1646991007989-e477c757-80b2-47f6-82fd-6d884cad53a2-753199.png" /><br />
+交换 Feature 和 Version<br />
+<img alt="image.png" src="../img/vKztXgCUuV673a-V/1647001794631-3e31649e-4a4b-4974-a13a-f44a6263fbbf-039046.png" /><br />
+LL_Connect_Update_Req<br />
 <img alt="image.png" src="../img/vKztXgCUuV673a-V/1647002362976-04646ea0-7e7f-48f2-a008-1ef50dda2251-414175.png" /></p>
 <h2 id="_6">通信</h2>
 <p>BLE 协议里引入了服务（Service）和特征值（Characteristic）的概念，每个服务和特征值都有唯一的 UUID，一个从机包含一个或多个服务，每个服务又有一条或多条特征值，每个特征值都有自己的属性（Property），属性有：可读（Read）、可写（Write）、通知（Notify），可读可写表示该特征值可以被主机读写，通知表示从机可以主动向主机发送通知数据</p>
 <h2 id="smp">SMP配对过程分析</h2>
-<p>协议中其实只有三步：
-1、Pairing Feature Exchange（配对特征交换）
-2、STK/LTK Generation（短期或长期密钥生成）
+<p>协议中其实只有三步：<br />
+1、Pairing Feature Exchange（配对特征交换）<br />
+2、STK/LTK Generation（短期或长期密钥生成）<br />
 3、Transport Specific Key Distribution（密钥分发）</p>
 <blockquote>
 <p>用简单的话来说，配对目的就防止两种攻击：被动监听和MITM，防止MITM需要人机交互操作，所以所有的JUSTWORK都没法防止这种攻击。被动监听目前采用非对称加解密方式，即可破解，所以采用EDCH的SSP以及LE SECURE CONNECTION都能防止这种攻击。</p>
-<p>作者：城市牧场
+<p>作者：城市牧场<br />
 链接：<a href="https://www.zhihu.com/question/29076831/answer/201659080">https://www.zhihu.com/question/29076831/answer/201659080</a></p>
 </blockquote>
 <h3 id="_7">配对特征交换</h3>
-<p>这一步会交换双方的配对能力与认证要求，例如 IO Capability 表示设备有哪些输入输出能力（是否能用键盘或者显示信息啥的）、OOB 表示设备是否可以通过其他方式（比如 NFC、红外）进行认证、MITM 表示设备是否请求中间人身份验证（这样就会需要人工判断信息）还会根据 Secure Connection 选择是使用安全连接（ LE Secure Connections）还是传统配对（LE legacy pairing）
-<img alt="1648083435148-fe699bc7-a9cc-449d-9840-25f1f88abe62.png" src="../img/vKztXgCUuV673a-V/1648083435148-fe699bc7-a9cc-449d-9840-25f1f88abe62-265052.png" />
-具体来看，IO Capability 表示支持哪些 IO 能力（一个字节）
+<p>这一步会交换双方的配对能力与认证要求，例如 IO Capability 表示设备有哪些输入输出能力（是否能用键盘或者显示信息啥的）、OOB 表示设备是否可以通过其他方式（比如 NFC、红外）进行认证、MITM 表示设备是否请求中间人身份验证（这样就会需要人工判断信息）还会根据 Secure Connection 选择是使用安全连接（ LE Secure Connections）还是传统配对（LE legacy pairing）<br />
+<img alt="1648083435148-fe699bc7-a9cc-449d-9840-25f1f88abe62.png" src="../img/vKztXgCUuV673a-V/1648083435148-fe699bc7-a9cc-449d-9840-25f1f88abe62-265052.png" /><br />
+具体来看，IO Capability 表示支持哪些 IO 能力（一个字节）<br />
 <img alt="1648104719616-138f4844-3664-47bd-8237-56b84503b681.png" src="../img/vKztXgCUuV673a-V/1648104719616-138f4844-3664-47bd-8237-56b84503b681-252979.png" /></p>
 <table>
 <thead>
@@ -7986,7 +7986,7 @@ LL_Connect_Update_Req
 </tr>
 </tbody>
 </table>
-<p>是否支持 OOB，即通过带外通道的方式进行认证，因为对于蓝牙攻击者来说这种方式是不可见的，所以安全些（一个字节）
+<p>是否支持 OOB，即通过带外通道的方式进行认证，因为对于蓝牙攻击者来说这种方式是不可见的，所以安全些（一个字节）<br />
 <img alt="1648104770877-89ea374b-83a7-420a-b91b-66c782a0baba.png" src="../img/vKztXgCUuV673a-V/1648104770877-89ea374b-83a7-420a-b91b-66c782a0baba-767545.png" /></p>
 <table>
 <thead>
@@ -8010,12 +8010,12 @@ LL_Connect_Update_Req
 </tr>
 </tbody>
 </table>
-<p>AuthReq 也是一个字节，但是不同的位有不同的含义，分别是
-Reserved、Keypress Flag、Secure Connection Flag、MITM Flag、Bonding Flags
-<img alt="1648108149235-13e31d8b-d2da-420f-b1b6-3e0a5f787429.png" src="../img/vKztXgCUuV673a-V/1648108149235-13e31d8b-d2da-420f-b1b6-3e0a5f787429-997324.png" />
-Keypress Flag 仅在 Passkey Entry 协议中使用，当设置为 1 时使用 摁键配对
-Secure Connection Flag 如果设备支持 LESC 安全连接配对就设置为 1，否则为 0
-MITM 如果设备请求 MITM 保护中间人身份验证，就设置为 1，否则为 0
+<p>AuthReq 也是一个字节，但是不同的位有不同的含义，分别是<br />
+Reserved、Keypress Flag、Secure Connection Flag、MITM Flag、Bonding Flags<br />
+<img alt="1648108149235-13e31d8b-d2da-420f-b1b6-3e0a5f787429.png" src="../img/vKztXgCUuV673a-V/1648108149235-13e31d8b-d2da-420f-b1b6-3e0a5f787429-997324.png" /><br />
+Keypress Flag 仅在 Passkey Entry 协议中使用，当设置为 1 时使用 摁键配对<br />
+Secure Connection Flag 如果设备支持 LESC 安全连接配对就设置为 1，否则为 0<br />
+MITM 如果设备请求 MITM 保护中间人身份验证，就设置为 1，否则为 0<br />
 Bonding Flags 表示设备请求绑定的类型</p>
 <table>
 <thead>
@@ -8045,18 +8045,18 @@ Bonding Flags 表示设备请求绑定的类型</p>
 </table>
 <h4 id="_8">关于配对方式的选择</h4>
 <p>应该是先判断 OOB，如果双方 OOB 均为 1 的话，优先使用 OOB，任何一个没有 OOB 就根据 MITM 判断，如果两个都没有要求 MITM 的话就 JUST WORK 了，如果是任何一个有 MITM 的话就看 IO 能力，画个表格大概是这样的</p>
-<p>| 
- | <strong>OOB 为 1</strong> | <strong>OOB 为 0</strong> | <strong>MITM 为 1</strong> | <strong>MITM 为 0</strong> |
-| --- | --- | --- | --- | --- |
+<p>| <br />
+ | <strong>OOB 为 1</strong> | <strong>OOB 为 0</strong> | <strong>MITM 为 1</strong> | <strong>MITM 为 0</strong> |<br />
+| --- | --- | --- | --- | --- |<br />
 | <strong>OOB 为 1</strong> | 用 OOB | 看 MITM | </p>
 <p>| </p>
-<p>|
+<p>|<br />
 | <strong>OOB 为 0</strong> | 看 MITM | 看 MITM | </p>
 <p>| </p>
-<p>|
+<p>|<br />
 | <strong>MITM 为 1</strong> | </p>
 <p>| </p>
-<p>| 看 IO 能力 | 看 IO 能力 |
+<p>| 看 IO 能力 | 看 IO 能力 |<br />
 | <strong>MITM 为 0</strong> | </p>
 <p>| </p>
 <p>| 看 IO 能力 | JUST WORK |</p>
@@ -8116,7 +8116,7 @@ Bonding Flags 表示设备请求绑定的类型</p>
 </tbody>
 </table>
 <h3 id="key-generation">双方生成 Key Generation</h3>
-<p>密钥生成的方式是根据上一步的配对特征确定的
+<p>密钥生成的方式是根据上一步的配对特征确定的<br />
 对于 LE legacy Pairing 会生成两个 key：</p>
 <ul>
 <li>Temporary Key（TK），用于生成 Short Term Key 的临时密钥，也就是我们输入的 PIN 码</li>
@@ -8127,14 +8127,14 @@ Bonding Flags 表示设备请求绑定的类型</p>
 <li>Long Term Key（LTK），用于加密配对后的通信</li>
 </ul>
 <p>LE legacy Pairing 是 BLE4.2 之前的 SMP 配对方式，因为需要把长期密钥 LTK 分发，所以才有被破解的风险，LE Secure Connection 已经规定好了 LTK 是怎么计算的，上方不需要交换 LTK 了，所以更加安全</p>
-<p>LE legacy Pairing 会先生成 TK，如果是根据配对特征发现是 just work 的方式，则 TK 默认是 000000
-当完成配对特征交换之后进行配对确认，先是发起者向应答者发送一个确认值（Confirm Value），然后应答者返回一个确认值，双方确认对方发送的确认值跟自己计算出来的确认值是否相同，相同就进入到下一步
+<p>LE legacy Pairing 会先生成 TK，如果是根据配对特征发现是 just work 的方式，则 TK 默认是 000000<br />
+当完成配对特征交换之后进行配对确认，先是发起者向应答者发送一个确认值（Confirm Value），然后应答者返回一个确认值，双方确认对方发送的确认值跟自己计算出来的确认值是否相同，相同就进入到下一步<br />
 <img alt="1648123009801-7c65268f-3f73-45c0-a228-483f8d12c047.png" src="../img/vKztXgCUuV673a-V/1648123009801-7c65268f-3f73-45c0-a228-483f8d12c047-280004.png" />互相发送 Random Value</p>
 <p>发送一个</p>
 <h2 id="_9">协议栈</h2>
-<p><img alt="1651125852161-73c1bad4-ba8a-4e09-bcb9-5ef4e4055e3d.png" src="../img/vKztXgCUuV673a-V/1651125852161-73c1bad4-ba8a-4e09-bcb9-5ef4e4055e3d-791693.png" />
-各芯片厂商具体实现各有不同，但都很相似，自顶向下大致分为三层
-Application（应用）、Host（主控）、Controller（控制器）
+<p><img alt="1651125852161-73c1bad4-ba8a-4e09-bcb9-5ef4e4055e3d.png" src="../img/vKztXgCUuV673a-V/1651125852161-73c1bad4-ba8a-4e09-bcb9-5ef4e4055e3d-791693.png" /><br />
+各芯片厂商具体实现各有不同，但都很相似，自顶向下大致分为三层<br />
+Application（应用）、Host（主控）、Controller（控制器）<br />
 其实 Application 使用来调用协议栈提供的接口的实现蓝牙功能的，不属于协议栈</p>
 <h3 id="physical-layer">Physical Layer 物理层</h3>
 <p>射频和电路部分</p>
@@ -8143,15 +8143,15 @@ Application（应用）、Host（主控）、Controller（控制器）
 <h3 id="hci">HCI层</h3>
 <p>Host Controller Interface，提供了标准的蓝牙事件以及命令接口，用于上下层通信</p>
 <h3 id="l2cap">L2CAP层</h3>
-<p>Logical Link Control and Adaption Protocol 逻辑链路控制和适配层
+<p>Logical Link Control and Adaption Protocol 逻辑链路控制和适配层<br />
 负责逻辑链路的连接和数据的分发</p>
 <h3 id="att-smp">ATT 和 SMP层</h3>
 <p>SMP 是用来负责配对和密钥分发的，ATT 是用来传输数据</p>
 <h3 id="gap-gatt">GAP 和 GATT</h3>
-<p>GAP是 Generic Access Profile 的缩写，中文含义是：通用访问配置文件，定义了 BLE 设备如何使其自身可用，以及两个设备如何直接相互通信，定义了 Peripheral 和 Central、Broadcaster 和 Observer。前者是建立连接后通信，从设备通常是外设，比如手环、血压计等，主设备通常是手机、PC。后者不建立连接通信的，是通过广播和解析广播的方式进行数据的传播与获取。
+<p>GAP是 Generic Access Profile 的缩写，中文含义是：通用访问配置文件，定义了 BLE 设备如何使其自身可用，以及两个设备如何直接相互通信，定义了 Peripheral 和 Central、Broadcaster 和 Observer。前者是建立连接后通信，从设备通常是外设，比如手环、血压计等，主设备通常是手机、PC。后者不建立连接通信的，是通过广播和解析广播的方式进行数据的传播与获取。<br />
 GATT是 Generic Attribute Profile 的缩写，是基于 ATT 的 Profile，中文含义是：通用属性配置文件，定义了一旦建立连接后如何传输属性，整合了 ATT 的读写操作，提供给上层的 Profile 用</p>
-<p>GATT 中存在服务端和客户端的定义，与主从设备无关，主要取决于数据的流动方向，比如客户端（主机如手机）需要从服务端（从机如手环）读取心跳等信息
-GATT 提供了通知（notifications）和指示（indications），客户端可以请求服务器请求通知一项特征（Characteristic），服务器可以在其变为可用时发送给客户端，避免客户端轮询服务器造成服务器无线电一直保持运行状态，指示（indication）与通知类似，但是它需要客户端响应已收到的消息
+<p>GATT 中存在服务端和客户端的定义，与主从设备无关，主要取决于数据的流动方向，比如客户端（主机如手机）需要从服务端（从机如手环）读取心跳等信息<br />
+GATT 提供了通知（notifications）和指示（indications），客户端可以请求服务器请求通知一项特征（Characteristic），服务器可以在其变为可用时发送给客户端，避免客户端轮询服务器造成服务器无线电一直保持运行状态，指示（indication）与通知类似，但是它需要客户端响应已收到的消息<br />
 即<strong>通知（notification）只是告知客户端，不需要确认，指示（indication）需要客户端确认</strong></p>
 <p>BLE 所有的 Profile 都是有 service 和 characteristic 构成的，一个标准的 Profile 至少有一个 service 组成，一个 service 至少有一个 characteristic 组成，每个 characteristic 都有一个 value，这个 value 就是 BLE 的实际数据</p>
 <blockquote>

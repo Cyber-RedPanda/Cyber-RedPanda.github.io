@@ -7541,115 +7541,115 @@
   <h1>原理图与封装part1&2</h1>
 
 <h2 id="part12">原理图与封装part1&amp;2</h2>
-<p>教程来自：<a href="https://www.bilibili.com/video/BV1Ab411K7yp">https://www.bilibili.com/video/BV1Ab411K7yp</a>，最终的效果是画一个 STM32 最小系统
-教程优点：没有废话（连话都没有2333）Altium Designer 的安装就不介绍了，微信一搜一大把分享资源的
-点击文件 -&gt; 新建 -&gt; 工程
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679637948846-e0e88802-3732-4055-a858-de529bdc6428-506984.png" />
-选择 PCB 项目，模板用默认的即可
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679638119419-b6f85087-0942-4fe0-a322-3c37a59828f5-214116.png" />
-右键创建好的工程，添加一个 PCB Library
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679638251328-c6b79ade-66be-43a5-89cc-00fac8dcfd7f-414029.png" />
-再用下面的标签回到项目
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679638374668-8ee8a62a-cc3b-416b-9037-c39b998fc2ea-353237.png" />
-右键工程。添加一个 Schematic Library
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679638417298-631c6b6d-c1a4-4131-a996-8724b0befc2e-663191.png" />
-创建完成后再回到工程右键，保存工程
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679638522896-aa3755a0-6b1b-4702-b42c-c4ba94c900e7-879217.png" />
-现在应该有两个窗口开着，点击 PcbLib 这个窗口，选择左下角的 PCB Library
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679638703726-4bc4f8ff-e28b-46cf-a93a-d4dc2974d905-786289.png" />
-接下来找到芯片的规格书，将会对照该芯片的的大小设置一下参数
-<a href="../attachments/VkO0NziKxxmD3rIh/stm32f103c8.pdf">附件: stm32f103c8.pdf</a>
-选择：工具 -&gt; IPC Compliant Footprint Wizard 进入封装创建向导
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679639400524-81a46e93-7a1b-4afe-9b0a-7ea65e33be09-631925.png" />
-选择 PQFP
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679639507930-cb83b40a-e482-4989-861e-34a667eb7ca3-844423.png" />
-然后就开始对照着芯片封装开始填参数了，其实对应的都挺好的，比如 E 这一个，minimum 在文档中是 8.8 那你的设置里面也是 8.8，maximum 应该是 9.2，这样依次对应好即可
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679639881773-063b0db2-039e-4aa2-b248-4c3f8ad9ed9a-944243.png" />
-都设置完成之后下一步即可
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679641106557-42f15001-1a03-43c8-8f83-57bd6de74243-784583.png" />
-一直按照默认选项下一步到 PQFP Footprint Description 的时候取消默认的勾选，填上名字，然后 Finish 即可
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679641196067-9e6309b6-99b2-4a67-bc3e-076589f4da81-215326.png" />
-摁下数字 3 就可以切换为 3D 模式
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679641429668-6000c322-f8c9-4bb5-8c23-dfc7d246ea74-854211.png" />
-摁住 shift 后鼠标右键拖动就可以 3D 预览，再按下 2 就可以回到一开始的视图了
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679641509590-794f3182-237d-44f5-a47b-fe88cb33587b-394610.png" />
-选择 SchLib，然后选择 SCH Library
-（原理图库，这里面应该是放着画整个板子的原理图要用到的一些芯片原理图）
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679651208815-84ddcfff-0857-46df-9271-e3c8c958bd15-771563.png" />
-双击 Library 中的器件，会弹出来这个框，照着图里这么填就行
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679651470528-56553493-00c9-4382-9d25-97ee98ed79c2-376938.png" />
-下面应该是画原理图中的某个芯片的原理图了，选择放置 -&gt; 矩形，至于大小可以先随便画一个，待会再调整，画好了之后右键就可以退出来了
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679651839437-bb35a283-caed-47db-bcb6-ccf7fd4c2f6f-109593.png" />
-画好矩形后再放置引脚
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679651997784-7784d179-987e-4841-acce-81557ad2687f-675857.png" />
-然后再对照着下载的 PDF 里面的原理图的引脚定义放引脚
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679652220120-b554c64c-adbc-4b2b-9868-6c658103dbd6-171476.png" />
-放的时候可以先随意放一下，这时候一个颜色比较浅的小叉是在里面的，要把它放在外面，我们可以摁下空格旋转，然后把他移动到另一边的点刚好接触到这个正方形即可
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679791982446-0c68ebff-02d5-4edc-82cb-cc5f751e7dd3-787327.png" />
-然后双击这个引脚，给他起好名字和标识
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679792423066-232ea349-0b70-44dc-a952-9040f6aa59b4-564581.png" />
-全部整理完是这样的，管脚两侧留出两个田字格的空余就行
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679793676217-50629a42-457b-46f0-9a9e-934a15d10bab-316997.png" />
-添加示意图，这一步应该是把画的原理图和封装关联起来？
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679793851018-2846d026-6f13-4e52-aa49-49a68f02a150-192343.png" />
-接下来回到工程目录，再添加 Schematic（原理图），打开之后先选个路径保存一下
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679794122807-131e4154-8631-4443-9365-f30dcf094f81-907763.png" />
-点击浏览器器件库，找到我们刚刚画好的芯片原理图，把他拖到原理图上
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679794476517-4b5457dc-cb85-49b3-bdf2-9ca0a3dfbc68-824883.png" />
-然后去 up 主的 GitHub 下载好他准备好的元器件库，点击 Libraries 添加库
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679796277274-bdeb9a77-4723-4707-975d-a531ee360794-055650.png" />
-找个 0805 的灯红灯拖到原理图上，再放一个 0805 的 1K欧电阻，然后找到 GND 和 VCC 也放到图上，拼成这样（也是空格旋转，右键取消）
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679796526049-eaa7ce32-6dd1-4f6d-9b04-3fccdd354379-334759.png" />
-可以双击 VCC 的组件，把名字改成 3.3v
-点击菜单栏的放置线把芯片的管脚延长一下，放线的时候是第一次点为起点，第二次点如果是连接到了其他线上就为终点，否则还能继续点，直到右键取消或连接到其他线上（可以放了几个之后直接复制粘贴，也是空格旋转）
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679796844017-f929fa0d-6c32-4df9-acf0-1007c8a8755b-110813.png" />
-然后把所有的 VSS 接上 GND，所有的 VDD 接上 GND（才发现我有个地方拼错了，问题不大）
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679797170709-920417a4-a850-4ad1-a740-c0fb7f901eeb-329544.png" />
-然后去器件库找个个电容，复制成四份用线连接起来，四个电容是用来去耦的，搜搜资料解释一下啊
-~~电容这个东西起到一个稳定电压的作用，电容两端的电压是不能突变的，当电容两端的电压突然升高的时候它会抑制升高，当电容两端的电压突然下降的时候他也会抑制下降，从而实现稳定电压~~
-~~此外，电容有隔直通交的特性，直流电通过电容时相当于断路，交流电的频率越高越容易通过电容，电容能够让高频信号通过，把低频信号挡住（高低频的这个临界值是通过公式算出来的，不想看了）~~
-总的来说，电容起到了一个过滤电路上其他电信号干扰的作用，也就是滤波，根据电容放置位置的不同，分为了旁路电容和去耦电容两类
-旁路是过滤输入给芯片的干扰的，把接收到的的信号留下自己需要的，通过旁路掉噪声；去耦是过滤芯片发出来的干扰的，芯片本身是打算产生完美信号的，但是其中还有其他电路的影响有一部分噪声会耦合到产生的信号上去，输出后用电容把耦合到信号上的噪声去掉，叫去耦
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679797448294-451b0fe7-6ca8-42b1-abcd-2ee958041e96-918775.png" />
-再给这一部分电容电路加上 VCC 和 GND
-可以通过放置文本字符串的方式去留一些字符串作为标记
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679800045714-e99959ad-2768-47ce-befd-ac6fdc035d40-842328.png" />
-接下来我们添加一个晶振，在 PCB Library 新建空白元件
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679807625936-3100c661-576d-4f75-b298-5c358d18423f-332895.png" />
-然后去找一个 8M 的晶振外形尺寸的说明
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679807790921-322462e9-8d02-42dd-949f-5d5ccf2af86f-641780.png" />
-从菜单栏选择放置焊盘
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679808476818-b7881070-3b39-460c-b7c8-9dabf354f15f-365248.png" />
-将焊盘选项改为如下：
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679808444363-7b96ff03-47c0-4bea-96d1-efa86395628d-702666.png" />
-如果是 mil 为单位的，点击菜单栏的查看（V），再点击切换单位（Q）即可
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679808545627-e2be8566-dcd6-446c-b24f-25cfab0e5703-155430.png" />
-因为上面的外形尺寸中要求两个焊盘之间的距离是 4.88，所以每个焊盘距离原点就是 2.44，可以通过设置他们的位置中的 X 参数来完成，一个 -2.44，一个2.44
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679808828160-7c63c2b8-eb37-41c9-8074-a3dcfc33453c-064304.png" />
-按下 ctrl+M 可以测量两个焊盘中心点的距离
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679808980944-6ae9ed6e-562b-41e8-b274-1f4d55078110-081314.png" />
-然后给这个晶振画个轮廓，选择放置走线的工具，把层改为 Top Overlay，先随便一画，我们根据晶振的外形尺寸直接设置参数即可（先画好之后再改设置可能不方便，点击工具之后直接按下 tab 建就可以改设置了）
-通过观察晶振的外形参数我们得知，总共长是 11.5mm，周围两个是半圆，半圆的直径是 5mm，那么单独的长度就只有 6.5mm，然后宽度的话应该是上下各 2.5，那就一条线的 Y 始终是 2.5mm，一条线的 Y 始终是 -2.5mm
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679809968134-e97102f0-a6fc-4231-b494-e31d2588c6ab-407410.png" />
-可以先用直线将上下两根线连接起来，再在连接线的中心放置圆弧（中心）
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679810791165-335073a6-1c94-4aac-bcc3-e12c35aec3f2-530607.png" />
-最后把中间的连线删了就行
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679810740333-380b9a37-ad6a-4826-8891-88139a0c885b-564930.png" /> <img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679810742629-4bf9a30b-96fb-4cef-9372-b25d9fe8ee78-284822.png" />
-画好了之后长这样
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679811350644-eb54edf7-8ac5-4804-a1a8-a95ba4b75916-132076.png" />
-接下来画一个晶振的原理图，在自带的库中是有的，不知道为啥要自己画一个，可能 UO 只是想教一教怎么画，库中自带的晶振就长这样
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679811630101-9ea88298-3ff9-4ba9-9a3d-46c92c16619e-352455.png" />
-回到 SchLib 中，先把自动吸附的栅格大小设置为 2.5
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679811821858-c9d3aec9-261a-4b4f-99b1-bd1801178d02-408141.png" />
-然后用线画就行了，注意管脚的长度改为 10，比例大概就这样
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679812697091-a1ed1565-44cc-43b7-8613-658ae2a16358-260027.png" />
-然后和 PcbLib 中的晶振关联起来
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679812777198-b1431baf-eaa1-4d23-90d1-e2dd3af52941-441888.png" />
-可以适当将画的这个图整体往 y 轴的右侧移动一下
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679812984429-14d3cffa-7203-4836-8676-9462131f387f-807247.png" />
-让他能够跟电容这些线重合起来（红色的是我做的标记）
-<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679812963514-b1e3b608-84f1-4020-a1fd-8838ce0f57c9-610667.png" />
-然后放上两个电容，连城这样的形式，再通过放置网络编号把他和 STM32 芯片的引脚对应起来
+<p>教程来自：<a href="https://www.bilibili.com/video/BV1Ab411K7yp">https://www.bilibili.com/video/BV1Ab411K7yp</a>，最终的效果是画一个 STM32 最小系统<br />
+教程优点：没有废话（连话都没有2333）Altium Designer 的安装就不介绍了，微信一搜一大把分享资源的<br />
+点击文件 -&gt; 新建 -&gt; 工程<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679637948846-e0e88802-3732-4055-a858-de529bdc6428-506984.png" /><br />
+选择 PCB 项目，模板用默认的即可<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679638119419-b6f85087-0942-4fe0-a322-3c37a59828f5-214116.png" /><br />
+右键创建好的工程，添加一个 PCB Library<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679638251328-c6b79ade-66be-43a5-89cc-00fac8dcfd7f-414029.png" /><br />
+再用下面的标签回到项目<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679638374668-8ee8a62a-cc3b-416b-9037-c39b998fc2ea-353237.png" /><br />
+右键工程。添加一个 Schematic Library<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679638417298-631c6b6d-c1a4-4131-a996-8724b0befc2e-663191.png" /><br />
+创建完成后再回到工程右键，保存工程<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679638522896-aa3755a0-6b1b-4702-b42c-c4ba94c900e7-879217.png" /><br />
+现在应该有两个窗口开着，点击 PcbLib 这个窗口，选择左下角的 PCB Library<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679638703726-4bc4f8ff-e28b-46cf-a93a-d4dc2974d905-786289.png" /><br />
+接下来找到芯片的规格书，将会对照该芯片的的大小设置一下参数<br />
+<a href="../attachments/VkO0NziKxxmD3rIh/stm32f103c8.pdf">附件: stm32f103c8.pdf</a><br />
+选择：工具 -&gt; IPC Compliant Footprint Wizard 进入封装创建向导<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679639400524-81a46e93-7a1b-4afe-9b0a-7ea65e33be09-631925.png" /><br />
+选择 PQFP<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679639507930-cb83b40a-e482-4989-861e-34a667eb7ca3-844423.png" /><br />
+然后就开始对照着芯片封装开始填参数了，其实对应的都挺好的，比如 E 这一个，minimum 在文档中是 8.8 那你的设置里面也是 8.8，maximum 应该是 9.2，这样依次对应好即可<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679639881773-063b0db2-039e-4aa2-b248-4c3f8ad9ed9a-944243.png" /><br />
+都设置完成之后下一步即可<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679641106557-42f15001-1a03-43c8-8f83-57bd6de74243-784583.png" /><br />
+一直按照默认选项下一步到 PQFP Footprint Description 的时候取消默认的勾选，填上名字，然后 Finish 即可<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679641196067-9e6309b6-99b2-4a67-bc3e-076589f4da81-215326.png" /><br />
+摁下数字 3 就可以切换为 3D 模式<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679641429668-6000c322-f8c9-4bb5-8c23-dfc7d246ea74-854211.png" /><br />
+摁住 shift 后鼠标右键拖动就可以 3D 预览，再按下 2 就可以回到一开始的视图了<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679641509590-794f3182-237d-44f5-a47b-fe88cb33587b-394610.png" /><br />
+选择 SchLib，然后选择 SCH Library<br />
+（原理图库，这里面应该是放着画整个板子的原理图要用到的一些芯片原理图）<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679651208815-84ddcfff-0857-46df-9271-e3c8c958bd15-771563.png" /><br />
+双击 Library 中的器件，会弹出来这个框，照着图里这么填就行<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679651470528-56553493-00c9-4382-9d25-97ee98ed79c2-376938.png" /><br />
+下面应该是画原理图中的某个芯片的原理图了，选择放置 -&gt; 矩形，至于大小可以先随便画一个，待会再调整，画好了之后右键就可以退出来了<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679651839437-bb35a283-caed-47db-bcb6-ccf7fd4c2f6f-109593.png" /><br />
+画好矩形后再放置引脚<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679651997784-7784d179-987e-4841-acce-81557ad2687f-675857.png" /><br />
+然后再对照着下载的 PDF 里面的原理图的引脚定义放引脚<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679652220120-b554c64c-adbc-4b2b-9868-6c658103dbd6-171476.png" /><br />
+放的时候可以先随意放一下，这时候一个颜色比较浅的小叉是在里面的，要把它放在外面，我们可以摁下空格旋转，然后把他移动到另一边的点刚好接触到这个正方形即可<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679791982446-0c68ebff-02d5-4edc-82cb-cc5f751e7dd3-787327.png" /><br />
+然后双击这个引脚，给他起好名字和标识<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679792423066-232ea349-0b70-44dc-a952-9040f6aa59b4-564581.png" /><br />
+全部整理完是这样的，管脚两侧留出两个田字格的空余就行<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679793676217-50629a42-457b-46f0-9a9e-934a15d10bab-316997.png" /><br />
+添加示意图，这一步应该是把画的原理图和封装关联起来？<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679793851018-2846d026-6f13-4e52-aa49-49a68f02a150-192343.png" /><br />
+接下来回到工程目录，再添加 Schematic（原理图），打开之后先选个路径保存一下<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679794122807-131e4154-8631-4443-9365-f30dcf094f81-907763.png" /><br />
+点击浏览器器件库，找到我们刚刚画好的芯片原理图，把他拖到原理图上<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679794476517-4b5457dc-cb85-49b3-bdf2-9ca0a3dfbc68-824883.png" /><br />
+然后去 up 主的 GitHub 下载好他准备好的元器件库，点击 Libraries 添加库<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679796277274-bdeb9a77-4723-4707-975d-a531ee360794-055650.png" /><br />
+找个 0805 的灯红灯拖到原理图上，再放一个 0805 的 1K欧电阻，然后找到 GND 和 VCC 也放到图上，拼成这样（也是空格旋转，右键取消）<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679796526049-eaa7ce32-6dd1-4f6d-9b04-3fccdd354379-334759.png" /><br />
+可以双击 VCC 的组件，把名字改成 3.3v<br />
+点击菜单栏的放置线把芯片的管脚延长一下，放线的时候是第一次点为起点，第二次点如果是连接到了其他线上就为终点，否则还能继续点，直到右键取消或连接到其他线上（可以放了几个之后直接复制粘贴，也是空格旋转）<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679796844017-f929fa0d-6c32-4df9-acf0-1007c8a8755b-110813.png" /><br />
+然后把所有的 VSS 接上 GND，所有的 VDD 接上 GND（才发现我有个地方拼错了，问题不大）<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679797170709-920417a4-a850-4ad1-a740-c0fb7f901eeb-329544.png" /><br />
+然后去器件库找个个电容，复制成四份用线连接起来，四个电容是用来去耦的，搜搜资料解释一下啊<br />
+~~电容这个东西起到一个稳定电压的作用，电容两端的电压是不能突变的，当电容两端的电压突然升高的时候它会抑制升高，当电容两端的电压突然下降的时候他也会抑制下降，从而实现稳定电压~~<br />
+~~此外，电容有隔直通交的特性，直流电通过电容时相当于断路，交流电的频率越高越容易通过电容，电容能够让高频信号通过，把低频信号挡住（高低频的这个临界值是通过公式算出来的，不想看了）~~<br />
+总的来说，电容起到了一个过滤电路上其他电信号干扰的作用，也就是滤波，根据电容放置位置的不同，分为了旁路电容和去耦电容两类<br />
+旁路是过滤输入给芯片的干扰的，把接收到的的信号留下自己需要的，通过旁路掉噪声；去耦是过滤芯片发出来的干扰的，芯片本身是打算产生完美信号的，但是其中还有其他电路的影响有一部分噪声会耦合到产生的信号上去，输出后用电容把耦合到信号上的噪声去掉，叫去耦<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679797448294-451b0fe7-6ca8-42b1-abcd-2ee958041e96-918775.png" /><br />
+再给这一部分电容电路加上 VCC 和 GND<br />
+可以通过放置文本字符串的方式去留一些字符串作为标记<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679800045714-e99959ad-2768-47ce-befd-ac6fdc035d40-842328.png" /><br />
+接下来我们添加一个晶振，在 PCB Library 新建空白元件<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679807625936-3100c661-576d-4f75-b298-5c358d18423f-332895.png" /><br />
+然后去找一个 8M 的晶振外形尺寸的说明<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679807790921-322462e9-8d02-42dd-949f-5d5ccf2af86f-641780.png" /><br />
+从菜单栏选择放置焊盘<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679808476818-b7881070-3b39-460c-b7c8-9dabf354f15f-365248.png" /><br />
+将焊盘选项改为如下：<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679808444363-7b96ff03-47c0-4bea-96d1-efa86395628d-702666.png" /><br />
+如果是 mil 为单位的，点击菜单栏的查看（V），再点击切换单位（Q）即可<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679808545627-e2be8566-dcd6-446c-b24f-25cfab0e5703-155430.png" /><br />
+因为上面的外形尺寸中要求两个焊盘之间的距离是 4.88，所以每个焊盘距离原点就是 2.44，可以通过设置他们的位置中的 X 参数来完成，一个 -2.44，一个2.44<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679808828160-7c63c2b8-eb37-41c9-8074-a3dcfc33453c-064304.png" /><br />
+按下 ctrl+M 可以测量两个焊盘中心点的距离<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679808980944-6ae9ed6e-562b-41e8-b274-1f4d55078110-081314.png" /><br />
+然后给这个晶振画个轮廓，选择放置走线的工具，把层改为 Top Overlay，先随便一画，我们根据晶振的外形尺寸直接设置参数即可（先画好之后再改设置可能不方便，点击工具之后直接按下 tab 建就可以改设置了）<br />
+通过观察晶振的外形参数我们得知，总共长是 11.5mm，周围两个是半圆，半圆的直径是 5mm，那么单独的长度就只有 6.5mm，然后宽度的话应该是上下各 2.5，那就一条线的 Y 始终是 2.5mm，一条线的 Y 始终是 -2.5mm<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679809968134-e97102f0-a6fc-4231-b494-e31d2588c6ab-407410.png" /><br />
+可以先用直线将上下两根线连接起来，再在连接线的中心放置圆弧（中心）<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679810791165-335073a6-1c94-4aac-bcc3-e12c35aec3f2-530607.png" /><br />
+最后把中间的连线删了就行<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679810740333-380b9a37-ad6a-4826-8891-88139a0c885b-564930.png" /> <img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679810742629-4bf9a30b-96fb-4cef-9372-b25d9fe8ee78-284822.png" /><br />
+画好了之后长这样<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679811350644-eb54edf7-8ac5-4804-a1a8-a95ba4b75916-132076.png" /><br />
+接下来画一个晶振的原理图，在自带的库中是有的，不知道为啥要自己画一个，可能 UO 只是想教一教怎么画，库中自带的晶振就长这样<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679811630101-9ea88298-3ff9-4ba9-9a3d-46c92c16619e-352455.png" /><br />
+回到 SchLib 中，先把自动吸附的栅格大小设置为 2.5<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679811821858-c9d3aec9-261a-4b4f-99b1-bd1801178d02-408141.png" /><br />
+然后用线画就行了，注意管脚的长度改为 10，比例大概就这样<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679812697091-a1ed1565-44cc-43b7-8613-658ae2a16358-260027.png" /><br />
+然后和 PcbLib 中的晶振关联起来<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679812777198-b1431baf-eaa1-4d23-90d1-e2dd3af52941-441888.png" /><br />
+可以适当将画的这个图整体往 y 轴的右侧移动一下<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679812984429-14d3cffa-7203-4836-8676-9462131f387f-807247.png" /><br />
+让他能够跟电容这些线重合起来（红色的是我做的标记）<br />
+<img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679812963514-b1e3b608-84f1-4020-a1fd-8838ce0f57c9-610667.png" /><br />
+然后放上两个电容，连城这样的形式，再通过放置网络编号把他和 STM32 芯片的引脚对应起来<br />
 <img alt="image.png" src="../img/VkO0NziKxxmD3rIh/1679813715945-129d3af2-dbe3-4c56-9583-8b9ed420825a-303072.png" /></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/lv9ko6wvckm5qgd6">https://www.yuque.com/hxfqg9/iot/lv9ko6wvckm5qgd6</a></p>

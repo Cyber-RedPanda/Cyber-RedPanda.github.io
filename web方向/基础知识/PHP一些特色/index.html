@@ -8168,7 +8168,7 @@ NULL==false==0
 true==1
 </code></pre>
 <h3 id="md5">MD5比较</h3>
-<p>PHP在处理哈希字符串时，它把每一个以“0E”开头的哈希值都解释为0，所以如果两个不同的密码经过哈希以后，其哈希值都是以“0E”开头的，那么PHP将会认为他们相同，都是0
+<p>PHP在处理哈希字符串时，它把每一个以“0E”开头的哈希值都解释为0，所以如果两个不同的密码经过哈希以后，其哈希值都是以“0E”开头的，那么PHP将会认为他们相同，都是0<br />
 md5(strings,true)，如果是true就返回十六进制的值</p>
 <p><strong>第一级</strong></p>
 <pre><code class="language-php">&lt;?php
@@ -8364,9 +8364,9 @@ else
 <p>真实md5碰撞，因为此时不能输入数组了，只能输入字符串</p>
 <p><strong>利用</strong></p>
 <p>强MD5碰撞，fastcoll.exe<a href="https://www.yuque.com/attachments/yuque/0/2019/zip/268938/1565528089921-a8ae2c72-1fe0-44c4-8dd4-5896a83dcc4a.zip?_lake_card=%7B%22uid%22%3A%22rc-upload-1565522818281-6%22%2C%22src%22%3A%22https%3A%2F%2Fwww.yuque.com%2Fattachments%2Fyuque%2F0%2F2019%2Fzip%2F268938%2F1565528089921-a8ae2c72-1fe0-44c4-8dd4-5896a83dcc4a.zip%22%2C%22name%22%3A%22fastcoll%EF%BC%88MD5%E5%BC%BA%E7%A2%B0%E6%92%9E%EF%BC%89.zip%22%2C%22size%22%3A112660%2C%22type%22%3A%22application%2Fx-zip-compressed%22%2C%22ext%22%3A%22zip%22%2C%22progress%22%3A%7B%22percent%22%3A0%7D%2C%22status%22%3A%22done%22%2C%22percent%22%3A0%2C%22id%22%3A%22yJTJw%22%2C%22card%22%3A%22file%22%7D">fastcoll（MD5强碰撞）.zip</a></p>
-<p>当期目录下新建一个0.txt文件，使用下面的命令，生成MD5相同的1.txt和2.txt
-命令行使用：
-fastcoll.exe -p 0.txt -o 1.txt 2.txt
+<p>当期目录下新建一个0.txt文件，使用下面的命令，生成MD5相同的1.txt和2.txt<br />
+命令行使用：<br />
+fastcoll.exe -p 0.txt -o 1.txt 2.txt<br />
 <img alt="image.png" src="../img/551828_zma46qdc6arqmhhm/1565528053120-f73633fd-e52c-4489-8ce6-d685093c6bbd-438763.png" /></p>
 <p>可以直接POST传文件</p>
 <p>还可以用Python来把数据提出来：二进制字符串-&gt;二进制流-&gt;16进制-&gt;url编码</p>
@@ -8377,7 +8377,7 @@ print(a)
 <p><img alt="image.png" src="../img/551828_zma46qdc6arqmhhm/1565528704288-0111f51e-bc1f-4bb8-86b4-f8d4c886defe-239367.png" /></p>
 <p>传参：</p>
 <blockquote>
-<p>param1=f%A8%9D%B3%8D%FD%CA-%9ElX%E8%C4%95%03%FC%BE%89%D7%EA%20%3CS%FB/f7e%0A%900%08%15%CE%C3%F2%E0%E5U%0Eo%06W%DC%913%99%A2%97%9D-F~%25%BE%A3%09%A5%C4%3Bj%D8kb%18%0E%01MK%A7%E1%19%DDD%2CL%DDJ%DA%22%84%CCj0%09f%26%E1%C9%1Av%BD%ECG%FE%E9Ne%9E%9B%F4%0E%E8%10%88bU7%D2%E4%D5%E8P8%B1z%13%2C%82%F8%8D%1B%3Fk%AF%BC3%05
+<p>param1=f%A8%9D%B3%8D%FD%CA-%9ElX%E8%C4%95%03%FC%BE%89%D7%EA%20%3CS%FB/f7e%0A%900%08%15%CE%C3%F2%E0%E5U%0Eo%06W%DC%913%99%A2%97%9D-F~%25%BE%A3%09%A5%C4%3Bj%D8kb%18%0E%01MK%A7%E1%19%DDD%2CL%DDJ%DA%22%84%CCj0%09f%26%E1%C9%1Av%BD%ECG%FE%E9Ne%9E%9B%F4%0E%E8%10%88bU7%D2%E4%D5%E8P8%B1z%13%2C%82%F8%8D%1B%3Fk%AF%BC3%05<br />
 &amp;param2=f%A8%9D%B3%8D%FD%CA-%9ElX%E8%C4%95%03%FC%BE%89%D7j%20%3CS%FB/f7e%0A%900%08%15%CE%C3%F2%E0%E5U%0Eo%06W%DC%91%B3%99%A2%97%9D-F~%25%BE%A3%09%A5%C4%BBj%D8kb%18%0E%01MK%A7%E1%19%DDD%2CL%DDJ%DA%22%84%CCj%B0%09f%26%E1%C9%1Av%BD%ECG%FE%E9Ne%9E%9B%F4%0E%E8%10%88bU7%D2d%D5%E8P8%B1z%13%2C%82%F8%8D%1B%3F%EB%AF%BC3%05</p>
 </blockquote>
 <p><img alt="image.png" src="../img/551828_zma46qdc6arqmhhm/1565528805731-25799f6b-6782-44b7-9bdc-d4c59b770188-950711.png" /></p>
@@ -8401,7 +8401,7 @@ else
 </code></pre>
 <p><strong>分析</strong></p>
 <p>发现返回值还是string，所以还是可以用数组让他出错</p>
-<p><a href="http://127.0.0.1/php/type/sha1.php?name%5B%5D=1&amp;password%5B%5D=">http://127.0.0.1/php/type/sha1.php?name[]=1&amp;password[]=</a>
+<p><a href="http://127.0.0.1/php/type/sha1.php?name%5B%5D=1&amp;password%5B%5D=">http://127.0.0.1/php/type/sha1.php?name[]=1&amp;password[]=</a><br />
 就可以，另外：</p>
 <table>
 <thead>
@@ -8472,8 +8472,8 @@ switch($key){
 </code></pre>
 <p>当$key是字符串时，跟下面比较会强制转换为int型，switch使用的是==格式，只要$key开头是3就可以</p>
 <h3 id="strcmp">strcmp相关</h3>
-<p>转换成ascii后逐字节进行比较
-返回相当于前面的减去后面的值
+<p>转换成ascii后逐字节进行比较<br />
+返回相当于前面的减去后面的值<br />
 strcmp('ab','aa')   返回的是1</p>
 <pre><code class="language-php">&lt;?php
 $flag=&quot;flag{welcome_to_strcmp_world!}&quot;;
@@ -8562,7 +8562,7 @@ foreach($_GET as $key =&gt; $value){
 echo &quot;$a&quot;;
 ?&gt;
 </code></pre>
-<p>如果传递的参数是a=123，那么GET得到的是是a=123，把$key的值给$value，意思就是$value=123
+<p>如果传递的参数是a=123，那么GET得到的是是a=123，把$key的值给$value，意思就是$value=123<br />
 $key是a，那么$$key就是$a</p>
 <p><strong>例题</strong></p>
 <pre><code class="language-php">&lt;?php
@@ -8593,7 +8593,7 @@ echo &quot;This is your flag: &quot;.$flag.&quot;\n&quot;;
 die($_200);
 ?&gt;
 </code></pre>
-<p>get传参_200=flag
+<p>get传参_200=flag<br />
 post传参flag=111</p>
 <h3 id="parse_str">parse_str</h3>
 <pre><code class="language-php">&lt;?php
@@ -8620,19 +8620,19 @@ else
 ?&gt;
 </code></pre>
 <p><strong>分析</strong></p>
-<p>parse_str会将传入的值变成变量，也就是说传入?id=a[0]那么就会有一个叫做a[0]的变量，然后只要这个变量的md5跟QNKCDZO相等就可以了
+<p>parse_str会将传入的值变成变量，也就是说传入?id=a[0]那么就会有一个叫做a[0]的变量，然后只要这个变量的md5跟QNKCDZO相等就可以了<br />
 <strong>注意：这个函数使用时，由于php变量名中不能带点和空格，他们会被转换成下划线</strong></p>
 <p><strong>利用</strong></p>
 <p><a href="http://127.0.0.1/php/variable/parse_str.php?id=a%5B0%5D=s214587387a">http://127.0.0.1/php/variable/parse_str.php?id=a[0]=s214587387a</a></p>
 <h2 id="_4">空白符</h2>
 <h3 id="intval">intval</h3>
-<p>会跳过一些空白符：\t\n\r\v\f等
-获取变量的整数值，成功时返回integer值，失败时返回0，空的array返回0，非空的array返回1
+<p>会跳过一些空白符：\t\n\r\v\f等<br />
+获取变量的整数值，成功时返回integer值，失败时返回0，空的array返回0，非空的array返回1<br />
 常规字符串会消失：123aa会变成123</p>
 <p>浮点精度</p>
 <p>1.000000000000000000001==1（0加到一定程度是跟1一样大的）</p>
 <h3 id="is_numeric">is_numeric</h3>
-<p>检查变量是否为数字或数字字符串
+<p>检查变量是否为数字或数字字符串<br />
 is_numeric 检测的时候会自动过滤掉前面的 ‘ ‘, ‘\t’, ‘\n’, ‘\r’, ‘\v’, ‘\f’ 等字符，但是不会过滤 ‘\0’，如果这些字符出现在字符串尾，不会过滤，而是返回 false</p>
 <pre><code class="language-php">&lt;?php
 //bugku的一道题
@@ -8645,7 +8645,7 @@ $num=$_GET['num'];
  }
 </code></pre>
 <h3 id="trim">trim</h3>
-<p>默认情况下会除掉首尾空白符：\n\t\r\v\0\x0B
+<p>默认情况下会除掉首尾空白符：\n\t\r\v\0\x0B<br />
 trim 函数会过滤空格以及 \n\r\t\v\0，但不会过滤过滤\f</p>
 <h2 id="_5">伪随机数</h2>
 <p>种子一样的时候生成的随机数是一样的，如果拿到了种子，可以知道接下来生成的随机数</p>
@@ -8683,13 +8683,13 @@ else
 }
 ?&gt;
 </code></pre>
-<p><a href="http://127.0.0.1/php/learn/yun_suan_fu.php?a=123">http://127.0.0.1/php/learn/yun_suan_fu.php?a=123</a>
+<p><a href="http://127.0.0.1/php/learn/yun_suan_fu.php?a=123">http://127.0.0.1/php/learn/yun_suan_fu.php?a=123</a><br />
 第七行，先$c=is_numeric($a)，然后再and，但是$c已经是正确的了，下面的$b就用定义好的就行了</p>
 <h2 id="parse_url">parse_url</h2>
 <p>解析url，返回其组成部分，返回值是数组</p>
 <h2 id="escapeshellarg">escapeshellarg</h2>
 <p>把字符串转码为可以在shell中使用的参数</p>
-<p>给字符串增加一个单引号并且能引用或者转码任何已经存在的单引号，这样以确保能够直接将一个字符串传入shell函数
+<p>给字符串增加一个单引号并且能引用或者转码任何已经存在的单引号，这样以确保能够直接将一个字符串传入shell函数<br />
 并且还是确保安全的</p>
 <h2 id="escapeshellcmd">escapeshellcmd</h2>
 <p>shell元字符转义，对字符串中存在的可能欺骗shell执行的任意命令的字符进行转义</p>
@@ -8697,8 +8697,8 @@ else
 <h2 id="disable_function">disable_function</h2>
 <p>apache 的配置文件 php.ini 文件中定义的不允许执行的函数，在 phpinfo 中也会有表示</p>
 <h3 id="_7">黑名单绕过</h3>
-<p>使用不在列表之中的函数
-如果 system 可以使用 php 本身的命令实现，可以不用 system 
+<p>使用不在列表之中的函数<br />
+如果 system 可以使用 php 本身的命令实现，可以不用 system <br />
 例如：scandir 用于列目录，就代替了 system('ls');</p>
 <h3 id="_8">扩展使用</h3>
 <h4 id="windows-com">Windows 下 COM 组件（系统组件）</h4>

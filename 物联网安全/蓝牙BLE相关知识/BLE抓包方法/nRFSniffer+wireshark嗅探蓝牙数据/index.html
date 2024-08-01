@@ -7579,37 +7579,37 @@
   <h1>nRFSniffer+wireshark嗅探蓝牙数据</h1>
 
 <h2 id="nrf-snifferwireshark">nRF Sniffer+wireshark嗅探蓝牙数据</h2>
-<p>这应该是性价比最高的方案了，同时三个信道的广播包，还能选择某一个设备去抓
+<p>这应该是性价比最高的方案了，同时三个信道的广播包，还能选择某一个设备去抓<br />
 <a href="https://blog.csdn.net/qq_33475105/article/details/115058045">https://blog.csdn.net/qq_33475105/article/details/115058045</a></p>
 <h2 id="_1">正常抓包配置</h2>
-<p>下载地址 <a href="https://www.nordicsemi.com/Products/Development-tools/nRF-Sniffer-for-Bluetooth-LE/Download?lang=en#infotabs">https://www.nordicsemi.com/Products/Development-tools/nRF-Sniffer-for-Bluetooth-LE/Download?lang=en#infotabs</a>
-在解压出来的目录里的 extcap 目录中 <code>pip3 install -r requirements.txt</code>
-然后打开你的 wireshrak，在 帮助 -&gt; 关于wireshark -&gt; 文件夹 -&gt; Extcap 路径下
-<img alt="image.png" src="../img/9g8q5hYZ1XuClrTm/1647587600964-fb4a2a73-809d-4255-a8c1-0e8205f55814-062960.png" />
-把刚才的 extcap 文件夹里的内容拷贝过去到 Global Extcap path 里面的路径里
-<img alt="image.png" src="../img/9g8q5hYZ1XuClrTm/1647587714786-ecdfd696-704e-44f6-8fb4-baaec4faf7ef-112026.png" />
-运行这条命令<code>nrf_sniffer_ble.bat --extcap-interfaces</code>，这样就是成功了
-<img alt="image.png" src="../img/9g8q5hYZ1XuClrTm/1647589712266-d858d0e2-1631-49e3-8f09-fbe662752fbd-766876.png" />
-连接上 nRF Connect 之后在 wireshark 的捕获-&gt;刷新接口列表就可以看到 nRF Sniffer for Buletooth LE 这个接口
-<img alt="image.png" src="../img/9g8q5hYZ1XuClrTm/1647589806083-28cb9ef9-a4c8-41d5-814d-4f4b7506778d-240208.png" />
-捕获就行了，另外，在 视图 -&gt; 接口工具栏 中有个工具，可以指定捕获哪些地址的数据，以及指定配对码之类的 key，配对了 key 之后就能正常的解析 BLE 的通信（以我的理解是）
-<img alt="image.png" src="../img/9g8q5hYZ1XuClrTm/1647939806576-5a50dc46-64ff-452f-97b5-df75c2494965-909386.png" />
-<img alt="image.png" src="../img/9g8q5hYZ1XuClrTm/1647940196801-88361073-6f37-4269-a71b-bb3922940048-650076.png" />
-（蓝牙设备打个屁的码？）比如我抓的这个开发板的流量，没有设置 passkey 显示的是 Encrypted
-<img alt="image.png" src="../img/9g8q5hYZ1XuClrTm/1647944413154-e848274a-0af5-484d-aee9-0750b98099b8-319339.png" />
+<p>下载地址 <a href="https://www.nordicsemi.com/Products/Development-tools/nRF-Sniffer-for-Bluetooth-LE/Download?lang=en#infotabs">https://www.nordicsemi.com/Products/Development-tools/nRF-Sniffer-for-Bluetooth-LE/Download?lang=en#infotabs</a><br />
+在解压出来的目录里的 extcap 目录中 <code>pip3 install -r requirements.txt</code><br />
+然后打开你的 wireshrak，在 帮助 -&gt; 关于wireshark -&gt; 文件夹 -&gt; Extcap 路径下<br />
+<img alt="image.png" src="../img/9g8q5hYZ1XuClrTm/1647587600964-fb4a2a73-809d-4255-a8c1-0e8205f55814-062960.png" /><br />
+把刚才的 extcap 文件夹里的内容拷贝过去到 Global Extcap path 里面的路径里<br />
+<img alt="image.png" src="../img/9g8q5hYZ1XuClrTm/1647587714786-ecdfd696-704e-44f6-8fb4-baaec4faf7ef-112026.png" /><br />
+运行这条命令<code>nrf_sniffer_ble.bat --extcap-interfaces</code>，这样就是成功了<br />
+<img alt="image.png" src="../img/9g8q5hYZ1XuClrTm/1647589712266-d858d0e2-1631-49e3-8f09-fbe662752fbd-766876.png" /><br />
+连接上 nRF Connect 之后在 wireshark 的捕获-&gt;刷新接口列表就可以看到 nRF Sniffer for Buletooth LE 这个接口<br />
+<img alt="image.png" src="../img/9g8q5hYZ1XuClrTm/1647589806083-28cb9ef9-a4c8-41d5-814d-4f4b7506778d-240208.png" /><br />
+捕获就行了，另外，在 视图 -&gt; 接口工具栏 中有个工具，可以指定捕获哪些地址的数据，以及指定配对码之类的 key，配对了 key 之后就能正常的解析 BLE 的通信（以我的理解是）<br />
+<img alt="image.png" src="../img/9g8q5hYZ1XuClrTm/1647939806576-5a50dc46-64ff-452f-97b5-df75c2494965-909386.png" /><br />
+<img alt="image.png" src="../img/9g8q5hYZ1XuClrTm/1647940196801-88361073-6f37-4269-a71b-bb3922940048-650076.png" /><br />
+（蓝牙设备打个屁的码？）比如我抓的这个开发板的流量，没有设置 passkey 显示的是 Encrypted<br />
+<img alt="image.png" src="../img/9g8q5hYZ1XuClrTm/1647944413154-e848274a-0af5-484d-aee9-0750b98099b8-319339.png" /><br />
 配置好 key 之后就可以正常的看到数据了<img alt="image.png" src="../img/9g8q5hYZ1XuClrTm/1647944702544-f4cff705-5760-40b2-9c98-900b38a685bc-825282.png" /></p>
 <h2 id="nrf-52840-sniffer">﻿nRF 52840 sniffer 烧写</h2>
-<p>打开 nRF Connect for Desktop，找到这个 Programmer 打开
-<img alt="image.png" src="../img/9g8q5hYZ1XuClrTm/1659951519154-298c7608-0285-4e7d-8154-38e71c52c316-764972.png" />
-下拉选择设备，多试试吧（第一个是我的蓝牙适配器）
-<img alt="image.png" src="../img/9g8q5hYZ1XuClrTm/1659951650510-2e4db4a3-522a-47c5-b42f-76d5e3c7331b-699433.png" />
-如果设备读不出来内存布局，可以摁一下一个小摁扭，注意是紧贴着板子的那个
-<img alt="image.png" src="../img/9g8q5hYZ1XuClrTm/1659952372119-a9812bcf-c760-4655-a857-f712b10fddda-122557.png" />
-选择要烧写的文件
-<img alt="image.png" src="../img/9g8q5hYZ1XuClrTm/1659951691284-596c9c64-dc6e-46d7-bba1-247a28ca54a3-568682.png" />
-找到下载的那个压缩包，在 hex 文件夹里面，选 sniffer_nrf52840dongle_nrf52840_4.1.0.hex
-<img alt="image.png" src="../img/9g8q5hYZ1XuClrTm/1659951379555-2955fd3c-776d-4e16-8c30-a749eb4cf10e-231320.png" />
-点击 Write 烧进去就行了
+<p>打开 nRF Connect for Desktop，找到这个 Programmer 打开<br />
+<img alt="image.png" src="../img/9g8q5hYZ1XuClrTm/1659951519154-298c7608-0285-4e7d-8154-38e71c52c316-764972.png" /><br />
+下拉选择设备，多试试吧（第一个是我的蓝牙适配器）<br />
+<img alt="image.png" src="../img/9g8q5hYZ1XuClrTm/1659951650510-2e4db4a3-522a-47c5-b42f-76d5e3c7331b-699433.png" /><br />
+如果设备读不出来内存布局，可以摁一下一个小摁扭，注意是紧贴着板子的那个<br />
+<img alt="image.png" src="../img/9g8q5hYZ1XuClrTm/1659952372119-a9812bcf-c760-4655-a857-f712b10fddda-122557.png" /><br />
+选择要烧写的文件<br />
+<img alt="image.png" src="../img/9g8q5hYZ1XuClrTm/1659951691284-596c9c64-dc6e-46d7-bba1-247a28ca54a3-568682.png" /><br />
+找到下载的那个压缩包，在 hex 文件夹里面，选 sniffer_nrf52840dongle_nrf52840_4.1.0.hex<br />
+<img alt="image.png" src="../img/9g8q5hYZ1XuClrTm/1659951379555-2955fd3c-776d-4e16-8c30-a749eb4cf10e-231320.png" /><br />
+点击 Write 烧进去就行了<br />
 <img alt="image.png" src="../img/9g8q5hYZ1XuClrTm/1659952238350-48ffa407-188e-4f6d-bbf8-a8618f575c2d-687165.png" /></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/pet5rg">https://www.yuque.com/hxfqg9/iot/pet5rg</a></p>

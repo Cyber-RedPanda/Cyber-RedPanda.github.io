@@ -7653,14 +7653,14 @@ func main() {
 }
 
 </code></pre>
-<p>这时候会提示风险，接受风险后正常访问
-<img alt="image.png" src="../img/mLDy7Kx_zp0XhChC/1663208368579-a5647385-94f5-467c-8db7-252c9a6e723c-469046.png" />
-<img alt="image.png" src="../img/mLDy7Kx_zp0XhChC/1663208365971-e73b4daa-8922-457a-a766-1d4a25bbcf13-832702.png" />
-接下来使用 go 写一个客户端来进行连接
-(github上面下载的证书过期了，重新生成一下
-openssl genrsa -out server.key 2048      #生成私钥
-openssl req -new -x509 -key server.key -out server.crt -days 365     #生成证书
-<img alt="image.png" src="../img/mLDy7Kx_zp0XhChC/1663210660579-59606175-3caa-4933-a006-e144381e34c4-873399.png" />
+<p>这时候会提示风险，接受风险后正常访问<br />
+<img alt="image.png" src="../img/mLDy7Kx_zp0XhChC/1663208368579-a5647385-94f5-467c-8db7-252c9a6e723c-469046.png" /><br />
+<img alt="image.png" src="../img/mLDy7Kx_zp0XhChC/1663208365971-e73b4daa-8922-457a-a766-1d4a25bbcf13-832702.png" /><br />
+接下来使用 go 写一个客户端来进行连接<br />
+(github上面下载的证书过期了，重新生成一下<br />
+openssl genrsa -out server.key 2048      #生成私钥<br />
+openssl req -new -x509 -key server.key -out server.crt -days 365     #生成证书<br />
+<img alt="image.png" src="../img/mLDy7Kx_zp0XhChC/1663210660579-59606175-3caa-4933-a006-e144381e34c4-873399.png" /><br />
 )</p>
 <pre><code class="language-go">package main
 
@@ -7682,8 +7682,8 @@ func main() {
 }
 
 </code></pre>
-<p>请求的时候报了一个错误，意思是客户端认为证书不是由知名的CA签发的
-<img alt="image.png" src="../img/mLDy7Kx_zp0XhChC/1663210804156-ac42d997-67a7-4fda-9742-112db78411d5-336270.png" />
+<p>请求的时候报了一个错误，意思是客户端认为证书不是由知名的CA签发的<br />
+<img alt="image.png" src="../img/mLDy7Kx_zp0XhChC/1663210804156-ac42d997-67a7-4fda-9742-112db78411d5-336270.png" /><br />
 修改客户端的代码，略过对证书的校验</p>
 <pre><code class="language-go">package main
 
@@ -7711,7 +7711,7 @@ func main() {
 }
 </code></pre>
 <h2 id="https_2">HTTPS对服务端证书进行校验</h2>
-<p>多数时候需要对服务端证书进行校验，而不是像上面那样忽略这个校验，通过校验我们可以确认：1、服务端传来的证书是由某个特定CA签发的（如果是self-signed，也无妨）2、服务端传来的数字证书没有被中途篡改过
+<p>多数时候需要对服务端证书进行校验，而不是像上面那样忽略这个校验，通过校验我们可以确认：1、服务端传来的证书是由某个特定CA签发的（如果是self-signed，也无妨）2、服务端传来的数字证书没有被中途篡改过<br />
 接下来建立一个属于自己的CA</p>
 <pre><code>#生成一个ca私钥
 openssl genrsa -out ca.key 2048
@@ -7861,9 +7861,9 @@ func main() {
 
 </code></pre>
 <p>通是通了，但是抓包看不到区别</p>
-<p>参考：
-<a href="https://github.com/bigwhite/experiments/tree/master/gohttps">experiments/gohttps at master · bigwhite/experiments</a>
-<a href="https://cloud.tencent.com/developer/article/1071278?from=article.detail.1071279">Go和HTTPS--1 - 腾讯云开发者社区-腾讯云</a>
+<p>参考：<br />
+<a href="https://github.com/bigwhite/experiments/tree/master/gohttps">experiments/gohttps at master · bigwhite/experiments</a><br />
+<a href="https://cloud.tencent.com/developer/article/1071278?from=article.detail.1071279">Go和HTTPS--1 - 腾讯云开发者社区-腾讯云</a><br />
 <a href="https://cloud.tencent.com/developer/article/1071279">Go和HTTPS -2 - 腾讯云开发者社区-腾讯云</a></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/misc/ct4pg1">https://www.yuque.com/hxfqg9/misc/ct4pg1</a></p>

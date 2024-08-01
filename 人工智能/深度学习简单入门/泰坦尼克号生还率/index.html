@@ -7694,7 +7694,7 @@ all_data = pd.read_excel('titanic3.xls')
 </tr>
 </tbody>
 </table>
-<p>有些东西不会影响生还率，比如：姓名、船票编号、船舱编号、在哪里上船等，但是要用姓名来进行预测，所以要保留，而在哪里上船（embarked）也暂时保留，用它学个新知识，正常训练删掉就可
+<p>有些东西不会影响生还率，比如：姓名、船票编号、船舱编号、在哪里上船等，但是要用姓名来进行预测，所以要保留，而在哪里上船（embarked）也暂时保留，用它学个新知识，正常训练删掉就可<br />
 可以先把要保留的字段做成一个列表，然后再把列表保留出来</p>
 <pre><code class="language-python">cols = ['survived', 'name', 'pclass', 'sex', 'age', 'sibsp', 'parch', 'fare', 'embarked']
 #cols = ['survived', 'name', 'pclass', 'sex', 'age', 'sibsp', 'parch', 'fare']
@@ -7705,7 +7705,7 @@ all_data = all_data[cols]
 <pre><code class="language-python">OneHot_data = pd.get_dummies(data=data_train, columns=['embarked'])
 </code></pre>
 <p><img alt="image.png" src="../img/jqxDl03iH3ezdZLo/1612168111230-abfed7b9-ba64-4179-82a8-9f7ceb2ac6c0-367862.png" /></p>
-<p><strong>正式处理数据：</strong>
+<p><strong>正式处理数据：</strong><br />
 我们取 80% 作为训练数据，剩下的作为测试数据</p>
 <pre><code class="language-python">msk = np.random.random(len(all_df)) &lt; 0.8
 train_data = all_data[msk]
@@ -7726,7 +7726,7 @@ test_data = all_data[~msk]
     scaledFeatures = minmax_scale.fit_transform(Features)
     return scaledFeatures, Label
 </code></pre>
-<p>下面一个一个介绍是干啥的：
+<p>下面一个一个介绍是干啥的：<br />
 因为 name 列对于训练是没用的，只是后面拿来预测用，所以先把 name 列去除</p>
 <pre><code class="language-python">df = raw_df.drop(['name'], axis = 1)
 </code></pre>
@@ -7775,12 +7775,12 @@ model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy']
 print(scores)
 </code></pre>
 <h2 id="_6">添加人物信息</h2>
-<p>把想要预测的任务构建出来
+<p>把想要预测的任务构建出来<br />
 比如想要预测 yichen：</p>
 <pre><code class="language-python">#'survived：是否生还', 'name', 'pclass：船票种类（1&gt;2&gt;3）', 'sex', 'age', 'sibsp：兄弟姐妹数', 'parch：父母孩子数', 'fare：买票的费用'
 yichen_data = [1,'yichen','3','male',22,0,2,32.7]
 </code></pre>
-<p>是否生还这一项，预测的时候就不用了，无关紧要，但我还是写成了生还哈哈哈哈哈
+<p>是否生还这一项，预测的时候就不用了，无关紧要，但我还是写成了生还哈哈哈哈哈<br />
 我这肯定是最底层的船舱了，费用就取了个他们的平均数 32.7</p>
 <pre><code class="language-python">yichen_df = pd.DataFrame([list(yichen_data)], columns=['survived', 'name', 'pclass', 'sex', 'age', 'sibsp', 'parch', 'fare'])
 </code></pre>
@@ -7795,8 +7795,8 @@ yichen_data = [1,'yichen','3','male',22,0,2,32.7]
 </code></pre>
 <p>我这生还率高得离谱！?</p>
 <p><img alt="image.png" src="../img/jqxDl03iH3ezdZLo/1612277143351-dcab28f8-3018-485a-8813-2e3046e31554-635948.png" /></p>
-<p>呸，不能这样算！！！！
-它是按照那么多人有几个小艇可以走那样训练的，就一个人必存活呀
+<p>呸，不能这样算！！！！<br />
+它是按照那么多人有几个小艇可以走那样训练的，就一个人必存活呀<br />
 先把这个数据加在总的数据里面，这样生还率应该稍微比真实情况偏低一丁点，但是这样才是预测的正确姿势呀</p>
 <pre><code class="language-python">all_df = pd.concat([all_df, yichen_df])
 </code></pre>

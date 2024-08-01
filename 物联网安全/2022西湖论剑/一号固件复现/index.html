@@ -7541,20 +7541,20 @@
   <h1>一号固件复现</h1>
 
 <h2 id="_1">一号固件复现</h2>
-<p>烧录参考：
-<a href="http://open.hatlab.dbappsecurity.com.cn/gateboard-one/web/#/12/45">http://open.hatlab.dbappsecurity.com.cn/gateboard-one/web/#/12/45</a>
-我用的是 U 盘，直接把固件烧录好插到板子的 USB 接口，上电启动即可
+<p>烧录参考：<br />
+<a href="http://open.hatlab.dbappsecurity.com.cn/gateboard-one/web/#/12/45">http://open.hatlab.dbappsecurity.com.cn/gateboard-one/web/#/12/45</a><br />
+我用的是 U 盘，直接把固件烧录好插到板子的 USB 接口，上电启动即可<br />
 板子正常启动后会亮蓝灯</p>
 <p>扫描周围设备，发现 MAC 地址：56:90:BC:87:CC:E0，使用 ble-serial 将蓝牙的串口映射到本地</p>
 <pre><code>ble-serial -d 56:90:bc:87:cc:e0 
 </code></pre>
-<p><img alt="image.png" src="../img/7q_HYcxAsoe_Y-bu/1681367443358-fb889bf1-6143-4a22-9287-1b07890c2cd1-995039.png" />
-使用 minicom 来连接一下
-首先使用 minicom -s 命令来配置一下参数，将高亮调整到 Serial port setup 这一行，回车进入选项
-<img alt="image.png" src="../img/7q_HYcxAsoe_Y-bu/1681369168125-42ea6a09-b7a4-4daa-b000-5ab2eac72775-913823.png" />
-按下前面对应的字母就能修改对应的内容，需要改的地方有两个，一个是 Serial Device，改为 /tmp/ttyBLE，一个是把 Hardware Flow Control 硬件流控给关了
-<img alt="image.png" src="../img/7q_HYcxAsoe_Y-bu/1681369214438-b9158f79-e570-4b72-bd60-c5f22350a6a6-934756.png" />
-然后选择 Save setup as dfl 保存到默认配置，然后直接执行 minicom 命令就可以了
+<p><img alt="image.png" src="../img/7q_HYcxAsoe_Y-bu/1681367443358-fb889bf1-6143-4a22-9287-1b07890c2cd1-995039.png" /><br />
+使用 minicom 来连接一下<br />
+首先使用 minicom -s 命令来配置一下参数，将高亮调整到 Serial port setup 这一行，回车进入选项<br />
+<img alt="image.png" src="../img/7q_HYcxAsoe_Y-bu/1681369168125-42ea6a09-b7a4-4daa-b000-5ab2eac72775-913823.png" /><br />
+按下前面对应的字母就能修改对应的内容，需要改的地方有两个，一个是 Serial Device，改为 /tmp/ttyBLE，一个是把 Hardware Flow Control 硬件流控给关了<br />
+<img alt="image.png" src="../img/7q_HYcxAsoe_Y-bu/1681369214438-b9158f79-e570-4b72-bd60-c5f22350a6a6-934756.png" /><br />
+然后选择 Save setup as dfl 保存到默认配置，然后直接执行 minicom 命令就可以了<br />
 <img alt="image.png" src="../img/7q_HYcxAsoe_Y-bu/1681370021635-d7ce2560-861b-4a3d-b64e-acc292e83ef0-776929.png" /></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/nggz6yc0gcx6yap8">https://www.yuque.com/hxfqg9/iot/nggz6yc0gcx6yap8</a></p>

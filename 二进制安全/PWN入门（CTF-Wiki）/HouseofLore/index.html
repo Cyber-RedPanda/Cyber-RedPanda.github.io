@@ -7605,16 +7605,16 @@ int main(int argc, char * argv[]){
   memcpy((p4+40), &amp;sc, 8);
 }
 </code></pre>
-<p><code>intptr_t *victim = malloc(100);</code>
+<p><code>intptr_t *victim = malloc(100);</code><br />
 首先申请了一个在 fastbin 范围内的 victim chunk，然后再在栈上构造了一个假的 chunk</p>
 <p><img alt="image.png" src="../img/TXP9qjwIzOaq7NAo/1600589399497-c0c6c4e3-77b1-494f-a517-8239984658a8-499233.png" /></p>
 <p>为了绕过检测，设置 stack_buffer_1 的 bk 指针指向 stack_buffer_2，设置 stack_buffer_2 的 fd 指针指向 stack_buffer_1</p>
 <p><img alt="image.png" src="../img/TXP9qjwIzOaq7NAo/1600589503218-1fa6876b-b219-473d-91e9-1647fc3b0ea4-399149.png" /></p>
 <p>接下来先 malloc 一个防止 free 之后与 top chunk 合并，然后 free 掉 victim，这时候 victim 会被放到 fastbin 中</p>
 <p><img alt="image.png" src="../img/TXP9qjwIzOaq7NAo/1600589811846-a3c7f408-6dab-4493-b816-c354a8b5c03d-009367.png" /></p>
-<p>接下来再去 malloc 一个 large chunk，会触发 fastbin 的合并，然后放到 unsorted bin 中，这样我们的 victim chunk 就放到了 unsorted bin 中，然后最终被 unsorted bin 分配到 small bin 中
-参考：
-<a href="http://blog.topsec.com.cn/pwn的艺术浅谈（二）：linux堆相关/">http://blog.topsec.com.cn/pwn的艺术浅谈（二）：linux堆相关/</a>
+<p>接下来再去 malloc 一个 large chunk，会触发 fastbin 的合并，然后放到 unsorted bin 中，这样我们的 victim chunk 就放到了 unsorted bin 中，然后最终被 unsorted bin 分配到 small bin 中<br />
+参考：<br />
+<a href="http://blog.topsec.com.cn/pwn的艺术浅谈（二）：linux堆相关/">http://blog.topsec.com.cn/pwn的艺术浅谈（二）：linux堆相关/</a><br />
 <a href="https://bbs.pediy.com/thread-257742.htm">https://bbs.pediy.com/thread-257742.htm</a></p>
 <p><strong>再把 victim 的 bk 指针改为 stack_buffer_1</strong></p>
 <p><img alt="image.png" src="../img/TXP9qjwIzOaq7NAo/1600589949684-8d030612-6d11-401a-92e4-b039ec69e5e2-483833.png" /></p>

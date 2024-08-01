@@ -7541,39 +7541,39 @@
   <h1>桌面电子时钟（立创训练营）</h1>
 
 <h2 id="_1">桌面电子时钟（立创训练营）</h2>
-<p>在立创 EDA 专业版创建完项目之后，双击项目就会有自动创建好的 SCH 原理图和 PCB 电路图
-<img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688262833227-7d751718-f05d-4626-b882-7c4a2f0e3d7b-338615.png" />
-首先是原理图的绘制，主控芯片采用瑞萨 ARM-M 系列 48MHz，在立创商城可以搜到，编号为 C2932201，直接在立创 EDA 选择 放置 -&gt; 器件，搜索到芯片后点击放置即可，左键是放置，右键是取消放置
-<img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688262719176-50f65f34-1a88-42df-b2dd-d84ed28a73dd-671380.png" />
-我们可以点击芯片，在界面右侧会有更多属性选项，可以点击数据手册跳转到这个芯片的数据手册（这也是通过丝印找芯片手册的一个好方法，直接在立创商城搜这个芯片）接下来的外围电路都是根据这个数据手册来进行绘制的
-<img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688262935218-b6822c01-3d70-4778-8afb-dcc291c90ac0-837557.png" />
-我们先来绘制供电部分的原理图，因为时钟不需要用到很多 USB 功能，而且引脚多了也不好焊接，所以只需要一正一负，来给时钟供电即可直接在立创商城的 USB 连接器目录筛选 2P 的 Type-C 接口，然后回到 EDA 中搜索编号放置原理图（选中芯片原理图按空格键可以旋转）
+<p>在立创 EDA 专业版创建完项目之后，双击项目就会有自动创建好的 SCH 原理图和 PCB 电路图<br />
+<img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688262833227-7d751718-f05d-4626-b882-7c4a2f0e3d7b-338615.png" /><br />
+首先是原理图的绘制，主控芯片采用瑞萨 ARM-M 系列 48MHz，在立创商城可以搜到，编号为 C2932201，直接在立创 EDA 选择 放置 -&gt; 器件，搜索到芯片后点击放置即可，左键是放置，右键是取消放置<br />
+<img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688262719176-50f65f34-1a88-42df-b2dd-d84ed28a73dd-671380.png" /><br />
+我们可以点击芯片，在界面右侧会有更多属性选项，可以点击数据手册跳转到这个芯片的数据手册（这也是通过丝印找芯片手册的一个好方法，直接在立创商城搜这个芯片）接下来的外围电路都是根据这个数据手册来进行绘制的<br />
+<img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688262935218-b6822c01-3d70-4778-8afb-dcc291c90ac0-837557.png" /><br />
+我们先来绘制供电部分的原理图，因为时钟不需要用到很多 USB 功能，而且引脚多了也不好焊接，所以只需要一正一负，来给时钟供电即可直接在立创商城的 USB 连接器目录筛选 2P 的 Type-C 接口，然后回到 EDA 中搜索编号放置原理图（选中芯片原理图按空格键可以旋转）<br />
 <img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688263271360-fcb43e00-a2ef-4f84-be7a-63eb251e9db6-789680.png" /></p>
-<p>点击视图 -&gt; 浮动工具，将浮动工具打开，将其中的 5V 放到 VBUS 处，表示正极
-<img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688263464413-f8794911-a282-4a96-ae21-d5ee9393b9b5-482976.png" />
-再放置一个 GND（浮动工具中 5V 旁边的那个），可以离得远一点，然后选择放置 -&gt; 导线 将 GND 和 Type-C 的 GND 连接起来
-<img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688263588931-fb752f5a-fb9f-4ce1-ae31-e3d37de04bd8-366950.png" />
-点击右侧工具栏的封装，可以弹出来具体这个器件的外观们可以看到 3、4、5、6 引脚都是用来焊接的，没啥用，可以直接找个 GND 给接地
-<img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688263811564-7dcb6f52-8384-48a2-9593-564528302e41-030386.png" />
-然后在放置中搜索一个 led 作为电源指示灯，封装选择 0805，如果是基础库后面直接嘉立创给焊接贴片的话就能省一笔费用
-<img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688263958069-07fc5297-d3e7-4c95-afa6-fdac4f15196b-131760.png" />
-再放一个限流电阻，放置 led 被烧掉
-<img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688264996549-aa832600-c675-42dd-b924-cf03b64a3e29-703236.png" />
-最终电源输入电路效果如下
-<img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688265122117-b27d6f5a-a5c4-4297-b8ec-9c531e3f8e95-958439.png" />
-在芯片手册中可以看到在 VCC 和 VSS 之间需要一个 0.1uf 的电容，也就是 100nf，同时 VCL 也需要一个电容，这个电容的值可以通过搜索文档内其他 VCL 出现的地方得知，是 4.7uf，另外 VSS 连接的是 GND
-<img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688267169224-8ae5228d-715f-4f3d-8d83-467945e466af-271326.png" />
-筛选一下 0805 和基础库的电容，因为有两个 VCC，所以这次直接放置两个
-<img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688266794711-d6d36ff5-53f4-4a53-92f3-ceeaab27cf42-492282.png" />
-<img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688267077137-4eca74f1-6d29-4198-a4d7-63f0c1f6a6a0-004996.png" />
-继续阅读手册，发现 XTAL 和 EXTAL 是用来连接外部时钟信号的，XCIN 和 XCOUT 是连接内部时钟信号的，CLKOUT 是时钟输出引脚，XCIN 和 XCOUT 不能用来当作 IO 口来使用的，因为他连接到了内部晶振，在浮动工具中选择那个叉给它打上
-<img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688267338527-79385902-f434-4285-acfa-3e11c6d3ecd1-594316.png" />
-继续阅读芯片手册，发现一个 MD 引脚是用来进行模式选择的，但是整个手册中都没有说怎么选择，因此去到用户手册，看一下，发现是这么设置的：MD=1 时是单芯片模式，MD=0 时是 boot 模式，所以我们需要设置一个按键进行切换
-<img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688305352887-74d28692-76d7-411e-96e2-ba8204b0d300-711898.png" />
-在放置中选择：C318938 这个体积比较大，焊接比较方便，然后一端接 5V，但是不能直接输入给 MD 引脚，会损坏芯片，需要接一个电阻限流，通过 10K 的贴片电阻（C17414）作为上拉电阻连接 5V 和 MD 引脚，开关另一端接一个 1K 的电阻后接 GND，这样当按钮未按下时 MD 是 1，按下时就会变为 0
-（图中的 MD 是通过浮动工具中的网络标签引出来的，相同的网络标签可以让我们知道这个电路中的这个引脚要接到什么地方）
-<img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688305924570-bdc23092-1249-4b02-b344-24ca3d702a82-750071.png" />
-接下来是 System control 的 RES 引脚，作为复位功能，当引脚为低电平的时候系统复位
+<p>点击视图 -&gt; 浮动工具，将浮动工具打开，将其中的 5V 放到 VBUS 处，表示正极<br />
+<img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688263464413-f8794911-a282-4a96-ae21-d5ee9393b9b5-482976.png" /><br />
+再放置一个 GND（浮动工具中 5V 旁边的那个），可以离得远一点，然后选择放置 -&gt; 导线 将 GND 和 Type-C 的 GND 连接起来<br />
+<img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688263588931-fb752f5a-fb9f-4ce1-ae31-e3d37de04bd8-366950.png" /><br />
+点击右侧工具栏的封装，可以弹出来具体这个器件的外观们可以看到 3、4、5、6 引脚都是用来焊接的，没啥用，可以直接找个 GND 给接地<br />
+<img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688263811564-7dcb6f52-8384-48a2-9593-564528302e41-030386.png" /><br />
+然后在放置中搜索一个 led 作为电源指示灯，封装选择 0805，如果是基础库后面直接嘉立创给焊接贴片的话就能省一笔费用<br />
+<img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688263958069-07fc5297-d3e7-4c95-afa6-fdac4f15196b-131760.png" /><br />
+再放一个限流电阻，放置 led 被烧掉<br />
+<img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688264996549-aa832600-c675-42dd-b924-cf03b64a3e29-703236.png" /><br />
+最终电源输入电路效果如下<br />
+<img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688265122117-b27d6f5a-a5c4-4297-b8ec-9c531e3f8e95-958439.png" /><br />
+在芯片手册中可以看到在 VCC 和 VSS 之间需要一个 0.1uf 的电容，也就是 100nf，同时 VCL 也需要一个电容，这个电容的值可以通过搜索文档内其他 VCL 出现的地方得知，是 4.7uf，另外 VSS 连接的是 GND<br />
+<img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688267169224-8ae5228d-715f-4f3d-8d83-467945e466af-271326.png" /><br />
+筛选一下 0805 和基础库的电容，因为有两个 VCC，所以这次直接放置两个<br />
+<img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688266794711-d6d36ff5-53f4-4a53-92f3-ceeaab27cf42-492282.png" /><br />
+<img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688267077137-4eca74f1-6d29-4198-a4d7-63f0c1f6a6a0-004996.png" /><br />
+继续阅读手册，发现 XTAL 和 EXTAL 是用来连接外部时钟信号的，XCIN 和 XCOUT 是连接内部时钟信号的，CLKOUT 是时钟输出引脚，XCIN 和 XCOUT 不能用来当作 IO 口来使用的，因为他连接到了内部晶振，在浮动工具中选择那个叉给它打上<br />
+<img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688267338527-79385902-f434-4285-acfa-3e11c6d3ecd1-594316.png" /><br />
+继续阅读芯片手册，发现一个 MD 引脚是用来进行模式选择的，但是整个手册中都没有说怎么选择，因此去到用户手册，看一下，发现是这么设置的：MD=1 时是单芯片模式，MD=0 时是 boot 模式，所以我们需要设置一个按键进行切换<br />
+<img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688305352887-74d28692-76d7-411e-96e2-ba8204b0d300-711898.png" /><br />
+在放置中选择：C318938 这个体积比较大，焊接比较方便，然后一端接 5V，但是不能直接输入给 MD 引脚，会损坏芯片，需要接一个电阻限流，通过 10K 的贴片电阻（C17414）作为上拉电阻连接 5V 和 MD 引脚，开关另一端接一个 1K 的电阻后接 GND，这样当按钮未按下时 MD 是 1，按下时就会变为 0<br />
+（图中的 MD 是通过浮动工具中的网络标签引出来的，相同的网络标签可以让我们知道这个电路中的这个引脚要接到什么地方）<br />
+<img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688305924570-bdc23092-1249-4b02-b344-24ca3d702a82-750071.png" /><br />
+接下来是 System control 的 RES 引脚，作为复位功能，当引脚为低电平的时候系统复位<br />
 <img alt="image.png" src="../img/xsCrSYkuGV_x8fmO/1688308402583-38d4f43f-1b1e-44a8-8bf5-99520c98b109-761535.png" /></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/fe7k7h0fh1dxggeo">https://www.yuque.com/hxfqg9/iot/fe7k7h0fh1dxggeo</a></p>

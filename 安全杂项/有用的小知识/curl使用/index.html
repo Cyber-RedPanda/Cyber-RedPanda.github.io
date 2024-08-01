@@ -7794,46 +7794,46 @@
 
 <h2 id="curl">curl使用</h2>
 <h2 id="get">无 正常get</h2>
-<p>通过 GET 方式正常请求
-会把返回的内容保存下来
+<p>通过 GET 方式正常请求<br />
+会把返回的内容保存下来<br />
 <code>curl http://127.0.0.1</code></p>
 <h2 id="-a-ua">-A 改ua</h2>
-<p>指定用户代理标头（user-agent）
+<p>指定用户代理标头（user-agent）<br />
 <code>curl -A "chrome 5.1" http://127.0.0.1</code></p>
 <h2 id="-b-cookie">-b 改cookie</h2>
-<p>指定 cookie 访问
-<code>curl -b 'cookie=yichen123' http://127.0.0.1</code>
+<p>指定 cookie 访问<br />
+<code>curl -b 'cookie=yichen123' http://127.0.0.1</code><br />
 <code>curl -b cookie.txt http://127.0.0.1</code></p>
 <h2 id="-c-cookie">-c 接收服务端cookie</h2>
-<p>将服务器传过来的 cookie 写到文件里面
+<p>将服务器传过来的 cookie 写到文件里面<br />
 <code>curl -c cookie.txt http://127.0.0.1</code></p>
 <h2 id="-d-post">-d  POST</h2>
-<p>使用 -d 以后会自动改成 POST 方式请求
+<p>使用 -d 以后会自动改成 POST 方式请求<br />
 <code>curl -d "a=yichen&amp;b=password" -X POST http://127.0.0.1</code></p>
 <h2 id="-data-urlencode">--data-urlencode</h2>
 <p>跟-d差不多，不过会进行 url 编码</p>
 <h2 id="-e-refer">-e 改refer</h2>
-<p>设置 refer 标明请求来源
+<p>设置 refer 标明请求来源<br />
 <code>curl -e "39.105.32.48" http://127.0.0.1</code></p>
 <h2 id="-f">-F 传文件</h2>
-<p><code>curl -F "file=@yichen.png;filename=1.png"</code>
+<p><code>curl -F "file=@yichen.png;filename=1.png"</code><br />
 源文件名为yichen.png 传上去的文件名叫 1.png</p>
 <h2 id="-h">-H 改请求头</h2>
-<p><code>curl -H 'Accept-Language: en-US' -H 'Secret-Message: xyzzy' https://127.0.0.1</code>
-请求头中的 range 可以用来界定下载范围
+<p><code>curl -H 'Accept-Language: en-US' -H 'Secret-Message: xyzzy' https://127.0.0.1</code><br />
+请求头中的 range 可以用来界定下载范围<br />
 -H 'Range: bytes=6291456000-6291456050'</p>
 <h2 id="-r">-r 分块下载</h2>
 <p><code>curl -r 123-456 -o 1.mp4 http://127.0.0.1/1.mp4</code></p>
 <h2 id="-x">-X 改请求方法</h2>
 <p><code>curl -X POST http://127.0.0.1</code></p>
 <h2 id="-v">-v 显示全过程</h2>
-<p><code>curl -v http://127.0.0.1</code>
+<p><code>curl -v http://127.0.0.1</code><br />
 显示比较全的信息，便于调试</p>
 <h2 id="-u-http">-u http认证</h2>
-<p><code>curl -u "yichen:password" http://127.0.0.1</code>
+<p><code>curl -u "yichen:password" http://127.0.0.1</code><br />
 这就是那个 base64 编码的</p>
 <h2 id="-o">-o 保存返回</h2>
-<p><code>curl -o yichen.html http://127.0.0.1/index.html</code>
+<p><code>curl -o yichen.html http://127.0.0.1/index.html</code><br />
 与 wget 效果相同</p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/misc/heis24">https://www.yuque.com/hxfqg9/misc/heis24</a></p>

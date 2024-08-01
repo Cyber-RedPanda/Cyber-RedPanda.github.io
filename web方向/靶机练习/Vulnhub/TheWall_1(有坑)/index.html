@@ -7547,7 +7547,7 @@
 <p><img alt="image.png" src="../img/ow9iDPwCsDnlty86/1597022292459-71cbabcf-753a-4ef9-bf96-06638f0f7d4f-967326.png" /></p>
 <p>然后 wireshark 抓包</p>
 <p><img alt="image.png" src="../img/ow9iDPwCsDnlty86/1597024114560-fd9d720d-0628-41dd-9492-b51d306859e0-252257.png" /></p>
-<p>发现靶机在寻找 1337 端口，那么我们 nc -lvp 1337 监听一下
+<p>发现靶机在寻找 1337 端口，那么我们 nc -lvp 1337 监听一下<br />
 收到了这样的消息</p>
 <p><img alt="image.png" src="../img/ow9iDPwCsDnlty86/1597024314467-882b1ec0-11ba-42a7-9e0e-5d58b78af66c-048158.png" /></p>
 <p>这时候再次扫描端口的时候就可以扫描到了一个</p>
@@ -7556,16 +7556,16 @@
 <p><img alt="image.png" src="../img/ow9iDPwCsDnlty86/1597024770235-168d0504-9494-4152-9987-e2a35556f6e0-831113.png" /></p>
 <p>查看网页源码有一些注释</p>
 <p><img alt="image.png" src="../img/ow9iDPwCsDnlty86/1597024808365-1688d53e-dd85-4e71-bf28-6ab2149c7838-484940.png" /></p>
-<p>把下面那串数字作为十六进制，转为字符串得到如下：
+<p>把下面那串数字作为十六进制，转为字符串得到如下：<br />
 steg=33115730dbbb370fcbe9720fe632ec05</p>
 <p><img alt="image.png" src="../img/ow9iDPwCsDnlty86/1597024895782-4b780382-1d8b-4cfb-a040-a3af99010b38-018293.png" /></p>
 <p>啊哈 MD5 解出来：divisionbell</p>
 <p><img alt="image.png" src="../img/ow9iDPwCsDnlty86/1597025923755-94b6b4eb-88a0-424c-a2da-f5438e1148c8-871209.png" /></p>
-<p>使用
-steghide --extract -sf pink_floyd.jpg
+<p>使用<br />
+steghide --extract -sf pink_floyd.jpg<br />
 把网页上的图片中隐藏的信息提取出来</p>
 <p><img alt="image.png" src="../img/ow9iDPwCsDnlty86/1597026360753-eb2037d8-f0e1-41de-8e40-8a7e4d9b821f-853661.png" /></p>
-<p>U3lkQmFycmV0dA==|f831605ae34c2399d1e5bb3a4ab245d0
+<p>U3lkQmFycmV0dA==|f831605ae34c2399d1e5bb3a4ab245d0<br />
 SydBarrett | pinkfloydrocks</p>
 <p><img alt="image.png" src="../img/ow9iDPwCsDnlty86/1597027535435-b1169184-ebfe-4fed-be1f-11af3b808988-697145.png" /></p>
 <p>使用这个账号密码去登陆 ftp</p>

@@ -7588,9 +7588,9 @@ docker run --rm -v /home/iot/Desktop/HAS/attitude/test:/out -e SEED=347265733886
 #运行环境
 socat -v tcp-listen:31312,reuseaddr exec:&quot;docker run --rm -i -e SEED=3472657338860861762  -e FLAG=flag{1234}  attitude\:challenge&quot;
 </code></pre>
-<p>环境搭建起来之后 nc 连接上去会给出星跟踪器采集的一组恒星的视轴向量，我们需要输入一组浮点数（用四元数来描述姿态）
-<img alt="image.png" src="../img/p-AHHCUBr0y5ef9f/1672493512930-de3cfbb1-0f4b-4e31-a6b6-a21bc8231df6-118434.png" />
-给出的 test.txt 中记录的是一颗恒星的相关信息，一行代表一颗恒星的相关信息，每行有 4 个值分别表示天球参考系中指向某颗恒星的单位向量的 XYZ 坐标值和星等值
+<p>环境搭建起来之后 nc 连接上去会给出星跟踪器采集的一组恒星的视轴向量，我们需要输入一组浮点数（用四元数来描述姿态）<br />
+<img alt="image.png" src="../img/p-AHHCUBr0y5ef9f/1672493512930-de3cfbb1-0f4b-4e31-a6b6-a21bc8231df6-118434.png" /><br />
+给出的 test.txt 中记录的是一颗恒星的相关信息，一行代表一颗恒星的相关信息，每行有 4 个值分别表示天球参考系中指向某颗恒星的单位向量的 XYZ 坐标值和星等值<br />
 题目的意思是，给了恒星在天球参考系中的位置信息，给了星跟踪器采集的恒心相对于卫星来说的位置信息，根据这俩值做个转化，确定出卫星在天球参考系中的位置信息</p>
 <p><strong>涉及太多额外的知识了叭，暂时先知道是咋回事吧，学不动</strong></p>
 <h2 id="exp">EXP</h2>

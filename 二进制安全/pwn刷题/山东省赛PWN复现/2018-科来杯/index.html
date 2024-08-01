@@ -7597,7 +7597,7 @@
   <h1>2018 科来杯</h1>
 
 <h2 id="2018-">2018-科来杯</h2>
-<p>搞到题目啦啊哈哈哈哈哈哈哈哈<a href="../attachments/puInEazI1_BkJaAz/PWN.zip">附件: PWN.zip</a>
+<p>搞到题目啦啊哈哈哈哈哈哈哈哈<a href="../attachments/puInEazI1_BkJaAz/PWN.zip">附件: PWN.zip</a><br />
 感谢 <a href="https://wzt.ac.cn/">@CataLpa</a> 师傅给的题目</p>
 <h2 id="repeater">repeater</h2>
 <p>32 位的程序，存在很明显的格式化字符串漏洞</p>
@@ -7618,7 +7618,7 @@ p.interactive()
 </code></pre>
 <p><img alt="image.png" src="../img/puInEazI1_BkJaAz/1603453606754-c24f18de-b02e-4457-8b97-f525971f1e68-951029.png" /></p>
 <h2 id="bb_tcache">bb_tcache</h2>
-<p>程序的逻辑挺简单的，free 之后没有置为 NULL
+<p>程序的逻辑挺简单的，free 之后没有置为 NULL<br />
 另外还提供了 system 的地址，可以直接拿来算 libc 的基址了</p>
 <p><img alt="image.png" src="../img/puInEazI1_BkJaAz/1603455924934-d9c68d2b-bee7-40de-9b4c-7d5a49569e4b-977577.png" /></p>
 <pre><code class="language-python">from pwn import *
@@ -7651,15 +7651,15 @@ fill(p64(one_gadget))
 alloc()
 p.interactive()
 </code></pre>
-<p>首先 malloc 一个，free 之后再去编辑，编辑成 malloc_hook（tcache 不会对 size 进行检查，所以可以直接申请到 malloc_hook 这里）
+<p>首先 malloc 一个，free 之后再去编辑，编辑成 malloc_hook（tcache 不会对 size 进行检查，所以可以直接申请到 malloc_hook 这里）<br />
 然后 malloc 两次就申请到了 malloc_hook 那里了，再去编辑就可以把 malloc_hook 改为 one_gadget 的地址，这样去 malloc 的时候就可以拿到 shell</p>
 <p><img alt="image.png" src="../img/puInEazI1_BkJaAz/1603461408275-5ef240f2-aeaa-4e99-81a3-f23c50b12261-490757.png" /></p>
 <p>啊啊啊，好简单的说</p>
 <h2 id="notepad">notepad</h2>
-<p>官方 writeup 说是：cve-2018-6789
-~~我先去复现一下这个 cve 再回过头来做做这道题😁~~
-我又回来了，感觉真实的漏洞还是太复杂，还是先做 pwn 题吧
-mark 一个 exp
+<p>官方 writeup 说是：cve-2018-6789<br />
+~~我先去复现一下这个 cve 再回过头来做做这道题😁~~<br />
+我又回来了，感觉真实的漏洞还是太复杂，还是先做 pwn 题吧<br />
+mark 一个 exp<br />
 <a href="https://leeeddin.github.io/cve-2018-6789-off-by-one/">https://leeeddin.github.io/cve-2018-6789-off-by-one/</a></p>
 <pre><code class="language-python">#!/usr/bin/env python
 # -*- coding=utf8 -*-
@@ -7733,11 +7733,11 @@ p.interactive()
 <p><img alt="image.png" src="../img/puInEazI1_BkJaAz/1603846563043-46e17ca5-5803-4649-b91c-0fcc78ec988d-702547.png" /></p>
 <p>程序自己会申请 0x30 大小的 chunk（malloc(0x28) 但是要对齐所以 0x30）用来直接存放 name、base64 解码后的 password 的指针以及 content 的指针，同时申请的这个会被放到 bss 段的 ptr 数组上面，后面就把这个用户申请的 chunk 成为 note_header</p>
 <p><img alt="image.png" src="../img/puInEazI1_BkJaAz/1604113852107-aeced7e1-2e0f-40a7-a77d-e37a01b27df9-761578.png" /></p>
-<p>说一下漏洞点：
+<p>说一下漏洞点：<br />
 在涉及 password 的时候会 malloc 相应的 size，通过对 base64 编码的了解，我们已经知道了 base64 编码后应该都是 4 的倍数，它将会被解码为 3 的倍数的长度，然后下面的代码中给了 3n + 1 的空间，是没有问题的</p>
 <p><img alt="image.png" src="../img/puInEazI1_BkJaAz/1604113321263-c8f6f425-3f42-4101-8682-99c612345f9c-894000.png" /></p>
-<p>但是如果构造一个 4n+3 的 base64 编码去让他解码用到的就是 3n+2 就 off by one 了
-例如：123 经过 base64 编码之后是：MTIz，在末尾加上两个字符：'MTI'，去解码的时候会解码为 12312
+<p>但是如果构造一个 4n+3 的 base64 编码去让他解码用到的就是 3n+2 就 off by one 了<br />
+例如：123 经过 base64 编码之后是：MTIz，在末尾加上两个字符：'MTI'，去解码的时候会解码为 12312<br />
 本来是 4<em>1，加上两个之后就是 4</em>1+3 然后解码出来是 3*1+2</p>
 <p><img alt="1603846285130-a3fc680d-8299-4fc3-981d-2f93323390fa.png" src="../img/puInEazI1_BkJaAz/1603846285130-a3fc680d-8299-4fc3-981d-2f93323390fa-399001.png" /></p>
 <p>同时会在 <code>*(_DWORD *)(note_header + 36) = 1</code> 标注是否设置了 password</p>
@@ -7763,7 +7763,7 @@ editnote('3'*0x10, passwd, 0xf8-1, &quot;c&quot;*0x10)
 </code></pre>
 <p>然后删掉第 1 个（他是用 name 来选择的，我们就用 name 的值来交流啦），然后 malloc 0x30 去分割那个比较大的 chunk，再编辑一下之前的 content，此时布局如下</p>
 <p><img alt="image.png" src="../img/puInEazI1_BkJaAz/1604123251286-19313634-09cc-4e52-bdd2-8553ca8f83e7-629736.png" /></p>
-<p>原本 1 的 content 大小 0x1d0 被分为 0x40+0x90+0x100，空出来了 2 的 content(0x603270) 与 3 的 content(0x6032f0) 两个 0x30 大小的
+<p>原本 1 的 content 大小 0x1d0 被分为 0x40+0x90+0x100，空出来了 2 的 content(0x603270) 与 3 的 content(0x6032f0) 两个 0x30 大小的<br />
 注意到在最后多出来一个 0x20 大小的 free chunk 是 delete 的时候检查 password 留下的</p>
 <p>这时候去做如下编辑，就用到了 base64 解码的时候出现的问题了</p>
 <p><img alt="image.png" src="../img/puInEazI1_BkJaAz/1604193822571-ed9656dc-14d5-4328-9ee0-dc86e78533e7-892081.png" /></p>

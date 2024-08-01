@@ -7543,13 +7543,13 @@
   <h1>使用bluetoothctl模拟BLE设备</h1>
 
 <h2 id="bluetoothctlble">使用bluetoothctl模拟BLE设备</h2>
-<p>bluetoothctl 是 Bluez 自带的工具
-直接打开终端，输入<code>bluetoothctl</code>进入交互模式
-使用<code>menu advertise</code>进入 advertise，这里可以设置广播数据
-<img alt="image.png" src="../img/AUtF5NEJH3KZu_eo/1655196761236-ddf7b489-0bd8-433d-a8a6-482361b35ccd-657017.png" />
-通过<code>manufacturer 0xffff 0x12 0x34</code>和<code>name yichen</code>设置厂商数据和设备名
-然后<code>back</code>出来，使用<code>advertise on</code>开启广播，然后搜索看一下
-![)<code>N7()F0I_YE~WGVE%{7HBQ.jpg](./img/AUtF5NEJH3KZu_eo/1655197816011-51fe4b50-5ee3-4536-bf56-0c1c846ad269-895323.jpeg)</code>menu gatt<code>进入 gatt 的设置</code>register-service ea349e00-08dc-4bb7-bc23-855c76c425fa 0x42<code>设置服务的 uuid 以及句柄</code>register-characteristic 0x1234 read<code>设置 uuid 为 0x1234 的特性是可读的，回车后可以输入值</code>register-characteristic 0x5678 read,write`设置 uuid 为 0x5678 的特性是可读写的，写入后会保存
+<p>bluetoothctl 是 Bluez 自带的工具<br />
+直接打开终端，输入<code>bluetoothctl</code>进入交互模式<br />
+使用<code>menu advertise</code>进入 advertise，这里可以设置广播数据<br />
+<img alt="image.png" src="../img/AUtF5NEJH3KZu_eo/1655196761236-ddf7b489-0bd8-433d-a8a6-482361b35ccd-657017.png" /><br />
+通过<code>manufacturer 0xffff 0x12 0x34</code>和<code>name yichen</code>设置厂商数据和设备名<br />
+然后<code>back</code>出来，使用<code>advertise on</code>开启广播，然后搜索看一下<br />
+![)<code>N7()F0I_YE~WGVE%{7HBQ.jpg](./img/AUtF5NEJH3KZu_eo/1655197816011-51fe4b50-5ee3-4536-bf56-0c1c846ad269-895323.jpeg)</code>menu gatt<code>进入 gatt 的设置</code>register-service ea349e00-08dc-4bb7-bc23-855c76c425fa 0x42<code>设置服务的 uuid 以及句柄</code>register-characteristic 0x1234 read<code>设置 uuid 为 0x1234 的特性是可读的，回车后可以输入值</code>register-characteristic 0x5678 read,write`设置 uuid 为 0x5678 的特性是可读写的，写入后会保存<br />
 <img alt="image.png" src="../img/AUtF5NEJH3KZu_eo/1655199029487-25f32b6a-e006-4037-bb53-2fee5da49a4c-059326.png" /></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/bk93qr">https://www.yuque.com/hxfqg9/iot/bk93qr</a></p>

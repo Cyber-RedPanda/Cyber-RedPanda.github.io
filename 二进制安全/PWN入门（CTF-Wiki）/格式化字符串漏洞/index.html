@@ -7974,20 +7974,20 @@
 </tr>
 </tbody>
 </table>
-<p>用 printf() 为例，它的第一个参数就是格式化字符串 ："Color %s,Number %d,Float %4.2f"
+<p>用 printf() 为例，它的第一个参数就是格式化字符串 ："Color %s,Number %d,Float %4.2f"<br />
 然后 printf 函数会根据这个格式化字符串来解析对应的其他参数</p>
 <p><img alt="1584881426844-4eb92026-1e5c-4dc4-a113-854258f9b8f6.png" src="../img/551835_xf56iy8xmg4siqgg/1584881426844-4eb92026-1e5c-4dc4-a113-854258f9b8f6-431390.png" /></p>
 <blockquote>
-<p>%d - 十进制 - 输出十进制整数
-%s - 字符串 - 从内存中读取字符串
-%x - 十六进制 - 输出十六进制数
-%c - 字符 - 输出字符
-%p - 指针 - 指针地址
+<p>%d - 十进制 - 输出十进制整数<br />
+%s - 字符串 - 从内存中读取字符串<br />
+%x - 十六进制 - 输出十六进制数<br />
+%c - 字符 - 输出字符<br />
+%p - 指针 - 指针地址<br />
 %n - 到目前为止所写的字符数</p>
 </blockquote>
 <h2 id="_2">漏洞原理利用</h2>
 <h3 id="_3">程序崩溃</h3>
-<p>这种攻击方法最简单，只需要输入一串 %s 就可以
+<p>这种攻击方法最简单，只需要输入一串 %s 就可以<br />
 %s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s</p>
 <p>对于每一个 %s，printf() 都会从栈上取一个数字，把该数字视为地址，然后打印出该地址指向的内存内容，由于不可能获取的每一个数字都是地址，所以数字对应的内容可能不存在，或者这个地址是被保护的，那么便会使程序崩溃</p>
 <p><strong>在 Linux 中，存取无效的指针会引起进程收到 SIGSEGV 信号，从而使程序非正常终止并产生核心转储</strong></p>
@@ -8021,8 +8021,8 @@ int main() {
 <p><img alt="image.png" src="../img/551835_xf56iy8xmg4siqgg/1585230870018-5501de06-919f-4248-83a0-ba2baa0f6b15-120372.png" /></p>
 <p>小技巧总结</p>
 <blockquote>
-<p>利用 %x 来获取对应栈的内存，但建议使用 %p，可以不用考虑位数的区别
-利用 %s 来获取变量所对应地址的内容，只不过有零截断
+<p>利用 %x 来获取对应栈的内存，但建议使用 %p，可以不用考虑位数的区别<br />
+利用 %s 来获取变量所对应地址的内容，只不过有零截断<br />
 利用 %n$x 来获取指定参数的值，利用 %n$s 来获取指定参数对应地址的内容</p>
 </blockquote>
 <h3 id="_5">泄露任意地址的内存</h3>
@@ -8050,7 +8050,7 @@ sh.interactive()
 <p><img alt="image.png" src="../img/551835_xf56iy8xmg4siqgg/1585750231946-e351aa8c-3ebc-4b7c-9205-292ee2ffb3d9-354946.png" /></p>
 <p>需要注意的是不能直接在命令行输入 \x14\xa0\x0%4$s 否则 scanf 会把它识别成：\，x，1，4....</p>
 <h3 id="_6">覆盖栈内存</h3>
-<p>%n，不输出字符，但是把已经成功输入的字符个数写入对应的整型指针参数所指的变量
+<p>%n，不输出字符，但是把已经成功输入的字符个数写入对应的整型指针参数所指的变量<br />
 只要变量对应的地址可写，就可以利用格式化字符串来改变其对应的值</p>
 <p>一般来说，利用分为以下的步骤：</p>
 <ul>
@@ -8076,11 +8076,11 @@ int main() {
   return 0;
 }
 </code></pre>
-<p>关于覆盖偏移的话可以通过测试得出来：
+<p>关于覆盖偏移的话可以通过测试得出来：<br />
 <code>AAAA%p%p%p%p%p%p%p%p%p%p%p%p%p%p%p%p%p%p%p%p%p%p</code></p>
 <p><img alt="image.png" src="../img/551835_xf56iy8xmg4siqgg/1585314095222-b26d67ae-9cc9-48c3-b570-116018b80384-289985.png" /></p>
 <p>可以看到，是格式化字符串的第 6 个参数</p>
-<p>那下面，通过 %n 来进行覆盖，c_addr+%012d+%6$n
+<p>那下面，通过 %n 来进行覆盖，c_addr+%012d+%6$n<br />
 c_addr 再加上 12 之后才能凑够 16，这样就可以把 c 改成 16</p>
 <pre><code class="language-python">from pwn import *
 sh = process('./overwrite')
@@ -8109,7 +8109,7 @@ sh.interactive()
 <h4 id="_9">覆盖大数字</h4>
 <p>变量在内存中都是以字节的格式存储的，在 x86、x64 中是按照小端存储的，格式化字符串里面有两个标志用的上了：</p>
 <blockquote>
-<p>h：对于整数类型，printf 期待一个从 short 提升的 int 尺寸的整型参数
+<p>h：对于整数类型，printf 期待一个从 short 提升的 int 尺寸的整型参数<br />
 hh：对于整型类型，printf 期待一个从 char 提升的 int 尺寸的整形参数</p>
 </blockquote>
 <p>这...👆是给人看的嘛？？</p>
@@ -8125,9 +8125,9 @@ sh.sendline(payload)
 print sh.recv()
 sh.interactive()
 </code></pre>
-<p>前面的那一串 p32()，每算是 4 字符，这样到 %6$hhn 前面就是：16+104=120，也就是 0x78
+<p>前面的那一串 p32()，每算是 4 字符，这样到 %6$hhn 前面就是：16+104=120，也就是 0x78<br />
 再加上 222 就是 342，也就是 0x156，然后依次是：0x234、0x312，又因为 hh 是写入单字节的，又是小端存储，也就是只能取后边两个，所以连起来就是 0x12345678</p>
-<p><img alt="image.png" src="../img/551835_xf56iy8xmg4siqgg/1585835169146-4d95d935-c626-4658-b3b5-eec48feb8115-430346.png" />
+<p><img alt="image.png" src="../img/551835_xf56iy8xmg4siqgg/1585835169146-4d95d935-c626-4658-b3b5-eec48feb8115-430346.png" /><br />
 小端存储</p>
 <h2 id="x64">x64例题</h2>
 <h3 id="uiuctf-pwn200-goodluck">UIUCTF pwn200 GoodLuck</h3>
@@ -8149,7 +8149,7 @@ sh.interactive()
 <h3 id="2016-cctf-pwn3">2016 CCTF pwn3</h3>
 <p>有一个类似 ftp 的功能，需要输入用户名</p>
 <p><img alt="image.png" src="../img/551835_xf56iy8xmg4siqgg/1585960998051-435e1511-c845-48da-bb00-5d2dc8e765d2-215730.png" /></p>
-<p>需要注意的是，后面那个 for 循环对输入的内容进行了变形操作，每个字符都加了个 1
+<p>需要注意的是，后面那个 for 循环对输入的内容进行了变形操作，每个字符都加了个 1<br />
 当输入的 s1 经过变形后不是 sysbdmin 的时候退出</p>
 <p><img alt="image.png" src="../img/551835_xf56iy8xmg4siqgg/1585961032714-1b549c04-d735-4b13-bb77-4174fe753d80-698562.png" /></p>
 <p>所以实际需要的是：rxraclhm（往前移一个）</p>
@@ -8218,7 +8218,7 @@ sh.interactive()
 <p>可以发现，第七个参数是这个函数（不是 printf）的返回地址（再啰嗦一句，这是 64 位的程序，前六个参数在寄存器里面，同时第一个参数是格式化字符串，这里的第六个参数说的是格式化字符串的参数）</p>
 <p>我们想要改写第七个参数，需要有一个存储它的地址，也就是这次实验的 0x7fffffffdc08，但是这个地址是会变的，然而可以通过 rbp 与 ret 的偏移来计算，也就是：0x7fffffffdc40 - 0x7fffffffdc08 =0x38</p>
 <p>我们可以把读出来的第六个参数加上 0x38 给改掉，可以在 password 后面跟上 ret 地址来修改，也可以通过把 username 改成计算出来的 ret 的地址</p>
-<p><strong>exp</strong>
+<p><strong>exp</strong><br />
 **</p>
 <pre><code class="language-python">from pwn import *
 elf=ELF('./pwnme')

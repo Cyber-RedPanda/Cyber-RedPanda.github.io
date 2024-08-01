@@ -7543,23 +7543,23 @@
   <h1>TIPacketSniffer抓蓝牙包</h1>
 
 <h2 id="ti-packet-sniffer">TI Packet Sniffer抓蓝牙包</h2>
-<p>这里选上蓝牙
-<img alt="image.png" src="../img/-d89BXNCV8BNBNsE/1644638132324-062214d2-d2a8-4c04-8d1f-2aee43b444cf-903561.png" />
-<img alt="image.png" src="../img/-d89BXNCV8BNBNsE/1644638089119-c6a8e1ac-31a1-4502-8107-a0d39c2b6dcf-115195.png" />
-一些字段的意思来自：<a href="https://blog.csdn.net/qq_24179601/article/details/87262087">使用TI cc2540 usb dongle smartRF packet sniffer 对广播包和扫描包的分析</a>
-P.nbr：收到的包序号
-Channel：包的广播通道
-Access Address：广播者的接入地址
-Adv PDU Type：广播类型
-<img alt="image.png" src="../img/-d89BXNCV8BNBNsE/1644641067915-ef398d8f-a9c3-43ab-b14d-62c637873f0f-004737.png" />
-AdvA：广播者的MAC地址
-AdvData：实际广播包的数据
-ScanA 表示扫描设备的 MAC 地址
-ScanRspData：携带的回应数据，这里为空，表示没有回应数据
-<img alt="image.png" src="../img/-d89BXNCV8BNBNsE/1644641820362-f26a529e-5e88-45e1-9eaf-5b809b211076-353471.png" />
-这个包是发起连接请求
-InitA：表示主机的MAC地址
-AdvA：表示从机的MAC地址
+<p>这里选上蓝牙<br />
+<img alt="image.png" src="../img/-d89BXNCV8BNBNsE/1644638132324-062214d2-d2a8-4c04-8d1f-2aee43b444cf-903561.png" /><br />
+<img alt="image.png" src="../img/-d89BXNCV8BNBNsE/1644638089119-c6a8e1ac-31a1-4502-8107-a0d39c2b6dcf-115195.png" /><br />
+一些字段的意思来自：<a href="https://blog.csdn.net/qq_24179601/article/details/87262087">使用TI cc2540 usb dongle smartRF packet sniffer 对广播包和扫描包的分析</a><br />
+P.nbr：收到的包序号<br />
+Channel：包的广播通道<br />
+Access Address：广播者的接入地址<br />
+Adv PDU Type：广播类型<br />
+<img alt="image.png" src="../img/-d89BXNCV8BNBNsE/1644641067915-ef398d8f-a9c3-43ab-b14d-62c637873f0f-004737.png" /><br />
+AdvA：广播者的MAC地址<br />
+AdvData：实际广播包的数据<br />
+ScanA 表示扫描设备的 MAC 地址<br />
+ScanRspData：携带的回应数据，这里为空，表示没有回应数据<br />
+<img alt="image.png" src="../img/-d89BXNCV8BNBNsE/1644641820362-f26a529e-5e88-45e1-9eaf-5b809b211076-353471.png" /><br />
+这个包是发起连接请求<br />
+InitA：表示主机的MAC地址<br />
+AdvA：表示从机的MAC地址<br />
 LLData：<a href="https://blog.csdn.net/weixin_42583147/article/details/82382176">从空中截获BLE数据包看蓝牙5协议流程【第二部分：蓝牙LL层连接】</a></p>
 <p>下面黄色的部分就是建立连接进入通信状态了，通常情况是空包，俗称呼吸包</p>
 <blockquote>

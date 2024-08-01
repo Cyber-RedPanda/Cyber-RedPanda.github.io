@@ -7579,29 +7579,29 @@
 <h2 id="gpio">GPIO(拓展板)</h2>
 <h2 id="camera">Camera</h2>
 <p>项目地址：https://github.com/Z4urce/flipperzero-camera</p>
-<p>开发板的固件烧录需要安装 arduino，所以先来配置一下 arduino 的开发环境
-在 arduino 官网下载安装包后直接无脑安装即可：https://www.arduino.cc/en/software
-如图所示配置好 arduino 的 esp32开发板，然后选择开发板和对应的串口，点击确定，看一下右下角是不是已连接状态了
-<img alt="image.png" src="../img/KEakggESlTHzQrQL/1711198632950-1a02280a-1e1a-49b7-b943-67191b40c87c-642097.png" />
-连接好之后建议先烧录一下开发板的示例程序，体验一下开发板的功能：文件 -&gt; 示例 -&gt; ESP32 -&gt; Camera -&gt; CameraWebServer
-<img alt="image.png" src="../img/KEakggESlTHzQrQL/1711203285067-7f9e18de-9603-4dfc-b97e-c7542dba13f9-504986.png" />
-首先需要根据实际情况选择开发板的模组，例如我手上这块是安信可的模组，因此在宏定义中注释默认模组，改为 AI_THINKER 这个，然后配置好 WiFi 信息，待会开发板会连接你的 WiFi，并提供一个 web 页面供你使用
-<img alt="image.png" src="../img/KEakggESlTHzQrQL/1711203247324-4214e758-1c02-49b3-9b91-f65923bb3f76-352729.png" />
-源码在下面还有相机的配置，需要根据相机模组上的丝印修改一下，比如我的是 OV2640
-<img alt="image.png" src="../img/KEakggESlTHzQrQL/1711203821265-74ebc0bb-1105-418c-bf9e-19dfd0160410-888824.png" />
-<img alt="image.png" src="../img/KEakggESlTHzQrQL/1711203499526-f603dc59-c14a-484a-92ae-04b908de7379-490543.png" />
-都改好之后点击上传
-<img alt="image.png" src="../img/KEakggESlTHzQrQL/1719143784747-3fa54b6d-bcce-4d93-96b4-9284dcf08bdb-918411.png" />
-打开串口监视器
-<img alt="image.png" src="../img/KEakggESlTHzQrQL/1719143830394-6c7dfcab-3f5a-40b6-8bd7-485ce80d567e-486618.png" />
-设置波特率为 115200，按下 reset，过一会就会出现一个 HTTP 链接，浏览器访问链接就来到了相机的 WEB 页面
-<img alt="image.png" src="../img/KEakggESlTHzQrQL/1711203963050-fb485d7d-d090-47a7-bd0f-b46fbdd9c970-425072.png" />
-可以自己调整各种分辨率和对比度，甚至还有人脸检测功能，具体参数自己去体验吧
-<img alt="image.png" src="../img/KEakggESlTHzQrQL/1711204829137-efac700c-a26c-44d9-9329-8a2a0c2702c0-425859.png" />
-:::info
-补充一下为什么有些 ESP 的开发板需要手动按下 BOOT 按键有的不需要：原因是有些开发板添加了自动下载电路，在 esptool.py 中控制串口芯片的 DTR 和 RTS 的拉高和拉低，来控制 EN 和 BOOT 引脚的电平，从而使芯片自动进入下载模式
-:::
-接下来就来体验一下 flipper 的 Camera 功能，把 flipperzero-camera 项目下载下来之后找到 esp32_cam_uart_stream 文件夹，里面只有一个以 ino 为后缀的 arduino 工程，直接双击打开，然后配置好开发板编译烧录即可，烧录完成后按照 APP 的提示接线就进入相机了
+<p>开发板的固件烧录需要安装 arduino，所以先来配置一下 arduino 的开发环境<br />
+在 arduino 官网下载安装包后直接无脑安装即可：https://www.arduino.cc/en/software<br />
+如图所示配置好 arduino 的 esp32开发板，然后选择开发板和对应的串口，点击确定，看一下右下角是不是已连接状态了<br />
+<img alt="image.png" src="../img/KEakggESlTHzQrQL/1711198632950-1a02280a-1e1a-49b7-b943-67191b40c87c-642097.png" /><br />
+连接好之后建议先烧录一下开发板的示例程序，体验一下开发板的功能：文件 -&gt; 示例 -&gt; ESP32 -&gt; Camera -&gt; CameraWebServer<br />
+<img alt="image.png" src="../img/KEakggESlTHzQrQL/1711203285067-7f9e18de-9603-4dfc-b97e-c7542dba13f9-504986.png" /><br />
+首先需要根据实际情况选择开发板的模组，例如我手上这块是安信可的模组，因此在宏定义中注释默认模组，改为 AI_THINKER 这个，然后配置好 WiFi 信息，待会开发板会连接你的 WiFi，并提供一个 web 页面供你使用<br />
+<img alt="image.png" src="../img/KEakggESlTHzQrQL/1711203247324-4214e758-1c02-49b3-9b91-f65923bb3f76-352729.png" /><br />
+源码在下面还有相机的配置，需要根据相机模组上的丝印修改一下，比如我的是 OV2640<br />
+<img alt="image.png" src="../img/KEakggESlTHzQrQL/1711203821265-74ebc0bb-1105-418c-bf9e-19dfd0160410-888824.png" /><br />
+<img alt="image.png" src="../img/KEakggESlTHzQrQL/1711203499526-f603dc59-c14a-484a-92ae-04b908de7379-490543.png" /><br />
+都改好之后点击上传<br />
+<img alt="image.png" src="../img/KEakggESlTHzQrQL/1719143784747-3fa54b6d-bcce-4d93-96b4-9284dcf08bdb-918411.png" /><br />
+打开串口监视器<br />
+<img alt="image.png" src="../img/KEakggESlTHzQrQL/1719143830394-6c7dfcab-3f5a-40b6-8bd7-485ce80d567e-486618.png" /><br />
+设置波特率为 115200，按下 reset，过一会就会出现一个 HTTP 链接，浏览器访问链接就来到了相机的 WEB 页面<br />
+<img alt="image.png" src="../img/KEakggESlTHzQrQL/1711203963050-fb485d7d-d090-47a7-bd0f-b46fbdd9c970-425072.png" /><br />
+可以自己调整各种分辨率和对比度，甚至还有人脸检测功能，具体参数自己去体验吧<br />
+<img alt="image.png" src="../img/KEakggESlTHzQrQL/1711204829137-efac700c-a26c-44d9-9329-8a2a0c2702c0-425859.png" /><br />
+:::info<br />
+补充一下为什么有些 ESP 的开发板需要手动按下 BOOT 按键有的不需要：原因是有些开发板添加了自动下载电路，在 esptool.py 中控制串口芯片的 DTR 和 RTS 的拉高和拉低，来控制 EN 和 BOOT 引脚的电平，从而使芯片自动进入下载模式<br />
+:::<br />
+接下来就来体验一下 flipper 的 Camera 功能，把 flipperzero-camera 项目下载下来之后找到 esp32_cam_uart_stream 文件夹，里面只有一个以 ino 为后缀的 arduino 工程，直接双击打开，然后配置好开发板编译烧录即可，烧录完成后按照 APP 的提示接线就进入相机了<br />
 <img alt="image.png" src="../img/KEakggESlTHzQrQL/1711242971723-ee34c101-21c8-4800-bedb-d91656e2af5f-014847.png" /></p>
 <pre><code>ESP32-CAM      flipper
 VCC              3V3
@@ -7609,14 +7609,14 @@ GND              GND
 U0R              TX
 U0T              RX
 </code></pre>
-<p>进入相机后：⬆️表示增加对比度⬇️表示降低对比度⬅️反转颜色➡️切换抖动，按下 OK 键会将照片拍到 SD Card/DCIM 目录下
-<img alt="image.png" src="../img/KEakggESlTHzQrQL/1711243565623-af32a908-7c5a-48c8-81f5-ae9ffdb2323e-613760.png" />
-拍个小熊猫
-<img alt="20240323-204545.bmp" src="../img/KEakggESlTHzQrQL/1711258650029-f8272bea-5390-42ea-914f-f21401e98634-987286.bmp" />
-可以像项目作者那样把开发板和杜邦线用胶带粘一下，直接变成简单版的 flipper 拓展板
+<p>进入相机后：⬆️表示增加对比度⬇️表示降低对比度⬅️反转颜色➡️切换抖动，按下 OK 键会将照片拍到 SD Card/DCIM 目录下<br />
+<img alt="image.png" src="../img/KEakggESlTHzQrQL/1711243565623-af32a908-7c5a-48c8-81f5-ae9ffdb2323e-613760.png" /><br />
+拍个小熊猫<br />
+<img alt="20240323-204545.bmp" src="../img/KEakggESlTHzQrQL/1711258650029-f8272bea-5390-42ea-914f-f21401e98634-987286.bmp" /><br />
+可以像项目作者那样把开发板和杜邦线用胶带粘一下，直接变成简单版的 flipper 拓展板<br />
 <img alt="image.png" src="../img/KEakggESlTHzQrQL/1711259368665-0af129e0-e54e-4c7f-8fac-7100cf6a92ba-942014.png" /></p>
 <h2 id="camera-suite">Camera Suite</h2>
-<p>项目地址：https://github.com/CodyTolene/Flipper-Zero-Camera-Suite
+<p>项目地址：https://github.com/CodyTolene/Flipper-Zero-Camera-Suite<br />
 这是上一个的增强版</p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/ls99g7wbcigb8gmf">https://www.yuque.com/hxfqg9/iot/ls99g7wbcigb8gmf</a></p>

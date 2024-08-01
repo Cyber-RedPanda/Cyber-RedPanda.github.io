@@ -7648,31 +7648,31 @@
 
 <h2 id="qnx">QNX</h2>
 <h2 id="_1">环境来源</h2>
-<p>虚拟机 6.5.0：<a href="https://www.jianshu.com/p/2a3d7e80a725">https://www.jianshu.com/p/2a3d7e80a725</a>
-官方 6.4.1 版虚拟机：<a href="http://www.qnx.com/download/group.html?programid=20840">http://www.qnx.com/download/group.html?programid=20840</a>
+<p>虚拟机 6.5.0：<a href="https://www.jianshu.com/p/2a3d7e80a725">https://www.jianshu.com/p/2a3d7e80a725</a><br />
+官方 6.4.1 版虚拟机：<a href="http://www.qnx.com/download/group.html?programid=20840">http://www.qnx.com/download/group.html?programid=20840</a><br />
 IDE：<a href="https://download.freedownloadmanager.org/Windows-PC/Momentics-IDE-for-BlackBerry/FREE-2.0.html">https://download.freedownloadmanager.org/Windows-PC/Momentics-IDE-for-BlackBerry/FREE-2.0.html</a></p>
 <h2 id="_2">环境安装</h2>
-<p>虚拟机直接打开运行就行了，IDE 直接安装就行了，注意安装好 IDE 之后打开选择 workspace 的时候不能包含空格，然后打开会提示没法下载 SDK，不用慌，关了就行，去界面的 help -&gt; Update API Levels 下载就行
+<p>虚拟机直接打开运行就行了，IDE 直接安装就行了，注意安装好 IDE 之后打开选择 workspace 的时候不能包含空格，然后打开会提示没法下载 SDK，不用慌，关了就行，去界面的 help -&gt; Update API Levels 下载就行<br />
 <img alt="image.png" src="../img/YTKOS9UTeMe_NEiS/1649293209901-299abd9d-8a73-4749-b3ef-0edfe631ccbb-045070.png" /></p>
 <h2 id="qnx_1">QNX的命令</h2>
-<p><a href="https://bbs.pediy.com/thread-270996.htm">https://bbs.pediy.com/thread-270996.htm</a>
-按着这个手册自己试试就行了，跟 linux 的命令还是有很多重合的
+<p><a href="https://bbs.pediy.com/thread-270996.htm">https://bbs.pediy.com/thread-270996.htm</a><br />
+按着这个手册自己试试就行了，跟 linux 的命令还是有很多重合的<br />
 很奇怪，我的镜像里面没有 gdb 啥的，各种命令好像还得看镜像</p>
 <h2 id="helloworld">helloworld</h2>
-<p>新建一个 QNX C Project
-<img alt="image.png" src="../img/YTKOS9UTeMe_NEiS/1649294485898-d76e4203-5411-49c8-aed4-790932cb2a90-964088.png" />
-选择架构为 x86
-<img alt="image.png" src="../img/YTKOS9UTeMe_NEiS/1649294484204-e16d5d24-ab3c-4f91-ac22-3f9b64e76ea5-753257.png" />
-创建好之后看一下 QNX 的 IP，然后运行 qconn
-<img alt="image.png" src="../img/YTKOS9UTeMe_NEiS/1649294272004-37e1760c-b0d2-4a90-a186-c299ca3f2f75-368742.png" />
-然后给 IDE 加上设备，选择 Window -&gt; Target Navigator
-<img alt="image.png" src="../img/YTKOS9UTeMe_NEiS/1649295782071-1aabf764-f539-46f4-b977-c113f0a5f3c4-766269.png" />
-在打开的窗口右键找到这个小摁钮，选择 New QNX Target
-<img alt="image.png" src="../img/YTKOS9UTeMe_NEiS/1649296318284-82fa2975-8860-4699-aded-013b13778d45-219788.png" />
-<img alt="image.png" src="../img/YTKOS9UTeMe_NEiS/1649296287571-71eefcba-42f4-4b55-bacc-70fdcbc954a1-505367.png" />
-先点锤子再点运行
-<img alt="image.png" src="../img/YTKOS9UTeMe_NEiS/1649296423229-3f1e762b-08f7-400d-b8b5-7eb4bb3860ea-905947.png" />
-在这里甚至可以直接拖拽上传文件
+<p>新建一个 QNX C Project<br />
+<img alt="image.png" src="../img/YTKOS9UTeMe_NEiS/1649294485898-d76e4203-5411-49c8-aed4-790932cb2a90-964088.png" /><br />
+选择架构为 x86<br />
+<img alt="image.png" src="../img/YTKOS9UTeMe_NEiS/1649294484204-e16d5d24-ab3c-4f91-ac22-3f9b64e76ea5-753257.png" /><br />
+创建好之后看一下 QNX 的 IP，然后运行 qconn<br />
+<img alt="image.png" src="../img/YTKOS9UTeMe_NEiS/1649294272004-37e1760c-b0d2-4a90-a186-c299ca3f2f75-368742.png" /><br />
+然后给 IDE 加上设备，选择 Window -&gt; Target Navigator<br />
+<img alt="image.png" src="../img/YTKOS9UTeMe_NEiS/1649295782071-1aabf764-f539-46f4-b977-c113f0a5f3c4-766269.png" /><br />
+在打开的窗口右键找到这个小摁钮，选择 New QNX Target<br />
+<img alt="image.png" src="../img/YTKOS9UTeMe_NEiS/1649296318284-82fa2975-8860-4699-aded-013b13778d45-219788.png" /><br />
+<img alt="image.png" src="../img/YTKOS9UTeMe_NEiS/1649296287571-71eefcba-42f4-4b55-bacc-70fdcbc954a1-505367.png" /><br />
+先点锤子再点运行<br />
+<img alt="image.png" src="../img/YTKOS9UTeMe_NEiS/1649296423229-3f1e762b-08f7-400d-b8b5-7eb4bb3860ea-905947.png" /><br />
+在这里甚至可以直接拖拽上传文件<br />
 <img alt="image.png" src="../img/YTKOS9UTeMe_NEiS/1649306167791-57943f35-2e2f-4bde-9a41-16c8d4dcb2b8-921784.png" /></p>
 <h2 id="tcp-bind-shell">TCP bind shell</h2>
 <p>看看咋写程序，结果发现跟 linux 没啥区别，直接用的下面的代码</p>
@@ -7701,10 +7701,10 @@ int main(void)
  return 0;
 }
 </code></pre>
-<p>需要在项目右键选择 Properties
-<img alt="image.png" src="../img/YTKOS9UTeMe_NEiS/1649313465392-b61ed102-9d30-4269-bc8a-94ea47dad44c-750157.png" />
-然后找到 QNX C/C++ Project 里面的 Linker，在 Category 里面选择 Extra libraries，再选择 Nx targetzhege 这个<img alt="image.png" src="../img/YTKOS9UTeMe_NEiS/1649313567110-b8e51a90-9edf-4706-b5cb-1227783c00ef-510376.png" />
-在 x86 的 lib 里面找到 libsocket.so 打开，然后编译运行就完事了
+<p>需要在项目右键选择 Properties<br />
+<img alt="image.png" src="../img/YTKOS9UTeMe_NEiS/1649313465392-b61ed102-9d30-4269-bc8a-94ea47dad44c-750157.png" /><br />
+然后找到 QNX C/C++ Project 里面的 Linker，在 Category 里面选择 Extra libraries，再选择 Nx targetzhege 这个<img alt="image.png" src="../img/YTKOS9UTeMe_NEiS/1649313567110-b8e51a90-9edf-4706-b5cb-1227783c00ef-510376.png" /><br />
+在 x86 的 lib 里面找到 libsocket.so 打开，然后编译运行就完事了<br />
 <img alt="image.png" src="../img/YTKOS9UTeMe_NEiS/1649313290290-bbf5b3d7-29c3-4e2e-b699-607c94e5933b-058057.png" /></p>
 <h2 id="reverse-tcp-shell">Reverse TCP shell</h2>
 <p>同理，代码如下：</p>

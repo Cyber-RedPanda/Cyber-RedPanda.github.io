@@ -7799,15 +7799,15 @@
   <h1>UDS诊断学习</h1>
 
 <h2 id="uds">UDS诊断学习</h2>
-<p>UDS（统一诊断服务）是车上很重要的一个诊断协议，但是网上并没有针对这一块的练习板，纯讲理论没啥意思
-接下来通过 STM32 开发板进行 UDS 诊断练习，使用 CAN 调试仪实际与目标进行诊断交互，配套固件也会传上来，师傅们可以自己买板子烧进去练习
+<p>UDS（统一诊断服务）是车上很重要的一个诊断协议，但是网上并没有针对这一块的练习板，纯讲理论没啥意思<br />
+接下来通过 STM32 开发板进行 UDS 诊断练习，使用 CAN 调试仪实际与目标进行诊断交互，配套固件也会传上来，师傅们可以自己买板子烧进去练习<br />
 附一篇很不错的文章，简单明了：<a href="https://zhuanlan.zhihu.com/p/37310388">UDS诊断入门</a></p>
 <p>** 本文不做理论知识讲解，复现之前自己先看理论知识嗷 **</p>
 <h2 id="_1">环境配置</h2>
 <h3 id="_2">固件</h3>
-<p>更新时间：2023.12.28
-下载后改后缀为 zip 嗷，语雀连 zip 都不让传...
-<a href="../attachments/t87vbIA4bUQDtJAe/hex.pdf">附件: hex.pdf</a>
+<p>更新时间：2023.12.28<br />
+下载后改后缀为 zip 嗷，语雀连 zip 都不让传...<br />
+<a href="../attachments/t87vbIA4bUQDtJAe/hex.pdf">附件: hex.pdf</a><br />
 Github 也放一份 https://github.com/yichen115/STM32_UDS_Demo/releases</p>
 <h3 id="_3">硬件</h3>
 <p>淘宝店只是随便搜了几个，实际大部分我都是从闲鱼买的</p>
@@ -7848,49 +7848,49 @@ Github 也放一份 https://github.com/yichen115/STM32_UDS_Demo/releases</p>
 </tbody>
 </table>
 <h3 id="_4">软件</h3>
-<p>Jflash：<a href="https://www.segger.com/products/debug-probes/j-link/tools/j-flash/about-j-flash/#software">About J-Flash</a>  用来配合 Jlink 刷写固件的
+<p>Jflash：<a href="https://www.segger.com/products/debug-probes/j-link/tools/j-flash/about-j-flash/#software">About J-Flash</a>  用来配合 Jlink 刷写固件的<br />
 TSMaster：<a href="https://github.com/TOSUN-Shanghai/TSMaster/releases">Releases · TOSUN-Shanghai/TSMaster</a>  用来进行 CAN 通信的</p>
 <h3 id="_5">硬件连接</h3>
-<p>Jlink 直接通过排线与 STM32 开发板相连即可，STM32 右边的 USB 接口是个串口可以看 UART 日志
-TJA1050 的 RX 接 STM32 的 PA11，TX 接 STM32 的 PA12，VCC 接STM32 的 5V，GND 接 STM32 的 GND
-TJA1050 的 CANH 接 CAN 分析仪的 CAN_H、CANL 接 CAN 分析仪的 CAN_L（ 这里以 PCAN 为例）
+<p>Jlink 直接通过排线与 STM32 开发板相连即可，STM32 右边的 USB 接口是个串口可以看 UART 日志<br />
+TJA1050 的 RX 接 STM32 的 PA11，TX 接 STM32 的 PA12，VCC 接STM32 的 5V，GND 接 STM32 的 GND<br />
+TJA1050 的 CANH 接 CAN 分析仪的 CAN_H、CANL 接 CAN 分析仪的 CAN_L（ 这里以 PCAN 为例）<br />
 <img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1702802017251-b2e910bd-d433-4ca2-a261-40f309b44602-123328.png" /></p>
 <h3 id="_6">固件刷写</h3>
-<p>安装好 Jflash 之后打开，选择新建项目
-<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1702799315083-71cf1d93-d181-4e59-b5ea-62957c9bcd1b-921996.png" />
-点击三个点，在输入框输入 STM32F103ZE 过滤出来，选择下面那个短的，然后 ok
-<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1702799406640-19de9dab-b305-4f47-b97a-5167ed6118b6-381581.png" />
-把两个固件都拖到右边的数据文件窗口，然后点击 Target -&gt; Production Programming 烧写固件（hex 文件都是记录着地址信息的，直接烧录即可）
-<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1702799774286-b3f20c25-6344-42ef-8d42-d6f2b27e8674-356141.png" />
-然后打开串口调试工具，波特率设置为 115200，按下复位键看看是不是有输出了，如下输出说明正常
+<p>安装好 Jflash 之后打开，选择新建项目<br />
+<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1702799315083-71cf1d93-d181-4e59-b5ea-62957c9bcd1b-921996.png" /><br />
+点击三个点，在输入框输入 STM32F103ZE 过滤出来，选择下面那个短的，然后 ok<br />
+<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1702799406640-19de9dab-b305-4f47-b97a-5167ed6118b6-381581.png" /><br />
+把两个固件都拖到右边的数据文件窗口，然后点击 Target -&gt; Production Programming 烧写固件（hex 文件都是记录着地址信息的，直接烧录即可）<br />
+<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1702799774286-b3f20c25-6344-42ef-8d42-d6f2b27e8674-356141.png" /><br />
+然后打开串口调试工具，波特率设置为 115200，按下复位键看看是不是有输出了，如下输出说明正常<br />
 <img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703724269784-971bc8d1-bcbf-4ac0-9fcc-26503e9badb7-771516.png" /></p>
 <h2 id="uds_1">UDS通信</h2>
-<p>这里有一本加了目录的14229协议的 PDF 可以自取
-<a href="../attachments/t87vbIA4bUQDtJAe/ISO14229%20UDS%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91%E7%89%88-542%E9%A1%B5-%E5%8A%A0%E7%9B%AE%E5%BD%95.pdf">附件: ISO14229 UDS中文翻译版-542页-加目录.pdf</a>
+<p>这里有一本加了目录的14229协议的 PDF 可以自取<br />
+<a href="../attachments/t87vbIA4bUQDtJAe/ISO14229%20UDS%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91%E7%89%88-542%E9%A1%B5-%E5%8A%A0%E7%9B%AE%E5%BD%95.pdf">附件: ISO14229 UDS中文翻译版-542页-加目录.pdf</a><br />
 UDS 定义了一系列的服务，每个服务都有自己的 ID 即 SID（Service Identifier），接下来通过开发板实际进行 UDS 诊断通信体验一下</p>
 <h3 id="22-id">22 通过ID读数据</h3>
-<p>22 服务通过 ID 读取数据，例如读取当前会话状态的 ID 是<code>F1 86</code>，那么可以使用<code>7DF # 03 22 F1 86</code>来读取当前会话，<code>F1 86</code>后面跟的<code>01</code>就是当前会话状态
-<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703724427129-e5152ba1-6d9e-4ece-adda-c15ba7c83d9a-389439.png" />
+<p>22 服务通过 ID 读取数据，例如读取当前会话状态的 ID 是<code>F1 86</code>，那么可以使用<code>7DF # 03 22 F1 86</code>来读取当前会话，<code>F1 86</code>后面跟的<code>01</code>就是当前会话状态<br />
+<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703724427129-e5152ba1-6d9e-4ece-adda-c15ba7c83d9a-389439.png" /><br />
 在 14229 标准里面还有很多 ID，比如<code>F1 90</code>读取 VIN 码等（开发板暂未实现），以及厂商也会自定义 ID </p>
 <h3 id="10">10 诊断会话控制</h3>
-<p>使用<code>7DF # 03 22 F1 86</code>读取当前会话
-<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703724427129-e5152ba1-6d9e-4ece-adda-c15ba7c83d9a-389439.png" />
-切换到扩展会话<code>7DF # 02 10 03</code>然后 0x22 读取会话确认一下<code>7DF # 03 22 F1 86</code>，一般在扩展会话进行一些高权限的操作，比如读写数据
-<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703724811222-0064f227-341b-4c99-ac65-4a5463a1fa73-034897.png" />
-切换到编程会话<code>7DF # 02 10 02</code>此时观察串口可以看到进入到了 bootloader 的代码中，一般在这个会话状态进行刷写烧录相关操作
-<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703725781587-f245dd83-4c19-420e-bc79-92937b48d42f-562802.png" />
-当进入非默认会话后如果不及时发送 3E 维持会话，过一阵就会退回默认会话
+<p>使用<code>7DF # 03 22 F1 86</code>读取当前会话<br />
+<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703724427129-e5152ba1-6d9e-4ece-adda-c15ba7c83d9a-389439.png" /><br />
+切换到扩展会话<code>7DF # 02 10 03</code>然后 0x22 读取会话确认一下<code>7DF # 03 22 F1 86</code>，一般在扩展会话进行一些高权限的操作，比如读写数据<br />
+<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703724811222-0064f227-341b-4c99-ac65-4a5463a1fa73-034897.png" /><br />
+切换到编程会话<code>7DF # 02 10 02</code>此时观察串口可以看到进入到了 bootloader 的代码中，一般在这个会话状态进行刷写烧录相关操作<br />
+<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703725781587-f245dd83-4c19-420e-bc79-92937b48d42f-562802.png" /><br />
+当进入非默认会话后如果不及时发送 3E 维持会话，过一阵就会退回默认会话<br />
 <img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703724881555-c9756b06-d35c-4639-b38d-82d63d4ae4df-382368.png" /></p>
 <h3 id="3e">3E 会话维持</h3>
-<p>前面 10 服务提到，如果不及时发送会话维持，过一阵就会退回到默认会话，会话维持的服务是 3E
-有两种子功能，00 和 80
-<code>7DF # 02 3E 00</code>表示需要诊断服务端响应
-<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703728220631-e9e184d2-0123-4b36-807d-f0853bb74bd0-452930.png" />
-<code>7DF # 02 3E 80</code>表示不需要诊断服务端响应，具体表现为你发送之后并不会收到回应
+<p>前面 10 服务提到，如果不及时发送会话维持，过一阵就会退回到默认会话，会话维持的服务是 3E<br />
+有两种子功能，00 和 80<br />
+<code>7DF # 02 3E 00</code>表示需要诊断服务端响应<br />
+<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703728220631-e9e184d2-0123-4b36-807d-f0853bb74bd0-452930.png" /><br />
+<code>7DF # 02 3E 80</code>表示不需要诊断服务端响应，具体表现为你发送之后并不会收到回应<br />
 <img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703728599343-f5068396-0aa9-4f7a-9bff-c8e90cf92e32-010533.png" /></p>
 <h3 id="27">27 安全访问</h3>
-<p>这时候就得注意区分一下物理寻址和功能寻址了，前面通过 7DF 进行功能寻址，所有 ECU 都能收到的，虽然我们的实验只有 STM32 这一块板子，但实际在车上肯定不是，而且可能一堆不同厂商的 ECU，那解锁安全访问的算法必然也要不同，所以 27 服务的时候要使用物理寻址，指定哪个 ECU
-但这玩意都是代码里定义的呀，我们咋知道呢，可以使用 CaringCaribou 这个工具去探测嗷，要通过这个工具在 linux 下调用 pcan 需要安装 pcan 的 linux 驱动，具体流程如下：
+<p>这时候就得注意区分一下物理寻址和功能寻址了，前面通过 7DF 进行功能寻址，所有 ECU 都能收到的，虽然我们的实验只有 STM32 这一块板子，但实际在车上肯定不是，而且可能一堆不同厂商的 ECU，那解锁安全访问的算法必然也要不同，所以 27 服务的时候要使用物理寻址，指定哪个 ECU<br />
+但这玩意都是代码里定义的呀，我们咋知道呢，可以使用 CaringCaribou 这个工具去探测嗷，要通过这个工具在 linux 下调用 pcan 需要安装 pcan 的 linux 驱动，具体流程如下：<br />
 在这里下载 pcan 的 linux 驱动：<a href="https://www.peak-system.com/Drivers.523.0.html">https://www.peak-system.com/Drivers.523.0.html</a> 并解压出来</p>
 <pre><code class="language-python">apt update
 apt-get -y install linux-headers-$(uname -r)   # 这一步可能需要
@@ -7901,18 +7901,18 @@ sudo make install
 modporbe pcan  # 这里有时候 modporbe can 即可
 ip link set can0 up type can bitrate 500000
 </code></pre>
-<p>比如我这里探测的结果是：0x721
-<img alt="03196de14224a37563d250dd9d3ed91.png" src="../img/t87vbIA4bUQDtJAe/1703730234667-9c2c3145-aa26-464c-a5c5-683c8085c9d3-639735.png" />
-那接下来就可以请求 seed 了，发送<code>721 # 02 27 01</code>发现报错了
-<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703730862773-816000be-063f-4612-859e-e03df98dd3fc-366907.png" />
-查阅 NRC 响应，是因为当前会话状态不支持此操作
-<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703730959492-1536c5e5-74e1-4a80-8dff-25c8fa730037-188942.png" />
-那么切换到扩展会话<code>7DF # 02 10 03</code>，然后发送维持会话<code>7DF # 02 3E 80</code>
-再次请求便可得到种子，但是我们并不知道怎么从种子算出密钥呀，这时候就要反编译固件分析逻辑了
-可以把 app.hex 拖到 IDA 里面以 ARM 小端格式打开，搜索字符串，我把 SeedToKey 字符串加在了代码里方便定位😋
-<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703731723583-fbd17ca4-fbc9-44a1-9b03-fe7855b921d9-145329.png" />
-转成伪代码可以看到具体逻辑，a1 就是传进来的 seed，v2 就是计算出来的 key
-<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703731756591-bbb09e40-64b4-4b13-a126-43f796ac6f32-921382.png" />
+<p>比如我这里探测的结果是：0x721<br />
+<img alt="03196de14224a37563d250dd9d3ed91.png" src="../img/t87vbIA4bUQDtJAe/1703730234667-9c2c3145-aa26-464c-a5c5-683c8085c9d3-639735.png" /><br />
+那接下来就可以请求 seed 了，发送<code>721 # 02 27 01</code>发现报错了<br />
+<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703730862773-816000be-063f-4612-859e-e03df98dd3fc-366907.png" /><br />
+查阅 NRC 响应，是因为当前会话状态不支持此操作<br />
+<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703730959492-1536c5e5-74e1-4a80-8dff-25c8fa730037-188942.png" /><br />
+那么切换到扩展会话<code>7DF # 02 10 03</code>，然后发送维持会话<code>7DF # 02 3E 80</code><br />
+再次请求便可得到种子，但是我们并不知道怎么从种子算出密钥呀，这时候就要反编译固件分析逻辑了<br />
+可以把 app.hex 拖到 IDA 里面以 ARM 小端格式打开，搜索字符串，我把 SeedToKey 字符串加在了代码里方便定位😋<br />
+<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703731723583-fbd17ca4-fbc9-44a1-9b03-fe7855b921d9-145329.png" /><br />
+转成伪代码可以看到具体逻辑，a1 就是传进来的 seed，v2 就是计算出来的 key<br />
+<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703731756591-bbb09e40-64b4-4b13-a126-43f796ac6f32-921382.png" /><br />
 让 chatGPT 写个 Python 脚本计算一下</p>
 <pre><code class="language-python">def factory_security_seed_to_key(seed):
     seed = int.from_bytes(seed.to_bytes(4, 'little'), 'big')  #切换大小端序
@@ -7931,19 +7931,19 @@ seed_value = 0x34023105  # 用你实际的种子值替换这里的数值
 result = factory_security_seed_to_key(seed_value)
 print(f&quot;Seed: 0x{seed_value:08X}, Key: 0x{result:08X}&quot;)
 </code></pre>
-<p>请求种子
-<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703732056529-f5dd1d01-8ffa-4207-936f-6c3484fa1d8c-271183.png" />
-计算
-<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703732139582-e78b509a-be17-47d1-8aa9-c764286e963d-176181.png" />
-返回密钥，成功通过安全访问
-<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703732089928-534dd467-635a-473f-8051-b622bfc606a2-151116.png" />
-如果你多次发错密钥，则会得到一个否定响应，表示尝试解锁次数已经达到了设定的上限
-<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703733167303-901bc70d-dcee-402d-8185-86d693f11089-244964.png" />
+<p>请求种子<br />
+<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703732056529-f5dd1d01-8ffa-4207-936f-6c3484fa1d8c-271183.png" /><br />
+计算<br />
+<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703732139582-e78b509a-be17-47d1-8aa9-c764286e963d-176181.png" /><br />
+返回密钥，成功通过安全访问<br />
+<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703732089928-534dd467-635a-473f-8051-b622bfc606a2-151116.png" /><br />
+如果你多次发错密钥，则会得到一个否定响应，表示尝试解锁次数已经达到了设定的上限<br />
+<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703733167303-901bc70d-dcee-402d-8185-86d693f11089-244964.png" /><br />
 <img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703733211667-5dff2f7b-6b3f-44fa-9c80-a6595be37a85-945863.png" /></p>
 <h3 id="11">11 复位功能</h3>
-<p>先进拓展会话，再发送<code>7DF # 02 11 01</code>
-<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703735935869-73c4e6f4-ee46-4ce4-84dd-c99146ad3741-558867.png" />
-可以在串口中观察到设备重启，与按下复位按键效果是一样的
+<p>先进拓展会话，再发送<code>7DF # 02 11 01</code><br />
+<img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703735935869-73c4e6f4-ee46-4ce4-84dd-c99146ad3741-558867.png" /><br />
+可以在串口中观察到设备重启，与按下复位按键效果是一样的<br />
 <img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703735993444-4a617b76-47dd-4f10-b299-b820c8113feb-537141.png" /></p>
 <h3 id="23">23 通过地址读数据（暂未实现）</h3>
 <p>操作地址相比上面编码要复杂一些，我们先来看一下 14229 中给出的例子，从内存地址 0x20481392 读取 259 字节数据，则构造 UDS 诊断命令如下</p>
@@ -7989,7 +7989,7 @@ print(f&quot;Seed: 0x{seed_value:08X}, Key: 0x{result:08X}&quot;)
 </tr>
 </tbody>
 </table>
-<p>其中地址和长度定义指的是：0x24 换成二进制，低四位是地址的长度 0100 = 0x4 字节，高四位是读取长度的长度 0010 = 0x2 字节
+<p>其中地址和长度定义指的是：0x24 换成二进制，低四位是地址的长度 0100 = 0x4 字节，高四位是读取长度的长度 0010 = 0x2 字节<br />
 <img alt="image.png" src="../img/t87vbIA4bUQDtJAe/1703734297267-601b323e-363f-4eb5-8517-87b7445cb846-088544.png" /></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/mawulsqfigf258x7">https://www.yuque.com/hxfqg9/iot/mawulsqfigf258x7</a></p>

@@ -7544,13 +7544,13 @@
 
 <h2 id="rtlsdr">通过RTLSDR观察各种频谱</h2>
 <p>RTL-SDR 使用的 R820T 调谐器能够接收到 25MHz 到 1.75GHz，在本文中将使用 RTL-SDR 观察各种信号的频谱图（FM电台信号、2G、3G、4G蜂窝电话信号、433MHz的无线传感器信号、数字电视信号）</p>
-<p>把工作目录切换到：spectrum，打开 exploring_the_spectrum.slx
-中心频率是可以通过 GUI 界面进行调节的，RTL-SDR 的中心频率是 99MHz，同时采样率被设置为了 2.8MHz，这样 RTL-SDR 采样的范围是：99-1.4 到 99+1.4，也就是在 97.6MHz 到 100.4MHz 都会被 RTL-SDR 捕捉到
-<img alt="image.png" src="../img/AxY_gyeZi-vAaUOi/1683624055682-1f4d7ddf-43ce-4d39-b1b3-b9110869b0d3-715172.png" />
-调整好中心频率后点击 Start Simulation 就会开始解析射频信号，后面我们会分析这些信号，分析的前提是需要把这些信号调整到中心频率上，比如当前看到有两个比较明显的信号，都是 ±1 左右，因此把 Centre Frequency ±1 即可把其中一个信号频率设置为中心频率
-<img alt="image.png" src="../img/AxY_gyeZi-vAaUOi/1684138152495-1dd9419f-e513-4682-b9cb-94ccf5e7d23d-518637.png" />
-当然还需要微调一下
-<img alt="image.png" src="../img/AxY_gyeZi-vAaUOi/1684138250023-88539595-3660-4e8e-a271-18a64988cd90-660773.png" />
+<p>把工作目录切换到：spectrum，打开 exploring_the_spectrum.slx<br />
+中心频率是可以通过 GUI 界面进行调节的，RTL-SDR 的中心频率是 99MHz，同时采样率被设置为了 2.8MHz，这样 RTL-SDR 采样的范围是：99-1.4 到 99+1.4，也就是在 97.6MHz 到 100.4MHz 都会被 RTL-SDR 捕捉到<br />
+<img alt="image.png" src="../img/AxY_gyeZi-vAaUOi/1683624055682-1f4d7ddf-43ce-4d39-b1b3-b9110869b0d3-715172.png" /><br />
+调整好中心频率后点击 Start Simulation 就会开始解析射频信号，后面我们会分析这些信号，分析的前提是需要把这些信号调整到中心频率上，比如当前看到有两个比较明显的信号，都是 ±1 左右，因此把 Centre Frequency ±1 即可把其中一个信号频率设置为中心频率<br />
+<img alt="image.png" src="../img/AxY_gyeZi-vAaUOi/1684138152495-1dd9419f-e513-4682-b9cb-94ccf5e7d23d-518637.png" /><br />
+当然还需要微调一下<br />
+<img alt="image.png" src="../img/AxY_gyeZi-vAaUOi/1684138250023-88539595-3660-4e8e-a271-18a64988cd90-660773.png" /><br />
 接下来看一下另一个参数，增益（Gain），简而言之，增益就是放大倍数，需要注意提高增益可能导致噪声随着所需信号的增加而增加</p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/yy7oe46t5yiqvvhe">https://www.yuque.com/hxfqg9/iot/yy7oe46t5yiqvvhe</a></p>

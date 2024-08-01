@@ -7953,10 +7953,10 @@
   <h1>How2heap zh</h1>
 
 <h2 id="how2heap_zh">how2heap_zh</h2>
-<p>📌涉及 glibc 版本问题，每个例子都会给出测试环境
+<p>📌涉及 glibc 版本问题，每个例子都会给出测试环境<br />
 如果哪里不对还请师傅们批评指正🤝</p>
 <h2 id="first_fit">first_fit</h2>
-<p>glibc版本：最新
+<p>glibc版本：最新<br />
 源码：</p>
 <pre><code class="language-c">#include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
@@ -7995,8 +7995,8 @@ int main()
     fprintf(stderr, &quot;可以看到，虽然我们刚刚看的是 a 的，但它的内容却是 \&quot;CCCCCCCC\&quot;\n&quot;);
 }
 </code></pre>
-<p>编译一下：<code>gcc -g first_fit.c</code> 
-运行一下看看
+<p>编译一下：<code>gcc -g first_fit.c</code> <br />
+运行一下看看<br />
 <img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1600927388832-9c4a0404-b58b-4bf2-a139-6b9961fb65f8-932461.png" /></p>
 <p>程序展示了一个 glibc 堆分配策略，first-fit。在分配内存时，malloc 会到 unsorted bin 中查找适合的被 free 的 chunk，如果没有，就会把 unsorted bin 中的所有 chunk 分别放入到所属的 bins 中，然后再去这些 bins 里去寻找适合的 chunk。可以看到第三次 malloc 的地址和第一次相同，即 malloc 找到了第一次 free 掉的 chunk，并把它重新分配</p>
 <p>下断点，对着源码调试着理解一下</p>
@@ -8004,10 +8004,10 @@ int main()
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1600927754975-9db7999a-86c1-4e05-b1ee-1615e06a80cd-596510.png" /></p>
 <p>然后 free 了 a，这时候 a 被放到了 unsorted bin 中</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1600927947156-59f9d428-a9c6-4506-9276-db9bc3132a6c-269999.png" /></p>
-<p>然后再去申请一个小于 free chunk 的大小的内存空间根据 first fit 就会分配到这里
+<p>然后再去申请一个小于 free chunk 的大小的内存空间根据 first fit 就会分配到这里<br />
 可以发现，当释放了一块内存之后再去申请一个大小略小的空间，那么 glibc 倾向于将先前释放的空间重新分配</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1600928868920-00438d4e-5d12-4704-9685-ef9266f24d32-727180.png" /></p>
-<p>加上参数重新编译一个版本：<code>gcc -fsanitize=address -g first_fit.c</code>
+<p>加上参数重新编译一个版本：<code>gcc -fsanitize=address -g first_fit.c</code><br />
 会提示有个 use-after-free 漏洞</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1587047255767-ef9188e5-b4b2-4e8f-a7ff-3bb2ff24c742-641534.png" /></p>
 <p>UAF 漏洞简单来说就是第一次申请的内存释放之后，没有进行内存回收，下次申请的时候还能申请到这一块内存，导致我们可以用以前的内存指针来访问修改过的内存</p>
@@ -8051,8 +8051,8 @@ int main()
 <p>free 掉之后再申请一个大小相同的 p2，这时候会把之前 p1 的内存区域分配给 p2，也就是说可以用 p2 来控制 p1 的内容了</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1600937643860-ba33d796-b418-4176-8f7f-a8558cdaf748-478548.png" /></p>
 <h2 id="fastbin_dup">fastbin_dup</h2>
-<p>ubuntu16.04 glibc 2.23
-fastbin 主要是用来放一些小的内存的，来提高效率
+<p>ubuntu16.04 glibc 2.23<br />
+fastbin 主要是用来放一些小的内存的，来提高效率<br />
 源码</p>
 <pre><code class="language-c">#include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
@@ -8097,9 +8097,9 @@ int main()
     fprintf(stderr, &quot;第三次 malloc(8): %p\n&quot;, f);
 }
 </code></pre>
-<p><code>gcc -g fastbin_dup.c</code>
-程序展示了 fastbins 的 double-free 攻击，可以泄露出一块已经被分配的内存指针。fastbins 可以看成一个后进先出的栈，使用单链表来实现，通过 fastbin-&gt;fd 来遍历。由于 free 的过程会对 free list 做检查，我们不能连续两次 free 同一个 chunk，所以这里在两次 free 之间，增加了一次对其他 chunk 的 free 过程，从而绕过了检查顺利执行，然后再 malloc 三次，就在同一个地址 malloc 了两次，也就有了两个指向同一块内存区域的指针
-（之前 gef 调的因为地址一样就没换图片）
+<p><code>gcc -g fastbin_dup.c</code><br />
+程序展示了 fastbins 的 double-free 攻击，可以泄露出一块已经被分配的内存指针。fastbins 可以看成一个后进先出的栈，使用单链表来实现，通过 fastbin-&gt;fd 来遍历。由于 free 的过程会对 free list 做检查，我们不能连续两次 free 同一个 chunk，所以这里在两次 free 之间，增加了一次对其他 chunk 的 free 过程，从而绕过了检查顺利执行，然后再 malloc 三次，就在同一个地址 malloc 了两次，也就有了两个指向同一块内存区域的指针<br />
+（之前 gef 调的因为地址一样就没换图片）<br />
 首先 malloc 3 个 chunk</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1600951150852-e9a569e6-3535-4ba4-b533-7a690836aedb-695687.png" /></p>
 <p>第一个 free 之后，chunk a 被添加到 fastbins 中</p>
@@ -8114,13 +8114,13 @@ int main()
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1587093076093-8fd1a931-8d8f-409d-8f35-c03927fcbbe5-902245.png" /></p>
 <p>再 malloc 两个的情况（上面那种情况先 q 再 c）</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1600951611138-80b2fd0e-4742-4e18-88f9-adc05d9840c7-153401.png" /></p>
-<p>后来又 malloc 了一个可以看到 0x4444444444444444 被改成了 0x4646464646464646
+<p>后来又 malloc 了一个可以看到 0x4444444444444444 被改成了 0x4646464646464646<br />
 是因为后来申请的 f 跟 d 指向同一块内存区域</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1600951496539-0bf5fa4f-8e56-42df-9fbb-7ad1883999f9-623349.png" /></p>
-<p>所以，对于 fastbins，可以通过 double-free 泄露一个堆块指针，可以用 -fsanitize=address 参数重新编译看看
+<p>所以，对于 fastbins，可以通过 double-free 泄露一个堆块指针，可以用 -fsanitize=address 参数重新编译看看<br />
 在 libc-2.26 中，即使两次 free，也没有触发 double-free 的异常检测，这是因为 tcache 的机制有关，等后面介绍</p>
 <h2 id="fastbin_dup_into_stack">fastbin_dup_into_stack</h2>
-<p>ubuntu16.04 glibc 2.23
+<p>ubuntu16.04 glibc 2.23<br />
 源码</p>
 <pre><code class="language-c">#include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
@@ -8178,19 +8178,19 @@ int main()
     fprintf(stderr, &quot;这一次 malloc(8) 就申请到了栈上去: %p\n&quot;, g);
 }
 </code></pre>
-<p><code>gcc -g fastbin_dup_into_stack.c</code>
+<p><code>gcc -g fastbin_dup_into_stack.c</code><br />
 这个程序展示了怎样通过修改指针，将其指向一个伪造的 free chunk，在伪造的地址处 malloc 出一个 chunk。该程序大部分内容都和上一个程序一样，漏洞也同样是 double-free，只有给 fd 填充的内容不一样</p>
 <p>三次 malloc 之后</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1600953494570-a1cea09f-5d7d-43fc-8aeb-c5dbe0179a8f-772757.png" /></p>
 <p>三次 free 之后，可以看到由于 double free 造成的循环的指针</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1600953598583-7acf9055-df9d-49f4-a87e-5c6ee4d03d4b-516785.png" /></p>
-<p>这时候我们再去 malloc 两次，还剩一个指向 chunk a 的 free chunk，而前面我们也申请到了指向它的 chunk d，可以通过它编辑 chunk a 的 fd 指针，填充一个有意义的地址：栈地址减 0x8（因为伪造的 chunk 要有个 size，size 在 &amp;stack_var - 0x8 的位置上）
+<p>这时候我们再去 malloc 两次，还剩一个指向 chunk a 的 free chunk，而前面我们也申请到了指向它的 chunk d，可以通过它编辑 chunk a 的 fd 指针，填充一个有意义的地址：栈地址减 0x8（因为伪造的 chunk 要有个 size，size 在 &amp;stack_var - 0x8 的位置上）<br />
 <code>*d = (unsigned long long) (((char*)&amp;stack_var) - sizeof(d));</code></p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1600954810408-ee929528-acd8-4128-a087-bd0ddd7dff8e-366482.png" /></p>
 <p>这样 malloc 一次之后再次申请的时候会申请到 fd 指针指向的 0x00007fffffffdcb0</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1600955714224-530259d9-fded-4231-b82b-efeb59ca0547-524584.png" /></p>
 <h2 id="fastbin_dup_consolidate">fastbin_dup_consolidate</h2>
-<p>ubuntu16.04 glibc 2.23
+<p>ubuntu16.04 glibc 2.23<br />
 <code>gcc -g fastbin_dup_consolidate.c</code></p>
 <pre><code class="language-c">#include &lt;stdio.h&gt;
 #include &lt;stdint.h&gt;
@@ -8222,24 +8222,24 @@ int main() {
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1600995244644-f388c4b8-c888-4be5-bbe4-47112c4fc1be-816895.png" /></p>
 <p>释放掉 p1 之后，放到了 fastbins 中</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1590287106244-ec14d2b5-1571-492f-abb2-f2d3f8a2ab19-581442.png" /></p>
-<p>此时分配了一个 large chunk 即：void *p3 = malloc(0x400);
+<p>此时分配了一个 large chunk 即：void *p3 = malloc(0x400);<br />
 fastbins 中的 chunk 已经没有了，在 small bins 出现了，同时 chunk 2 的 size 和 prev_size 都被修改了</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1590288199338-0ebc8dbc-ee7c-4e26-b6ff-d54410736dec-454384.png" /></p>
 <p>在分配 large chunk 的时候，首先会根据 chunk 的大小来获取对应的 large bin 的 index，然后判断 fast bins 中有没有 chunk，如果有就调用 malloc_consolidate() 合并 fast bins 中的 chunk，然后放到 unsorted bin 中。unsorted bin 中的 chunk 会按照大小放到 small 或 large bins 中</p>
-<p>p1 已经不再 fastbin 的顶部，所以可以再次 free
+<p>p1 已经不再 fastbin 的顶部，所以可以再次 free<br />
 p1 既在 small bins 又在 fast bins</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1590289109832-16bfd458-9a40-4055-8023-fd6050912bba-691981.png" /></p>
-<p>再一次 malloc 之后会从 fast bins 中分配
-void *p4 = malloc(0x10);
+<p>再一次 malloc 之后会从 fast bins 中分配<br />
+void *p4 = malloc(0x10);<br />
 strcpy(p4, "CCCCCCC");</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1590289242964-0d96fd86-b941-456b-a5c6-200dc96f824b-497200.png" /></p>
-<p>再一次就是从 small bins 中分配
-void *p5 = malloc(0x10);
+<p>再一次就是从 small bins 中分配<br />
+void *p5 = malloc(0x10);<br />
 strcpy(p5, "DDDDDDDD");</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1590289349923-8853dc5e-c2bf-499a-93ad-342072ba7372-442167.png" /></p>
 <p>p4 和 p5 被分配在了同一个地方</p>
 <h2 id="unsafe_unlink">unsafe_unlink</h2>
-<p>ubuntu16.04 glibc 2.23
+<p>ubuntu16.04 glibc 2.23<br />
 这个程序展示了怎样利用 free 改写全局指针 chunk0_ptr 达到任意内存写的目的，即 unsafe unlink</p>
 <pre><code class="language-c">#include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
@@ -8294,15 +8294,15 @@ int main()
     fprintf(stderr, &quot;新的值是: %s\n&quot;,victim_string);
 }
 </code></pre>
-<p>ulink 有一个保护检查机制，他会检查这个 chunk 的前一个 chunk 的 bk 指针是不是指向这个 chunk（后一个也一样）
+<p>ulink 有一个保护检查机制，他会检查这个 chunk 的前一个 chunk 的 bk 指针是不是指向这个 chunk（后一个也一样）<br />
 先在 main 函数上设置一个断点，然后单步走一下，走到第 13 行（不包括）</p>
 <p>我们来看一下，申请了两个堆之后的情况</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1593263965348-79d4870c-2584-45c0-9a54-746842922a5b-508284.png" /></p>
 <p>上面说的那个检查 fd/bk 指针是通过 chunk 头部的相对地址来找的，我们可以用全局指针 chunk0_ptr 构造一个假的 chunk 来绕过</p>
 <p>再单步走到第 40 行（这里是后来补的图，地址大了 0x1000）</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1606571997405-de6fa8aa-d1b5-4ee2-a5ef-0187afe3c2e2-823357.png" /></p>
-<p>在伪造 fd 跟 bk 这个地方，这两行代码做了个减法，使得从这个地方数起来正好可以数到我们伪造的哪一个 fake chunk
-chunk0_ptr[2] = (uint64_t) &amp;chunk0_ptr-(sizeof(uint64_t)<em>3);
+<p>在伪造 fd 跟 bk 这个地方，这两行代码做了个减法，使得从这个地方数起来正好可以数到我们伪造的哪一个 fake chunk<br />
+chunk0_ptr[2] = (uint64_t) &amp;chunk0_ptr-(sizeof(uint64_t)<em>3);<br />
 chunk0_ptr[3] = (uint64_t) &amp;chunk0_ptr-(sizeof(uint64_t)</em>2);</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1593264386296-c4727e74-b4e5-45a2-b1f0-bf7c4ff5850f-311299.png" /></p>
 <p>上面那个图没对齐，用文本来解释一下</p>
@@ -8318,27 +8318,27 @@ gdb-peda$ x/4gx 0x0000000000601060
 
 0x601060是我们伪造的那个堆块的bk指针,在这里可以看到它的fd指针指向的是0x602010
 </code></pre>
-<p>我们的 fake chunk 的 fd 指向 0x601058 然后 0x601058 的 bk 指向 0x601070
+<p>我们的 fake chunk 的 fd 指向 0x601058 然后 0x601058 的 bk 指向 0x601070<br />
  fake chunk 的 bk 指向 0x601060 然后 0x601060 的 fd 指向 0x601070，可以保证前后都指向我们伪造的这个 chunk，完美！</p>
 <p>另外我们利用 chunk0 的溢出来修改 chunk1 的 prev_size 为 fake chunk 的大小，修改 PREV_INUSE 标志位为 0，将 fake chunk 伪造成一个 free chunk。</p>
 <p>接下来释放掉 chunk1 因为 fake chunk 和 chunk1 是相邻的一个 free chunk，所以会将他两个合并，这就需要对 fake chunk 进行 unlink，进行如下操作</p>
 <blockquote>
-<p>FD = P-&gt;fd
-BK = P-&gt;bk
-FD-&gt;bk = BK
+<p>FD = P-&gt;fd<br />
+BK = P-&gt;bk<br />
+FD-&gt;bk = BK<br />
 BK-&gt;fd = FD</p>
 </blockquote>
 <p>通过前面的赋值操作</p>
 <blockquote>
-<p>P-&gt;fd =  &amp;P - 3 * size(int)
+<p>P-&gt;fd =  &amp;P - 3 * size(int)<br />
 P-&gt;bk = &amp;P - 2 * size(int) </p>
 </blockquote>
-<p>也就是说：FD = &amp;P - 3 * size(int)，BK = &amp;P - 2 * size(int) 
-FD-&gt;bk 按照偏移寻址，就是 FD+3*size(int) 也就等于 &amp;P，FD-&gt;bk = P，同理 BK-&gt;fd = P
-这样执行下来，最终实现的效果是 P = &amp;P - 3 * size(int)
+<p>也就是说：FD = &amp;P - 3 * size(int)，BK = &amp;P - 2 * size(int) <br />
+FD-&gt;bk 按照偏移寻址，就是 FD+3*size(int) 也就等于 &amp;P，FD-&gt;bk = P，同理 BK-&gt;fd = P<br />
+这样执行下来，最终实现的效果是 P = &amp;P - 3 * size(int)<br />
 也就是说，chunk0_ptr 和 chunk0_ptr[3] 现在指向的是同一个地址</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1606573334077-846064c9-d34f-4be2-9423-acb4376ddba1-523143.png" /></p>
-<p>在这个图示中最终实现的效果是 ptr 中存的是 ptr-0x18，如果本来 ptr 是存的一个指针的，现在它指向了 ptr-0x18
+<p>在这个图示中最终实现的效果是 ptr 中存的是 ptr-0x18，如果本来 ptr 是存的一个指针的，现在它指向了 ptr-0x18<br />
 那，如果编辑这里的内容就可以往 0x18 那里去写，实现了覆盖这个指针为任意值的效果</p>
 <h2 id="house_of_spirit">house_of_spirit</h2>
 <p>ubuntu16.04 glibc 2.23</p>
@@ -8381,11 +8381,11 @@ int main()
     return 0;
 }
 </code></pre>
-<p>通过构造 fake chunk，然后把它给释放掉，这样再次申请相同大小的 chunk 的时候就会匹配到这里
-house-of-spirit 是一种通过堆的 fast bin 机制来辅助栈溢出的方法
+<p>通过构造 fake chunk，然后把它给释放掉，这样再次申请相同大小的 chunk 的时候就会匹配到这里<br />
+house-of-spirit 是一种通过堆的 fast bin 机制来辅助栈溢出的方法<br />
 如果栈溢出的时候溢出的长度不能覆盖掉返回地址的但是却可以覆盖栈上面一个即将 free 的指针的话，我们可以把这个指针覆盖为栈上的某一个地址，并且把这个地址上伪造一个 chunk，free 之后再次 malloc 就可以申请到栈上面伪造的那一块，这时候就有可能改写返回地址了</p>
-<p>通过上面那个程序直观的看一下
-<code>gcc -g house_of_spirit.c</code>
+<p>通过上面那个程序直观的看一下<br />
+<code>gcc -g house_of_spirit.c</code><br />
 首先在程序的第 14 行下个断点 <code>b 14</code></p>
 <p>运行到这里可以看到 fake_chunk 目前还没有被我们写入</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1601364927623-1ce8db90-0652-48de-be8a-ca6b1a77b7dd-112460.png" /></p>
@@ -8400,8 +8400,8 @@ house-of-spirit 是一种通过堆的 fast bin 机制来辅助栈溢出的方法
 b[0] = 0x4242424242424242LL;
 </code></pre>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1601365064993-fce46fbc-8391-42ff-86a0-f68c411fb152-628325.png" /></p>
-<p>构造 chunk 的时候要注意绕过一些检查：
-后面那三个特殊的标志位前两个必须都为 0，写 size 位的时候直接 0xN0就可以了，然后大小要注意符合 fastbin 的大小，next chunk 的大小也要注意，必须大于 2*SIZE_SZ，小于 av-&gt;system_mem
+<p>构造 chunk 的时候要注意绕过一些检查：<br />
+后面那三个特殊的标志位前两个必须都为 0，写 size 位的时候直接 0xN0就可以了，然后大小要注意符合 fastbin 的大小，next chunk 的大小也要注意，必须大于 2*SIZE_SZ，小于 av-&gt;system_mem<br />
 64位下：16&lt; next chunk 的 size &lt; 128kb</p>
 <h2 id="poison_null_byte">poison_null_byte</h2>
 <p>ubuntu16.04 glibc 2.23</p>
@@ -8489,14 +8489,14 @@ int main()
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1601088139799-f1fd8ca9-66f8-42a4-a9c6-a89601dc7cee-687676.png" /></p>
 <p>接下来 free 掉 b1 跟 c，因为 c 的 prev_size 仍然是 0x210，按照这个去找的话就可以找到原本的 b，现在的 b1 的位置，那么他们俩会合并，但是中间还有个 b2 呐！！这里 how2heap 有一个注释</p>
 <blockquote>
-<p>Typically b2 (the victim) will be a structure with valuable pointers that we want to control
+<p>Typically b2 (the victim) will be a structure with valuable pointers that we want to control<br />
 通常b2（受害者）将是一个结构，其中包含我们要控制的有价值的指针</p>
 </blockquote>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1601088278072-0e4a50a2-f9d9-420d-913a-519ebafc15b5-267408.png" /></p>
 <p>那么接下来的事情就是申请一块大的 chunk，然后去随便改写 b2 的内容了</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1601088474598-9efc6209-d054-4155-979b-731befe57bee-791674.png" /></p>
 <h2 id="house_of_lore">house_of_lore</h2>
-<p>ubuntu16.04 glibc 2.23
+<p>ubuntu16.04 glibc 2.23<br />
 <a href="https://www.yuque.com/hxfqg9/bin/prkw8a?view=doc_embed">House of Lore</a></p>
 <h2 id="overlapping_chunks">overlapping_chunks</h2>
 <p>ubuntu16.04 glibc 2.23</p>
@@ -8700,7 +8700,7 @@ int main(){
 }
 </code></pre>
 <p>当我们调用一个相当大的块的时候会用 mmap 来代替 malloc 获取一块单独的内存来替代普通的堆，释放的时候会用 munmap</p>
-<p>一开始申请了 3 个 0x100000 大小的
+<p>一开始申请了 3 个 0x100000 大小的<br />
 此时的布局大概是这样的</p>
 <pre><code>running program
 heap
@@ -8713,8 +8713,8 @@ ld
 first mmap chunk 0x7ffff7ed7010
 </code></pre>
 <p>然后把第三个的 size 改成 0x202002，free 掉第三个，然后再去 malloc(0x300000)</p>
-<p>新的在 0x7ffff770c010
-第三个 0x7ffff780b010 大小 0x202002
+<p>新的在 0x7ffff770c010<br />
+第三个 0x7ffff780b010 大小 0x202002<br />
 第二个 0x7ffff790c010</p>
 <p>现在在第三个上是 0x202000 大小的，接下来去申请 0x300000 大小的，因为前面已经有了 0x201000，所以多申请0xFF000 就够了 (0x7ffff780b010-0x7ffff770c010)</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1601543977051-815aef09-9cb4-41f8-87b3-a96719214c15-348208.png" /></p>
@@ -8767,16 +8767,16 @@ int main() {
 <p>接下来再去 malloc 的时候就可以申请到在栈上伪造的那个 chunk 了</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1601628680041-848dc4e9-803d-4bc2-892a-0487ba5a0b27-756432.png" /></p>
 <h2 id="unsorted_bin_attack">unsorted_bin_attack</h2>
-<p>ubuntu16.04 glibc 2.23
+<p>ubuntu16.04 glibc 2.23<br />
 <a href="https://www.yuque.com/hxfqg9/bin/tubv6q?inner=1Ibdq&amp;view=doc_embed">UnsortedBin Attack</a></p>
 <h2 id="large_bin_attack">large_bin_attack</h2>
-<p>ubuntu16.04 glibc 2.23
+<p>ubuntu16.04 glibc 2.23<br />
 <a href="https://www.yuque.com/hxfqg9/bin/mdrz9g?inner=Eqi6H&amp;view=doc_embed">largebin attack</a></p>
 <h2 id="house_of_einherjar">house_of_einherjar</h2>
-<p>ubuntu16.04 glibc 2.23
+<p>ubuntu16.04 glibc 2.23<br />
 <a href="https://www.yuque.com/hxfqg9/bin/hwrtn9?inner=PQMVU&amp;view=doc_embed">House Of Einherjar</a></p>
 <h2 id="house_of_orange">house_of_orange</h2>
-<p>ubuntu16.04 glibc 2.23
+<p>ubuntu16.04 glibc 2.23<br />
 <a href="https://www.yuque.com/hxfqg9/bin/ct0mzz?view=doc_embed">House of Orange</a></p>
 <h2 id="house_of_roman">house_of_roman</h2>
 <p>ubuntu16.04 glibc 2.23</p>
@@ -8880,16 +8880,16 @@ int main(){
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1607070383590-22c05751-fdc7-4a66-aee7-4186f2947705-206719.png" /></p>
 <p>计算出 __malloc_hook 的地址，完全是根据偏移算出来的</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1607133235505-984a6f3c-8244-4b20-a1ef-37402fba9cb3-818518.png" /></p>
-<p>free 掉 chunk4 和 chunk1
+<p>free 掉 chunk4 和 chunk1<br />
 把 chunk1 的 fd 指针的末尾改为 0x00，这样它的 fd 指针就指向了 chunk3_1，同时把 chunk3_1 的 fd 从本来的 unsorted bin 的地址改为 __malloc_hook - 0x23</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1607132989094-fc5e4961-373d-44f3-84d5-0631ce0e78f8-463993.png" /></p>
-<p>malloc 两次时候再去 malloc 的时候就会申请到修改的 fd 指针那里，也就是 __malloc_hook - 0x23
+<p>malloc 两次时候再去 malloc 的时候就会申请到修改的 fd 指针那里，也就是 __malloc_hook - 0x23<br />
 （这个 chunk 称为 malloc_hook_chunk）</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1607092361071-32a2769c-4b57-40ae-9d17-4641acf31362-117758.png" /></p>
-<p>再去 malloc 一个用 chunk5 来进行 unsorted bin attack（后面还申请一个 0x30 的防止与 top chunk 合并）
+<p>再去 malloc 一个用 chunk5 来进行 unsorted bin attack（后面还申请一个 0x30 的防止与 top chunk 合并）<br />
 free 之后修改 chunk5 的 bk 指针为 __malloc_hook - 0x10</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1607092974014-81c90366-3ac4-4358-8ac1-4b6012e6c13c-092527.png" /></p>
-<p>然后 malloc 执行 unsorted bin attack，把 malloc_hook 改为 unsorted bin 的地址
+<p>然后 malloc 执行 unsorted bin attack，把 malloc_hook 改为 unsorted bin 的地址<br />
 （这么做应该是因为没法泄漏 libc 基址，所以通过这种方法把高位的几个字节直接放好，只修改后面的就行了）</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1607093250796-405a74d7-966f-48a0-82aa-964a23bc4799-864215.png" /></p>
 <p>修改低几个字节，把 system 或者 one_gadget 的地址通过前面的 malloc_hook_chunk 写入 __malloc_hook</p>
@@ -8897,13 +8897,13 @@ free 之后修改 chunk5 的 bk 指针为 __malloc_hook - 0x10</p>
 <p>这样 __malloc_hook 就是 system 的地址了，然后去 malloc 的时候就能拿到 shell 了</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1607135341811-adf1d4fb-e573-4196-b3e8-cf12604772b8-302022.png" /></p>
 <h2 id="tcache_dup">tcache_dup</h2>
-<p>ubuntu18.04 glibc 2.27
+<p>ubuntu18.04 glibc 2.27<br />
 <a href="https://www.yuque.com/hxfqg9/bin/qlry85?inner=g5z3g&amp;view=doc_embed">Tcache Attack</a></p>
 <h2 id="tcache_poisoning">tcache_poisoning</h2>
-<p>ubuntu18.04 glibc 2.27
+<p>ubuntu18.04 glibc 2.27<br />
 <a href="https://www.yuque.com/hxfqg9/bin/qlry85?inner=G4JfX&amp;view=doc_embed">Tcache Attack</a></p>
 <h2 id="tcache_house_of_spirit">tcache_house_of_spirit</h2>
-<p>ubuntu18.04 glibc 2.27
+<p>ubuntu18.04 glibc 2.27<br />
 <a href="https://www.yuque.com/hxfqg9/bin/qlry85?inner=WefoL&amp;view=doc_embed">Tcache Attack</a></p>
 <h2 id="house_of_botcake">house_of_botcake</h2>
 <p>ubuntu20.04 glibc 2.31</p>
@@ -8958,10 +8958,10 @@ int main(){
     return 0;
 }
 </code></pre>
-<p>这是 glibc2.29 对 tcache double free 做出限制以后提出的利用方法
-程序定义了一个 stack_var，希望能够控制 malloc 到这里去
-一开始先申请了 7 个 chunk，是为了能够天充满一个 tcache 链表
-然后申请了一个 chunk prev 一个 chunk a，待会就会对 chunk a 进行 double free
+<p>这是 glibc2.29 对 tcache double free 做出限制以后提出的利用方法<br />
+程序定义了一个 stack_var，希望能够控制 malloc 到这里去<br />
+一开始先申请了 7 个 chunk，是为了能够天充满一个 tcache 链表<br />
+然后申请了一个 chunk prev 一个 chunk a，待会就会对 chunk a 进行 double free<br />
 首先把那 7 个给 free 掉，填满 tcache 链表</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1607152130072-616bc860-8644-4f15-953f-bf69fd5fb59d-167127.png" /></p>
 <p>那接下来释放的 chunk a 会放到 unsorted bin 中</p>
@@ -8972,13 +8972,13 @@ int main(){
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1607152529763-756b3bb1-5ffc-4fe3-976d-b25a7ed63c90-903120.png" /></p>
 <p>再去 free a 就能把 chunk a 放进 tcache 链表中</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1607152637878-06e6b93e-3bb1-4b19-91d3-02d627c7f3c7-882870.png" /></p>
-<p>而 chunk a 已经跟 chunk prev合起来放在 unsorted bin 中了
+<p>而 chunk a 已经跟 chunk prev合起来放在 unsorted bin 中了<br />
 当再去 malloc 一个比较大的（比如 0x120）会去 unsorted bin 中切割，因为本来 chunk prev 是 0x100，后面的属于 chunk a 的了，也就是 chunk overlapping 改掉了 chunk a 的 fd 指针</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1607153012915-b06d582e-3df5-40cb-919b-0b2f8d356f66-664026.png" /></p>
 <p>那去申请一个返回 chunk a，再申请的时候就是 chunk a 的 fd 指向的那里了，也就是 stack_var</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1607153216666-0c4d1e55-096a-436a-a234-00dea59eec7d-906748.png" /></p>
 <h2 id="tcache_stashing_unlink_attack">tcache_stashing_unlink_attack</h2>
-<p>ubuntu18.04 glibc 2.27
+<p>ubuntu18.04 glibc 2.27<br />
 <a href="https://www.yuque.com/hxfqg9/bin/qlry85?inner=keGjh&amp;view=doc_embed">Tcache Attack</a></p>
 <h2 id="fastbin_reverse_into_tcache">fastbin_reverse_into_tcache</h2>
 <p>ubuntu18.04 glibc 2.27</p>
@@ -9055,7 +9055,7 @@ int main(){
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1607175721919-e1263fd6-890a-4c29-ae58-883606c453f2-040881.png" /></p>
 <p>同时会把 fastbin 链表按照相反的顺序插入到 tcache 中，这样 tcache 中的第一个就成了 victim 的 fd 指针指向的那个 stack_var[0]，同时 stack_var[0] 的 fd 指针为 victim 的地址</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1607175978135-2efdb9f0-9208-46ae-a60d-773f87f02354-560469.png" /></p>
-<p>这时候再 malloc 回来的就是 stack_var[0]，而 stack_var[0] 的 fd 指针是 victim 的地址
+<p>这时候再 malloc 回来的就是 stack_var[0]，而 stack_var[0] 的 fd 指针是 victim 的地址<br />
 最终实现的就是：目标地址的 fd+0x10 写上了一个堆的地址</p>
 <p><img alt="image.png" src="../img/gpEoNDCeCCVaJzFg/1607176344995-b9badad7-645d-4227-a384-fcb2070aeab7-927187.png" /></p>
 <blockquote>

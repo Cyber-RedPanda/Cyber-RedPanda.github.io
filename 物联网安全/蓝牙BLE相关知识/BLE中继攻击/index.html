@@ -7526,10 +7526,10 @@
 
 <h2 id="ble">BLE中继攻击</h2>
 <h2 id="_1">测试工具</h2>
-<p><a href="https://github.com/securing/gattacker">https://github.com/securing/gattacker</a>
+<p><a href="https://github.com/securing/gattacker">https://github.com/securing/gattacker</a><br />
 <a href="https://github.com/DigitalSecurity/btlejuice">https://github.com/DigitalSecurity/btlejuice</a></p>
 <h2 id="_2">环境安装</h2>
-<p>需要两个蓝牙适配器，均采用 CSR4.0
+<p>需要两个蓝牙适配器，均采用 CSR4.0<br />
 软件方面我用的 ubuntu 18.04 一个安装好之后直接克隆一个</p>
 <pre><code class="language-python">curl -sL https://deb.nodesource.com/setup\_8.x | sudo -E bash
 apt install nodejs
@@ -7541,19 +7541,19 @@ npm install gattacker
 npm install -g btlejuice
 </code></pre>
 <h2 id="btlejuice">btlejuice</h2>
-<p>第一台机器执行：<code>sudo btlejuice-proxy</code>
-第二台机器运行：<code>sudo btlejuice -u 192.168.127.139 -w</code>（ip是第一台机器的）
-然后在第二台机器上就可以打开浏览器访问 <a href="http://127.0.0.1:8080/#">http://127.0.0.1:8080</a> 了
-上面的四个标志依次是：拦截开关、导出数据、选择目标、设置
-<img alt="07e9a5ca74a2b85cb778897c5aa22ef.png" src="img/wBYzQ_mwR6Q6t1uG/1722434926808-fed278f8-ffcc-4c74-a14e-bf3b35552d28-578346.png" />
-选择目标后会用第一台机器的适配器与目标连接，获取目标的服务与特征，然后用第二台机器的适配器为造出一个假的目标，因为目标已经与第一台设备的适配器连接了，所以你就扫描不到了，再扫描出来的就是第二台设备伪造的假目标了
-扫描出来的目标，双击选中
-<img alt="image.png" src="img/wBYzQ_mwR6Q6t1uG/1654757886437-db017c82-9df8-4da6-9f24-3c4576d06935-187731.png" />
-过一小会再扫描就是适配器模拟的假目标了，我这个不知道为啥，只探测到了一个服务
-<img alt="8ea23d60538a835d3a421fb7ad84f2d.jpg" src="img/wBYzQ_mwR6Q6t1uG/1654758386522-5454123f-6029-4993-896c-9c02595d5109-365320.jpeg" />
-试一下蓝牙灯泡，基本都探测出来了，用 APP 也能扫描到，但是连接上之后会断开，再点击 APP 就没法连接到它了，经过测试是 MAC 地址不对导致的，将蓝牙适配器的 MAC 地址改掉后就能连接成功了，也能抓到和拦截通信的包
-<img alt="image.png" src="img/wBYzQ_mwR6Q6t1uG/1654759810906-ebfe1528-1804-4774-aa8d-e4a9ff328087-511218.png" />
-开启拦截开关会在收到数据的时候先展示给你，由你选择是发出去还是扔掉，也可以在发的时候修改，类似 burp 的抓包改包
+<p>第一台机器执行：<code>sudo btlejuice-proxy</code><br />
+第二台机器运行：<code>sudo btlejuice -u 192.168.127.139 -w</code>（ip是第一台机器的）<br />
+然后在第二台机器上就可以打开浏览器访问 <a href="http://127.0.0.1:8080/#">http://127.0.0.1:8080</a> 了<br />
+上面的四个标志依次是：拦截开关、导出数据、选择目标、设置<br />
+<img alt="07e9a5ca74a2b85cb778897c5aa22ef.png" src="img/wBYzQ_mwR6Q6t1uG/1722434926808-fed278f8-ffcc-4c74-a14e-bf3b35552d28-578346.png" /><br />
+选择目标后会用第一台机器的适配器与目标连接，获取目标的服务与特征，然后用第二台机器的适配器为造出一个假的目标，因为目标已经与第一台设备的适配器连接了，所以你就扫描不到了，再扫描出来的就是第二台设备伪造的假目标了<br />
+扫描出来的目标，双击选中<br />
+<img alt="image.png" src="img/wBYzQ_mwR6Q6t1uG/1654757886437-db017c82-9df8-4da6-9f24-3c4576d06935-187731.png" /><br />
+过一小会再扫描就是适配器模拟的假目标了，我这个不知道为啥，只探测到了一个服务<br />
+<img alt="8ea23d60538a835d3a421fb7ad84f2d.jpg" src="img/wBYzQ_mwR6Q6t1uG/1654758386522-5454123f-6029-4993-896c-9c02595d5109-365320.jpeg" /><br />
+试一下蓝牙灯泡，基本都探测出来了，用 APP 也能扫描到，但是连接上之后会断开，再点击 APP 就没法连接到它了，经过测试是 MAC 地址不对导致的，将蓝牙适配器的 MAC 地址改掉后就能连接成功了，也能抓到和拦截通信的包<br />
+<img alt="image.png" src="img/wBYzQ_mwR6Q6t1uG/1654759810906-ebfe1528-1804-4774-aa8d-e4a9ff328087-511218.png" /><br />
+开启拦截开关会在收到数据的时候先展示给你，由你选择是发出去还是扔掉，也可以在发的时候修改，类似 burp 的抓包改包<br />
 <img alt="image.png" src="img/wBYzQ_mwR6Q6t1uG/1654760146672-c4fea938-e3f5-4bb6-a97d-7b0b971e0ebe-380768.png" /></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/owswf4">https://www.yuque.com/hxfqg9/iot/owswf4</a></p>

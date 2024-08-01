@@ -7613,38 +7613,38 @@
   <h1>HackCube使用</h1>
 
 <h2 id="hackcube">HackCube使用</h2>
-<p>公司同事拼起来一个，等有时间了自己拼一个再写搭建，通电之后会产生一个 HackCUBESpecial_xxxxxx 的 WIFI，密码是 hackcube
+<p>公司同事拼起来一个，等有时间了自己拼一个再写搭建，通电之后会产生一个 HackCUBESpecial_xxxxxx 的 WIFI，密码是 hackcube<br />
 连接 WIFI 后访问 192.168.5.1 即可</p>
 <h2 id="wifi">WIFI</h2>
-<p>WIFI 功能并不多，只有扫描的功能
-<img alt="image.png" src="../img/8nzG6ZY4p0MLO6DN/1668952083003-8d02b9c2-bfe9-4b3b-92ac-d16bd39b61f0-903672.png" />
+<p>WIFI 功能并不多，只有扫描的功能<br />
+<img alt="image.png" src="../img/8nzG6ZY4p0MLO6DN/1668952083003-8d02b9c2-bfe9-4b3b-92ac-d16bd39b61f0-903672.png" /><br />
 有个 Mount the client list 功能，没太明白是要干啥，也没扫描出啥结果来<img alt="image.png" src="../img/8nzG6ZY4p0MLO6DN/1668952431527-293ea72a-5297-43b8-aa6f-1d9d6f6bb784-137714.png" /></p>
 <h2 id="nfc">NFC</h2>
-<p>只针对低频卡，手边没有，先不看，主要是读、模拟、写，后面的 Attack 是爆破，遍历 ID
+<p>只针对低频卡，手边没有，先不看，主要是读、模拟、写，后面的 Attack 是爆破，遍历 ID<br />
 <img alt="image.png" src="../img/8nzG6ZY4p0MLO6DN/1668952077246-2a90b374-b1c3-43fe-8332-6eb18a3dbde2-504120.png" /></p>
 <h2 id="rf">RF</h2>
-<p>重点看这个，依次往下看
-有 sniffer 功能，实时嗅探周围的信号
-<img alt="image.png" src="../img/8nzG6ZY4p0MLO6DN/1668949030316-4181813c-e338-4013-831e-442c1a9de363-276940.png" />
-使用 HackRF 播放一个之前捕获的信号
-<img alt="image.png" src="../img/8nzG6ZY4p0MLO6DN/1668946896426-74d8706b-2f7f-4fd8-9472-0e7871ed5c3e-731960.png" />
-hackcube 能嗅探到
-<img alt="image.png" src="../img/8nzG6ZY4p0MLO6DN/1668949065926-533bc645-eeab-4a70-9aee-71c3bb78d216-079138.png" />
-使用 Transmit 是发射相应的信号，可以指定数据和功能码，用 HackRF 也能验证
-<img alt="image.png" src="../img/8nzG6ZY4p0MLO6DN/1668949127888-864da1b4-295a-4b96-a468-14215a07d9cd-605631.png" />
-Attack 属于爆破，设定一个开始地址 一个结束地址，他就会遍历去发送信号
-<img alt="image.png" src="../img/8nzG6ZY4p0MLO6DN/1668949176145-42a09626-5dee-4f7e-9112-5804a2d40ed1-843330.png" />
-Jamming 属于是干扰，指定频段后那个频段会充满噪音
-<img alt="image.png" src="../img/8nzG6ZY4p0MLO6DN/1668949195984-482f7a4e-6e69-47dd-b91f-689214808e37-761408.png" />
-前后对比如图
-<img alt="image.png" src="../img/8nzG6ZY4p0MLO6DN/1668949421044-6829d8ae-86e0-4b67-a174-8973d9f9c74f-582601.png" /><img alt="image.png" src="../img/8nzG6ZY4p0MLO6DN/1668949427311-2611cfc0-4f32-41a2-bf72-a352218af511-430124.png" />
-TPMS 是针对胎压的，实际上得知道具体的 ID 才能利用
-ID 是出厂设置的，Voltage 是电压，Pre.re 是胎压，Temp 是温度，Valve 是气阀(漏气检测)
-<img alt="image.png" src="../img/8nzG6ZY4p0MLO6DN/1668949506187-4670934e-479f-4a11-9199-337c1a8ec32b-960214.png" />
-这个发射也能在 HackRF 上看到，网上说 TPMS 基本是 433.92，只有在装上和卸下的时候会发出，平时处于低功耗状态，间隔发送
+<p>重点看这个，依次往下看<br />
+有 sniffer 功能，实时嗅探周围的信号<br />
+<img alt="image.png" src="../img/8nzG6ZY4p0MLO6DN/1668949030316-4181813c-e338-4013-831e-442c1a9de363-276940.png" /><br />
+使用 HackRF 播放一个之前捕获的信号<br />
+<img alt="image.png" src="../img/8nzG6ZY4p0MLO6DN/1668946896426-74d8706b-2f7f-4fd8-9472-0e7871ed5c3e-731960.png" /><br />
+hackcube 能嗅探到<br />
+<img alt="image.png" src="../img/8nzG6ZY4p0MLO6DN/1668949065926-533bc645-eeab-4a70-9aee-71c3bb78d216-079138.png" /><br />
+使用 Transmit 是发射相应的信号，可以指定数据和功能码，用 HackRF 也能验证<br />
+<img alt="image.png" src="../img/8nzG6ZY4p0MLO6DN/1668949127888-864da1b4-295a-4b96-a468-14215a07d9cd-605631.png" /><br />
+Attack 属于爆破，设定一个开始地址 一个结束地址，他就会遍历去发送信号<br />
+<img alt="image.png" src="../img/8nzG6ZY4p0MLO6DN/1668949176145-42a09626-5dee-4f7e-9112-5804a2d40ed1-843330.png" /><br />
+Jamming 属于是干扰，指定频段后那个频段会充满噪音<br />
+<img alt="image.png" src="../img/8nzG6ZY4p0MLO6DN/1668949195984-482f7a4e-6e69-47dd-b91f-689214808e37-761408.png" /><br />
+前后对比如图<br />
+<img alt="image.png" src="../img/8nzG6ZY4p0MLO6DN/1668949421044-6829d8ae-86e0-4b67-a174-8973d9f9c74f-582601.png" /><img alt="image.png" src="../img/8nzG6ZY4p0MLO6DN/1668949427311-2611cfc0-4f32-41a2-bf72-a352218af511-430124.png" /><br />
+TPMS 是针对胎压的，实际上得知道具体的 ID 才能利用<br />
+ID 是出厂设置的，Voltage 是电压，Pre.re 是胎压，Temp 是温度，Valve 是气阀(漏气检测)<br />
+<img alt="image.png" src="../img/8nzG6ZY4p0MLO6DN/1668949506187-4670934e-479f-4a11-9199-337c1a8ec32b-960214.png" /><br />
+这个发射也能在 HackRF 上看到，网上说 TPMS 基本是 433.92，只有在装上和卸下的时候会发出，平时处于低功耗状态，间隔发送<br />
 <img alt="image.png" src="../img/8nzG6ZY4p0MLO6DN/1668949665137-2f8a89d3-a877-4199-849d-f8ff4b9983ca-691458.png" /></p>
 <h2 id="hid">HID</h2>
-<p>相当于 badusb 的功能，例如 lock 相当于 win + L
+<p>相当于 badusb 的功能，例如 lock 相当于 win + L<br />
 <img alt="image.png" src="../img/8nzG6ZY4p0MLO6DN/1668952111206-76e00002-be4f-410f-9a73-0984f2031695-339256.png" /></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/eb0rdcvi8ivxgv5k">https://www.yuque.com/hxfqg9/iot/eb0rdcvi8ivxgv5k</a></p>

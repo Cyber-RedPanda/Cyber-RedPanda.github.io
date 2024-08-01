@@ -7557,23 +7557,23 @@
 <p>提示我们的 <a href="https://www.freebuf.com/articles/network/190128.html">cewl</a>，它是一个社会工程学爬虫，可以从 http 页面爬取信息生成密码字典，然后再用 wpscan 爆破密码</p>
 <p><img alt="image.png" src="../img/551828_admiqgaxd536txoo/1584783587151-8f83d0f5-1b1d-4d1e-b0f9-8c82b786b92f-006792.png" /></p>
 <blockquote>
-<p>Username: jerry, Password: adipiscing
+<p>Username: jerry, Password: adipiscing<br />
 Username: tom, Password: parturient</p>
 </blockquote>
 <p>/wp-admin/是 WordPress 的默认管理员目录：用 jerry 用户进去，发现 flag2</p>
 <p><img alt="image.png" src="../img/551828_admiqgaxd536txoo/1584784966974-9fbc3748-316a-4ecf-aa0c-9775f9a0d3f0-987765.png" /></p>
-<p>用之前发现的 tom 用户去登陆 ssh 成功，然而 cat 竟然不能用！？
+<p>用之前发现的 tom 用户去登陆 ssh 成功，然而 cat 竟然不能用！？<br />
 用 vi 试了一下，看到了 flag3.txt🐷</p>
 <p><img alt="image.png" src="../img/551828_admiqgaxd536txoo/1584795935237-49ac8da0-dad0-48cd-bc21-1b1bf3e142d2-754396.png" /></p>
 <p>另外，rbash 这个东西是用来限制输入命令的</p>
 <p><img alt="image.png" src="../img/551828_admiqgaxd536txoo/1584796237797-fe4c7701-cae8-4ea6-9359-fb6afbc1f596-550305.png" /></p>
 <p>依次执行这三条指令：</p>
 <blockquote>
-<p>BASH_CMDS[a]=/bin/sh;a 
-export PATH=$PATH:/bin/
+<p>BASH_CMDS[a]=/bin/sh;a <br />
+export PATH=$PATH:/bin/<br />
 export PATH=$PATH:/usr/bin</p>
 </blockquote>
-<p><img alt="image.png" src="../img/551828_admiqgaxd536txoo/1584796790339-1fe06870-cc59-444d-aa35-e66176d0746d-255830.png" />
+<p><img alt="image.png" src="../img/551828_admiqgaxd536txoo/1584796790339-1fe06870-cc59-444d-aa35-e66176d0746d-255830.png" /><br />
 <a href="https://xz.aliyun.com/t/2333">绕过Linux受限Shell环境的技巧</a></p>
 <p><img alt="image.png" src="../img/551828_admiqgaxd536txoo/1584796933527-3d824551-b629-4c53-84d2-e547d206dc4c-599441.png" /></p>
 <p>看一下：/etc/passwd，尝试切换 jerry 用户，如果直接 ssh 登陆的话会提示：</p>

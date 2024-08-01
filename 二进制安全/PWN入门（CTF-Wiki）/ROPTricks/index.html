@@ -7665,12 +7665,12 @@
 <p>IDA 分析看一下，在 _IO_getc(&amp;v3) 处存在栈溢出</p>
 <p><img alt="image.png" src="../img/551835_vtcqh876mxghtc8d/1584605777623-6c838403-9c8a-4ed4-8d16-87937e66fbc9-049780.png" /></p>
 <p>注意，下面有个 memset 指令，也就是说即便你不去第二遍输入程序自己也会给你设置成 0 </p>
-<p>memset() 函数用来将指定内存的前n个字节设置为特定的值，其原型为：
-<code>void * memset( void * ptr, int value, size_t num );</code>
+<p>memset() 函数用来将指定内存的前n个字节设置为特定的值，其原型为：<br />
+<code>void * memset( void * ptr, int value, size_t num );</code><br />
 参数说明：</p>
 <blockquote>
-<p>ptr 为要操作的内存的指针。
-value 为要设置的值。你既可以向 value 传递 int 类型的值，也可以传递 char 类型的值，int 和 char 可以根据 ASCII 码相互转换。
+<p>ptr 为要操作的内存的指针。<br />
+value 为要设置的值。你既可以向 value 传递 int 类型的值，也可以传递 char 类型的值，int 和 char 可以根据 ASCII 码相互转换。<br />
 num 为 ptr 的前 num 个字节，size_t 就是unsigned int。</p>
 </blockquote>
 <p>运行一下，发现输出了文件名，也就是 argv[0]，如果可以把 argv[0] 的指针变成 flag 就可以了</p>
@@ -7694,8 +7694,8 @@ p.sendlineafter('flag: ','123')
 print p.recv()
 </code></pre>
 <p><img alt="image.png" src="../img/551835_vtcqh876mxghtc8d/1584609583944-ffb76bb4-3307-4acf-8843-e789795c9638-934359.png" /></p>
-<p><a href="https://blog.csdn.net/HappyOrange2014/article/details/50459201">https://blog.csdn.net/HappyOrange2014/article/details/50459201</a>
-可能会遇到 远程的报错不会返回给我们，然后需要设置：LIBC_FATAL_STDERR_=1
+<p><a href="https://blog.csdn.net/HappyOrange2014/article/details/50459201">https://blog.csdn.net/HappyOrange2014/article/details/50459201</a><br />
+可能会遇到 远程的报错不会返回给我们，然后需要设置：LIBC_FATAL_STDERR_=1<br />
 可以参考上面的链接</p>
 <h3 id="2018-guess">2018网鼎杯 guess</h3>
 <p>可以用 <code>p &amp; __libc_argv[0]</code> 找到这个 argv[0]</p>
@@ -7708,15 +7708,15 @@ print p.recv()
 <p><img alt="image.png" src="../img/551835_vtcqh876mxghtc8d/1584676594872-e1ec5154-f659-465d-bb4c-91e6eb6fe380-491934.png" /></p>
 <blockquote>
 <p>在 Linux 系统中，glibc 的环境指针 environ(environment pointer) 为程序运行时所需要的环境变量表的起始地址，环境表中的指针指向各环境变量字符串。从以下结果可知环境指针 environ 在栈空间的高地址处。因此，<strong>可通过 environ 指针泄露栈地址</strong></p>
-<p>1、得到libc地址后，libc基址+_environ的偏移量=_environ的地址
+<p>1、得到libc地址后，libc基址+_environ的偏移量=_environ的地址<br />
 在内存布局中，他们同属于一个段，开启ASLR之后相对位置不变，偏移量之和libc库有关</p>
 <p>2、通过_environ的地址得到_environ的值，从而得到环境变量地址，环境变量保存在栈中，所以通过栈内的偏移量，可以访问栈中任意变量</p>
 </blockquote>
 <p><img alt="image.png" src="../img/551835_vtcqh876mxghtc8d/1584691671649-3c567a49-318c-4b33-9e0c-57476844fb96-845664.png" /></p>
-<p>这道题，在buuoj上打不通，不管输入什么东西返回的都是: <unknown>
-自己在本地起了一个 socat 也不行，因为没办法获取到 *** stack smashing detected ***
+<p>这道题，在buuoj上打不通，不管输入什么东西返回的都是: <unknown><br />
+自己在本地起了一个 socat 也不行，因为没办法获取到 *** stack smashing detected ***<br />
 自己在服务器上起了一个，完全可以打得通：47.93.51.165 10000（题目随缘开关</p>
-<p><img alt="image.png" src="../img/551835_vtcqh876mxghtc8d/1584756929483-286c48ac-4606-4687-8552-6919c5a694ca-939758.png" />
+<p><img alt="image.png" src="../img/551835_vtcqh876mxghtc8d/1584756929483-286c48ac-4606-4687-8552-6919c5a694ca-939758.png" /><br />
 唉，没早测试一下，试了好多个exp，人傻了🙃</p>
 <pre><code class="language-python">from pwn import *
 context.log_level = 'debug'

@@ -7652,9 +7652,9 @@
 
 <h2 id="matlabsimulink">学习Matlab和Simulink</h2>
 <h2 id="matlab">Matlab函数</h2>
-<p>定义变量这种的就直接 x = 1 就行了 y = 3
-运算符也是直接用 s = x + y，还有些其他的运算函数（取余等）后续遇到了再说
-这些都是可以一条一条在 Matlab 的命令行里运行的
+<p>定义变量这种的就直接 x = 1 就行了 y = 3<br />
+运算符也是直接用 s = x + y，还有些其他的运算函数（取余等）后续遇到了再说<br />
+这些都是可以一条一条在 Matlab 的命令行里运行的<br />
 也可以新建一个脚本，直接写好多条命令一键执行，可以使用 num2str 将数字转为字符串，通过 [ ] 拼接起来</p>
 <pre><code class="language-matlab">% 这是一个脚本，尝试使用matlab
 a_array = [1 23 -23 6 7 44];
@@ -7700,7 +7700,7 @@ plot(t,As,'r-o');  %用实线和圆形标记绘制红色的正弦波数据
 hold on;   %保留以前的数据
 plot(t,Ac,'b-o'); %用实线和圆形标记绘制蓝色的余弦波数据
 </code></pre>
-<p><img alt="image.png" src="../img/Poys_37aSidjoaZv/1685323051328-225f33bd-6c7b-4da7-a418-6f29e0f250c9-249339.png" />
+<p><img alt="image.png" src="../img/Poys_37aSidjoaZv/1685323051328-225f33bd-6c7b-4da7-a418-6f29e0f250c9-249339.png" /><br />
 还可以给图片设置标题、x、y 轴的含义、说明啥的</p>
 <pre><code class="language-matlab">title('Sine and Cosine');  %设置标题
 xlabel('Time (seconds)');  %设置x轴的时间
@@ -7709,11 +7709,11 @@ legend('sin(2\pif_1t)','cos(2\pif_1t)','location','NorthEast');   %
 grid on;
 axis([0 max(t) -1.2 1.2]);
 </code></pre>
-<p><img alt="image.png" src="../img/Poys_37aSidjoaZv/1685439723729-7d0e6f11-b03f-4788-9019-adaae7c52cac-420243.png" />
-这里可以关注一下特殊样式的打印
+<p><img alt="image.png" src="../img/Poys_37aSidjoaZv/1685439723729-7d0e6f11-b03f-4788-9019-adaae7c52cac-420243.png" /><br />
+这里可以关注一下特殊样式的打印<br />
 sin(2\pif_1t) 其中的 \pi 是显示的 π，_1 显示的是下标 1</p>
 <h2 id="matlab_2">Matlab数组&amp;矩阵</h2>
-<p>定义行和列数组，行的话直接空格分隔：my_array_r = [1 -2 -5 6 9 -6 -4 0]
+<p>定义行和列数组，行的话直接空格分隔：my_array_r = [1 -2 -5 6 9 -6 -4 0]<br />
 列的话需要分号分隔：my_array_c = [8; -9; -1; -4; 3; 6; 5]</p>
 <pre><code class="language-python">&gt;&gt; my_array_r = [1 -2 -5 6 9 -6 -4 0]
 
@@ -7754,7 +7754,7 @@ my_ones =
      0     0     0     0     0     0     0     0     0     0
      0     0     0     0     0     0     0     0     0     0
 </code></pre>
-<p>数组还有一些计算最大值最小值的函数：max()、min()，取绝对值的函数 abs()
+<p>数组还有一些计算最大值最小值的函数：max()、min()，取绝对值的函数 abs()<br />
 还有一些随机数函数，rand(1,10)，表示生成一个一行十列的随机数数组，每个值都在0~1之间，如果想要改变取值范围可以乘以或者加上一个数，也可以使用 round() 取整，使用 transpose() 转置行和列</p>
 <pre><code class="language-python">&gt;&gt; my_rands = rand(1,10)
 
@@ -7768,9 +7768,9 @@ my_rands =
 
     0.9457    5.8236    5.7430    2.9123    4.8017    0.8513    2.5306    5.4944    4.7532    5.7570
 </code></pre>
-<p>:::danger
-<strong>Matlab 里面下标是从 1 开始的，不是 0</strong>
-:::
+<p>:::danger<br />
+<strong>Matlab 里面下标是从 1 开始的，不是 0</strong><br />
+:::<br />
 可以通过 find() 函数筛选出数组中符合规则的元素的下标</p>
 <pre><code class="language-python">&gt;&gt; find(my_rands &lt; 4)
 
@@ -7843,9 +7843,9 @@ our_sixs =
 <p>使用如下命令创建一个低通滤波器</p>
 <pre><code>obj_filter = dsp.FIRFilter('Numerator', fir1(50,0.25,'low'));
 </code></pre>
-<p>低通滤波器是一种信号处理滤波器，将高于一定频率的信号截断，允许低频信号通过，从而使信号输出更加平滑
-这个函数创建了一个 FIR 低通滤波器对象，Numerator 参数指定了滤波器的分子系数，并通过 fir1(50,0.25,'low') 创建了一个阶数为 50，截止频率为 0.25，low 表示低通滤波器类型的 低通FIR滤波器，传递给 dsp.FIRFilter 对象
-通过 fvtool(obj_filter) 可以可视化的展示出来效果
+<p>低通滤波器是一种信号处理滤波器，将高于一定频率的信号截断，允许低频信号通过，从而使信号输出更加平滑<br />
+这个函数创建了一个 FIR 低通滤波器对象，Numerator 参数指定了滤波器的分子系数，并通过 fir1(50,0.25,'low') 创建了一个阶数为 50，截止频率为 0.25，low 表示低通滤波器类型的 低通FIR滤波器，传递给 dsp.FIRFilter 对象<br />
+通过 fvtool(obj_filter) 可以可视化的展示出来效果<br />
 <img alt="image.png" src="../img/Poys_37aSidjoaZv/1686038416366-736c6ad0-1389-4285-84b7-950b2e55b0be-676011.png" /></p>
 <pre><code>obj_filter = dsp.FIRFilter('Numerator', fir1(50,0.25,'low'));
 x = randn(125,1);          %使用randn函数随即创建一些噪音作为 x
@@ -7857,75 +7857,75 @@ xaxis = 1:100;             %设置包含1到100之间所有整数的向量
 plot(xaxis,x(1:100),'r');  %绘图
 plot(xaxis,y(26:125),'b');
 </code></pre>
-<p>这些参数也不懂是啥意思，最终效果是经过滤波之后信号变得比较平稳（蓝色的是滤波后的信号，红色信号里的高频分量被滤除了）
+<p>这些参数也不懂是啥意思，最终效果是经过滤波之后信号变得比较平稳（蓝色的是滤波后的信号，红色信号里的高频分量被滤除了）<br />
 <img alt="image.png" src="../img/Poys_37aSidjoaZv/1686038956081-8b01b475-4ac6-4dcc-a651-96041ecbb2f9-543770.png" /></p>
 <h2 id="simulink">Simulink模型</h2>
-<p>在新建的时候选择 Simulink Model，在 Library 里面找到 Step（阶跃模块）、Delay（延迟模块）、Time Scope（示波器模块），然后把它们连接起来
-<img alt="image.png" src="../img/Poys_37aSidjoaZv/1686217104286-cbc3320a-5b4a-40a3-9797-f19135efcef6-858846.png" />
-连接的时候把鼠标放在箭头上，变成十字之后按下左键拖到结束的地方就行
-然后双击延迟模块，把延迟长度改为 1，这里的延迟长度是指的采样点，即延时一个采样点
-<img alt="image.png" src="../img/Poys_37aSidjoaZv/1686270652721-fd8cc9a3-a045-416d-a7c6-38a65211fd0e-879206.png" />
-双击阶跃模块，设置相应的参数，Step time 是阶跃时间，表示开始变化的时间
-Initial value 是初始值，Final value 是最终值，Sample time 是初始值到结束值消耗的时间
-首先设置采样时间为 1/1000，也就是改变这个值需要 1 个采样点的时间，同时把阶跃时间设置为 3/1000，也就是从第三个采样点开始变化
-<img alt="image.png" src="../img/Poys_37aSidjoaZv/1686271884814-014a3fbc-c51e-463d-a32b-83540c3ae382-309182.png" />
-所以最终的效果是，本来改在第 3 个采样点阶跃为 1 的阶跃模块因为延迟模块的原因，知道第 4 个采样点才变化（0ms 时刻为第 1 个采样点）
-<img alt="image.png" src="../img/Poys_37aSidjoaZv/1688033327620-00fa984d-207f-4f75-89ce-96bc3785a9a7-593897.png" />
-接下来，我们设置示波器模块，让他同时能看到延迟模块的输入和输出，点击示波器的视图 -&gt; 配置属性
-<img alt="image.png" src="../img/Poys_37aSidjoaZv/1688109891451-9fce91a0-e20e-4f44-89bc-212297dac5a7-313703.png" />
-修改输入端口个数为 2，ok 后再看 simulink 会发现已经有两个输入端口了
-<img alt="image.png" src="../img/Poys_37aSidjoaZv/1688109890119-2e6af55a-774d-4688-8bc2-68461d666141-256217.png" />
-然后把阶跃模块和延迟模块中间的信号输出到第二个端口，这样我们就能对比了解延迟模块的作用了
-<img alt="image.png" src="../img/Poys_37aSidjoaZv/1688110118051-79f3140b-0bac-4613-aeba-7ce665d1023a-822772.png" />
-我们可以把视图 -&gt; 画面 -&gt; 显示图例勾上，这样就能分辨出是哪一个信号了，可以看到正常来说阶跃模块在第 3 个采样点（2ms 处）发生变化，但因为延迟模块的存在，延迟了一个采样点，在第 4 个采样点（3ms 处）才发生变化
-<img alt="image.png" src="../img/Poys_37aSidjoaZv/1688110471235-fcac8f42-001e-49f3-8f47-6a437f3f8969-575205.png" />
-可以勾选视图 -&gt; 样式 -&gt; Marker把采样点标记出来，看的清晰一点
-<img alt="image.png" src="../img/Poys_37aSidjoaZv/1688110750923-5977ed18-fb86-4281-b50a-4a12bbc30f0f-312038.png" />
-也可以点视图 -&gt; 布局，把示波器分成两个画面
-<img alt="image.png" src="../img/Poys_37aSidjoaZv/1688110985332-44fbbbe3-3f96-4aab-8ab0-697c02b24829-449725.png" />
-右键一个模块，Comment Through 表示注释这个模块但连线还是通的，Comment Out 表示注释这个模块，连线也断了
-<img alt="image.png" src="../img/Poys_37aSidjoaZv/1688111451951-a50024d1-e3f9-48bc-979f-a7ea6c0c20c9-856943.png" />
-在 matlab 命令行中设置的变量可以直接在 simulink 中使用，比如在命令行中设置 fs=1000，那么阶跃模块的开始时间就可以直接写为：3/fs
-但是如果变量太多想用这种方法就麻烦了，我们可以选择预加载变量，这样当加载模型的时候就可以把变量也加载进来
-<img alt="image.png" src="../img/Poys_37aSidjoaZv/1688636345941-a436ef9c-50f7-4c46-99b4-a9eb8c92db02-984580.png" />
-同样，simulink 的结果也可以导出到 matlab 中，将 Simulink Library Browser -&gt; Sinks 的 To Workspace 模块拖出来，双击将参数设置为如下，这样就会把数据和采样时间对应在一起保存下来
-<img alt="image.png" src="../img/Poys_37aSidjoaZv/1688636948403-a0412b6c-64cf-470c-9e0e-d692a990c977-289602.png" />
-将他的输入接到原本的模型图中，这样运行完模型之后 matlab 中就会有一个 out 变量，存在 del_samples
-<img alt="image.png" src="../img/Poys_37aSidjoaZv/1688637028642-e870c96a-ead0-4240-a711-9ecde95ed132-897866.png" />
-也可以直接用这些变量来绘图，我们可以将 matlab 的绘图命令加在 StopFcn 的回调函数里面，这样就可以在结束的时候直接调用输出结果绘图
+<p>在新建的时候选择 Simulink Model，在 Library 里面找到 Step（阶跃模块）、Delay（延迟模块）、Time Scope（示波器模块），然后把它们连接起来<br />
+<img alt="image.png" src="../img/Poys_37aSidjoaZv/1686217104286-cbc3320a-5b4a-40a3-9797-f19135efcef6-858846.png" /><br />
+连接的时候把鼠标放在箭头上，变成十字之后按下左键拖到结束的地方就行<br />
+然后双击延迟模块，把延迟长度改为 1，这里的延迟长度是指的采样点，即延时一个采样点<br />
+<img alt="image.png" src="../img/Poys_37aSidjoaZv/1686270652721-fd8cc9a3-a045-416d-a7c6-38a65211fd0e-879206.png" /><br />
+双击阶跃模块，设置相应的参数，Step time 是阶跃时间，表示开始变化的时间<br />
+Initial value 是初始值，Final value 是最终值，Sample time 是初始值到结束值消耗的时间<br />
+首先设置采样时间为 1/1000，也就是改变这个值需要 1 个采样点的时间，同时把阶跃时间设置为 3/1000，也就是从第三个采样点开始变化<br />
+<img alt="image.png" src="../img/Poys_37aSidjoaZv/1686271884814-014a3fbc-c51e-463d-a32b-83540c3ae382-309182.png" /><br />
+所以最终的效果是，本来改在第 3 个采样点阶跃为 1 的阶跃模块因为延迟模块的原因，知道第 4 个采样点才变化（0ms 时刻为第 1 个采样点）<br />
+<img alt="image.png" src="../img/Poys_37aSidjoaZv/1688033327620-00fa984d-207f-4f75-89ce-96bc3785a9a7-593897.png" /><br />
+接下来，我们设置示波器模块，让他同时能看到延迟模块的输入和输出，点击示波器的视图 -&gt; 配置属性<br />
+<img alt="image.png" src="../img/Poys_37aSidjoaZv/1688109891451-9fce91a0-e20e-4f44-89bc-212297dac5a7-313703.png" /><br />
+修改输入端口个数为 2，ok 后再看 simulink 会发现已经有两个输入端口了<br />
+<img alt="image.png" src="../img/Poys_37aSidjoaZv/1688109890119-2e6af55a-774d-4688-8bc2-68461d666141-256217.png" /><br />
+然后把阶跃模块和延迟模块中间的信号输出到第二个端口，这样我们就能对比了解延迟模块的作用了<br />
+<img alt="image.png" src="../img/Poys_37aSidjoaZv/1688110118051-79f3140b-0bac-4613-aeba-7ce665d1023a-822772.png" /><br />
+我们可以把视图 -&gt; 画面 -&gt; 显示图例勾上，这样就能分辨出是哪一个信号了，可以看到正常来说阶跃模块在第 3 个采样点（2ms 处）发生变化，但因为延迟模块的存在，延迟了一个采样点，在第 4 个采样点（3ms 处）才发生变化<br />
+<img alt="image.png" src="../img/Poys_37aSidjoaZv/1688110471235-fcac8f42-001e-49f3-8f47-6a437f3f8969-575205.png" /><br />
+可以勾选视图 -&gt; 样式 -&gt; Marker把采样点标记出来，看的清晰一点<br />
+<img alt="image.png" src="../img/Poys_37aSidjoaZv/1688110750923-5977ed18-fb86-4281-b50a-4a12bbc30f0f-312038.png" /><br />
+也可以点视图 -&gt; 布局，把示波器分成两个画面<br />
+<img alt="image.png" src="../img/Poys_37aSidjoaZv/1688110985332-44fbbbe3-3f96-4aab-8ab0-697c02b24829-449725.png" /><br />
+右键一个模块，Comment Through 表示注释这个模块但连线还是通的，Comment Out 表示注释这个模块，连线也断了<br />
+<img alt="image.png" src="../img/Poys_37aSidjoaZv/1688111451951-a50024d1-e3f9-48bc-979f-a7ea6c0c20c9-856943.png" /><br />
+在 matlab 命令行中设置的变量可以直接在 simulink 中使用，比如在命令行中设置 fs=1000，那么阶跃模块的开始时间就可以直接写为：3/fs<br />
+但是如果变量太多想用这种方法就麻烦了，我们可以选择预加载变量，这样当加载模型的时候就可以把变量也加载进来<br />
+<img alt="image.png" src="../img/Poys_37aSidjoaZv/1688636345941-a436ef9c-50f7-4c46-99b4-a9eb8c92db02-984580.png" /><br />
+同样，simulink 的结果也可以导出到 matlab 中，将 Simulink Library Browser -&gt; Sinks 的 To Workspace 模块拖出来，双击将参数设置为如下，这样就会把数据和采样时间对应在一起保存下来<br />
+<img alt="image.png" src="../img/Poys_37aSidjoaZv/1688636948403-a0412b6c-64cf-470c-9e0e-d692a990c977-289602.png" /><br />
+将他的输入接到原本的模型图中，这样运行完模型之后 matlab 中就会有一个 out 变量，存在 del_samples<br />
+<img alt="image.png" src="../img/Poys_37aSidjoaZv/1688637028642-e870c96a-ead0-4240-a711-9ecde95ed132-897866.png" /><br />
+也可以直接用这些变量来绘图，我们可以将 matlab 的绘图命令加在 StopFcn 的回调函数里面，这样就可以在结束的时候直接调用输出结果绘图<br />
 <img alt="image.png" src="../img/Poys_37aSidjoaZv/1688870004036-f902472a-4331-409a-8442-34a0108f6fba-000367.png" /></p>
 <pre><code class="language-python">figure(1) 
 stem(out.del_samples.time, out.del_samples.signals.values); 
 xlabel('Time'); 
 ylabel('Amplitude');
 </code></pre>
-<p><img alt="image.png" src="../img/Poys_37aSidjoaZv/1688869960597-7915b022-aa49-4d95-b40e-72cc377594a1-878936.png" />
-接下来看一下 simulink 的频谱分析模块，这会经常用来观察和分析信号的频率分量，打开 matlab_simulink/spectrum_analyzer.slx，可以看到这个模型由三个正弦波组成，运行效果如下，通过调整频率可以观察不同的波形
+<p><img alt="image.png" src="../img/Poys_37aSidjoaZv/1688869960597-7915b022-aa49-4d95-b40e-72cc377594a1-878936.png" /><br />
+接下来看一下 simulink 的频谱分析模块，这会经常用来观察和分析信号的频率分量，打开 matlab_simulink/spectrum_analyzer.slx，可以看到这个模型由三个正弦波组成，运行效果如下，通过调整频率可以观察不同的波形<br />
 <img alt="image.png" src="../img/Poys_37aSidjoaZv/1696816940487-4746bfd3-8e93-4426-af7e-a322b024b084-362052.png" /></p>
 <h2 id="_1">采样率，采样点和帧</h2>
-<p>接下来深入了解一下一些定义
-采样率：一秒钟采集的样本数称为采样频率，简称采样率，单位是赫兹 Hz
-物理世界中，我们接触到的不管是声音还是温度都是模拟信号，是连续的，想要把他们存入电脑不可能连续的存储，我们需要进行模拟信号到数字信号的转换，以声音为例，物理世界的声音使麦克风的膜片震动，膜片震动引起了电压的不断变化，但此时电压的变化也是连续的，想要存储在电脑上就要进行采样，也就是定时的对电压信号进行采集（一般按照固定频率采集）
+<p>接下来深入了解一下一些定义<br />
+采样率：一秒钟采集的样本数称为采样频率，简称采样率，单位是赫兹 Hz<br />
+物理世界中，我们接触到的不管是声音还是温度都是模拟信号，是连续的，想要把他们存入电脑不可能连续的存储，我们需要进行模拟信号到数字信号的转换，以声音为例，物理世界的声音使麦克风的膜片震动，膜片震动引起了电压的不断变化，但此时电压的变化也是连续的，想要存储在电脑上就要进行采样，也就是定时的对电压信号进行采集（一般按照固定频率采集）<br />
 采样时间：每次采样的时间间隔（并不是采样的总时间🤦‍♂️），通常表示为秒或毫秒，在给定采样率的情况下采样时间是固定的，比如采样率是 1000Hz，那么采样时间就是 1/1000s</p>
-<p>在某些系统中需要增加或降低采样率，改变采样率的目的是正确的修改信号的频率分量，这里主要看上采样（提高采样率的 L 倍）和下采样（降低采样率的 M 倍）
-上采样指的是提高采样率的 L 倍，会在每个采样时间中插入 L-1 个零点，比如当 L=4 时，每次采样间隔中都加了三个采样点，乘了 4 倍
-<img alt="image.png" src="../img/Poys_37aSidjoaZv/1696820984280-37158816-e440-4ab8-ac75-b1deb025b5f5-955674.png" />
-下采样是指降低采样率的 M 倍，例如 M=4 时就是四个里面只留了一个，除了个 4
-<img alt="image.png" src="../img/Poys_37aSidjoaZv/1696821695798-ebce89a4-707c-45d4-be94-cd8c120b04c2-291345.png" />
-来看实际的例子，一开始只是一个正弦波
-<img alt="image.png" src="../img/Poys_37aSidjoaZv/1696822024986-d5675264-57f3-43fd-a147-d098c0f88a72-039911.png" />
-找到上采样模块，拖到 Simulink 中
-<img alt="image.png" src="../img/Poys_37aSidjoaZv/1696822103150-201ea430-05ce-479f-bd46-92fcaec1f2ba-890309.png" />
-把它放在正弦模块和示波器模块之间，设置上采样倍数为 3，采样补偿为 0
-<img alt="image.png" src="../img/Poys_37aSidjoaZv/1696822297789-b8c55ffd-7150-45b7-96d4-7292996d5924-796941.png" />
-观察一下
-<img alt="image.png" src="../img/Poys_37aSidjoaZv/1696822488236-5b70e550-045b-41a2-8611-a0d47e064ba1-110186.png" />
-改为下采样得到，设置如下：
-<img alt="image.png" src="../img/Poys_37aSidjoaZv/1696822807303-2b00fd60-af36-4eee-b1fc-f05ab8924934-313349.png" />
-接下来了解一下帧，采样点很容易理解，每隔一段时间采样一次，另一种方式是以帧为基础处理，就是把连续的采样点组成一组，作为帧。帧速率和采样率的比值就是帧的尺寸
+<p>在某些系统中需要增加或降低采样率，改变采样率的目的是正确的修改信号的频率分量，这里主要看上采样（提高采样率的 L 倍）和下采样（降低采样率的 M 倍）<br />
+上采样指的是提高采样率的 L 倍，会在每个采样时间中插入 L-1 个零点，比如当 L=4 时，每次采样间隔中都加了三个采样点，乘了 4 倍<br />
+<img alt="image.png" src="../img/Poys_37aSidjoaZv/1696820984280-37158816-e440-4ab8-ac75-b1deb025b5f5-955674.png" /><br />
+下采样是指降低采样率的 M 倍，例如 M=4 时就是四个里面只留了一个，除了个 4<br />
+<img alt="image.png" src="../img/Poys_37aSidjoaZv/1696821695798-ebce89a4-707c-45d4-be94-cd8c120b04c2-291345.png" /><br />
+来看实际的例子，一开始只是一个正弦波<br />
+<img alt="image.png" src="../img/Poys_37aSidjoaZv/1696822024986-d5675264-57f3-43fd-a147-d098c0f88a72-039911.png" /><br />
+找到上采样模块，拖到 Simulink 中<br />
+<img alt="image.png" src="../img/Poys_37aSidjoaZv/1696822103150-201ea430-05ce-479f-bd46-92fcaec1f2ba-890309.png" /><br />
+把它放在正弦模块和示波器模块之间，设置上采样倍数为 3，采样补偿为 0<br />
+<img alt="image.png" src="../img/Poys_37aSidjoaZv/1696822297789-b8c55ffd-7150-45b7-96d4-7292996d5924-796941.png" /><br />
+观察一下<br />
+<img alt="image.png" src="../img/Poys_37aSidjoaZv/1696822488236-5b70e550-045b-41a2-8611-a0d47e064ba1-110186.png" /><br />
+改为下采样得到，设置如下：<br />
+<img alt="image.png" src="../img/Poys_37aSidjoaZv/1696822807303-2b00fd60-af36-4eee-b1fc-f05ab8924934-313349.png" /><br />
+接下来了解一下帧，采样点很容易理解，每隔一段时间采样一次，另一种方式是以帧为基础处理，就是把连续的采样点组成一组，作为帧。帧速率和采样率的比值就是帧的尺寸<br />
 例如：1kHz 的采样率上采样，采样倍数是 3，输出的采样率就是 3kHz，这时候使用帧，帧尺寸为 3，则输出速率为 1k帧/s</p>
 <blockquote>
-<p>使用帧的主要理由是，允许电脑批量处理帧内的数据，这样程序运行地更快。每一步都有多个采样 
+<p>使用帧的主要理由是，允许电脑批量处理帧内的数据，这样程序运行地更快。每一步都有多个采样 <br />
 值，就能并行计算，效率更高</p>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/uyvuq3xwnxaark3o">https://www.yuque.com/hxfqg9/iot/uyvuq3xwnxaark3o</a></p>
 </blockquote>

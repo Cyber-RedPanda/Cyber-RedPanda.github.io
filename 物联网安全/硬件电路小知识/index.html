@@ -7539,13 +7539,13 @@
   <h1>硬件电路小知识</h1>
 
 <h2 id="_1">硬件电路小知识</h2>
-<p>降压时，压差较小的时候降压芯片一般选择【LDO 线性稳压器】，压差比较大的时候选择【DC-DC】
-芯片电源引脚一般放个 100nf 的电容进行滤波
-CH340C 有内部晶振优先选择，CH340G 没有内部晶振
+<p>降压时，压差较小的时候降压芯片一般选择【LDO 线性稳压器】，压差比较大的时候选择【DC-DC】<br />
+芯片电源引脚一般放个 100nf 的电容进行滤波<br />
+CH340C 有内部晶振优先选择，CH340G 没有内部晶振<br />
 CH340 芯片同时支持 5V 和 3.3V 供电，5V 供电时在 V3 引脚要接一个 0.1uf 的电源退耦电容</p>
-<p>有些ESP32 开发板在烧录的时候需要按下 BOOT 按键，有些则不需要，原因是他们自己添加了自动下载电路，在 esptool.py 中控制串口芯片的 DTR 和 RTS 的拉高和拉低，来控制 EN 和 BOOT 引脚的电平，从而使芯片自动进入下载模式
-<img alt="image.png" src="../img/Sb8EwypccB5TllJv/1716951432552-6467d22c-d5f3-457e-ad73-0e40fc3df46a-786590.png" />
-我们下来看 ESP32 正常情况下是如何进入下载启动模式的，EN 由低电平到高电平（上升沿）时 CPU 复位，复位后检测到 GPIO0 是低电平，CPU 自动进入下载启动模式
+<p>有些ESP32 开发板在烧录的时候需要按下 BOOT 按键，有些则不需要，原因是他们自己添加了自动下载电路，在 esptool.py 中控制串口芯片的 DTR 和 RTS 的拉高和拉低，来控制 EN 和 BOOT 引脚的电平，从而使芯片自动进入下载模式<br />
+<img alt="image.png" src="../img/Sb8EwypccB5TllJv/1716951432552-6467d22c-d5f3-457e-ad73-0e40fc3df46a-786590.png" /><br />
+我们下来看 ESP32 正常情况下是如何进入下载启动模式的，EN 由低电平到高电平（上升沿）时 CPU 复位，复位后检测到 GPIO0 是低电平，CPU 自动进入下载启动模式<br />
 所以正常来说，你需要按住 BOOT 按键让他与 GND 短接，然后短接一下 EN 和 VCC 使 EN 产生一个上升沿，这样才能进入下载启动模式</p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/at8vgh3vgkulxh3d">https://www.yuque.com/hxfqg9/iot/at8vgh3vgkulxh3d</a></p>

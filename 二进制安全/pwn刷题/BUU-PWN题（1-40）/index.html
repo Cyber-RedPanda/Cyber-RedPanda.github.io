@@ -8256,9 +8256,9 @@
 <p>使用 cyclic -l agaa  （注意，后面只用 4 个字符）</p>
 <p><img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1573716378344-e576e52e-c8ed-4e4d-b486-ff15d33a55d9-220613.png" /></p>
 <p>只要填充上想要返回的地址就可以了，使用 IDA 打开发现</p>
-<p>fun 函数就是bin/sh的功能，所以只要返回到 fun 函数就可以了
+<p>fun 函数就是bin/sh的功能，所以只要返回到 fun 函数就可以了<br />
 <img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1573716215877-a8616ba5-2a3d-499f-9a61-993f66cec795-501365.png" /></p>
-<p>在汇编代码里看一下，发现是 401186
+<p>在汇编代码里看一下，发现是 401186<br />
 <img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1573716226831-48b445b8-da9d-49fe-adbd-4601416a87fe-329601.png" /></p>
 <p>所以构造payload如下</p>
 <pre><code class="language-python">from pwn import *
@@ -8296,7 +8296,7 @@ p.sendline(payload)
 p.interactive()
 </code></pre>
 <h2 id="ciscn_2019_n_1">ciscn_2019_n_1</h2>
-<p>IDA 打开，发现有个输出 flag 的函数
+<p>IDA 打开，发现有个输出 flag 的函数<br />
 v2 要等与 11.28125 就能输出 flag</p>
 <p><img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1590290700663-4c527687-4690-4626-9d08-ddd5bb32a180-752690.png" /></p>
 <p>然而可以控制程序直接返回到那个 result = system("cat /flag"); 从而绕过验证</p>
@@ -8330,17 +8330,17 @@ p.interactive()
 <p><img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1590385479436-45e2b217-48a5-481a-be31-342b65f19711-518367.png" /></p>
 <p>对照一下 ascii 码表</p>
 <p><img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1590385714901-e2fdc1ea-1996-43d9-8d15-2d9bf0ad0a28-038412.png" /></p>
-<p>第一个 if 判断的是小写字母，第二个是大写字母，第三个是数字
-也就是说如果我们输入的是小写字母就跟 0xD 进行异或
-如果输入的是大写字母就跟 0xE 进行异或
+<p>第一个 if 判断的是小写字母，第二个是大写字母，第三个是数字<br />
+也就是说如果我们输入的是小写字母就跟 0xD 进行异或<br />
+如果输入的是大写字母就跟 0xE 进行异或<br />
 如果输入的是数字就跟 0xF 进行异或</p>
 <p>我们需要先写一个脚本来对我们输入的内容进行加密，这样再让程序进行异或加密的时候就能正常的输出来了</p>
 <p>测出偏移是 88</p>
 <p><img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1590387180877-8c9d00c2-394a-4e62-9f36-470ee6a64012-146132.png" /></p>
 <p>找一下 pop rdi ret 0x400c83</p>
 <p><img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1590387003702-beb915b8-0cf2-4e53-b2c5-c71995631de3-385858.png" /></p>
-<p>ret2libc 写 exp
-<a href="http://blog.eonew.cn/archives/958">64 位 调用 system 失败</a>：
+<p>ret2libc 写 exp<br />
+<a href="http://blog.eonew.cn/archives/958">64 位 调用 system 失败</a>：<br />
 解决：加上个 ret </p>
 <pre><code class="language-python">from pwn import *
 from LibcSearcher import *
@@ -8395,7 +8395,7 @@ p.interactive()
 <p><img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1590479562887-ae135d41-2014-4d68-8220-a0b8642a72ca-281623.png" /></p>
 <p>/dev/urandom 貌似就是些随机的东西</p>
 <p><img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1590480185946-a9f12205-abf7-4b8f-bffa-0cf997bec065-055035.png" /></p>
-<p>只要我们输入开头是 /x00 把 strlen 截断掉就可以绕过那一个 strncmp 检测
+<p>只要我们输入开头是 /x00 把 strlen 截断掉就可以绕过那一个 strncmp 检测<br />
 在这个函数中 a1 的值就是上一个函数的返回值 v5</p>
 <p><img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1590480355685-506fadef-a763-495b-9365-350be667c99f-693535.png" /></p>
 <p>通过这里我们可以把 v5 给覆盖掉</p>
@@ -8428,7 +8428,7 @@ p.sendline(payload2)
 p.interactive()
 </code></pre>
 <h2 id="ciscn_2019_en_2">ciscn_2019_en_2</h2>
-<p>跟 c_1 一样，就是改了一下异或的内容
+<p>跟 c_1 一样，就是改了一下异或的内容<br />
 <a href="https://www.yuque.com/hxfqg9/bin/bp97ri#NCs3e">https://www.yuque.com/hxfqg9/bin/bp97ri#NCs3e</a></p>
 <pre><code class="language-python">from pwn import *
 from LibcSearcher import *
@@ -8473,9 +8473,9 @@ p.sendline(payload2)
 p.interactive()
 </code></pre>
 <h2 id="get_started_3dsctf_2016">get_started_3dsctf_2016</h2>
-<p>使用 mprotect 函数修改内存的权限为可读、写、执行，然后往内存中写入自己的 shellcode
-mprotect 的原型：
-<code>int mprotect(void *addr, size_t len, int prot);</code>
+<p>使用 mprotect 函数修改内存的权限为可读、写、执行，然后往内存中写入自己的 shellcode<br />
+mprotect 的原型：<br />
+<code>int mprotect(void *addr, size_t len, int prot);</code><br />
 三个参数分别为起始地址、大小、权限</p>
 <p>然后因为这个会在栈上面留下三个参数碍事，所以还有找个 pop 三个的来把他的参数从栈上弄走</p>
 <p><img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1590650407122-b67125d0-133f-4073-95ea-b25da6f2a607-792793.png" /></p>
@@ -8529,9 +8529,9 @@ p.interactive()
 </code></pre>
 <h2 id="bjdctf-2ndr2t3">[BJDCTF 2nd]r2t3有一个长度的检查</h2>
 <p><img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1590804787387-0eb3a93a-92da-4b8c-b0d5-949f4e137ce4-605270.png" /></p>
-<p>这个 v3 是一个无符号数，最大只能 255，如果超过的话就会进行 mod 255
+<p>这个 v3 是一个无符号数，最大只能 255，如果超过的话就会进行 mod 255<br />
 所以可以传入一个总共是 0x105 的，这样他的得到的就是 6 是符合长度限制的，从而绕过 if 的检测</p>
-<p>dest 的大小是 0x11h，加上 ebp 的 0x4h，所以需要在前面填充 0x15h
+<p>dest 的大小是 0x11h，加上 ebp 的 0x4h，所以需要在前面填充 0x15h<br />
 程序中提供了后门 0x804858B</p>
 <p><img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1590805362613-efe9ceda-0e35-4cd2-bbc8-903e8d56dbc5-650052.png" /></p>
 <p>exp</p>
@@ -8638,7 +8638,7 @@ payload='a'*0x18+p64(pop_rdi)+p64(binsh_addr)+p64(sys_addr)
 p.sendline(payload)
 p.interactive()
 </code></pre>
-<p>~~这题怎么没有 flag 啊~~
+<p>~~这题怎么没有 flag 啊~~<br />
 有 flag，在 /home/babyrop 文件夹里面</p>
 <h2 id="babyheap_0ctf_2017">babyheap_0ctf_2017</h2>
 <p>这道题...babyheap...嗯...嗯？heap？算了跟着 wp 做做看看吧</p>
@@ -8650,8 +8650,8 @@ p.interactive()
 <blockquote>
 <p>在保护全开的程序中，不好修改 got 表，修改 _malloc_hook 或 free_hook 等等为 one_gadget 地址。再次执行 malloc 的时候就会到 one_gadget 执行</p>
 </blockquote>
-<p>思路：
-首先泄漏 libc 的地址
+<p>思路：<br />
+首先泄漏 libc 的地址<br />
 下面我们同样的是使用 fastbin_attack，分配到malloc_hook的区域，然后对这块内存区域修改为one_gadget的地址</p>
 <p>exp：</p>
 <pre><code class="language-python">#!/usr/bin/python
@@ -8776,11 +8776,11 @@ alloc(255)
 
 p.interactive()
 </code></pre>
-<p>可以看到是由一些 0x7f 的，如果能够通过错位，使得它就是 size 位的话就能通过检查了，所以才有了 main_arena-0x40+0xd
-<img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1591408952277-d7c7063e-8502-4f0a-b1a3-82c9503a96ec-027678.png" />
+<p>可以看到是由一些 0x7f 的，如果能够通过错位，使得它就是 size 位的话就能通过检查了，所以才有了 main_arena-0x40+0xd<br />
+<img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1591408952277-d7c7063e-8502-4f0a-b1a3-82c9503a96ec-027678.png" /><br />
 也就是这样，这时候再去写，先写 p8(0)<em>3 来吧前面错位的纠正过来，然后再写 p64(0)</em>2 来占空，这时候再写 one_gadget 就是到了 malloc_hook 的位置了</p>
 <p><img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1591409267599-6ba320fc-a9c2-4643-8ce8-aff81657525f-724816.png" /></p>
-<p>计算的工具：
+<p>计算的工具：<br />
 <a href="https://github.com/bash-c/main_arena_offset">main_arena_offset</a></p>
 <p><img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1591360113037-1fcc6b87-487b-48ce-97e9-477dff6dc87b-806382.png" /></p>
 <p>又一次做这道题，分步解释一下，之前的注释都看蒙了</p>
@@ -8845,20 +8845,20 @@ fill(6, payload)
 </code></pre>
 <p>这样再去 malloc 的时候就会执行 one_gadget</p>
 <h2 id="ciscn_2019_s_3">ciscn_2019_s_3</h2>
-<p>main里面只有个 vuln() 函数，函数通过系统调用
-32 位和 64 位的系统调用有些区别：
-32 位：系统调用号放入 eax，参数依次放到 ebx、ecx、edx，返回值放在 eax
+<p>main里面只有个 vuln() 函数，函数通过系统调用<br />
+32 位和 64 位的系统调用有些区别：<br />
+32 位：系统调用号放入 eax，参数依次放到 ebx、ecx、edx，返回值放在 eax<br />
 64 位：系统调用号放入 rax，参数依次放到 rdi、rsi、rdx，返回值放在 rax</p>
 <p><img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1591426614536-957981f9-844a-41a3-9044-e032463693d2-245660.png" /></p>
-<p>所以上面这两个分别实现了 read(0, rsp+buf, 0x400) 和 write(1, rsp+buf, 0x30)
-这个 rsp+buf 实际上是 rsp-0x10
-那么程序在输出的时候从 rsp-0x10 开始输出 0x30，这样输出的内容总共是，可以发现在 0x7fffffffdd10 这个地址（距离输出的内容0x20）上输出的前八个字节是栈上的某一个地址，如果用它来跟我们写入的内容去算一下偏移就能够在栈上面写 "/bin/sh" 了
-<img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1591519184510-a2f38f57-c3f8-4c9a-a150-54aba4bbb9ed-042901.png" />
-<img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1591519501501-7870d832-c63d-49e8-bfb9-bda3f01e1d15-429833.png" />
+<p>所以上面这两个分别实现了 read(0, rsp+buf, 0x400) 和 write(1, rsp+buf, 0x30)<br />
+这个 rsp+buf 实际上是 rsp-0x10<br />
+那么程序在输出的时候从 rsp-0x10 开始输出 0x30，这样输出的内容总共是，可以发现在 0x7fffffffdd10 这个地址（距离输出的内容0x20）上输出的前八个字节是栈上的某一个地址，如果用它来跟我们写入的内容去算一下偏移就能够在栈上面写 "/bin/sh" 了<br />
+<img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1591519184510-a2f38f57-c3f8-4c9a-a150-54aba4bbb9ed-042901.png" /><br />
+<img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1591519501501-7870d832-c63d-49e8-bfb9-bda3f01e1d15-429833.png" /><br />
 0x7fffffffde08-0x7fffffffdcf0=0x118，也就是说接收了 0x20 之后，在接受 0x8 就是 "/bin/sh" 的地址了</p>
 <p>程序还给了一些 gadgets</p>
 <p><img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1591429659076-913e33bc-fbce-4dc1-8f56-740f6866df83-462816.png" /></p>
-<p>比如 mov rax,3Bh，他是 execve 的系统调用号
+<p>比如 mov rax,3Bh，他是 execve 的系统调用号<br />
 mov rax, 0Fh，他是 sigreturn 的系统调用号（SROP）</p>
 <p><img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1591429864434-5924f71f-f09f-419c-bbbc-50ae74b71e9d-490701.png" /></p>
 <p>srop 解法</p>
@@ -8907,8 +8907,8 @@ p.sendline(payload)
 p.interactive()
 </code></pre>
 <h2 id="jarvisoj_level2_x64">jarvisoj_level2_x64</h2>
-<p>system 地址：0x4004C0
-.bin.sh 字符串地址：0x600A90
+<p>system 地址：0x4004C0<br />
+.bin.sh 字符串地址：0x600A90<br />
 pop rdi 地址：0x4006b3</p>
 <p><img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1591593143546-7979453c-b6ad-4078-8e5e-37ecac4a83b8-824913.png" /></p>
 <pre><code class="language-python">from pwn import *
@@ -8976,7 +8976,7 @@ p.sendline(payload2)
 p.interactive()
 </code></pre>
 <h2 id="ciscn_2019_ne_5">ciscn_2019_ne_5</h2>
-<p>没有 /bin/sh 也可以用 sh
+<p>没有 /bin/sh 也可以用 sh<br />
 要先输入 administrator，进入程序，然后有 system 的 plt，可以拿来用</p>
 <p>程序藏了一个 4 功能，这里面有一个 strcpy 函数，存在栈溢出</p>
 <p><img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1591841830333-756aa18b-c807-46c3-9683-a610187bc416-478485.png" /></p>
@@ -8996,7 +8996,7 @@ p.interactive()
 </code></pre>
 <p>注意不要用p32(0)，不然的话 strcpy 会截断</p>
 <h2 id="pwn2_sctf_2016">pwn2_sctf_2016</h2>
-<p>首先通过输入一个负的值，绕过长的的检测，负的他会变成一个很大的正数的值
+<p>首先通过输入一个负的值，绕过长的的检测，负的他会变成一个很大的正数的值<br />
 然后通过 printf 泄漏出真实地址拿到 libc 的地址</p>
 <pre><code>from pwn import *
 from LibcSearcher import *
@@ -9087,8 +9087,8 @@ p.interactive()
 <p>结果写好 exp，只打印出了“flag”才幡然醒悟哈哈哈哈</p>
 <p>这道题，栈迁移，找一下 leave;ret  0x080484b8</p>
 <p><img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1592211512775-6474a1c6-9909-4ce7-b1ad-e33a79b62c05-894013.png" /></p>
-<p>栈迁移原理
-<a href="https://www.yuque.com/hxfqg9/bin/erh0l7?inner=TELMU&amp;view=doc_embed">Advanced ROP</a>
+<p>栈迁移原理<br />
+<a href="https://www.yuque.com/hxfqg9/bin/erh0l7?inner=TELMU&amp;view=doc_embed">Advanced ROP</a><br />
 exp：</p>
 <pre><code class="language-python">from pwn import *
 #p=remote('node3.buuoj.cn',27789)
@@ -9151,7 +9151,7 @@ p.interactive()
 <h2 id="bjdctf-2ndtest">[BJDCTF 2nd]test</h2>
 <p>这道题，更像 web 题的命令执行被过滤了？</p>
 <p><img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1592354836519-b6e0b80a-c2b7-4087-9110-323abb616158-944945.png" /></p>
-<p>ssh -p 29201 ctf@node3.buuoj.cn
+<p>ssh -p 29201 ctf@node3.buuoj.cn<br />
 连上之后可以查看 test.c，如下：</p>
 <pre><code class="language-c">#include &lt;stdio.h&gt;
 #include &lt;string.h&gt;
@@ -9191,7 +9191,7 @@ int main(){
 </code></pre>
 <p><img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1592354972043-8c03bfa8-5255-4329-b9bb-a421ee78320f-506870.png" /></p>
 <p>先 x86_64 然后再 cat flag 就可以了，另外也可以 od * 读成八进制然后再转换一下</p>
-<p>补一些查看文件的命令：
+<p>补一些查看文件的命令：<br />
 cat、tac、more、less、head、tail、nl、od、sort、vi、bzmore、bzless、paste、diff、strings</p>
 <h2 id="bjdctf_2020_babyrop">bjdctf_2020_babyrop</h2>
 <p>ret2libc，写完 payload2 忘记 send，找了好一会问题😂</p>
@@ -9273,7 +9273,7 @@ p.interactive()
 <p>在 update 的时候，有一行检验长度的，检验逻辑是这样的，你输入的长度加上 desc 的地址，看看是不是超过了申请的结构体堆块的地址</p>
 <p><img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1592705311646-6596d753-82d6-4fb3-8fb4-321ba557b8a3-086996.png" /></p>
 <p>想法很好，但是当我们 add 几个 user 去释放掉第一个，重新申请一块能够把第一个的 desc 和 结构体全都占满的 desc 的堆块，那么申请的结构体的堆块就只能往后排，这时候就绕过了他的检验，我们就能够往其他的堆块里面写东西了</p>
-<p>如图：
+<p>如图：<br />
 <a href="https://blog.csdn.net/qinying001/article/details/104359401"><img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1592706783000-ee5edfa7-cbad-4275-bc20-f8eb311d1d4c-442163.png" /></a></p>
 <p><img alt="image.png" src="../img/551835_yacrzoxwfuutsyvq/1592708904372-b44bec36-e7c8-44a2-b2e2-ee3aa0e8f21e-853825.png" /></p>
 <pre><code class="language-python">#!/usr/bin/python

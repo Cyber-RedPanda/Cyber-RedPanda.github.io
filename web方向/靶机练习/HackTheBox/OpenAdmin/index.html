@@ -7581,21 +7581,21 @@
 <h2 id="openadmin">OpenAdmin</h2>
 <h2 id="_1">信息搜集</h2>
 <p><code>nmap -sC -A -T 4 -n 10.10.10.171</code></p>
-<p><strong>nmap参数：</strong>
--sC    根据端口识别的服务，调用默认脚本
--A     OS识别,版本探测，脚本扫描和traceroute
--T（0-5）时间优化
+<p><strong>nmap参数：</strong><br />
+-sC    根据端口识别的服务，调用默认脚本<br />
+-A     OS识别,版本探测，脚本扫描和traceroute<br />
+-T（0-5）时间优化<br />
 -n/-R   不对IP进行域名反向解析/为所有的IP都进行域名的反响解析</p>
 <p><img alt="image.png" src="../img/551828_micibb6r9dmf4kws/1581994284283-8bd39ef0-35e2-4216-baec-9455f7194d8c-369233.png" /></p>
 <p>访问web：并没有发现什么</p>
 <p><img alt="image.png" src="../img/551828_micibb6r9dmf4kws/1581994337739-184a3a2a-f0c7-4893-bd4c-b9a5bb1ca54a-180697.png" /></p>
-<p><strong>DirBuster</strong>，选择/usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt
+<p><strong>DirBuster</strong>，选择/usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt<br />
 进行目录爆破</p>
 <p><img alt="image.png" src="../img/551828_micibb6r9dmf4kws/1581995374239-5de181c8-81bb-4da3-ae23-9959587afdfb-174616.png" /></p>
-<p>发现两个目录 music 和 ona
-挨个访问，先看 <strong>ona</strong>
+<p>发现两个目录 music 和 ona<br />
+挨个访问，先看 <strong>ona</strong><br />
 <img alt="image.png" src="../img/551828_micibb6r9dmf4kws/1581995605944-6176fab6-bb1e-4426-acd7-7601bb60cc57-321082.png" /></p>
-<p>music，点击 login 会跳到 /ona/ 目录
+<p>music，点击 login 会跳到 /ona/ 目录<br />
 <img alt="image.png" src="../img/551828_micibb6r9dmf4kws/1581995565247-f861831a-1cf4-40cf-9ac1-9d3df51e5508-889397.png" /></p>
 <p>/ona/目录下提示的最新版是：OpenNetAdmin，当前版本是18.1.1.1</p>
 <p><img alt="image.png" src="../img/551828_micibb6r9dmf4kws/1581996223877-f688e244-057d-4978-8166-e7bb3050fc5c-797603.png" /></p>
@@ -7607,23 +7607,23 @@
 <p><img alt="image.png" src="../img/551828_micibb6r9dmf4kws/1581996328026-dc214837-8f27-4f0e-878e-fcb303093366-290401.png" /></p>
 <p><code>searchsploit -m 47691</code> 使用参数 -m 将利用脚本复制到当前目录</p>
 <p><img alt="image.png" src="../img/551828_micibb6r9dmf4kws/1581996395447-5b59ff85-e2e8-4a6b-93dd-4f79d752eb5d-039532.png" /></p>
-<p>关于shell脚本传参：
-$0 是自身文件名
-$1 就是第一个参数，比如：
+<p>关于shell脚本传参：<br />
+$0 是自身文件名<br />
+$1 就是第一个参数，比如：<br />
 <img alt="image.png" src="../img/551828_micibb6r9dmf4kws/1581996695713-049fa20d-0cfd-41ce-8153-317ef5c2253c-655076.png" /></p>
-<p>执行：./47691.sh http://10.10.10.171/ona/ 拿到shell
+<p>执行：./47691.sh http://10.10.10.171/ona/ 拿到shell<br />
 （我把 47691 改成 yichen 了 ，另外会有延迟，执行之后稍等一下）</p>
 <p><img alt="image.png" src="../img/551828_micibb6r9dmf4kws/1581997804125-3ace5113-1d10-419e-8e8a-4b5b3dd31046-000560.png" /></p>
 <p>但是权限比较低，当前用户是：www-data，没法执行 cd 命令</p>
 <p><img alt="image.png" src="../img/551828_micibb6r9dmf4kws/1581998587762-2362b131-0ec8-45c3-a967-bad22c4baac2-820622.png" /></p>
 <p>使用 ls，尝试去找目录</p>
-<p>在 /var/www/ 目录下使用 ls -la 查看文件信息，可以发现有个用户是 jimmy
--a 列出所有文件，包括 . 开头的
+<p>在 /var/www/ 目录下使用 ls -la 查看文件信息，可以发现有个用户是 jimmy<br />
+-a 列出所有文件，包括 . 开头的<br />
 -l 除了文件名之外，还将文件的权限、所有者、文件大小等信息详细列出来</p>
 <p><img alt="image.png" src="../img/551828_micibb6r9dmf4kws/1582011267575-98e42bd0-eee8-4e8a-a969-1401ca7a317c-667569.png" /></p>
-<p>在 /var/www/ona/config/ 发现 config.inc.php
+<p>在 /var/www/ona/config/ 发现 config.inc.php<br />
 里面发现 dbconffile 的目录</p>
-<p>可能需要了解一下 linux 各个目录是干啥的，这样才能知道要用到什么
+<p>可能需要了解一下 linux 各个目录是干啥的，这样才能知道要用到什么<br />
 会在 杂项 知识库补充，然后在下面做个超链接</p>
 <p><img alt="image.png" src="../img/551828_micibb6r9dmf4kws/1582010275466-8fd9e6ec-9317-4f33-a68f-8ec4b0835598-300196.png" /></p>
 <p>找到数据库的用户名和密码</p>
@@ -7633,16 +7633,16 @@ $1 就是第一个参数，比如：
 <p>可以看到 main.php 他会输出 joanna 的 .ssh 的 id_rsa</p>
 <p><img alt="image.png" src="../img/551828_micibb6r9dmf4kws/1582011566221-66e38fc8-8b3d-4114-9a54-00490b62e24b-127136.png" /></p>
 <p>但是当我们去 curl 的时候没有输出，可能并不是在默认的 80 口，使用 netstat -tulpn 查看一下</p>
-<p><strong>netstat 各个参数解释</strong>
--a (all)显示所有选项，默认不显示LISTEN相关
--t (tcp)仅显示tcp相关选项
--u (udp)仅显示udp相关选项
--n 拒绝显示别名，能显示数字的全部转化成数字
--l 仅列出有在 Listen (监听) 的服務状态
--p 显示建立相关链接的程序名
--r 显示路由信息，路由表
--e 显示扩展信息，例如uid等
--s 按各个协议进行统计
+<p><strong>netstat 各个参数解释</strong><br />
+-a (all)显示所有选项，默认不显示LISTEN相关<br />
+-t (tcp)仅显示tcp相关选项<br />
+-u (udp)仅显示udp相关选项<br />
+-n 拒绝显示别名，能显示数字的全部转化成数字<br />
+-l 仅列出有在 Listen (监听) 的服務状态<br />
+-p 显示建立相关链接的程序名<br />
+-r 显示路由信息，路由表<br />
+-e 显示扩展信息，例如uid等<br />
+-s 按各个协议进行统计<br />
 -c 每隔一个固定时间，执行该netstat命令</p>
 <p><img alt="image.png" src="../img/551828_micibb6r9dmf4kws/1582011779554-f2e2e55e-65cd-4f55-80eb-fbe80b406211-112547.png" /></p>
 <p>猜测运行在 52846 上，所以 curl http://127.0.0.1:52846/main.php</p>
@@ -7650,7 +7650,7 @@ $1 就是第一个参数，比如：
 <p>同时了解一下 curl 这个功能，同样在 杂项 知识库记录</p>
 <p>讲这个密钥保存出来：</p>
 <p><img alt="image.png" src="../img/551828_micibb6r9dmf4kws/1582012472228-ca92162b-4c11-4485-b8f5-06422930a710-090824.png" /></p>
-<p>然后使用：
+<p>然后使用：<br />
 <code>python /usr/share/john/ssh2john.py mi &gt; sshjohn</code>   将保存出来的 mi 转换成 john 格式</p>
 <p>ssh2john.py 的作用就是把 ssh 密钥 改成 john 可以识别的格式</p>
 <p><code>john --wordlist=/usr/share/wordlists/rockyou.txt sshjohn</code>   使用 john 爆破 --wordlist 指定字典</p>

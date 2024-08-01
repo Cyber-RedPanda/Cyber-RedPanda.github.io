@@ -7757,10 +7757,10 @@
   <h1>Ethernaut0 10</h1>
 
 <h2 id="ethernaut-0-10">Ethernaut 0-10</h2>
-<p>Ethernaut 是一个部署在 Ropsten 测试网络上面的智能合约代码审计类题目，网址：
+<p>Ethernaut 是一个部署在 Ropsten 测试网络上面的智能合约代码审计类题目，网址：<br />
 <a href="https://ethernaut.openzeppelin.com">https://ethernaut.openzeppelin.com</a></p>
 <p>多次尝试之后，在我要放弃的时候竟然可以了！？</p>
-<p>出现这三个东西的时候就可以了，如果不行：科学上网，重启 MetaMask 插件，甚至换个浏览器、换台电脑都可以试试，总有一个适合你😜
+<p>出现这三个东西的时候就可以了，如果不行：科学上网，重启 MetaMask 插件，甚至换个浏览器、换台电脑都可以试试，总有一个适合你😜<br />
 （这些地址露出来应该没事吧）反正测试网络、反正我没钱。只要我一无所有，我就不怕被利用2333</p>
 <p><img alt="image.png" src="../img/hkwLouUeTztXmleU/1588575328494-fe111684-31f1-4ca6-91c3-332300601eab-165545.png" /></p>
 <h2 id="_1">配置</h2>
@@ -7781,7 +7781,7 @@
 <p><img alt="image.png" src="../img/hkwLouUeTztXmleU/1588576675558-09d2d457-81b2-4acf-a028-761fb388b848-697658.png" /></p>
 <p>await ethernaut.owner() 可以看一下合约的拥有者</p>
 <p><img alt="image.png" src="../img/hkwLouUeTztXmleU/1588576816246-359e0d5a-d014-4b6e-ad76-edb8a5ae4e5f-312280.png" /></p>
-<p>上面并不是这个游戏的关卡，只是一些简单的命令，让你了解了解
+<p>上面并不是这个游戏的关卡，只是一些简单的命令，让你了解了解<br />
 玩游戏时，不会直接与 ethernaut 合约进行交互。它会给你生成一个关卡实例。只要单击页面底部的蓝色按钮就可以生成。metamask 会弹一个框，确认就行</p>
 <p><img alt="1589503367173-a7336ed9-e6cf-4571-b661-c2c49369e1d2.png" src="../img/hkwLouUeTztXmleU/1589503367173-a7336ed9-e6cf-4571-b661-c2c49369e1d2-268899.png" /></p>
 <p><img alt="image.png" src="../img/hkwLouUeTztXmleU/1588577120435-82fcbaae-2adf-4ee3-a655-5bc41f695d39-035071.png" /></p>
@@ -7838,8 +7838,8 @@ await contract.authenticate(&quot;ethernaut0&quot;)
 <p>完成的标志</p>
 <p><img alt="image.png" src="../img/hkwLouUeTztXmleU/1588578006203-57b42c8c-46ca-4831-a0dc-8df71e4ae4e0-946073.png" /></p>
 <h2 id="fallback">Fallback</h2>
-<p>通关条件：
-获得合约的所有权
+<p>通关条件：<br />
+获得合约的所有权<br />
 把余额减少成 0</p>
 <pre><code class="language-javascript">pragma solidity ^0.4.18;
 import 'zeppelin-solidity/contracts/ownership/Ownable.sol';
@@ -7878,24 +7878,24 @@ contract Fallback is Ownable {
 }
 </code></pre>
 <p>思路：首先贡献一点金额，来通过 require 触发 fallback 函数，来成为合约的所有者，然后 withdraw 函数转走合约中的所有钱</p>
-<p>贡献金额  <code>contract.contribute({value:1})</code>
-这个 1 代表 1 wei，是以太币最小的单位
+<p>贡献金额  <code>contract.contribute({value:1})</code><br />
+这个 1 代表 1 wei，是以太币最小的单位<br />
 查看一下合约中的余额  <code>await getBalance(instance)</code></p>
 <p><img alt="image.png" src="../img/hkwLouUeTztXmleU/1589537711688-b2a5e5e1-f8a7-4e19-9f1b-73557f8c253d-175673.png" /></p>
-<p>await contract.owner()  先看一下合约所有者
-补充：
+<p>await contract.owner()  先看一下合约所有者<br />
+补充：<br />
 触发 fallback 函数的条件：</p>
 <ul>
 <li>当调用一个不存在的函数的时候</li>
 <li>发送没有数据的纯 ether 时</li>
 </ul>
-<p>所以我们可以通过
-await contract.sendTransaction({value: 1})
+<p>所以我们可以通过<br />
+await contract.sendTransaction({value: 1})<br />
 来发送触发 fallback 函数</p>
 <p>这时候合约所有者就是我们了</p>
 <p><img alt="image.png" src="../img/hkwLouUeTztXmleU/1589538285801-495c7287-af25-4eea-abe1-f0f41332bfde-560240.png" /></p>
 <p>现在我们已经是合约的所有者了，可以调用那个 withdraw 函数来提现了</p>
-<p>一开始合约中有 0.000...00002
+<p>一开始合约中有 0.000...00002<br />
 执行 contract.withdraw() 之后合约里没钱了</p>
 <p><img alt="image.png" src="../img/hkwLouUeTztXmleU/1588579894158-e1df8ea3-f86f-42f7-af27-bf6a51c5a705-215339.png" /></p>
 <p>目标完成，提交，通过！</p>
@@ -7932,7 +7932,7 @@ contract Fallout is Ownable {
 <p><img alt="image.png" src="../img/hkwLouUeTztXmleU/1589550991762-4c5b576f-c6f6-4096-a300-11ad1cd762c9-784017.png" /></p>
 <p><img alt="image.png" src="../img/hkwLouUeTztXmleU/1588580711175-b03b45ed-6f4f-4d34-baca-8c8767c8367b-585146.png" /></p>
 <h2 id="coin-flip">Coin Flip</h2>
-<p>猜硬币游戏
+<p>猜硬币游戏<br />
 目标：连续猜对十次</p>
 <pre><code class="language-javascript">pragma solidity ^0.4.18;
 import 'openzeppelin-solidity/contracts/math/SafeMath.sol';
@@ -8129,10 +8129,10 @@ contract Token {
   }//查询余额
 }
 </code></pre>
-<p>一开始是这样的，初始合约是 20，当我们转一个比 20 大的数的时候 20-_value 就会下溢
+<p>一开始是这样的，初始合约是 20，当我们转一个比 20 大的数的时候 20-_value 就会下溢<br />
 uint256 的取值范围是 [0-2^256-1]，所以如果我们转 21 的话 20-21 = -1，也就是过了 0 到了 2^256-1</p>
 <p><img alt="image.png" src="../img/hkwLouUeTztXmleU/1588685847567-b1bb4fd5-b222-418e-993b-34268ece722b-392651.png" /></p>
-<p>await contract.transfer('0x3C7f1E9B49B2f7c92e25224199d05D5Cb6923820',30)
+<p>await contract.transfer('0x3C7f1E9B49B2f7c92e25224199d05D5Cb6923820',30)<br />
 随便找个地址转账（我把我地址最后一位改成了0）完了之后是这样的，提交就可以啦</p>
 <p><img alt="image.png" src="../img/hkwLouUeTztXmleU/1588685915947-e61b390b-6f1b-4cbd-9c1b-ea777b86c8fb-680876.png" /></p>
 <p><img alt="image.png" src="../img/hkwLouUeTztXmleU/1589600376338-870d730b-a8fa-4d36-9f58-3aa328c86af9-956713.png" /></p>
@@ -8165,8 +8165,8 @@ contract Delegation {
 </code></pre>
 <p>我们要做的就是通过 delegatecall 来调用 pwn 函数，正如注释中说的那样，delegatecall 函数需要所用到的信息比如代码中的 msg.sender 就是这个合约的，所以只要我们构造一下 msg.data 就能够去调用 pwn 函数</p>
 <p>当给 call 传入的第一个参数是 4 字节的时候，call 就会把这个参数作为要调用的函数，这个参数在以太坊的函数选择器的生成规则里是函数签名的 sha3 的前 4 个字节，接下来我们要做的就是触发回退函数，来执行 pwn 函数</p>
-<p>可以使用 sendTransaction：
-<code>contract.sendTransaction({data:web3.sha3("pwn()").slice(0,10)});</code>
+<p>可以使用 sendTransaction：<br />
+<code>contract.sendTransaction({data:web3.sha3("pwn()").slice(0,10)});</code><br />
 slice 为提取字符串的前10个字符，四个字节，就是 10 个字符（例：0x34567890）</p>
 <p><img alt="image.png" src="../img/hkwLouUeTztXmleU/1588688501483-b0a9f355-02f2-4c71-9bb7-b4af600870db-102414.png" /></p>
 <p><img alt="image.png" src="../img/hkwLouUeTztXmleU/1588688572324-ac75eb2c-3322-4d30-8f72-6f7eaecd809a-024156.png" /></p>
@@ -8184,7 +8184,7 @@ contract Force {/*
 
 */}
 </code></pre>
-<p>什么代码都没有，但是有一种自毁合约的方法 selfdestruct，这种方法会把合约中剩余的钱强制转到某一个地址
+<p>什么代码都没有，但是有一种自毁合约的方法 selfdestruct，这种方法会把合约中剩余的钱强制转到某一个地址<br />
 在 remix 里面部署一个合约</p>
 <pre><code class="language-javascript">pragma solidity ^0.4.20;
 contract exp {
@@ -8221,14 +8221,14 @@ contract Vault {
 <p>只要密码对了就行，我们不知道它定义的密码是什么，而且 password 变量是 private 的，但是在区块里面数据是透明的，私有变量标记只能阻止其他合约访问它。标记为私有变量或局部变量的状态变量，仍然可被公开访问到</p>
 <p>getStorageAt 第一个参数是合约地址，后面是参数的位置，参数的位置是按照声明的顺序来排的，这里的 locked 是第一个所以是 0，password 是第二个，位置就是 1</p>
 <p><img alt="image.png" src="../img/hkwLouUeTztXmleU/1589681698520-bdaaab22-e8c2-42ac-ace1-764ee1fa3818-486424.png" /></p>
-<p>web3.eth.getStorageAt(contract.address, 1, function(x, y) {alert(web3.toAscii(y))})
+<p>web3.eth.getStorageAt(contract.address, 1, function(x, y) {alert(web3.toAscii(y))})<br />
 //可以 alert 的方式将该地址的第 2 个值转化 ascii 显示</p>
 <p><img alt="image.png" src="../img/hkwLouUeTztXmleU/1588690340632-121e3346-cacb-491f-9d1e-73d79eab73d5-926242.png" /></p>
-<p>web3.eth.getStorageAt(contract.address, 1, function(x, y){console.info(web3.toAscii(y))})
+<p>web3.eth.getStorageAt(contract.address, 1, function(x, y){console.info(web3.toAscii(y))})<br />
 //也可以在控制台直接输出</p>
 <p><img alt="image.png" src="../img/hkwLouUeTztXmleU/1589677815465-6e6d9243-6567-4ee3-a32b-30f6160abc3b-008866.png" /></p>
-<p>提交
-await contract.unlock("A very strong secret password :)")
+<p>提交<br />
+await contract.unlock("A very strong secret password :)")<br />
 查看一下，已经解锁了，提交就可以了</p>
 <p><img alt="image.png" src="../img/hkwLouUeTztXmleU/1588690453205-a57d7fec-e8cc-4fee-987e-47e93ece8d59-277739.png" /></p>
 <p><img alt="image.png" src="../img/hkwLouUeTztXmleU/1588690611424-8336febe-7661-4100-bec6-80fea55d13a9-955326.png" /></p>
@@ -8274,8 +8274,8 @@ contract attack{
 <p><img alt="image.png" src="../img/hkwLouUeTztXmleU/1588726408862-f56deef7-3b0a-4581-aafd-8062453c6694-536303.png" /></p>
 <h2 id="re-entrancy">Re-entrancy</h2>
 <p>目标：拿到合约里面的所有资金</p>
-<p><strong>这个题老版本失败！白往里面放了那么多钱！！！</strong>
-<strong>用新版本的成功了</strong>
+<p><strong>这个题老版本失败！白往里面放了那么多钱！！！</strong><br />
+<strong>用新版本的成功了</strong><br />
 **</p>
 <pre><code class="language-javascript">pragma solidity ^0.5.0;
 import 'openzeppelin-solidity/contracts/math/SafeMath.sol';
@@ -8300,14 +8300,14 @@ contract Reentrance {
   function() external payable {}
 }
 </code></pre>
-<p>因为他是提现完成之后才修改账户余额的，可以使用重入攻击
+<p>因为他是提现完成之后才修改账户余额的，可以使用重入攻击<br />
 另外常用转币方式有三种，题目中用了第三种方法</p>
 <blockquote>
-<p><address>.reansfer()
+<p><address>.reansfer()<br />
 发送失败时会通过 throw 回滚状态，只会传递 2300 个 gas 以供调用，从而防止重入</p>
-<p><address>.send()
+<p><address>.send()<br />
 发送失败时，返回布尔值 false，只会传递 2300 个 gas  以供调用，从而防止重入</p>
-<p><address>.gas().call.value()()
+<p><address>.gas().call.value()()<br />
 当发送失败时，返回布尔值 false 将传递所有可用的 gas 进行调用（可通过 gas(gas _value) 进行限制），不能有效防止重入攻击</p>
 </blockquote>
 <p>用的是这个脚本：</p>
@@ -8354,14 +8354,14 @@ function initiateAttack() public {
    }
 }
 </code></pre>
-<p>部署的时候给他 1 ether，然后使用 initiateAttack 就可以啦
-**
-<strong><img alt="image.png" src="../img/hkwLouUeTztXmleU/1589698085308-00db3ecb-20b0-438c-b3c8-1c07ae4634b5-497438.png" /></strong>
-**
-<strong><img alt="image.png" src="../img/hkwLouUeTztXmleU/1589698221267-e29bb8fe-e380-43d5-bd5c-7e0815f1cc25-110529.png" /></strong>
-**
-执行后
-**
+<p>部署的时候给他 1 ether，然后使用 initiateAttack 就可以啦<br />
+**<br />
+<strong><img alt="image.png" src="../img/hkwLouUeTztXmleU/1589698085308-00db3ecb-20b0-438c-b3c8-1c07ae4634b5-497438.png" /></strong><br />
+**<br />
+<strong><img alt="image.png" src="../img/hkwLouUeTztXmleU/1589698221267-e29bb8fe-e380-43d5-bd5c-7e0815f1cc25-110529.png" /></strong><br />
+**<br />
+执行后<br />
+**<br />
 <img alt="image.png" src="../img/hkwLouUeTztXmleU/1589698689113-ad2fd973-4fde-41f0-b23c-813ad0a86e5a-967847.png" /></p>
 <p><img alt="image.png" src="../img/hkwLouUeTztXmleU/1589698775874-f323f4bf-df15-4b2c-b19a-adfecb07b985-037351.png" /></p>
 <blockquote>

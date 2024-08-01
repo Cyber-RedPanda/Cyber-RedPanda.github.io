@@ -7541,17 +7541,17 @@
   <h1>配置ftp</h1>
 
 <h2 id="ftp">配置ftp</h2>
-<p>安装 vsftpd 服务器
+<p>安装 vsftpd 服务器<br />
 <code>apt install vsftpd</code></p>
-<p><code>vim /etc/vsftpd.user_allowlist</code>
+<p><code>vim /etc/vsftpd.user_allowlist</code><br />
 添加用户名</p>
-<p>进入
+<p>进入<br />
 <code>vim /etc/vsftpd.conf</code></p>
-<p>把 write_enable=YES 前面的注释去掉，添加下面三行
-<code>userlist_file=/etc/vsftpd.user_allowlist</code>
-<code>userlist_enable=YES</code>
+<p>把 write_enable=YES 前面的注释去掉，添加下面三行<br />
+<code>userlist_file=/etc/vsftpd.user_allowlist</code><br />
+<code>userlist_enable=YES</code><br />
 <code>userlist_deny=NO</code></p>
-<p>重启：
+<p>重启：<br />
 <code>/etc/init.d/vsftpd restart</code></p>
 <p>在主机上安装类似ftp工具（我用的是FileZilla），连接就可以了</p>
 <blockquote>

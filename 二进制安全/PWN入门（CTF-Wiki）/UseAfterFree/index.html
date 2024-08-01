@@ -7608,7 +7608,7 @@
 <p>希望能通过改变指针来让程序执行后门读取 flag</p>
 <p>我们先随便申请两个来看一下内存是怎么分布的</p>
 <p><img alt="image.png" src="../img/i08d-2-tymEYej0P/1596674272810-ce23e624-b33a-442c-9f45-1c4ea1d1062f-251007.png" /></p>
-<p>每申请一个，首先会申请一个 0x10 大小的，用来存放 printf 的地址与申请的堆块的地址
+<p>每申请一个，首先会申请一个 0x10 大小的，用来存放 printf 的地址与申请的堆块的地址<br />
 然后会把申请的堆块的地址放到 notelist 数组中</p>
 <p>然后我们释放掉他们两个，这样四块 chunk 都会被放在 fastbin 中（fastbin 是后进先出），这时候再去申请一个 0x8 大小的，当然为了对齐他会申请 0x10，这样原本两个 0x10 大小的用来放 printf 和堆块指针的 chunk 就被用来作为这次申请的放 printf 之类的和真正申请的 chunk 的地址，所以我们就可以改掉其中一个放 printf 的地方的地址为 magic 的地址，然后通过 show 来 cat flag</p>
 <pre><code class="language-python">#coding:utf-8

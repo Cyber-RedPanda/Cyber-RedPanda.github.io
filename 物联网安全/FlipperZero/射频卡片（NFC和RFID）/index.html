@@ -7885,12 +7885,12 @@
 <h2 id="nfcrfid">射频卡片（NFC和RFID）</h2>
 <p>由于手边没有卡，所以该实验通过 Proxmark3 配合完成</p>
 <h3 id="rfid-detector">RFID detector</h3>
-<p>项目地址：https://github.com/flipperdevices/flipperzero-good-faps/tree/dev/nfc_rfid_detector
-在开始之前先插播一个在 APPs 文件夹 -&gt; Tools 文件夹中的 APP：<code>RFID detector</code>，它可以探测读卡器的频率，来判断是低频卡还是高频卡
-<img alt="image.png" src="../img/T3sPPXPrXUez280K/1708262302139-dc42c878-272b-44f1-a081-1ceaaecf8970-049003.png" />
-当我们使用 pm3 命令：<code>lf search</code>进行低频卡探测时把 flipper 贴上去就会看到，当前是 125KHz 的低频卡读卡器
-<img alt="image.png" src="../img/T3sPPXPrXUez280K/1708262386854-f4302bae-f7b0-47fb-a183-3f4226d7f35c-056178.png" />
-当我们使用 pm3 命令：<code>hf search</code>进行高频卡探测时把 flipper 贴上去就会看到，当前是 13.56MHz 的高频卡读卡器
+<p>项目地址：https://github.com/flipperdevices/flipperzero-good-faps/tree/dev/nfc_rfid_detector<br />
+在开始之前先插播一个在 APPs 文件夹 -&gt; Tools 文件夹中的 APP：<code>RFID detector</code>，它可以探测读卡器的频率，来判断是低频卡还是高频卡<br />
+<img alt="image.png" src="../img/T3sPPXPrXUez280K/1708262302139-dc42c878-272b-44f1-a081-1ceaaecf8970-049003.png" /><br />
+当我们使用 pm3 命令：<code>lf search</code>进行低频卡探测时把 flipper 贴上去就会看到，当前是 125KHz 的低频卡读卡器<br />
+<img alt="image.png" src="../img/T3sPPXPrXUez280K/1708262386854-f4302bae-f7b0-47fb-a183-3f4226d7f35c-056178.png" /><br />
+当我们使用 pm3 命令：<code>hf search</code>进行高频卡探测时把 flipper 贴上去就会看到，当前是 13.56MHz 的高频卡读卡器<br />
 <img alt="image.png" src="../img/T3sPPXPrXUez280K/1708262443834-c1d5dbec-396e-43fe-821d-ac7ca1421f7d-662578.png" /></p>
 <h2 id="rfid">RFID</h2>
 <h3 id="125khz-rfid">125KHz RFID</h3>
@@ -7903,13 +7903,13 @@ Extra Actions   其他选项
 <p>首先来使用 Proxmark3 模拟一个 ID 卡，卡片 ID 为 1122334455</p>
 <pre><code class="language-python">lf em 410x sim --id 1122334455
 </code></pre>
-<p><img alt="image.png" src="../img/T3sPPXPrXUez280K/1708260402951-a99a5b11-55ac-4389-ad78-29f643e5bae6-343619.png" />
-然后 flipper 选择 Read，把 flipper 贴在 pm3 的 LF 天线上，可以看但成功读取了 pm3 模拟的卡片信息，这时候可以选择➡️进行保存、模拟、写入操作
-<img alt="image.png" src="../img/T3sPPXPrXUez280K/1708260543527-3829cf06-2b70-4953-92d2-04bd69846c9d-657724.png" />
-Saved 选项中可以看到保存的所有卡片，点击可以进行模拟、写卡、写卡并设置密码、编辑、删除以及查看信息
-注意：写卡对象应该是类似 T557X 这类的可写的卡，而不是另一个 EM410X 卡
-<img alt="image.png" src="../img/T3sPPXPrXUez280K/1708262042625-4b047ead-86e8-400a-b5db-81568949e888-619512.png" />
-Add Manually 选项中可以选择不同类型的卡片，设置卡片 ID 来创建一张卡，结果也会保存在 Saved 中，挨个看了一遍全都是只保存个卡号，没啥好介绍的
+<p><img alt="image.png" src="../img/T3sPPXPrXUez280K/1708260402951-a99a5b11-55ac-4389-ad78-29f643e5bae6-343619.png" /><br />
+然后 flipper 选择 Read，把 flipper 贴在 pm3 的 LF 天线上，可以看但成功读取了 pm3 模拟的卡片信息，这时候可以选择➡️进行保存、模拟、写入操作<br />
+<img alt="image.png" src="../img/T3sPPXPrXUez280K/1708260543527-3829cf06-2b70-4953-92d2-04bd69846c9d-657724.png" /><br />
+Saved 选项中可以看到保存的所有卡片，点击可以进行模拟、写卡、写卡并设置密码、编辑、删除以及查看信息<br />
+注意：写卡对象应该是类似 T557X 这类的可写的卡，而不是另一个 EM410X 卡<br />
+<img alt="image.png" src="../img/T3sPPXPrXUez280K/1708262042625-4b047ead-86e8-400a-b5db-81568949e888-619512.png" /><br />
+Add Manually 选项中可以选择不同类型的卡片，设置卡片 ID 来创建一张卡，结果也会保存在 Saved 中，挨个看了一遍全都是只保存个卡号，没啥好介绍的<br />
 <img alt="image.png" src="../img/T3sPPXPrXUez280K/1708261985709-9195497a-baf2-4191-8ede-484307535f08-433622.png" /></p>
 <p>来到 APPS 文件夹的 RFID 文件夹，有以下 APP，接下来依次介绍：</p>
 <pre><code class="language-python">RFID Beacon
@@ -7920,38 +7920,38 @@ T5577 multiwriter
 [(Q)M100]UHF RFID
 </code></pre>
 <h3 id="rfid-beacon">RFID Beacon</h3>
-<p>RFID Beacon 是一个发射信标的小程序，在 125KHz 使用摩斯电码传输整个字母表（A 到 Z）、数字（0 到 9）以及一些符号
-官方链接：https://github.com/nmrr/flipperzero-rfidbeacon
-进入之后通过⬅️➡️切换要发射的内容，通过长按⬆️切换发射和暂停，进入发射状态后会每隔一段时间发射一次，发射时 flipper 的红灯会亮，因为我没有这么低频的 SDR 设备，所以直接贴 APP 的 github 上面的图了
+<p>RFID Beacon 是一个发射信标的小程序，在 125KHz 使用摩斯电码传输整个字母表（A 到 Z）、数字（0 到 9）以及一些符号<br />
+官方链接：https://github.com/nmrr/flipperzero-rfidbeacon<br />
+进入之后通过⬅️➡️切换要发射的内容，通过长按⬆️切换发射和暂停，进入发射状态后会每隔一段时间发射一次，发射时 flipper 的红灯会亮，因为我没有这么低频的 SDR 设备，所以直接贴 APP 的 github 上面的图了<br />
 <img alt="81cfbe6fefdaa26ef73076808e81d91.png" src="../img/T3sPPXPrXUez280K/1709903672867-714197a9-fd14-4e25-9112-b33a6b84db40-898055.png" /></p>
 <h3 id="rfid-fuzzer">RFID Fuzzer</h3>
-<p>RFID Fuzzer 这个 APP 应该是来自于这里：https://github.com/DarkFlippers/Multi_Fuzzer
-主要是用来爆破各种协议卡片的 ID 的，⬅️➡️用于选择协议，⬆️⬇️用于选择爆破方式
-<img alt="image.png" src="../img/T3sPPXPrXUez280K/1708264442087-78f7a76e-6015-4bde-900d-7b3841037b60-156404.png" />
-可以用默认的 ID 列表（Default Values）进行爆破，默认的 ID 列表数量不多
-也可以选择 ID 遍历爆破（BF Customer ID），这个功能就很离谱，通过⬅️➡️选择爆破哪一个字节，爆破的时候就只有这一个字节变化，其他的都是 0
-<img alt="image.png" src="../img/T3sPPXPrXUez280K/1708264727903-5dc6bf7b-d41a-48c6-9273-fdfc20257ced-041360.png" />
-还可以从之前保存的卡片文件中加载 ID（Load File），这个也是只爆破一个字节，但是可以选择修改其他字节的值
-<img alt="image.png" src="../img/T3sPPXPrXUez280K/1708264951028-0f4520dd-7303-4c6d-aacd-c732bc438972-600220.png" />
-从文件加载 ID 列表（Load UIDs from file），这个是保存的一个列表中加载，列表文件只是一个单纯的 TXT，里面一行一个 ID，格式如下
+<p>RFID Fuzzer 这个 APP 应该是来自于这里：https://github.com/DarkFlippers/Multi_Fuzzer<br />
+主要是用来爆破各种协议卡片的 ID 的，⬅️➡️用于选择协议，⬆️⬇️用于选择爆破方式<br />
+<img alt="image.png" src="../img/T3sPPXPrXUez280K/1708264442087-78f7a76e-6015-4bde-900d-7b3841037b60-156404.png" /><br />
+可以用默认的 ID 列表（Default Values）进行爆破，默认的 ID 列表数量不多<br />
+也可以选择 ID 遍历爆破（BF Customer ID），这个功能就很离谱，通过⬅️➡️选择爆破哪一个字节，爆破的时候就只有这一个字节变化，其他的都是 0<br />
+<img alt="image.png" src="../img/T3sPPXPrXUez280K/1708264727903-5dc6bf7b-d41a-48c6-9273-fdfc20257ced-041360.png" /><br />
+还可以从之前保存的卡片文件中加载 ID（Load File），这个也是只爆破一个字节，但是可以选择修改其他字节的值<br />
+<img alt="image.png" src="../img/T3sPPXPrXUez280K/1708264951028-0f4520dd-7303-4c6d-aacd-c732bc438972-600220.png" /><br />
+从文件加载 ID 列表（Load UIDs from file），这个是保存的一个列表中加载，列表文件只是一个单纯的 TXT，里面一行一个 ID，格式如下<br />
 <img alt="image.png" src="../img/T3sPPXPrXUez280K/1708265181931-ef7360de-a5bd-4648-9c14-55d3b23e9f41-351183.png" /></p>
 <h3 id="em4100-key-generator">EM4100 Key generator</h3>
-<p>EM4100 Key generator 这个 APP 项目地址应该是：https://github.com/Milk-Cool/fz-em4100-generator
+<p>EM4100 Key generator 这个 APP 项目地址应该是：https://github.com/Milk-Cool/fz-em4100-generator<br />
 Key 在这里的含义是 ID 而不是密码，所以这个 APP 也就是生成一些 ID 而已，在 github 中可以看到还不是随机生成的，都是固定的... 经过测试生成的文件会保存在上个 APP（RFID Fuzzer）最后一个选项（Load UIDs from file）的文件夹中</p>
 <h3 id="t5577-multiwriter">T5577 multiwriter</h3>
-<p>T5577 multiwriter 这个 APP 项目地址是：https://github.com/Leptopt1los/t5577_multiwriter
-这个 APP 的作用是往 T5577 卡片中写入多个 EM410X 卡片 ID，最多能写三个 ID，且只能写已经在 Saved 中保存的卡片文件
+<p>T5577 multiwriter 这个 APP 项目地址是：https://github.com/Leptopt1los/t5577_multiwriter<br />
+这个 APP 的作用是往 T5577 卡片中写入多个 EM410X 卡片 ID，最多能写三个 ID，且只能写已经在 Saved 中保存的卡片文件<br />
 他的灵感来源于这篇文章：https://forum.dangerousthings.com/t/hack-store-2-to-3-different-em41xx-on-a-single-t5577/12116。这个论坛让我大开眼界了属于是，他们叫生物黑客，之前在网上看过一个人把特斯拉的卡片融开，把钥匙芯片放到身体里的觉得就很离谱了，这里更多😶</p>
 <h3 id="uhf-rfid">UHF RFID</h3>
-<p>项目地址：https://github.com/frux-c/uhf_rfid
-这东西需要外接一个模块（https://www.aliexpress.us/item/3256805110198094.html?gatewayAdapt=glo2usa4itemAdapt），还不便宜，得 200 多
-感觉就是一个高频一些的低频卡😂，卡的功能还是只有一个 ID，但是频段在 900 多MHz，读取距离也远了很多
-UHF 模块的引脚定义如下
-<img alt="4a6a535b05ed6e1d1c6418883c6303e.png" src="../img/T3sPPXPrXUez280K/1709812565177-836d01a7-24a0-4d40-bc85-c4c9af756103-998609.png" />
-为了方便连接，可以去买个 1.25 转 2.54 的杜邦端子线
-<img alt="image.png" src="../img/T3sPPXPrXUez280K/1709812766784-08f8bd5d-4278-4bac-9da6-df9e27612277-931279.png" />
-插上之后从左到右依次是 GND、EN、RX、TX、VCC
-<img alt="9f28da8a3733edde8d7f8fee4dc5798.jpg" src="../img/T3sPPXPrXUez280K/1709812680884-54651433-fc33-4942-9152-ff478e504e8e-269470.jpeg" />
+<p>项目地址：https://github.com/frux-c/uhf_rfid<br />
+这东西需要外接一个模块（https://www.aliexpress.us/item/3256805110198094.html?gatewayAdapt=glo2usa4itemAdapt），还不便宜，得 200 多<br />
+感觉就是一个高频一些的低频卡😂，卡的功能还是只有一个 ID，但是频段在 900 多MHz，读取距离也远了很多<br />
+UHF 模块的引脚定义如下<br />
+<img alt="4a6a535b05ed6e1d1c6418883c6303e.png" src="../img/T3sPPXPrXUez280K/1709812565177-836d01a7-24a0-4d40-bc85-c4c9af756103-998609.png" /><br />
+为了方便连接，可以去买个 1.25 转 2.54 的杜邦端子线<br />
+<img alt="image.png" src="../img/T3sPPXPrXUez280K/1709812766784-08f8bd5d-4278-4bac-9da6-df9e27612277-931279.png" /><br />
+插上之后从左到右依次是 GND、EN、RX、TX、VCC<br />
+<img alt="9f28da8a3733edde8d7f8fee4dc5798.jpg" src="../img/T3sPPXPrXUez280K/1709812680884-54651433-fc33-4942-9152-ff478e504e8e-269470.jpeg" /><br />
 与 flipper 连线关系是</p>
 <pre><code class="language-python">YRM100       Flipper
   GND  &lt;---&gt;  GND
@@ -7960,9 +7960,9 @@ UHF 模块的引脚定义如下
   TX   &lt;---&gt;  RX
   VCC  &lt;---&gt;  5V
 </code></pre>
-<p>我在实际使用的时候遇到一个问题，如果一开始全部插上，当进入 APP 的时候会卡死，可以先不插 5V，进入 APP 后插上 5V 再 Retry 一下就能正常识别了
-<img alt="image.png" src="../img/T3sPPXPrXUez280K/1709812884092-be890ffa-a26b-4abb-8289-6443d6235eb9-650554.png" />
-读卡功能演示（实际读取距离很远，只是举着不太好拍照）
+<p>我在实际使用的时候遇到一个问题，如果一开始全部插上，当进入 APP 的时候会卡死，可以先不插 5V，进入 APP 后插上 5V 再 Retry 一下就能正常识别了<br />
+<img alt="image.png" src="../img/T3sPPXPrXUez280K/1709812884092-be890ffa-a26b-4abb-8289-6443d6235eb9-650554.png" /><br />
+读卡功能演示（实际读取距离很远，只是举着不太好拍照）<br />
 <img alt="image.png" src="../img/T3sPPXPrXUez280K/1709812991456-f4cfdd09-fb90-4359-b230-e5e707de2ed5-805373.png" /></p>
 <h2 id="nfc">NFC</h2>
 <h3 id="nfc_1">NFC</h3>
@@ -7973,51 +7973,51 @@ Saved          保存的卡片文件，没啥好说的
 Extra Actions  可以读卡片类型、管理卡片密钥字典、解锁一些特定类型的卡片
 Add Manually   自己添加卡片，只添加一个ID，没有实际内容
 </code></pre>
-<p>Read 功能会去读取卡片的信息，打开后直接贴到卡片上即可，对于大部分使用默认密码的门禁/电梯卡片应该可以很快的读取出来，读取好后➡️可以选择 Emulate（模拟）进行测试，也可以选择保存（Save）
-<img alt="image.png" src="../img/T3sPPXPrXUez280K/1713055916061-adfbe6aa-58c1-46fa-aa42-b844c7195c71-175065.png" />
-可以看到下图中读取的卡片有两个 key 没找到，即使没有读取全部区块，也是可以保存的
-<img alt="image.png" src="../img/T3sPPXPrXUez280K/1708352550408-5d18cf31-0374-4e25-ae3b-754c0b6adfea-852860.png" />
-保存好之后可以在 Saved 中、模拟（Emulate）、写卡（Write to Initial Card）、再次读取更新卡片（Update from Initial Card）、查看全部信息（Info）等
-<img alt="image.png" src="../img/T3sPPXPrXUez280K/1713056074800-03bbc3c0-0675-4bd5-bf3c-51f7b75f5b49-786876.png" />
-这个 APP 自己会去爆破密码，但是因为没有集成很多攻击方式，只能看你字典中有没有那个密码，所以效果很一般，我手上 M1 的卡比较多，随便试了一张非默认密码的就跑不出来了，作为对比，pm3 的<code>hm mf autopwn</code>命令基本可以秒出（可以看到 flipper 没跑出来的是一堆问号）
-<img alt="image.png" src="../img/T3sPPXPrXUez280K/1708348442917-91946f49-fbc7-492e-828c-a330fa27584c-954835.png" />
-那这就没办法了吗？不是的！我们来看第二个功能 Detect Reader 这个功能是用来从读卡器获取加密随机数的，后面可以结合其他 APP 利用这些加密随机数破解卡片密钥
+<p>Read 功能会去读取卡片的信息，打开后直接贴到卡片上即可，对于大部分使用默认密码的门禁/电梯卡片应该可以很快的读取出来，读取好后➡️可以选择 Emulate（模拟）进行测试，也可以选择保存（Save）<br />
+<img alt="image.png" src="../img/T3sPPXPrXUez280K/1713055916061-adfbe6aa-58c1-46fa-aa42-b844c7195c71-175065.png" /><br />
+可以看到下图中读取的卡片有两个 key 没找到，即使没有读取全部区块，也是可以保存的<br />
+<img alt="image.png" src="../img/T3sPPXPrXUez280K/1708352550408-5d18cf31-0374-4e25-ae3b-754c0b6adfea-852860.png" /><br />
+保存好之后可以在 Saved 中、模拟（Emulate）、写卡（Write to Initial Card）、再次读取更新卡片（Update from Initial Card）、查看全部信息（Info）等<br />
+<img alt="image.png" src="../img/T3sPPXPrXUez280K/1713056074800-03bbc3c0-0675-4bd5-bf3c-51f7b75f5b49-786876.png" /><br />
+这个 APP 自己会去爆破密码，但是因为没有集成很多攻击方式，只能看你字典中有没有那个密码，所以效果很一般，我手上 M1 的卡比较多，随便试了一张非默认密码的就跑不出来了，作为对比，pm3 的<code>hm mf autopwn</code>命令基本可以秒出（可以看到 flipper 没跑出来的是一堆问号）<br />
+<img alt="image.png" src="../img/T3sPPXPrXUez280K/1708348442917-91946f49-fbc7-492e-828c-a330fa27584c-954835.png" /><br />
+那这就没办法了吗？不是的！我们来看第二个功能 Detect Reader 这个功能是用来从读卡器获取加密随机数的，后面可以结合其他 APP 利用这些加密随机数破解卡片密钥<br />
 因为我没有专门的读卡器，因此我使用 pm3 的带密码读区块功能，来模拟读卡器带着密码读取卡片数据的过程</p>
 <pre><code>hf mf rdbl --blk 4 -k 98E444621B07
 </code></pre>
-<p>然后 flipper 选择 Detect Reader 功能贴到 pm3 上去，多执行几次上面的指令，等到 flipper 收集到了 10 对随机数就可以啦
-<img alt="image.png" src="../img/T3sPPXPrXUez280K/1708516047505-41389246-3150-425e-b23a-40a9b57f9737-904288.png" />
+<p>然后 flipper 选择 Detect Reader 功能贴到 pm3 上去，多执行几次上面的指令，等到 flipper 收集到了 10 对随机数就可以啦<br />
+<img alt="image.png" src="../img/T3sPPXPrXUez280K/1708516047505-41389246-3150-425e-b23a-40a9b57f9737-904288.png" /><br />
 收集的随机数可以给 MFKey32 或 MFKey Nested 使用，来破解密钥</p>
 <h3 id="mfkey32-mfkey-nested">MFKey32 | MFKey Nested</h3>
-<p>项目地址：https://github.com/equipter/mfkey32v2 | https://github.com/AloneLiberty/FlipperNested
-收集随机数完成之后就要去到 Apps -&gt; NFC -&gt; MFKey32 或 MFKey Nested 这个 APP 了，这俩都可以从随机数解出密钥，具体区别如下：<a href="https://gist.github.com/noproto/63f5dea3f77cae4393a4aa90fc8ef427">https://gist.github.com/noproto/63f5dea3f77cae4393a4aa90fc8ef427</a>，随便选个就行了，我用 MFKey32 的时候总是崩溃，用 MFKey Nested 就稳定很多
-这个 APP 没啥可操作的地方，进来直接点击确认件开始就会破解密钥
-<img alt="image.png" src="../img/T3sPPXPrXUez280K/1708516082264-fe463368-dd4f-4042-ab32-b8f5a43b2269-320403.png" />
-破解完成后会将密钥自动加到字典中，当再次使用 NFC APP 读取时就会使用该密钥，最终成功读取全部的数据
+<p>项目地址：https://github.com/equipter/mfkey32v2 | https://github.com/AloneLiberty/FlipperNested<br />
+收集随机数完成之后就要去到 Apps -&gt; NFC -&gt; MFKey32 或 MFKey Nested 这个 APP 了，这俩都可以从随机数解出密钥，具体区别如下：<a href="https://gist.github.com/noproto/63f5dea3f77cae4393a4aa90fc8ef427">https://gist.github.com/noproto/63f5dea3f77cae4393a4aa90fc8ef427</a>，随便选个就行了，我用 MFKey32 的时候总是崩溃，用 MFKey Nested 就稳定很多<br />
+这个 APP 没啥可操作的地方，进来直接点击确认件开始就会破解密钥<br />
+<img alt="image.png" src="../img/T3sPPXPrXUez280K/1708516082264-fe463368-dd4f-4042-ab32-b8f5a43b2269-320403.png" /><br />
+破解完成后会将密钥自动加到字典中，当再次使用 NFC APP 读取时就会使用该密钥，最终成功读取全部的数据<br />
 <img alt="a81599519f8eb31aa4591ef31618ae2.jpg" src="../img/T3sPPXPrXUez280K/1708354557817-6351a854-d6d6-4392-91fc-6d73096b1a1d-514568.jpeg" /></p>
 <h3 id="mifare-classic-editor">MIFARE Classic Editor</h3>
-<p>原项目地址：<a href="https://github.com/TollyH/flipper-apps">https://github.com/TollyH/flipper-apps</a>
-纯粹的是拿来编辑保存的卡片内容的，进去之后先选择保存好的要编辑的卡片文件，选择进入哪个扇区（Sector）的哪个区块（block）编辑修改
+<p>原项目地址：<a href="https://github.com/TollyH/flipper-apps">https://github.com/TollyH/flipper-apps</a><br />
+纯粹的是拿来编辑保存的卡片内容的，进去之后先选择保存好的要编辑的卡片文件，选择进入哪个扇区（Sector）的哪个区块（block）编辑修改<br />
 <img alt="image.png" src="../img/T3sPPXPrXUez280K/1708430664727-9018d9b7-2e23-4d2f-a1ec-ba2d352ebf8d-755598.png" /></p>
 <h3 id="mifare-fuzzer">Mifare Fuzzer</h3>
-<p>原项目地址：https://github.com/spheeere98/mifare_fuzzer
-用来爆破 UID 的，只能模拟卡号，没有实际内容，类似 RFID Fuzzer，进入 APP 之后需要先选择爆破的卡片类型，选择好后再选择爆破的卡号列表，列表可以选择：APP 默认的（Test Values）、随机的（Random Values）、文件导入的 UID 列表（Load UIDs from file）
+<p>原项目地址：https://github.com/spheeere98/mifare_fuzzer<br />
+用来爆破 UID 的，只能模拟卡号，没有实际内容，类似 RFID Fuzzer，进入 APP 之后需要先选择爆破的卡片类型，选择好后再选择爆破的卡号列表，列表可以选择：APP 默认的（Test Values）、随机的（Random Values）、文件导入的 UID 列表（Load UIDs from file）<br />
 <img alt="image.png" src="../img/T3sPPXPrXUez280K/1708430645773-9dc9349e-0b83-41e1-90b9-1f22e4e59f13-564379.png" /></p>
 <h3 id="nfc-magic">NFC Magic</h3>
-<p>项目地址：https://github.com/flipperdevices/flipperzero-good-faps/tree/dev/nfc_magic
-这个 APP 可以用来探测卡片是否是魔术卡，即是不是可以修改 UID 信息的卡，如果是的话可以按➡️选择 More，直接把 Saved 中保存的卡片写到这张卡上（Write），或者擦除这张卡（Wipe） 
+<p>项目地址：https://github.com/flipperdevices/flipperzero-good-faps/tree/dev/nfc_magic<br />
+这个 APP 可以用来探测卡片是否是魔术卡，即是不是可以修改 UID 信息的卡，如果是的话可以按➡️选择 More，直接把 Saved 中保存的卡片写到这张卡上（Write），或者擦除这张卡（Wipe） <br />
 <img alt="image.png" src="../img/T3sPPXPrXUez280K/1708430973338-d8d8231d-d7e9-41cd-809e-cb4e870a4c19-431841.png" /></p>
 <h3 id="nfc-maker">NFC Maker</h3>
-<p>用来创建一些 NFC 标签，比如碰一碰就连接 WiFi 这种的标签，我手机没有 NFC 功能，这个就不测试了2333
+<p>用来创建一些 NFC 标签，比如碰一碰就连接 WiFi 这种的标签，我手机没有 NFC 功能，这个就不测试了2333<br />
 <img alt="image.png" src="../img/T3sPPXPrXUez280K/1708433029281-17fd8bbc-23c5-4bdc-9450-2ac4afecd9e1-759323.png" /></p>
 <h3 id="iclasspicopass">[iClass]PicoPass</h3>
-<p>项目地址：https://github.com/flipperdevices/flipperzero-good-faps/tree/dev/picopass
-用来读取、写入、保存和模拟传统的 HID iClass 卡和密钥卡（基于 picopass 芯片组），Localass 用来攻击模拟特定的 CSN 并收集来自读卡器的响应，这些响应可用于计算该读卡器某些自定义密钥
+<p>项目地址：https://github.com/flipperdevices/flipperzero-good-faps/tree/dev/picopass<br />
+用来读取、写入、保存和模拟传统的 HID iClass 卡和密钥卡（基于 picopass 芯片组），Localass 用来攻击模拟特定的 CSN 并收集来自读卡器的响应，这些响应可用于计算该读卡器某些自定义密钥<br />
 啊，又遇到没有设备的了！</p>
 <h3 id="seader">Seader</h3>
-<p>项目地址：https://github.com/bettse/seader
-从 HID iClass、iClass SE、Desfire EV1/EV2 和 Seos 读取凭据，需要一个这样的拓展板，然后把 SIM/SAM 卡插进去，看着像是需要借助 SIM/SAM 卡中的一些信息来操作上面说的卡片类型，这个拓展板国内没有，告辞
-https://www.redteamtools.com/nard-sam-expansion-board-for-flipper-zero-with-hid-seos-iclass-sam/
+<p>项目地址：https://github.com/bettse/seader<br />
+从 HID iClass、iClass SE、Desfire EV1/EV2 和 Seos 读取凭据，需要一个这样的拓展板，然后把 SIM/SAM 卡插进去，看着像是需要借助 SIM/SAM 卡中的一些信息来操作上面说的卡片类型，这个拓展板国内没有，告辞<br />
+https://www.redteamtools.com/nard-sam-expansion-board-for-flipper-zero-with-hid-seos-iclass-sam/<br />
 <img alt="image.png" src="../img/T3sPPXPrXUez280K/1708518054056-f9072331-e203-4d62-ac7c-d4db4f32f8bf-960408.png" /></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/qgux9u6g3xgiu6k2">https://www.yuque.com/hxfqg9/iot/qgux9u6g3xgiu6k2</a></p>

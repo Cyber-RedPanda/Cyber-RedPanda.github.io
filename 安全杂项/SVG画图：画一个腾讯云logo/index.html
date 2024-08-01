@@ -7671,9 +7671,9 @@
 &lt;/svg&gt;
 </code></pre>
 <p><img alt="image.png" src="../img/rKd2mSveN-4L9phL/1712201386958-f5c8f8f3-a845-4cdd-9bfc-c0f54993287d-223168.png" /></p>
-<p>但是到这里大家应该注意到了，我们画的形状都是有标签来决定的，比如圆的标签是 circle，需要指定这个标签才能画一个圆，但是我们的目标是腾讯云的 logo，这显然有些 ... 复杂了
-<img alt="image.png" src="../img/rKd2mSveN-4L9phL/1712205466119-27aefb39-d915-4f05-a3d4-1e4cb43680ba-639381.png" />
-别担心，如果我们想要自己创建形状可以直接使用 path 标签，path 标签使用 "d" 属性来描述图形的路径。路径描述包括移动（M/m）、线（L/l）、曲线（C/c、Q/q、S/s、A/a）和关闭路径（Z/z）等命令
+<p>但是到这里大家应该注意到了，我们画的形状都是有标签来决定的，比如圆的标签是 circle，需要指定这个标签才能画一个圆，但是我们的目标是腾讯云的 logo，这显然有些 ... 复杂了<br />
+<img alt="image.png" src="../img/rKd2mSveN-4L9phL/1712205466119-27aefb39-d915-4f05-a3d4-1e4cb43680ba-639381.png" /><br />
+别担心，如果我们想要自己创建形状可以直接使用 path 标签，path 标签使用 "d" 属性来描述图形的路径。路径描述包括移动（M/m）、线（L/l）、曲线（C/c、Q/q、S/s、A/a）和关闭路径（Z/z）等命令<br />
 这里是 path 标签的一些基本命令：</p>
 <pre><code class="language-xml">M (moveto): 移动到一个新位置，不画线。例如，M 10 10 会将画笔移动到坐标 (10,10)。
 L (lineto): 从当前位置画一条直线到新位置。例如，L 20 20 会从当前位置画一条直线到 (20,20)。
@@ -7696,17 +7696,17 @@ Z (closepath): 关闭当前的路径。它将当前位置连接回初始的 M �
            Q 10,60 10,30 z&quot; fill=&quot;red&quot;/&gt;
 &lt;/svg&gt;
 </code></pre>
-<p><img alt="image.png" src="../img/rKd2mSveN-4L9phL/1712240112772-59f84f7a-7bef-4a1f-bb2c-09794997bb30-215916.png" />
-接下来解析一下这个心形是怎么画出来的
-M 10,30 移动到起始点 (10, 30)。
-A 20,20 0,0,1 50,30 画出第一个半圆弧形。这里 A 命令指定了一个椭圆弧。它的半径在 x 和 y 方向都是 20，不旋转，大弧标志为 0，顺时针标志为 1，终点是 (50, 30)。这画出了心形顶部的左半边。
-A 20,20 0,0,1 90,30 画出第二个半圆弧形，与第一个半圆弧形相接，绘出心形的顶部右半边，结束于 (90, 30)。
-Q 90,60 50,90 使用一个二次贝塞尔曲线，从 (90, 30) 开始，通过控制点 (90, 60) 到终点 (50, 90)，形成心形的右下边缘。
-Q 10,60 10,30 再画一个二次贝塞尔曲线，从 (50, 90) 开始，通过控制点 (10, 60) 回到 (10, 30)，形成心形的左下边缘。
-最后，z 命令关闭路径，确保所有线条连接起来，形成闭合的图形。
+<p><img alt="image.png" src="../img/rKd2mSveN-4L9phL/1712240112772-59f84f7a-7bef-4a1f-bb2c-09794997bb30-215916.png" /><br />
+接下来解析一下这个心形是怎么画出来的<br />
+M 10,30 移动到起始点 (10, 30)。<br />
+A 20,20 0,0,1 50,30 画出第一个半圆弧形。这里 A 命令指定了一个椭圆弧。它的半径在 x 和 y 方向都是 20，不旋转，大弧标志为 0，顺时针标志为 1，终点是 (50, 30)。这画出了心形顶部的左半边。<br />
+A 20,20 0,0,1 90,30 画出第二个半圆弧形，与第一个半圆弧形相接，绘出心形的顶部右半边，结束于 (90, 30)。<br />
+Q 90,60 50,90 使用一个二次贝塞尔曲线，从 (90, 30) 开始，通过控制点 (90, 60) 到终点 (50, 90)，形成心形的右下边缘。<br />
+Q 10,60 10,30 再画一个二次贝塞尔曲线，从 (50, 90) 开始，通过控制点 (10, 60) 回到 (10, 30)，形成心形的左下边缘。<br />
+最后，z 命令关闭路径，确保所有线条连接起来，形成闭合的图形。<br />
 fill="red" 属性确保这个心形被填充红色。整个描述合在一起，就形成了一个红色的心形图形。</p>
-<p>那么我们来观察一下 腾讯云的这个 logo，基本可以根据颜色分为三部分，上面是一个圆环的一部分，
-<img alt="image.png" src="../img/rKd2mSveN-4L9phL/1712242000926-3cbe7a05-117f-4cc0-bd37-a3d1dcc10e68-124139.png" />
+<p>那么我们来观察一下 腾讯云的这个 logo，基本可以根据颜色分为三部分，上面是一个圆环的一部分，<br />
+<img alt="image.png" src="../img/rKd2mSveN-4L9phL/1712242000926-3cbe7a05-117f-4cc0-bd37-a3d1dcc10e68-124139.png" /><br />
 先来画一个圆环</p>
 <pre><code class="language-xml">&lt;svg width=&quot;200&quot; height=&quot;200&quot;&gt;
   &lt;path d=&quot;M 50,100
@@ -7717,12 +7717,12 @@ fill="red" 属性确保这个心形被填充红色。整个描述合在一起，
     fill=&quot;#006EFF&quot;  /&gt;
 &lt;/svg&gt;
 </code></pre>
-<p>M 50,100 移动到起点。
-A 50,50 0 0 1 150,100 画一个半径为50的外圈弧线到点(150,100)。
-L 130,100 从外圈弧线的终点画一条直线到内圈弧线的起点。
-A 30,30 0 0 0 70,100 画一个半径为30的内圈弧线回到点(70,100)。
-Z 闭合路径，自动画一条直线从内圈弧线的终点回到起点。
-<img alt="image.png" src="../img/rKd2mSveN-4L9phL/1712279644397-33da12cd-1669-4a8c-a0da-46df7d17b4c3-164545.png" />
+<p>M 50,100 移动到起点。<br />
+A 50,50 0 0 1 150,100 画一个半径为50的外圈弧线到点(150,100)。<br />
+L 130,100 从外圈弧线的终点画一条直线到内圈弧线的起点。<br />
+A 30,30 0 0 0 70,100 画一个半径为30的内圈弧线回到点(70,100)。<br />
+Z 闭合路径，自动画一条直线从内圈弧线的终点回到起点。<br />
+<img alt="image.png" src="../img/rKd2mSveN-4L9phL/1712279644397-33da12cd-1669-4a8c-a0da-46df7d17b4c3-164545.png" /><br />
 但是看起来 logo 并不是单纯的半圆环，我们来稍微调整一下，让它有些倾斜</p>
 <pre><code class="language-xml">&lt;svg width=&quot;200&quot; height=&quot;200&quot;&gt;
   &lt;path d=&quot;M 50,100
@@ -7733,7 +7733,7 @@ Z 闭合路径，自动画一条直线从内圈弧线的终点回到起点。
         fill=&quot;#006EFF&quot;  /&gt;
 &lt;/svg&gt;
 </code></pre>
-<p><img alt="image.png" src="../img/rKd2mSveN-4L9phL/1712279623829-650e88ac-1631-4518-8df8-1216deb2ea85-524293.png" />
+<p><img alt="image.png" src="../img/rKd2mSveN-4L9phL/1712279623829-650e88ac-1631-4518-8df8-1216deb2ea85-524293.png" /><br />
 然后来画左下角的图形，这里基本上要参照原来的图形的坐标，先画直线，在画圆弧最终闭合起来</p>
 <pre><code class="language-xml">&lt;svg width=&quot;200&quot; height=&quot;200&quot;&gt;
   &lt;path d=&quot;M 50,100
@@ -7755,16 +7755,16 @@ Z 闭合路径，自动画一条直线从内圈弧线的终点回到起点。
         fill=&quot;#00C8DC&quot;  /&gt;
 &lt;/svg&gt;
 </code></pre>
-<p>M 90,130  移动到点 90，130  这个起点是右边最下方的点
-L 100,120  走直线到 100，120
+<p>M 90,130  移动到点 90，130  这个起点是右边最下方的点<br />
+L 100,120  走直线到 100，120<br />
 L 70, 100  再走直线到 70，100<br />
-L 50, 100 走直线到 50，100 到这里就和上面的图形看上去连接起来了，我们开始画圆弧
-A 20,20 0 0 0 70,180  逆时针画一个圆弧
-L 80 170
-L 60 170   这些是画下面的直线
-A 20,24 0 0 1 55,113  顺时针画圆弧
-L 64 112   走到合适的位置方便闭合
-Z"  闭合<img alt="image.png" src="../img/rKd2mSveN-4L9phL/1712281367418-8c014a6f-044d-448c-a922-c263190d000b-913160.png" />
+L 50, 100 走直线到 50，100 到这里就和上面的图形看上去连接起来了，我们开始画圆弧<br />
+A 20,20 0 0 0 70,180  逆时针画一个圆弧<br />
+L 80 170<br />
+L 60 170   这些是画下面的直线<br />
+A 20,24 0 0 1 55,113  顺时针画圆弧<br />
+L 64 112   走到合适的位置方便闭合<br />
+Z"  闭合<img alt="image.png" src="../img/rKd2mSveN-4L9phL/1712281367418-8c014a6f-044d-448c-a922-c263190d000b-913160.png" /><br />
 接下来画最后一部分，这是一个类似水滴的形状，先从第二个图形的最下端开始画，画一个直线后直接画圆弧得到这样一个全部填充的形状</p>
 <pre><code class="language-xml">  &lt;path d=&quot;M 70,180
         L 130,105
@@ -7772,7 +7772,7 @@ Z"  闭合<img alt="image.png" src="../img/rKd2mSveN-4L9phL/1712281367418-8c014a
         Z&quot;
         fill=&quot;#00A3FF&quot;  /&gt;
 </code></pre>
-<p><img alt="image.png" src="../img/rKd2mSveN-4L9phL/1712282084947-e5d6c7c3-0297-420d-b17c-90d644b448f9-119310.png" />
+<p><img alt="image.png" src="../img/rKd2mSveN-4L9phL/1712282084947-e5d6c7c3-0297-420d-b17c-90d644b448f9-119310.png" /><br />
 我们可以继续从里面走线直到把线条闭合留出里面的空白，也可以复制一份画一个小的白色的水滴型，把里面填充为白色</p>
 <pre><code class="language-xml">  &lt;path d=&quot;M 95,168
         L 135,118
@@ -7780,10 +7780,10 @@ Z"  闭合<img alt="image.png" src="../img/rKd2mSveN-4L9phL/1712281367418-8c014a
         Z&quot;
         fill=&quot;#ffffff&quot;  /&gt;
 </code></pre>
-<p>到此，一个仿制的腾讯云 logo 就完成了
-<img alt="image.png" src="../img/rKd2mSveN-4L9phL/1712282435200-43447252-c971-49b4-b6e1-f58aea69c303-433124.png" />
-emmm，再调整一下宽度等细节，只能说，凑合能认识吧
-<img alt="image.png" src="../img/rKd2mSveN-4L9phL/1712282594293-f3824960-3835-490c-9f9b-dd36f06b9592-404639.png" />
+<p>到此，一个仿制的腾讯云 logo 就完成了<br />
+<img alt="image.png" src="../img/rKd2mSveN-4L9phL/1712282435200-43447252-c971-49b4-b6e1-f58aea69c303-433124.png" /><br />
+emmm，再调整一下宽度等细节，只能说，凑合能认识吧<br />
+<img alt="image.png" src="../img/rKd2mSveN-4L9phL/1712282594293-f3824960-3835-490c-9f9b-dd36f06b9592-404639.png" /><br />
 完成代码：</p>
 <pre><code class="language-xml">&lt;svg width=&quot;200&quot; height=&quot;200&quot;&gt;
   &lt;path d=&quot;M 50,100
@@ -7815,7 +7815,7 @@ emmm，再调整一下宽度等细节，只能说，凑合能认识吧
         fill=&quot;#ffffff&quot;  /&gt;
 &lt;/svg&gt;
 </code></pre>
-<p>再来看一下原版的代码有多复杂，甚至连字都是这么画出来的！？瑞思拜：
+<p>再来看一下原版的代码有多复杂，甚至连字都是这么画出来的！？瑞思拜：<br />
 <img alt="image.png" src="../img/rKd2mSveN-4L9phL/1712282796182-5eaa87a9-941d-4b02-8b1e-ce1f108092a1-603949.png" /></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/misc/bpmtirab3f8p3ean">https://www.yuque.com/hxfqg9/misc/bpmtirab3f8p3ean</a></p>

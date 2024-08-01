@@ -7725,10 +7725,10 @@ int main()
 }
 </code></pre>
 <p>首先 <code>b *main</code> 下个断点，然后运行到第六行也就是等待输入的那块</p>
-<p><code>p ptr</code> 看一下 ptr 指向的是哪一个地址
-<code>x/10gx 0x602010-0x10</code> 然后查看一下那一块的内存，减去 0x10 是因为 chunk 前面要记录一些信息，比如前 0x8 如果前一个是空闲的话就记录前一个 chunk 的大小，否则就给前一个用来存数据。后面 0x8 记录的分别是该 chunk 的大小和 A、M、P 标志位
-A（NON_MAIN_ARENA）表示 chunk 属于主分配区（1）或者非主分配区（0）
-M（IS_MAPPED）表示当前 chunk 是否是由 mmap 分配的，M 为 1 表示该 chunk 是从 mmap 映射区域分配的，否则是从 heap 区域分配的
+<p><code>p ptr</code> 看一下 ptr 指向的是哪一个地址<br />
+<code>x/10gx 0x602010-0x10</code> 然后查看一下那一块的内存，减去 0x10 是因为 chunk 前面要记录一些信息，比如前 0x8 如果前一个是空闲的话就记录前一个 chunk 的大小，否则就给前一个用来存数据。后面 0x8 记录的分别是该 chunk 的大小和 A、M、P 标志位<br />
+A（NON_MAIN_ARENA）表示 chunk 属于主分配区（1）或者非主分配区（0）<br />
+M（IS_MAPPED）表示当前 chunk 是否是由 mmap 分配的，M 为 1 表示该 chunk 是从 mmap 映射区域分配的，否则是从 heap 区域分配的<br />
 P（PREV_INUSE）表示前一个 chunk 有 (1) 没有 (0) 被使用，一般来说第一个被分配的 chunk 的这个位会标记为 1，来防止访问到非法内存</p>
 <p><img alt="image.png" src="../img/vgc2qKqheunxlA7P/1591275486900-75a41c00-881f-4ef5-b019-2cd0a0ad79f3-169895.png" /></p>
 <p>然后再运行的话就要接收我们的输入了，我们输入 17 个字符，以为前面源码中写的 <code>my_gets(chunk1,16);</code> 是 16 个，可以看到把第二个 chunk 的低一字节改成了 0x41</p>
@@ -7758,13 +7758,13 @@ int main(void)
 <h2 id="_5">例题</h2>
 <h3 id="asis-ctf-2016-b00ks">Asis CTF 2016 b00ks</h3>
 <p><img alt="image.png" src="../img/vgc2qKqheunxlA7P/1591757704011-e27839a6-ed4e-4514-b119-9971f0e5cac2-697024.png" /></p>
-<p>首先看一下 create a book 功能：
+<p>首先看一下 create a book 功能：<br />
 首先要输一下书名的大小，然后会申请这么大的空间，然后通过 sub_9f5 这个函数往这个空间输入书名</p>
 <p><img alt="image.png" src="../img/vgc2qKqheunxlA7P/1591758233310-fe2c2d5a-cb17-4723-8bd6-b38d4100ad45-825511.png" /></p>
-<p>这个函数的定义有问题，他会多置一个 0
+<p>这个函数的定义有问题，他会多置一个 0<br />
 传入的两个参数分别对应上面的 ptr 和 v1-1，地址和大小</p>
 <p><img alt="image.png" src="../img/vgc2qKqheunxlA7P/1591758315596-ab1d7d16-c9cf-414b-b271-452ee4e3c86b-813645.png" /></p>
-<p>如果我们输入的长度跟之前设定的长度一样的话，因为有个 ++buf，所以 break 之后会多写一个 0
+<p>如果我们输入的长度跟之前设定的长度一样的话，因为有个 ++buf，所以 break 之后会多写一个 0<br />
 我们再来看一下定义的 book 的结构体，注意有的是 DWORD，有的是 QWORD</p>
 <p><img alt="image.png" src="../img/vgc2qKqheunxlA7P/1606466634313-eaae8d39-2221-455f-8d4c-4fdc7b5597a0-287585.png" /></p>
 <p>一开始要输入作者的名字 32 字节</p>
@@ -7775,19 +7775,19 @@ int main(void)
 <p>如果一开始的 name 输的是 32 字节，当是哟个第四个功能打印书的信息的时候，这个 name 会在 Author 那里，会连带着把后面的存放的书籍的结构体指针打印出来，这样就拿到了 heap 的地址</p>
 <p><img alt="image.png" src="../img/vgc2qKqheunxlA7P/1591777911735-a023e010-c043-4c9b-acb5-a7b2f0487d8d-955455.png" /></p>
 <p>找到这个结构体的位置之后来查看一下他们，首先是 id，然后是 name 的指针，然后是 des（description）的指针，然后是 des 的 size</p>
-<p><img alt="image.png" src="../img/vgc2qKqheunxlA7P/1591796114984-f250c65d-ada5-43a7-afd3-d45275956598-714606.png" />
+<p><img alt="image.png" src="../img/vgc2qKqheunxlA7P/1591796114984-f250c65d-ada5-43a7-afd3-d45275956598-714606.png" /><br />
 通过这个图片演示一下怎么找？菜鸡找到这些能对应起来的东西感觉很爽！？</p>
-<p>经过两个 create 和 remove 之后，后面成了 book4、5、6
+<p>经过两个 create 和 remove 之后，后面成了 book4、5、6<br />
 heap_base 这个 gdb 看看内存就知道了，一开始是申请了 0x1010 的，加上后面的这些合起来</p>
 <p><img alt="image.png" src="../img/vgc2qKqheunxlA7P/1591881976688-081eded5-0c83-410c-8dec-41d737049fd0-827591.png" /></p>
-<p>然后通过 editor 对 book4 的描述进行改写，写成：
-<code>p64(0) + p64(0x101) + p64(ptr - 0x18) + p64(ptr - 0x10) + '\x00' * 0xe0 + p64(0x100)</code>
+<p>然后通过 editor 对 book4 的描述进行改写，写成：<br />
+<code>p64(0) + p64(0x101) + p64(ptr - 0x18) + p64(ptr - 0x10) + '\x00' * 0xe0 + p64(0x100)</code><br />
  ptr 是 book4 的 desc 指针所在的位置，通过上面的布局待会 unlink 之后就会达成这样的效果：把 ptr 这里的值（也就是 book4 的 desc 指针）改为 ptr-0x18，这样 edit book4 的时候实际就是往 ptr-0x18 这里写</p>
 <p>没发送之前：</p>
 <p><img alt="image.png" src="../img/vgc2qKqheunxlA7P/1606479380864-d07ac235-a108-4678-9093-c808ff43fabc-559215.png" /></p>
 <p>发送后：写入的内容总共是 8\8\8\8\224\8，总共 33 gx</p>
 <p><img alt="image.png" src="../img/vgc2qKqheunxlA7P/1591949178966-d8c93c9e-ea19-43d1-aacd-69a183764206-379486.png" /></p>
-<p>通过对 book4 的 des 进行改写，把 book5 的 des 堆块的 P 状态给覆盖为了 0
+<p>通过对 book4 的 des 进行改写，把 book5 的 des 堆块的 P 状态给覆盖为了 0<br />
 同时构造了一个 fake chunk 它的 fd 和 bk 分别是 p64(0x555555758180 - 0x18) 和 p64(0x555555758180 - 0x10)，这里这个 0x555555758180 就是 book4 的 des 指针存放的位置</p>
 <p>然后对 book5 进行 remove，因为前一个 chunk 是 free 的，所以会 unlink 会把 book4 的 des 指针改成 book4 的des 指针的位置减去 0x18，然后再次编辑 book4，这时候编辑的实际是 book4 的结构体，通过这次操作把 book4 的 des 指针改成 book6 的 des 指针所在的位置</p>
 <p><img alt="image.png" src="../img/vgc2qKqheunxlA7P/1606480989263-d7e175f4-10c0-47cf-b49f-d0394b30c6f2-013483.png" /></p>
@@ -7810,10 +7810,10 @@ def read_at(addr):
     p.info(content)
     return content
 </code></pre>
-<p>write_to 函数解释
-首先通过 edit 4 把 book6 的 des 指针改成了想要修改的那个,在结构体中 des 指针后面是 des 的大小
+<p>write_to 函数解释<br />
+首先通过 edit 4 把 book6 的 des 指针改成了想要修改的那个,在结构体中 des 指针后面是 des 的大小<br />
 然后使用 edit 6 的时候就能够编辑 des 指针指向的那个位置了的内容了</p>
-<p>read_at 函数解释
+<p>read_at 函数解释<br />
 首先通过 edit4 把 book6 的 des 指针改成想要看的那一个地址，然后打印出来</p>
 <p>有了这两个函数，先把 libc 的地址给泄露出来，这里是看的 book5 的 des，因为 book5 free 掉了，所以里面是 unsortedbin 的地址，他跟 libc 的基址固定偏移 0x3c4b78</p>
 <pre><code class="language-python">libc_leak = u64(read_at(heap_base + 0x11e0).ljust(8, '\x00')) - 0x3c4b78
@@ -7925,7 +7925,7 @@ if __name__ == '__main__':
     main()
 </code></pre>
 <h3 id="plaidctf-2015-plaiddb">plaidctf 2015 plaiddb</h3>
-<p>我人傻了，红黑树是什么东西！？
+<p>我人傻了，红黑树是什么东西！？<br />
 啊啊啊啊啊，真的菜哭了</p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/bin/nsmgp5">https://www.yuque.com/hxfqg9/bin/nsmgp5</a></p>

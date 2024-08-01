@@ -7615,11 +7615,11 @@
   <h1>dbus python调用Bluez的API</h1>
 
 <h2 id="dbus-pythonbluezapi">dbus-python调用Bluez的API</h2>
-<p>连接到系统总线
-<code>busbus = dbus.SystemBus()</code>
-获得目前机器上有的适配器，改了一个函数，把<code>busbus</code>传进去，会返回一个列表，里面每个都是一个对象，他的顺序是倒着的
-dbus 可以导出对象供其他应用程序使用，要与远程对象进行交互需要使用代理对象<code>get_object</code>获取代理对象
-dbus 的接口是一组相关的方法和信号，使用 dbus.Interface(远程对象, 接口名称) 获得
+<p>连接到系统总线<br />
+<code>busbus = dbus.SystemBus()</code><br />
+获得目前机器上有的适配器，改了一个函数，把<code>busbus</code>传进去，会返回一个列表，里面每个都是一个对象，他的顺序是倒着的<br />
+dbus 可以导出对象供其他应用程序使用，要与远程对象进行交互需要使用代理对象<code>get_object</code>获取代理对象<br />
+dbus 的接口是一组相关的方法和信号，使用 dbus.Interface(远程对象, 接口名称) 获得<br />
 GetManagedObjects() 可以获得所有对象和属性</p>
 <pre><code class="language-python">def find_adapter(bus):
     remote_om = dbus.Interface(bus.get_object(&quot;org.bluez&quot;, &quot;/&quot;), &quot;org.freedesktop.DBus.ObjectManager&quot;)
@@ -7634,7 +7634,7 @@ GetManagedObjects() 可以获得所有对象和属性</p>
 
     return None
 </code></pre>
-<p><img alt="image.png" src="../img/YZ1FJbxatOSWuRak/1655264546479-b6e61a28-fb1e-474a-b4fe-1aa04f63181a-465988.png" />
+<p><img alt="image.png" src="../img/YZ1FJbxatOSWuRak/1655264546479-b6e61a28-fb1e-474a-b4fe-1aa04f63181a-465988.png" /><br />
 这样就把适配器选出来了</p>
 <pre><code class="language-python">adapter_obj = bus.get_object(&quot;org.bluez&quot;, adapter)
 adapter_props = dbus.Interface(adapter_obj, &quot;org.freedesktop.DBus.Properties&quot;)
@@ -7745,8 +7745,8 @@ advertisement.include_tx_power = True
 ad_manager.RegisterAdvertisement(advertisement.get_path(),{},reply_handler=register_ad_cb,error_handler=register_ad_error_cb,)
 mainloop.run()
 </code></pre>
-<p>成功克隆出一个可以欺骗 APP 的广播包（他检测的是 service_uuid）
-<img alt="image.png" src="../img/YZ1FJbxatOSWuRak/1655292913286-c2d24139-c286-407e-9e62-89841b8dfc50-761082.png" />
+<p>成功克隆出一个可以欺骗 APP 的广播包（他检测的是 service_uuid）<br />
+<img alt="image.png" src="../img/YZ1FJbxatOSWuRak/1655292913286-c2d24139-c286-407e-9e62-89841b8dfc50-761082.png" /><br />
 <img alt="image.png" src="../img/YZ1FJbxatOSWuRak/1655292931205-04ecfe12-2260-4645-920d-b01c56d07db7-739926.png" /></p>
 <h2 id="gatt">GATT</h2>
 <p>首先注册 GATT 的管理接口</p>
@@ -7775,11 +7775,11 @@ app.add_service(service)
 <p>最后注册 GATT，这样就可以成功识别到特性了，读写这类的属性也可以显示出来</p>
 <pre><code class="language-python">service_manager.RegisterApplication(app.get_path(),{},reply_handler=register_app_cb,error_handler=[register_app_error_cb],)
 </code></pre>
-<p><img alt="image.png" src="../img/YZ1FJbxatOSWuRak/1655372787167-20b19f09-add5-4641-b753-48ea04491cb9-549894.png" />
+<p><img alt="image.png" src="../img/YZ1FJbxatOSWuRak/1655372787167-20b19f09-add5-4641-b753-48ea04491cb9-549894.png" /><br />
 接下来解决数据收发的问题</p>
 <h2 id="_1">问题备忘</h2>
-<p>如何检测外设是否可连接（connectable）
-广播报文如何定义可连接与不可连接
+<p>如何检测外设是否可连接（connectable）<br />
+广播报文如何定义可连接与不可连接<br />
 gatt 如何设置不配对仅连接，以及如何设置各种配对的 IO 能力</p>
 <p>参考：<a href="https://github.com/PunchThrough/espresso-ble">https://github.com/PunchThrough/espresso-ble</a></p>
 <blockquote>

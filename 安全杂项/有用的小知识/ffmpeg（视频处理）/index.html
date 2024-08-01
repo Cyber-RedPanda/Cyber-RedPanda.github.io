@@ -7615,14 +7615,14 @@
 <h2 id="ffmpeg">ffmpeg（视频处理）</h2>
 <p>多媒体视频处理工具 FFmpeg 有非常强大的功能包括视频采集功能、视频格式转换、视频抓图、给视频加水印</p>
 <h2 id="_1">裁剪视频</h2>
-<p><code>ffmpeg -ss 00:00:00 -i 1.mp4 -c copy -to 00:04:33 2.mp4</code>
-视频 1.mp4 从 00:00:00 开始到 00:04:33 位置，保存为新的 2.mp4
+<p><code>ffmpeg -ss 00:00:00 -i 1.mp4 -c copy -to 00:04:33 2.mp4</code><br />
+视频 1.mp4 从 00:00:00 开始到 00:04:33 位置，保存为新的 2.mp4<br />
 这里的 -to 表示想要截取到原视频的位置，使用 -t 是表示往后截取多少秒</p>
 <h2 id="_2">合并视频</h2>
-<p>首先在文件夹下建立一个 txt ，内容格式如下：（按照想要拼接的顺序）
-<code>file '1.mp4'</code>
+<p>首先在文件夹下建立一个 txt ，内容格式如下：（按照想要拼接的顺序）<br />
+<code>file '1.mp4'</code><br />
 <code>file '2.mp4'</code></p>
-<p>执行这串命令就可以了
+<p>执行这串命令就可以了<br />
 <code>ffmpeg -f concat -i test.txt -c copy output.mp4</code></p>
 <h2 id="mp4-gif">mp4 转 GIF</h2>
 <p><code>ffmpeg -ss 1 -t 10 -i yichen.mp4 -s 1920*1080 -r 15 res.gif</code></p>

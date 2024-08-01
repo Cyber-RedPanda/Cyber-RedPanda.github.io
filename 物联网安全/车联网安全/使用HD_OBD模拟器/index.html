@@ -7665,53 +7665,53 @@
   <h1>使用HD OBD模拟器</h1>
 
 <h2 id="hd_obd">使用HD_OBD模拟器</h2>
-<p>HD_OBD模拟器
-<img alt="image.png" src="../img/xrZpggE_KI2zks-b/1656903632168-1a34bc73-4ed7-4e04-9825-13296e39a794-900765.png" />
-OBD线，接出来两根线，红高蓝低
-<img alt="image.png" src="../img/xrZpggE_KI2zks-b/1663227965471-8cb4b80f-17f6-42a2-b214-47d43eb71c06-161409.png" />
-用一个 12v 的电源适配器给他供电，用 usb 线连电脑使用配套软件设置相关数据，首先是要配置好协议
-<img alt="image.png" src="../img/xrZpggE_KI2zks-b/1656903767725-38f1cf1d-1831-49dc-b0bf-05ef2c2041a0-786362.png" />
-设置故障码，具体的含义在 ISO_15031-6
-<img alt="image.png" src="../img/xrZpggE_KI2zks-b/1656903805310-b9b92a28-9742-45e7-97bf-270d7e2ebff3-024157.png" />
-设置数据流
-<img alt="image.png" src="../img/xrZpggE_KI2zks-b/1656903833570-38eadd52-c627-49a1-a238-f88145b2421b-530999.png" />
-设置版本信息
-<img alt="image.png" src="../img/xrZpggE_KI2zks-b/1656903880025-4eb8706c-dc73-4e50-8d77-cb9cc363e6be-279401.png" />
-再用 OBD 的接头连接好 pcan 的 can 高和低，用 pcanview 操作，读取数据，使用的是 15765 这个协议的，这里有个整理了一些操作指令的 pdf
+<p>HD_OBD模拟器<br />
+<img alt="image.png" src="../img/xrZpggE_KI2zks-b/1656903632168-1a34bc73-4ed7-4e04-9825-13296e39a794-900765.png" /><br />
+OBD线，接出来两根线，红高蓝低<br />
+<img alt="image.png" src="../img/xrZpggE_KI2zks-b/1663227965471-8cb4b80f-17f6-42a2-b214-47d43eb71c06-161409.png" /><br />
+用一个 12v 的电源适配器给他供电，用 usb 线连电脑使用配套软件设置相关数据，首先是要配置好协议<br />
+<img alt="image.png" src="../img/xrZpggE_KI2zks-b/1656903767725-38f1cf1d-1831-49dc-b0bf-05ef2c2041a0-786362.png" /><br />
+设置故障码，具体的含义在 ISO_15031-6<br />
+<img alt="image.png" src="../img/xrZpggE_KI2zks-b/1656903805310-b9b92a28-9742-45e7-97bf-270d7e2ebff3-024157.png" /><br />
+设置数据流<br />
+<img alt="image.png" src="../img/xrZpggE_KI2zks-b/1656903833570-38eadd52-c627-49a1-a238-f88145b2421b-530999.png" /><br />
+设置版本信息<br />
+<img alt="image.png" src="../img/xrZpggE_KI2zks-b/1656903880025-4eb8706c-dc73-4e50-8d77-cb9cc363e6be-279401.png" /><br />
+再用 OBD 的接头连接好 pcan 的 can 高和低，用 pcanview 操作，读取数据，使用的是 15765 这个协议的，这里有个整理了一些操作指令的 pdf<br />
 <a href="../attachments/xrZpggE_KI2zks-b/OBD2_iso15765_protol_incomplete.pdf">附件: OBD2_iso15765_protol_incomplete.pdf</a></p>
 <h2 id="_1">读取故障码</h2>
-<p>根据 ISO 15031-5 的 6.3 节，使用 7DF 01 03 查看
-因为设置的大于三个因为还没有读完全，再次发送 7E0 30
+<p>根据 ISO 15031-5 的 6.3 节，使用 7DF 01 03 查看<br />
+因为设置的大于三个因为还没有读完全，再次发送 7E0 30<br />
 <img alt="image.png" src="../img/xrZpggE_KI2zks-b/1663118782636-be97f757-477c-4ab2-b263-1875f95b04cf-275848.png" /></p>
 <h2 id="vin">读VIN码</h2>
-<p>根据 ISO 15031-5 的 6.9 节，使用 02 09 02 查看，然后再发 30 .... 查看剩下的
+<p>根据 ISO 15031-5 的 6.9 节，使用 02 09 02 查看，然后再发 30 .... 查看剩下的<br />
 <img alt="image.png" src="../img/xrZpggE_KI2zks-b/1663118639018-006b006a-a0cf-4db8-a250-d51c56d6a8e3-381328.png" /></p>
 <h2 id="_2">读取车速</h2>
-<p>在上面文档找的，具体在哪里定义的还不知道
+<p>在上面文档找的，具体在哪里定义的还不知道<br />
 <img alt="image.png" src="../img/xrZpggE_KI2zks-b/1656924673682-cdb45c91-6167-4f72-a477-383244847825-040878.png" /></p>
 <h2 id="atvin">使用AT指令设置VIN码</h2>
-<p>使用前需要先激活协议
-<img alt="image.png" src="../img/xrZpggE_KI2zks-b/1663117318514-e627c6cb-1100-4c7b-9aab-51ad515f1e1a-120546.png" />
-连接 usb 后不用 OBD 模拟器打开，使用串口工具选择波特率 256000
-设置VIN码：AT+VIN:12345678901234567
+<p>使用前需要先激活协议<br />
+<img alt="image.png" src="../img/xrZpggE_KI2zks-b/1663117318514-e627c6cb-1100-4c7b-9aab-51ad515f1e1a-120546.png" /><br />
+连接 usb 后不用 OBD 模拟器打开，使用串口工具选择波特率 256000<br />
+设置VIN码：AT+VIN:12345678901234567<br />
 <img alt="image.png" src="../img/xrZpggE_KI2zks-b/1663117352555-933e29d3-d816-4b06-959b-433b5a3f5064-028900.png" /></p>
 <h2 id="at">使用AT指令设置故障码</h2>
-<p>AT+DTC02:P1012;P1013
-前面是数量，后面是具体的故障码
+<p>AT+DTC02:P1012;P1013<br />
+前面是数量，后面是具体的故障码<br />
 <img alt="image.png" src="../img/xrZpggE_KI2zks-b/1663117381810-08141942-77a5-4e50-bcce-573affe8ad6c-911268.png" /></p>
 <h2 id="_3">提取固件测试</h2>
-<p>使用Jlink 或 Jlink OB 连接 OBD 模拟器
-<img alt="image.png" src="../img/xrZpggE_KI2zks-b/1663066591552-35337a59-7985-43e3-be27-de4c0efb7446-761497.png" /><img alt="image.png" src="../img/xrZpggE_KI2zks-b/1663068111752-e0996a88-6ee4-4e1c-95a0-0816375fef97-188163.png" />
-然后打开 JFlash，这样设置
-<img alt="image.png" src="../img/xrZpggE_KI2zks-b/1663068162146-db93cb73-f897-4356-bdd9-ed5d7ae135b7-614797.png" />
-点击 Options 的 Connect 即可连接设备，选择 Target -&gt; Manual Programming -&gt; Read back -&gt; Entire chip
-<img alt="image.png" src="../img/xrZpggE_KI2zks-b/1663067445689-48799db5-f403-4f12-a186-33f0b64c8be3-202997.png" />
-成功提取固件
+<p>使用Jlink 或 Jlink OB 连接 OBD 模拟器<br />
+<img alt="image.png" src="../img/xrZpggE_KI2zks-b/1663066591552-35337a59-7985-43e3-be27-de4c0efb7446-761497.png" /><img alt="image.png" src="../img/xrZpggE_KI2zks-b/1663068111752-e0996a88-6ee4-4e1c-95a0-0816375fef97-188163.png" /><br />
+然后打开 JFlash，这样设置<br />
+<img alt="image.png" src="../img/xrZpggE_KI2zks-b/1663068162146-db93cb73-f897-4356-bdd9-ed5d7ae135b7-614797.png" /><br />
+点击 Options 的 Connect 即可连接设备，选择 Target -&gt; Manual Programming -&gt; Read back -&gt; Entire chip<br />
+<img alt="image.png" src="../img/xrZpggE_KI2zks-b/1663067445689-48799db5-f403-4f12-a186-33f0b64c8be3-202997.png" /><br />
+成功提取固件<br />
 <img alt="image.png" src="../img/xrZpggE_KI2zks-b/1663067448288-3d5cc952-6a7f-4a4d-a990-390beec728a4-249914.png" /></p>
 <h2 id="_4">刷写固件测试</h2>
-<p>File -&gt; Open data file 打开固件
-<img alt="image.png" src="../img/xrZpggE_KI2zks-b/1663067780642-afa7fea7-d5cb-4e25-abf3-29f1ac4551fd-318484.png" />
-选择 Target Production Programming 就能烧写进去了
+<p>File -&gt; Open data file 打开固件<br />
+<img alt="image.png" src="../img/xrZpggE_KI2zks-b/1663067780642-afa7fea7-d5cb-4e25-abf3-29f1ac4551fd-318484.png" /><br />
+选择 Target Production Programming 就能烧写进去了<br />
 <img alt="image.png" src="../img/xrZpggE_KI2zks-b/1663067757089-7a5c497e-127e-44a2-a034-66bc5208ee67-472524.png" /></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/da6tt3">https://www.yuque.com/hxfqg9/iot/da6tt3</a></p>

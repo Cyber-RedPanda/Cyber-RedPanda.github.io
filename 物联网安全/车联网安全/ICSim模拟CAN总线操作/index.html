@@ -7541,11 +7541,11 @@
   <h1>ICSim模拟CAN总线操作</h1>
 
 <h2 id="icsimcan">ICSim模拟CAN总线操作</h2>
-<p>首先安装依赖：  <code>sudo apt-get install libsdl2-dev libsdl2-image-dev can-utils</code>
+<p>首先安装依赖：  <code>sudo apt-get install libsdl2-dev libsdl2-image-dev can-utils</code><br />
 然后把 <a href="https://github.com/zombieCraig/ICSim">zombieCraig/ICSim</a> 项目下载下来，make 以后运行 setup_vcan.sh 脚本</p>
-<p>然后 ./icsim vcan0 打开模拟的汽车仪表盘
+<p>然后 ./icsim vcan0 打开模拟的汽车仪表盘<br />
 <img alt="image.png" src="../img/GeC8nOSWfszdx1M_/1641101436033-9fb9f6e8-b1ce-40bb-8209-bcbf17d022e0-227691.png" /></p>
-<p>./controls vcan0 打开控制器
+<p>./controls vcan0 打开控制器<br />
 <img alt="image.png" src="../img/GeC8nOSWfszdx1M_/1641101478159-f35b744f-5110-47be-b04a-e2aad5c93c77-139424.png" /></p>
 <table>
 <thead>
@@ -7581,10 +7581,10 @@
 </tr>
 </tbody>
 </table>
-<p>candump -l vcan0 可以记录 can 发送的消息，会保存在当前目录
+<p>candump -l vcan0 可以记录 can 发送的消息，会保存在当前目录<br />
 使用 canplayer -I 保存的文件可以重放，仪表盘显示就会再做一遍操作</p>
-<p>参考：
-<a href="https://mp.weixin.qq.com/s/aU_DWnhpTvu9eGrdE2pP-w">基于 CAN 总线操作汽车仪表盘模拟器实用指南 · 信安之路</a>
+<p>参考：<br />
+<a href="https://mp.weixin.qq.com/s/aU_DWnhpTvu9eGrdE2pP-w">基于 CAN 总线操作汽车仪表盘模拟器实用指南 · 信安之路</a><br />
 <a href="https://www.ichunqiu.com/open/69830">汽车网络安全基础知识 · i春秋</a></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/bv1218">https://www.yuque.com/hxfqg9/iot/bv1218</a></p>

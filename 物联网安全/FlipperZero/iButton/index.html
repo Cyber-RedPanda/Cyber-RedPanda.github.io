@@ -7541,40 +7541,40 @@
   <h1>iButton</h1>
 
 <h2 id="ibutton">iButton</h2>
-<p>这个还挺少见的，我们先来看看这是个什么东西，其实就是一个做的和纽扣电池一样的卡片
-<img alt="image.png" src="../img/5Ls4TGiRJ4iY0hCu/1708760132007-c17b586a-90a9-434f-90ac-65f26020bb22-133078.png" />
-<img alt="1708762448972-e468e925-b7a3-4ec5-a56a-ca079e7f2a0b.png" src="../img/5Ls4TGiRJ4iY0hCu/1708762448972-e468e925-b7a3-4ec5-a56a-ca079e7f2a0b-403332.png" />
-但是单独这么一个卡片不太好携带，所以会有一个手柄，把 iButton 固定到上面
-<img alt="image.png" src="../img/5Ls4TGiRJ4iY0hCu/1708760238217-85f19384-4800-4aba-a74d-ff3323557924-268127.png" />
-他的读卡器长这个样子
-<img alt="image.png" src="../img/5Ls4TGiRJ4iY0hCu/1708760271862-7922158e-0e2c-45e3-ad8a-26154182b839-110196.png" />
-配套的软件叫做 1990卡读写复制，开发软件的人图方便，只能使用 COM1 口不能修改，因此在设备管理器中修改读卡器的 COM 口
-<img alt="image.png" src="../img/5Ls4TGiRJ4iY0hCu/1708761623334-84e1b1e3-3754-4869-921a-eb9092def6c0-011372.png" />
-就通信来说，iButton 外面那一圈是 GND，里面那一面是传输数据的，把 iButton 直接怼到圆孔里就可以实现信息的读取
-<img alt="image.png" src="../img/5Ls4TGiRJ4iY0hCu/1708760321267-bd53e4dc-8c2e-4d3c-aa36-ff943fecf5c1-592383.png" />
-点击读取，读到的卡号就会出现在写入 ID 码这个框里
-<img alt="image.png" src="../img/5Ls4TGiRJ4iY0hCu/1708761920798-8b9da86a-9184-4968-b8b1-b0ab7471636d-697479.png" />
-在 Flipper Zero 中，关于 iButton 的 APP 只有两个，一个是 iButton 一个是 iButton Fuzzer
-先来看 iButton 这个 APP，有读取（Read）、保存（Saved）、手动添加（Add Manually）
-读取的时候卡已将 iButton 贴到 flipper 的读取接口，这里特意留出来一个圆形的缺口，正好可以放上去，注意 iButton 侧边要和 flipper 侧边的触点接触好
-<img alt="image.png" src="../img/5Ls4TGiRJ4iY0hCu/1708761171967-b486378e-b552-4a18-9431-076d38d41d18-408145.png" />
-官方读写示意图
-<img alt="image.png" src="../img/5Ls4TGiRJ4iY0hCu/1708761259201-528b6ec6-5e3e-4cfa-8b35-5b98f6a6a485-654244.png" />
-读取到的卡号可以保存，也可以拿来模拟或者修改卡号，但是我在模拟的时候遇到了一个问题，我买的读卡器下凹的太深了，flipper 的倾斜角度不够大，触点没法和读卡器接触，因此只能根据接口定义使用杜邦线连接了，根据官方图示可知，两个触点分别为 GPIO17 和 GND
-<img alt="image.png" src="../img/5Ls4TGiRJ4iY0hCu/1708760699871-f43d8598-944b-4edd-ac38-f9cbd064f241-691277.png" />
-因此直接将杜邦线插到 flipper 顶部的 GPIO 接口，另一端接触读卡器，就可以在软件中读取到这个 ID 了
-<img alt="image.png" src="../img/5Ls4TGiRJ4iY0hCu/1708761433268-e0d006f1-8a42-4db9-aaf7-91bc4c0a26a4-097889.png" />
-在尝试手动添加（Add Manually）时发现卡号也是有格式的，第一个字节永远是 01 无法修改，最后一个字节是用来校验的位，flipper 会自动计算帮你改好
-<img alt="image.png" src="../img/5Ls4TGiRJ4iY0hCu/1708762882516-ca281dcd-4dda-4a79-a27d-2b1d0ce33701-174243.png" />
-用读卡器的软件随意修改卡号也会提示校验错误
-<img alt="image.png" src="../img/5Ls4TGiRJ4iY0hCu/1708762685220-9b669585-a967-4450-a506-b1a1b00e41ed-169952.png" />
-根据 Github 的源码（https://github.com/flipperdevices/flipperzero-firmware/blob/dev/lib/one_wire/maxim_crc.c）校验应该是：CRC-8/MAXIM 算法
-在线计算网站：<a href="https://crccalc.com/">https://crccalc.com/</a>
-<img alt="image.png" src="../img/5Ls4TGiRJ4iY0hCu/1708763595531-478793a1-4865-4a92-859b-1813531f917a-936229.png" />
-iButton Fuzzer 这个 APP 和 RFID/NFC 的 Fuzzer 类似，就是个暴力跑卡号的 APP，可以选择用默认的字典，也可以自己添加
-项目地址：<a href="https://github.com/xMasterX/ibutton-fuzzer">https://github.com/xMasterX/ibutton-fuzzer</a>
-<img alt="image.png" src="../img/5Ls4TGiRJ4iY0hCu/1708762056722-e7cbc4b3-c51f-41a3-879d-f6efb6498f76-804107.png" />
-使用软件勾选验证那个选项就会不停地读取，如图记录了 Fuzz 过的卡号
+<p>这个还挺少见的，我们先来看看这是个什么东西，其实就是一个做的和纽扣电池一样的卡片<br />
+<img alt="image.png" src="../img/5Ls4TGiRJ4iY0hCu/1708760132007-c17b586a-90a9-434f-90ac-65f26020bb22-133078.png" /><br />
+<img alt="1708762448972-e468e925-b7a3-4ec5-a56a-ca079e7f2a0b.png" src="../img/5Ls4TGiRJ4iY0hCu/1708762448972-e468e925-b7a3-4ec5-a56a-ca079e7f2a0b-403332.png" /><br />
+但是单独这么一个卡片不太好携带，所以会有一个手柄，把 iButton 固定到上面<br />
+<img alt="image.png" src="../img/5Ls4TGiRJ4iY0hCu/1708760238217-85f19384-4800-4aba-a74d-ff3323557924-268127.png" /><br />
+他的读卡器长这个样子<br />
+<img alt="image.png" src="../img/5Ls4TGiRJ4iY0hCu/1708760271862-7922158e-0e2c-45e3-ad8a-26154182b839-110196.png" /><br />
+配套的软件叫做 1990卡读写复制，开发软件的人图方便，只能使用 COM1 口不能修改，因此在设备管理器中修改读卡器的 COM 口<br />
+<img alt="image.png" src="../img/5Ls4TGiRJ4iY0hCu/1708761623334-84e1b1e3-3754-4869-921a-eb9092def6c0-011372.png" /><br />
+就通信来说，iButton 外面那一圈是 GND，里面那一面是传输数据的，把 iButton 直接怼到圆孔里就可以实现信息的读取<br />
+<img alt="image.png" src="../img/5Ls4TGiRJ4iY0hCu/1708760321267-bd53e4dc-8c2e-4d3c-aa36-ff943fecf5c1-592383.png" /><br />
+点击读取，读到的卡号就会出现在写入 ID 码这个框里<br />
+<img alt="image.png" src="../img/5Ls4TGiRJ4iY0hCu/1708761920798-8b9da86a-9184-4968-b8b1-b0ab7471636d-697479.png" /><br />
+在 Flipper Zero 中，关于 iButton 的 APP 只有两个，一个是 iButton 一个是 iButton Fuzzer<br />
+先来看 iButton 这个 APP，有读取（Read）、保存（Saved）、手动添加（Add Manually）<br />
+读取的时候卡已将 iButton 贴到 flipper 的读取接口，这里特意留出来一个圆形的缺口，正好可以放上去，注意 iButton 侧边要和 flipper 侧边的触点接触好<br />
+<img alt="image.png" src="../img/5Ls4TGiRJ4iY0hCu/1708761171967-b486378e-b552-4a18-9431-076d38d41d18-408145.png" /><br />
+官方读写示意图<br />
+<img alt="image.png" src="../img/5Ls4TGiRJ4iY0hCu/1708761259201-528b6ec6-5e3e-4cfa-8b35-5b98f6a6a485-654244.png" /><br />
+读取到的卡号可以保存，也可以拿来模拟或者修改卡号，但是我在模拟的时候遇到了一个问题，我买的读卡器下凹的太深了，flipper 的倾斜角度不够大，触点没法和读卡器接触，因此只能根据接口定义使用杜邦线连接了，根据官方图示可知，两个触点分别为 GPIO17 和 GND<br />
+<img alt="image.png" src="../img/5Ls4TGiRJ4iY0hCu/1708760699871-f43d8598-944b-4edd-ac38-f9cbd064f241-691277.png" /><br />
+因此直接将杜邦线插到 flipper 顶部的 GPIO 接口，另一端接触读卡器，就可以在软件中读取到这个 ID 了<br />
+<img alt="image.png" src="../img/5Ls4TGiRJ4iY0hCu/1708761433268-e0d006f1-8a42-4db9-aaf7-91bc4c0a26a4-097889.png" /><br />
+在尝试手动添加（Add Manually）时发现卡号也是有格式的，第一个字节永远是 01 无法修改，最后一个字节是用来校验的位，flipper 会自动计算帮你改好<br />
+<img alt="image.png" src="../img/5Ls4TGiRJ4iY0hCu/1708762882516-ca281dcd-4dda-4a79-a27d-2b1d0ce33701-174243.png" /><br />
+用读卡器的软件随意修改卡号也会提示校验错误<br />
+<img alt="image.png" src="../img/5Ls4TGiRJ4iY0hCu/1708762685220-9b669585-a967-4450-a506-b1a1b00e41ed-169952.png" /><br />
+根据 Github 的源码（https://github.com/flipperdevices/flipperzero-firmware/blob/dev/lib/one_wire/maxim_crc.c）校验应该是：CRC-8/MAXIM 算法<br />
+在线计算网站：<a href="https://crccalc.com/">https://crccalc.com/</a><br />
+<img alt="image.png" src="../img/5Ls4TGiRJ4iY0hCu/1708763595531-478793a1-4865-4a92-859b-1813531f917a-936229.png" /><br />
+iButton Fuzzer 这个 APP 和 RFID/NFC 的 Fuzzer 类似，就是个暴力跑卡号的 APP，可以选择用默认的字典，也可以自己添加<br />
+项目地址：<a href="https://github.com/xMasterX/ibutton-fuzzer">https://github.com/xMasterX/ibutton-fuzzer</a><br />
+<img alt="image.png" src="../img/5Ls4TGiRJ4iY0hCu/1708762056722-e7cbc4b3-c51f-41a3-879d-f6efb6498f76-804107.png" /><br />
+使用软件勾选验证那个选项就会不停地读取，如图记录了 Fuzz 过的卡号<br />
 <img alt="image.png" src="../img/5Ls4TGiRJ4iY0hCu/1708761060397-bf8239b6-46ec-4b20-982d-acfc504f89e5-220229.png" /></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/vfg820f34xt8wx1u">https://www.yuque.com/hxfqg9/iot/vfg820f34xt8wx1u</a></p>

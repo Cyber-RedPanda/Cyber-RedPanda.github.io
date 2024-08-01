@@ -7707,43 +7707,43 @@
 <h2 id="transport">Transport层</h2>
 <h2 id="transport_1">Transport意义</h2>
 <h3 id="hci">HCI数据格式</h3>
-<p>HCI COMMAND 是蓝牙协议栈发送个芯片的命令
-HCI EVENT 是蓝牙芯片上报给蓝牙协议栈的事件
-HCI ACL 是蓝牙协议栈与蓝牙芯片双向交互的普通数据
-HCI SCO 是蓝牙协议栈与蓝牙芯片双向交互的通话/语音识别数据
+<p>HCI COMMAND 是蓝牙协议栈发送个芯片的命令<br />
+HCI EVENT 是蓝牙芯片上报给蓝牙协议栈的事件<br />
+HCI ACL 是蓝牙协议栈与蓝牙芯片双向交互的普通数据<br />
+HCI SCO 是蓝牙协议栈与蓝牙芯片双向交互的通话/语音识别数据<br />
 HCI ISO 是 BLE audio，是 core5.2 才添加的</p>
 <h3 id="_1">主要作用</h3>
 <p>沟通 host 和 controller，告诉他们数据格式是咋样的，比如告诉 controller 从 host 传过来的是什么数据格式</p>
 <h2 id="btsnoop">btsnoop</h2>
 <p>btsnoop 是用来抓取 host 和 controller 之间的交互数据，btsnoop 用来分析蓝牙的问题比较常用</p>
 <h3 id="btsnoop_1"><a href="https://fte.com/webhelpii/bpa600/Content/Technical_Information/BT_Snoop_File_Format.htm">btsnoop文件格式</a></h3>
-<p><strong>文件存储形式是大端存储，所以直接读就行了</strong>
-<img alt="1664350637844-3590ebc6-a798-4d5d-a5ad-2261ca6a6ec4.gif" src="../img/H4q3q4fJ_73TmmAq/1664350637844-3590ebc6-a798-4d5d-a5ad-2261ca6a6ec4-256391.gif" />
+<p><strong>文件存储形式是大端存储，所以直接读就行了</strong><br />
+<img alt="1664350637844-3590ebc6-a798-4d5d-a5ad-2261ca6a6ec4.gif" src="../img/H4q3q4fJ_73TmmAq/1664350637844-3590ebc6-a798-4d5d-a5ad-2261ca6a6ec4-256391.gif" /><br />
 整个的文件格式只有两部分，File Header 和 Packet Record x</p>
 <h4 id="file-header">File Header格式</h4>
-<p>File Header 分为 Identification Pattern、Version Number、Datalink Type 分别表示：识别号、版本、数据格式下图这样
-<img alt="1664351006704-d636a16b-e120-494a-931b-0b9d858b50da.gif" src="../img/H4q3q4fJ_73TmmAq/1664351006704-d636a16b-e120-494a-931b-0b9d858b50da-572015.gif" />
-识别号其实就是 btsnoop 的 ascii 码值占用 8 字节，后面是 4 字节的版本，现在就只有 1
-<img alt="image.png" src="../img/H4q3q4fJ_73TmmAq/1664351524178-d0dcc1e5-aa3e-4e6e-8c62-6fd0c8231698-703009.png" />
-再往后 4 字节是 Datalink Type 的编号，对应的是数据类型，像上面 03 EA 换算成十进制就是 1002，也就是说，我这个 log 是 H4 的，安卓默认就是 H4，甚至在代码里直接写死的这个值<a href="http://www.aospxref.com/android-7.1.2_r39/xref/system/bt/hci/src/btsnoop.c">http://www.aospxref.com/android-7.1.2_r39/xref/system/bt/hci/src/btsnoop.c</a>
+<p>File Header 分为 Identification Pattern、Version Number、Datalink Type 分别表示：识别号、版本、数据格式下图这样<br />
+<img alt="1664351006704-d636a16b-e120-494a-931b-0b9d858b50da.gif" src="../img/H4q3q4fJ_73TmmAq/1664351006704-d636a16b-e120-494a-931b-0b9d858b50da-572015.gif" /><br />
+识别号其实就是 btsnoop 的 ascii 码值占用 8 字节，后面是 4 字节的版本，现在就只有 1<br />
+<img alt="image.png" src="../img/H4q3q4fJ_73TmmAq/1664351524178-d0dcc1e5-aa3e-4e6e-8c62-6fd0c8231698-703009.png" /><br />
+再往后 4 字节是 Datalink Type 的编号，对应的是数据类型，像上面 03 EA 换算成十进制就是 1002，也就是说，我这个 log 是 H4 的，安卓默认就是 H4，甚至在代码里直接写死的这个值<a href="http://www.aospxref.com/android-7.1.2_r39/xref/system/bt/hci/src/btsnoop.c">http://www.aospxref.com/android-7.1.2_r39/xref/system/bt/hci/src/btsnoop.c</a><br />
 <img alt="image.png" src="../img/H4q3q4fJ_73TmmAq/1664352317170-294b9c04-85f8-4092-8b1a-105b2084efaf-676241.png" /></p>
 <h4 id="packet-record">Packet Record的格式</h4>
-<p>Packet Record 有 24 个 byte 分为 Original Length、Included Length、Packet Flags、Cumulative Drops、Timestamp Microseconds、Packet Data
-<img alt="1664501980886-3679f41f-a01b-40ba-869b-3c4811a01242.gif" src="../img/H4q3q4fJ_73TmmAq/1664501980886-3679f41f-a01b-40ba-869b-3c4811a01242-981584.gif" />
-<strong>Original Length</strong>，4byte 表示该数据包的长度，如果拆包的话他就比 Included Length 大了
-<strong>Included Length</strong>，4bye 表示本包包含的数据长度
-<strong>Packet Flags</strong>，4byte，表示这个数据包的标志，第 0 位如果是 0 表示数据方向是发送，如果是 1 表示数据方向是接受，第 1 位如果是 0 表示传输的是数据，如果是 1 表示传输的是 Command/Event
-<img alt="image.png" src="../img/H4q3q4fJ_73TmmAq/1664787026138-7bb3d3a7-eada-47e1-9f6a-49d52a9f7337-551819.png" />
-拿这个例子来看 Packet Flags 是 00 00 00 02，也就是说 Direction flag = 0，Command flag = 1，表示这个数据包是发出去的 Command
-<img alt="image.png" src="../img/H4q3q4fJ_73TmmAq/1664787630184-c51497ef-700a-4c6e-b3f9-e5ff4b7e1f85-898157.png" />
-用 wireshark 打开验证一下
-<img alt="image.png" src="../img/H4q3q4fJ_73TmmAq/1664787763392-bf74e54a-886f-4191-ab93-a446c6b93c83-892423.png" />
-<strong>Cumulative Drops</strong>，4 byte 用来统计丢失的数据包的数量，数据包可能因为系统资源不足等原因丢失，如果没这个能力统计这个就设为 0
-<strong>Timestamp Microseconds</strong>，8 byte 时间戳，但不是传统意义的时间戳，它是以公元 0 年 1 月 1 日开始的，而且是以微秒为单位，因此这个值巨大
-<strong>Packet Data</strong>，后面就是数据部分了
-<img alt="image.png" src="../img/H4q3q4fJ_73TmmAq/1664789568261-0b24f42f-dca6-4ea3-b83d-d1f6c37654ba-729735.png" />
-接下来看一下后一个的 Packet Record
-前面两个 00 00 00 07 是 Original Length 和 Included Length，00 00 00 03 表示这个数据包是收到的 Event，00 00 00 00 表示没有丢失的数据包，00 E2 C1 45 47 AA 57 D6 是时间戳，后面 04 0E 04 01 03 0C 00 是数据内容
+<p>Packet Record 有 24 个 byte 分为 Original Length、Included Length、Packet Flags、Cumulative Drops、Timestamp Microseconds、Packet Data<br />
+<img alt="1664501980886-3679f41f-a01b-40ba-869b-3c4811a01242.gif" src="../img/H4q3q4fJ_73TmmAq/1664501980886-3679f41f-a01b-40ba-869b-3c4811a01242-981584.gif" /><br />
+<strong>Original Length</strong>，4byte 表示该数据包的长度，如果拆包的话他就比 Included Length 大了<br />
+<strong>Included Length</strong>，4bye 表示本包包含的数据长度<br />
+<strong>Packet Flags</strong>，4byte，表示这个数据包的标志，第 0 位如果是 0 表示数据方向是发送，如果是 1 表示数据方向是接受，第 1 位如果是 0 表示传输的是数据，如果是 1 表示传输的是 Command/Event<br />
+<img alt="image.png" src="../img/H4q3q4fJ_73TmmAq/1664787026138-7bb3d3a7-eada-47e1-9f6a-49d52a9f7337-551819.png" /><br />
+拿这个例子来看 Packet Flags 是 00 00 00 02，也就是说 Direction flag = 0，Command flag = 1，表示这个数据包是发出去的 Command<br />
+<img alt="image.png" src="../img/H4q3q4fJ_73TmmAq/1664787630184-c51497ef-700a-4c6e-b3f9-e5ff4b7e1f85-898157.png" /><br />
+用 wireshark 打开验证一下<br />
+<img alt="image.png" src="../img/H4q3q4fJ_73TmmAq/1664787763392-bf74e54a-886f-4191-ab93-a446c6b93c83-892423.png" /><br />
+<strong>Cumulative Drops</strong>，4 byte 用来统计丢失的数据包的数量，数据包可能因为系统资源不足等原因丢失，如果没这个能力统计这个就设为 0<br />
+<strong>Timestamp Microseconds</strong>，8 byte 时间戳，但不是传统意义的时间戳，它是以公元 0 年 1 月 1 日开始的，而且是以微秒为单位，因此这个值巨大<br />
+<strong>Packet Data</strong>，后面就是数据部分了<br />
+<img alt="image.png" src="../img/H4q3q4fJ_73TmmAq/1664789568261-0b24f42f-dca6-4ea3-b83d-d1f6c37654ba-729735.png" /><br />
+接下来看一下后一个的 Packet Record<br />
+前面两个 00 00 00 07 是 Original Length 和 Included Length，00 00 00 03 表示这个数据包是收到的 Event，00 00 00 00 表示没有丢失的数据包，00 E2 C1 45 47 AA 57 D6 是时间戳，后面 04 0E 04 01 03 0C 00 是数据内容<br />
 <img alt="image.png" src="../img/H4q3q4fJ_73TmmAq/1664794076620-f22adb3e-c21c-48c1-a9b7-44c30fd6d93f-591082.png" /></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/gdswg6">https://www.yuque.com/hxfqg9/iot/gdswg6</a></p>

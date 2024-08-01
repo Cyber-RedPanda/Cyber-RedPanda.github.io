@@ -7541,60 +7541,60 @@
   <h1>原理图与封装part3&4&5</h1>
 
 <h2 id="part345">原理图与封装part3&amp;4&amp;5</h2>
-<p>这一章估计要画不少图，之前介绍过的点就不说了，照着画就行了
-首先是画一个轻触开关（<a href="https://item.taobao.com/item.htm?spm=a1z10.3-c-s.w4002-24706531953.16.49106a4bWryEzp&amp;id=557174599425">https://item.taobao.com/item.htm?spm=a1z10.3-c-s.w4002-24706531953.16.49106a4bWryEzp&amp;id=557174599425</a>）还是在 PCB Library 中新建空白元件
-<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679814520883-cf0ee448-fcc7-4489-bc68-8bc1fc549d6f-184601.png" />
-先把最大的这个矩形画出来 x 轴分别是 -3mm 到 3mm，y 轴是 -1.75mm 到 1.75mm
-<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679814814460-5e0084c3-5546-4ef8-92d4-759b4c4ca4ac-927463.png" />
-然后放一个焊盘，参数改这些即可
-<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679816139904-83577aef-c6cd-42c0-bb0a-e94ca3f4995b-042030.png" />
-最后效果是一个方形的，因为要使焊盘两脚之间的距离是 8mm 估计为了方便直接弄得大了些
-<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679816247663-cb2b5fc2-c232-432c-af6d-9920069d6662-320261.png" />
-接下来去 SchLib 新建轻触开关的原理图，这里把栅格设置为了 1.75，圆形的半径设置为了 2，照着画个样子就行了，然后和 PCB Library 关联起来
-<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679817693816-d811ebaf-7d91-40ef-ac58-4e8a93e3a7fc-672792.png" />
-然后在 SchDoc 里面把新作好的图加进去，再加一个 10KΩ 的器件
-<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679817950074-2132a884-8450-4d79-b6f1-0f71d879315c-562964.png" />
-然后找一个 0805 1uf 的电容出来，连成这样子，放置网络标号和 STM32 芯片的引脚 7 对应
-<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679818732376-25c1b9ec-3f9a-4388-b7ff-0db1aa646456-413031.png" />
-接下来画 AMS1117 的电路图部分（<a href="https://pdf1.alldatasheet.com/datasheet-pdf/view/49118/ADMOS/AMS1117.html">https://pdf1.alldatasheet.com/datasheet-pdf/view/49118/ADMOS/AMS1117.html</a>）
-焊盘大点就大点，问题不大，这个值差不多就行
-<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679822583113-47dccb71-3ae2-4b89-91ce-b92a206553f9-372762.png" />
-然后画原理图，也差不多就行了哈哈哈
-<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679823329579-2cdb5107-8a08-4f6c-9024-3dc4f3b0485a-335757.png" />
-然后放到原理图里面组成降压电路，其中 100nF 的电容是从去耦电路里面复制的
-<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679823361046-641f8270-a8d0-4a64-ba0a-a8a4c3216052-604866.png" />
-在 SchDoc 再画上 BOOT 的下载方式选择电路，这个用自带的即可
-<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679822393525-6d92b2d5-db52-4df8-a27f-8e9c5bb78def-234276.png" />
-然后画 micro USB 的 PCB 图，这里 UP 主用了直接导入的方式，我也导入
-<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679824059457-8723917b-19df-49b2-af78-c9642212c695-812505.png" />
-要是没有下面的 Edit Footprint 的话，可以先刷新库
-<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679824160635-294b1bb3-69d3-4840-bba1-44d4a2241f75-634739.png" />
-直接选中复制过来即可
-<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679824277669-add15812-5866-4b4e-a925-ae7054d971e3-069706.png" />
-直接复制电源指示灯，把 GND 去掉，改成 PC13，作为单片机应用灯，添加一个MHDR1X4 作为STLink程序烧录接口，再将 VBAT 接上 3.3v 的 VCC，顺便把 STM32 芯片上所有没用到的标记上网格号
-<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679828455504-d494786a-62f4-4c0c-9658-1fd0cd035a7e-820488.png" />
-然后找一排排针，标记成这样
-<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679830855096-c5a235ae-07e6-467e-a4fc-aaa58b08958b-961245.png" />
-还有双排的排针
-<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679830899416-460aa0fa-ef33-4123-b648-c2b1e46eee47-855183.png" />
-可以整理整理，用线给他们分隔开，像这样，注意这个线用的是：放置 -&gt; 绘图工具 -&gt; 线
-<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679831010743-20c4ee09-eae8-4502-ba42-70d4c70c7344-587879.png" />
-接下来我们去下载一些 3D 模型，绑定到 PCB 上，然后重新更新一下原理图（<a href="https://www.3dcontentcentral.cn/secure/download-model.aspx?catalogid=171&amp;id=397324">https://www.3dcontentcentral.cn/secure/download-model.aspx?catalogid=171&amp;id=397324</a>）
-<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679831575701-02c17a3f-4704-4143-8ea8-55402e85d38a-808198.png" />
-放置 -&gt; 3D元件体
-<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679831176189-6483bb69-64e6-40de-bed3-ab3e374ae218-041601.png" />
-选择通用 3D 模型，从文件导入后调整 X、Y、Z 轴的角度和支架高度，调整到合适位置
-<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679831878259-acc51e11-b92d-41ff-be7d-4b8ef844b36f-633122.png" />
-最终效果
-<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679831875654-c41f2a10-906d-4136-94b2-57dd08784e2e-598806.png" />
-然后来到 SchLib 关联好之后再去 SchDoc 替换一下即可
-其他的类似（哪怕是我们用 IPC 自动生成的 STM32 也只是根据大小和引脚生成的通用的，不是真正 STM32 芯片的模型，因此我们可以全都换成真正的 3D 模型）（这一步可有可无，无非是想要看 3D 模型的时候好看一点）
-此时原理图上还有一些红色的波浪线，我们可以点击 工程 -&gt; 编译一下，看看是哪里有问题
-<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1680226440564-cb1f4fd0-16ed-471e-ba61-ae2405bb4628-751971.png" />
-看一下 ERROR 是报的什么问题
-<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1680226539404-8bf034bc-b6f0-40b7-9ca8-6a4829b59185-738017.png" />
-因为我们一开始并没有命名元件的名称，因此大部分都是重名的，可以选择 工具 -&gt; 标注 -&gt; 标注所有器件，自动把各种器件重命名
-<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1680226613244-509b3688-e5fb-45c9-86fb-517768ee4231-292446.png" />
+<p>这一章估计要画不少图，之前介绍过的点就不说了，照着画就行了<br />
+首先是画一个轻触开关（<a href="https://item.taobao.com/item.htm?spm=a1z10.3-c-s.w4002-24706531953.16.49106a4bWryEzp&amp;id=557174599425">https://item.taobao.com/item.htm?spm=a1z10.3-c-s.w4002-24706531953.16.49106a4bWryEzp&amp;id=557174599425</a>）还是在 PCB Library 中新建空白元件<br />
+<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679814520883-cf0ee448-fcc7-4489-bc68-8bc1fc549d6f-184601.png" /><br />
+先把最大的这个矩形画出来 x 轴分别是 -3mm 到 3mm，y 轴是 -1.75mm 到 1.75mm<br />
+<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679814814460-5e0084c3-5546-4ef8-92d4-759b4c4ca4ac-927463.png" /><br />
+然后放一个焊盘，参数改这些即可<br />
+<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679816139904-83577aef-c6cd-42c0-bb0a-e94ca3f4995b-042030.png" /><br />
+最后效果是一个方形的，因为要使焊盘两脚之间的距离是 8mm 估计为了方便直接弄得大了些<br />
+<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679816247663-cb2b5fc2-c232-432c-af6d-9920069d6662-320261.png" /><br />
+接下来去 SchLib 新建轻触开关的原理图，这里把栅格设置为了 1.75，圆形的半径设置为了 2，照着画个样子就行了，然后和 PCB Library 关联起来<br />
+<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679817693816-d811ebaf-7d91-40ef-ac58-4e8a93e3a7fc-672792.png" /><br />
+然后在 SchDoc 里面把新作好的图加进去，再加一个 10KΩ 的器件<br />
+<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679817950074-2132a884-8450-4d79-b6f1-0f71d879315c-562964.png" /><br />
+然后找一个 0805 1uf 的电容出来，连成这样子，放置网络标号和 STM32 芯片的引脚 7 对应<br />
+<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679818732376-25c1b9ec-3f9a-4388-b7ff-0db1aa646456-413031.png" /><br />
+接下来画 AMS1117 的电路图部分（<a href="https://pdf1.alldatasheet.com/datasheet-pdf/view/49118/ADMOS/AMS1117.html">https://pdf1.alldatasheet.com/datasheet-pdf/view/49118/ADMOS/AMS1117.html</a>）<br />
+焊盘大点就大点，问题不大，这个值差不多就行<br />
+<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679822583113-47dccb71-3ae2-4b89-91ce-b92a206553f9-372762.png" /><br />
+然后画原理图，也差不多就行了哈哈哈<br />
+<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679823329579-2cdb5107-8a08-4f6c-9024-3dc4f3b0485a-335757.png" /><br />
+然后放到原理图里面组成降压电路，其中 100nF 的电容是从去耦电路里面复制的<br />
+<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679823361046-641f8270-a8d0-4a64-ba0a-a8a4c3216052-604866.png" /><br />
+在 SchDoc 再画上 BOOT 的下载方式选择电路，这个用自带的即可<br />
+<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679822393525-6d92b2d5-db52-4df8-a27f-8e9c5bb78def-234276.png" /><br />
+然后画 micro USB 的 PCB 图，这里 UP 主用了直接导入的方式，我也导入<br />
+<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679824059457-8723917b-19df-49b2-af78-c9642212c695-812505.png" /><br />
+要是没有下面的 Edit Footprint 的话，可以先刷新库<br />
+<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679824160635-294b1bb3-69d3-4840-bba1-44d4a2241f75-634739.png" /><br />
+直接选中复制过来即可<br />
+<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679824277669-add15812-5866-4b4e-a925-ae7054d971e3-069706.png" /><br />
+直接复制电源指示灯，把 GND 去掉，改成 PC13，作为单片机应用灯，添加一个MHDR1X4 作为STLink程序烧录接口，再将 VBAT 接上 3.3v 的 VCC，顺便把 STM32 芯片上所有没用到的标记上网格号<br />
+<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679828455504-d494786a-62f4-4c0c-9658-1fd0cd035a7e-820488.png" /><br />
+然后找一排排针，标记成这样<br />
+<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679830855096-c5a235ae-07e6-467e-a4fc-aaa58b08958b-961245.png" /><br />
+还有双排的排针<br />
+<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679830899416-460aa0fa-ef33-4123-b648-c2b1e46eee47-855183.png" /><br />
+可以整理整理，用线给他们分隔开，像这样，注意这个线用的是：放置 -&gt; 绘图工具 -&gt; 线<br />
+<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679831010743-20c4ee09-eae8-4502-ba42-70d4c70c7344-587879.png" /><br />
+接下来我们去下载一些 3D 模型，绑定到 PCB 上，然后重新更新一下原理图（<a href="https://www.3dcontentcentral.cn/secure/download-model.aspx?catalogid=171&amp;id=397324">https://www.3dcontentcentral.cn/secure/download-model.aspx?catalogid=171&amp;id=397324</a>）<br />
+<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679831575701-02c17a3f-4704-4143-8ea8-55402e85d38a-808198.png" /><br />
+放置 -&gt; 3D元件体<br />
+<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679831176189-6483bb69-64e6-40de-bed3-ab3e374ae218-041601.png" /><br />
+选择通用 3D 模型，从文件导入后调整 X、Y、Z 轴的角度和支架高度，调整到合适位置<br />
+<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679831878259-acc51e11-b92d-41ff-be7d-4b8ef844b36f-633122.png" /><br />
+最终效果<br />
+<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1679831875654-c41f2a10-906d-4136-94b2-57dd08784e2e-598806.png" /><br />
+然后来到 SchLib 关联好之后再去 SchDoc 替换一下即可<br />
+其他的类似（哪怕是我们用 IPC 自动生成的 STM32 也只是根据大小和引脚生成的通用的，不是真正 STM32 芯片的模型，因此我们可以全都换成真正的 3D 模型）（这一步可有可无，无非是想要看 3D 模型的时候好看一点）<br />
+此时原理图上还有一些红色的波浪线，我们可以点击 工程 -&gt; 编译一下，看看是哪里有问题<br />
+<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1680226440564-cb1f4fd0-16ed-471e-ba61-ae2405bb4628-751971.png" /><br />
+看一下 ERROR 是报的什么问题<br />
+<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1680226539404-8bf034bc-b6f0-40b7-9ca8-6a4829b59185-738017.png" /><br />
+因为我们一开始并没有命名元件的名称，因此大部分都是重名的，可以选择 工具 -&gt; 标注 -&gt; 标注所有器件，自动把各种器件重命名<br />
+<img alt="image.png" src="../img/yNVCrcG_YYM-wd6N/1680226613244-509b3688-e5fb-45c9-86fb-517768ee4231-292446.png" /><br />
 这时候应该就没有红色波浪线了，有的话自己翻译翻译，搜索解决办法把，我就是一开始把 stm32 的一边的针脚朝向弄反了，导致看着像是接好了，但实际根本没连线，这时候就得先编辑 stm32 的原理图，然后再把改完的原理图拖到全部的原理图上</p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/zzu77av0nnqgbwih">https://www.yuque.com/hxfqg9/iot/zzu77av0nnqgbwih</a></p>

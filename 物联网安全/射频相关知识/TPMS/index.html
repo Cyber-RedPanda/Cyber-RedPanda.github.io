@@ -7545,19 +7545,19 @@
 <blockquote>
 <p>2002年，由于凡世通（Firestone）轮胎的质量问题，造成了超过100人死亡和400人受伤的事件，引起了汽车界和美国政府的高度重视，凡世通公司被迫收回650万只轮胎</p>
 </blockquote>
-<p>现在车辆基本都会强制安装 TPMS，四个轮胎上都会安装传感器，通过射频信号告诉检测系统当前的状态，一般在 433 或 315 MHz 上
+<p>现在车辆基本都会强制安装 TPMS，四个轮胎上都会安装传感器，通过射频信号告诉检测系统当前的状态，一般在 433 或 315 MHz 上<br />
 <img alt="1669604533132-cb11323c-b53c-429f-b2a1-10abbeb01a51.jpeg" src="../img/guLz45GnsaAkBkkK/1669604533132-cb11323c-b53c-429f-b2a1-10abbeb01a51-390358.jpeg" /></p>
-<p>网上看到好像是曼彻斯特编码，然后恰好 hackcube 是有发送 TPMS 信号的功能的，我们使用 hackcube 发射，使用 hackrf 接收，实际看一下 TPMS 的信号是咋样的
-<img alt="image.png" src="../img/guLz45GnsaAkBkkK/1669614611586-116fa47c-1c13-45e0-aab3-960458cc2c81-781179.png" />
-按照 FSK 解析一下
-<img alt="image.png" src="../img/guLz45GnsaAkBkkK/1669614809010-1d0114b4-8934-4227-b989-79a4d57b0aff-992582.png" />
-在 Analysis 这里选择展示的格式和编码类型，然后点击分析协议
-<img alt="image.png" src="../img/guLz45GnsaAkBkkK/1669614855338-2f4299f8-bdc9-42c2-86bc-4e7c956ee38d-605644.png" />
+<p>网上看到好像是曼彻斯特编码，然后恰好 hackcube 是有发送 TPMS 信号的功能的，我们使用 hackcube 发射，使用 hackrf 接收，实际看一下 TPMS 的信号是咋样的<br />
+<img alt="image.png" src="../img/guLz45GnsaAkBkkK/1669614611586-116fa47c-1c13-45e0-aab3-960458cc2c81-781179.png" /><br />
+按照 FSK 解析一下<br />
+<img alt="image.png" src="../img/guLz45GnsaAkBkkK/1669614809010-1d0114b4-8934-4227-b989-79a4d57b0aff-992582.png" /><br />
+在 Analysis 这里选择展示的格式和编码类型，然后点击分析协议<br />
+<img alt="image.png" src="../img/guLz45GnsaAkBkkK/1669614855338-2f4299f8-bdc9-42c2-86bc-4e7c956ee38d-605644.png" /><br />
 来对比一下 hackcube 的发送设置，把第一个大致划分一下就是这样</p>
 <pre><code class="language-c">81 20959185     a0          40           73         08      2907
      ID       Voltage   Pre.re*3.2   Temp+0x37    Valve      
 </code></pre>
-<p>其中 hackcube 中的 Pre.re 和 Temp 都是十进制数
+<p>其中 hackcube 中的 Pre.re 和 Temp 都是十进制数<br />
 <img alt="34f57cefa86385178d9e9b138a39f25.png" src="../img/guLz45GnsaAkBkkK/1669615141591-b5779521-046f-401b-bbf4-08807957f20d-915847.png" /></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/fn7fqbak49iiz3ye">https://www.yuque.com/hxfqg9/iot/fn7fqbak49iiz3ye</a></p>

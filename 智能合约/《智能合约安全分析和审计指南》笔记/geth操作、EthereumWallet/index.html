@@ -7758,11 +7758,11 @@
 
 <h2 id="gethethereum-wallet">geth操作、Ethereum Wallet</h2>
 <h2 id="_1">安装</h2>
-<p><a href="https://geth.ethereum.org/downloads/">geth</a> 直接去下载安装就好，下载界面要加载好久才会出来 🤪
+<p><a href="https://geth.ethereum.org/downloads/">geth</a> 直接去下载安装就好，下载界面要加载好久才会出来 🤪<br />
 我下载的版本：<a href="https://quqi.gblhgk.com/s/3109432/69adjDfUW6UFX5cU">曲奇云盘</a></p>
 <h2 id="geth">geth的操作及相关说明</h2>
 <h3 id="_2">连接至网络</h3>
-<p>使用这条命令主网
+<p>使用这条命令主网<br />
 <code>geth --datadir ./ethdev/chain --networkid 1</code></p>
 <h3 id="_3">搭建私有链</h3>
 <p>把之前生成的那个 chaindata 删掉，然后在 ethdev 目录下创建一个 genesis.json</p>
@@ -7787,56 +7787,56 @@
 </code></pre>
 <p>然后使用 <code>geth init ./ethdev/genesis.json --datadir ./ethdev/chain</code> 生成创世块，现在网络就部署好了，但是还没有区块和账户</p>
 <p><img alt="image.png" src="../img/wt3fzkqpia4l5c0m/1587203055385-e7f24ba3-caae-45ae-9a60-7c4e834cdaff-765393.png" /></p>
-<p>运行命令：
-<code>geth --datadir ./ethdev/chain/00 --nodiscover console 2&gt;&gt;./ethdev/chain/00/eth_output.log</code>
+<p>运行命令：<br />
+<code>geth --datadir ./ethdev/chain/00 --nodiscover console 2&gt;&gt;./ethdev/chain/00/eth_output.log</code><br />
 实际上上面这条命令的完整形式是这样的：<code>geth --identity chainpi --rpc --rpcport 8080 --rpccorsdomain "*" --datadir ./ethdev/chain/00/ --port 30303 --nodiscover --rpcapi "db,eth,net,web3" --networkid 555 console 2&gt;&gt;./ethdev/chain/00/eth_output.log --allow-insecure-unlock</code></p>
-<p>参数介绍：
---identity   给以太坊节点设置身份
---rpc   启动 RPC（Remote Procedure Call，远程过程调用）通信，进行智能合约的部署和调试。不同的 RPC 设置，可以供 API 及远程访问他们的人使用
---datadir   与初始化测试使用同一目录
---port  网络监听端口，设置端口是为了防止在多条链之间发生端口冲突
---nodiscover  表示该节点对外不可见
---networkid   是一个数字，表示设置当前区块链的网络 ID，以区分不同的网络，第一次可以随意设置，但之后如果要链接同一条链，需要去取对应的 networkid（主网 ID 为 1，主网的测试网络 ID 为 2）
---rpcapi "db,eth,net,web3"   这条命令主要是描述哪些接口可以通过 RPC 来访问，在默认情况下，geth 开启的是 web3 接口
---dev   启用开发者网络（模式）开发者模式会使用 POA 共识，默认预分配一个开发者账户，并会自动开启挖矿
+<p>参数介绍：<br />
+--identity   给以太坊节点设置身份<br />
+--rpc   启动 RPC（Remote Procedure Call，远程过程调用）通信，进行智能合约的部署和调试。不同的 RPC 设置，可以供 API 及远程访问他们的人使用<br />
+--datadir   与初始化测试使用同一目录<br />
+--port  网络监听端口，设置端口是为了防止在多条链之间发生端口冲突<br />
+--nodiscover  表示该节点对外不可见<br />
+--networkid   是一个数字，表示设置当前区块链的网络 ID，以区分不同的网络，第一次可以随意设置，但之后如果要链接同一条链，需要去取对应的 networkid（主网 ID 为 1，主网的测试网络 ID 为 2）<br />
+--rpcapi "db,eth,net,web3"   这条命令主要是描述哪些接口可以通过 RPC 来访问，在默认情况下，geth 开启的是 web3 接口<br />
+--dev   启用开发者网络（模式）开发者模式会使用 POA 共识，默认预分配一个开发者账户，并会自动开启挖矿<br />
 --allow-insecure-unlock   是新版的 geth 禁用了 HTTP 通道解锁账户，加上这个东西就可以 unlock 了</p>
 <p><img alt="image.png" src="../img/wt3fzkqpia4l5c0m/1587212344869-89a22dbd-2b80-4703-b00d-c9cad95a0876-638591.png" /></p>
 <p>控制台是一个交互的 javascript 执行环境，这个环境内置了一些用于操作以太坊的 JavaScript 对象</p>
 <h3 id="_4">常见操作</h3>
-<p>eth.accounts   查看现有账户
-personal.newAccount()    创建账户，括号里面可以填写密码，第一个创建的账户用户名默认 coinbase
+<p>eth.accounts   查看现有账户<br />
+personal.newAccount()    创建账户，括号里面可以填写密码，第一个创建的账户用户名默认 coinbase<br />
 账户数据保存在区块目录下的 keystore 文件夹里面</p>
 <p><img alt="image.png" src="../img/wt3fzkqpia4l5c0m/1587217445663-3b111c70-93e2-40ce-9e75-1c27a8f25b61-275698.png" /></p>
-<p>eth.coinbase（好像返回的是 hash）
-eth.getBalance(eth.coinbase)   查看 coinbase 账户的余额
-miner.start()    开始挖矿，挖到的以太币归默认 eth.accounts[0] 即 coinbase 所有，在测试网络里面，把 genesis.json 中的 difficulty 的值设置的小一点会更容易挖到以太币
+<p>eth.coinbase（好像返回的是 hash）<br />
+eth.getBalance(eth.coinbase)   查看 coinbase 账户的余额<br />
+miner.start()    开始挖矿，挖到的以太币归默认 eth.accounts[0] 即 coinbase 所有，在测试网络里面，把 genesis.json 中的 difficulty 的值设置的小一点会更容易挖到以太币<br />
 eth.blockNumber   查看当前区块数（一开始显示为零，等会就有了）</p>
 <p><img alt="image.png" src="../img/wt3fzkqpia4l5c0m/1587217795949-d5fdb5a6-1453-45cd-9014-830a3ae4ea42-793181.png" /></p>
 <p><img alt="image.png" src="../img/wt3fzkqpia4l5c0m/1587217844996-455b8414-020d-4b8d-91d1-ababd7990487-827994.png" /></p>
-<p>miner.stop()    停止挖矿
+<p>miner.stop()    停止挖矿<br />
 eth.getBalance(eth.coinbase)    查看 coinbase 当前的余额</p>
 <p><img alt="image.png" src="../img/wt3fzkqpia4l5c0m/1587218045001-500baf93-28c9-4f98-a8e5-1d99c327355d-427293.png" /></p>
 <p>web3.fromWei(eth.getBalance(eth.coinbase),"ether")   以以太币的形式显示余额</p>
 <p><img alt="image.png" src="../img/wt3fzkqpia4l5c0m/1587218007413-fe647158-0f54-4266-b3a5-1fad66cbd5aa-233174.png" /></p>
 <p>u0=eth.coinbase   重命名账户</p>
-<p>personal.newAccount()   创建第二个账户
-personal.newAccount()   创建第三个账户
-u1=eth.accounts[1]
+<p>personal.newAccount()   创建第二个账户<br />
+personal.newAccount()   创建第三个账户<br />
+u1=eth.accounts[1]<br />
 u2=eth.accounts[2]</p>
 <p><img alt="image.png" src="../img/wt3fzkqpia4l5c0m/1587218938086-a40becba-3c8b-4277-8238-dca8cc7f9a46-047775.png" /></p>
 <p><strong>开始交易</strong></p>
-<p>从 u0 转 100 个以太币给 u1，报错了，原因是 coinbase 未解锁
+<p>从 u0 转 100 个以太币给 u1，报错了，原因是 coinbase 未解锁<br />
 <code>eth.sendTransaction({from:u0,to:u1,value:web3.toWei(100,'ether')})</code></p>
 <p><img alt="image.png" src="../img/wt3fzkqpia4l5c0m/1587219130496-8308f77f-e2a1-438e-a4ac-27c82c9af639-373210.png" /></p>
 <p><code>personal.unlockAccount(u0,'123456')</code>  解锁 u0 后面跟的 123456 是密码，解锁后就交易成功了</p>
 <p><img alt="image.png" src="../img/wt3fzkqpia4l5c0m/1587219270371-36350c37-8fb4-4cf9-8f22-23b3f341afc6-005185.png" /></p>
-<p>再给 u2 转 100 个
+<p>再给 u2 转 100 个<br />
 <code>eth.sendTransaction({from:u0,to:u2,value:web3.toWei(100,'ether')})</code></p>
 <p><img alt="image.png" src="../img/wt3fzkqpia4l5c0m/1587219688213-1cd70a16-b701-4d37-bf70-2a3bb5d60868-567718.png" /></p>
 <p>交易完成之后并没有变化，使用 <code>txpool.status</code> 看一下</p>
 <p><img alt="image.png" src="../img/wt3fzkqpia4l5c0m/1587219788248-748edbf9-6684-4e26-bfb6-0339517c47a4-272795.png" /></p>
-<p>pending 为 2 表示有两笔交易已经提交，但未被处理，因为刚刚的交易还没有被写进区块，而将交易写进区块的办法是<strong>挖矿⛏</strong>
-**
+<p>pending 为 2 表示有两笔交易已经提交，但未被处理，因为刚刚的交易还没有被写进区块，而将交易写进区块的办法是<strong>挖矿⛏</strong><br />
+**<br />
 <img alt="image.png" src="../img/wt3fzkqpia4l5c0m/1587219951507-bb3552e5-7196-4266-ae36-b45b504aede3-932429.png" /></p>
 <p>我们可以通过交易的散列值来查看之前达成的一笔交易</p>
 <p><img alt="image.png" src="../img/wt3fzkqpia4l5c0m/1587220333196-7a4d495b-77ae-4be0-8952-cc046bc784d4-293442.png" /></p>
@@ -7846,31 +7846,31 @@ u2=eth.accounts[2]</p>
 <p>理解一下他们的概念</p>
 <h4 id="_6">账户</h4>
 <p>账户在以太坊中扮演着重要的角色，以太坊有两种账户类型，分别是外部账户和合约账户。在这里，外部账户简称为账户，合约账户简称为合约，外部账户和合约账户都是账户的通用概念，这些账户其实都是状态对象</p>
-<p>外部账户的余额，就是外部账户的一个状态对象；合约账户的状态，除了余额，还有存储合约。所有账户的状态都是以太坊网络的状态，以太坊网络的状态随着每一个区块的更新而变化。
+<p>外部账户的余额，就是外部账户的一个状态对象；合约账户的状态，除了余额，还有存储合约。所有账户的状态都是以太坊网络的状态，以太坊网络的状态随着每一个区块的更新而变化。<br />
 如果对以太坊网络加以限制，使其中只有外部账户且这些账户只能进行交易，就相当于生成了一种只能交易以太币的“山寨币”</p>
 <p>账户是使用者对外的身份。在使用公玥对一笔交易进行签名后，以太坊虚拟机就可以安全地对这笔交易的发起者进行身份验证</p>
-<p>每个账户都对应一对密钥，一个私玥和一个公玥
-账户和地址是一一对应的，账户索引来自密钥的最后20字节
-每一个私钥-地址都被编码到一个与密钥文件里面，密钥文件大小是一个 JSON 格式的文本文件
-密钥文件的重要组成部分，即账户的私钥，是通过创建账户时输入的密码加密保护的
+<p>每个账户都对应一对密钥，一个私玥和一个公玥<br />
+账户和地址是一一对应的，账户索引来自密钥的最后20字节<br />
+每一个私钥-地址都被编码到一个与密钥文件里面，密钥文件大小是一个 JSON 格式的文本文件<br />
+密钥文件的重要组成部分，即账户的私钥，是通过创建账户时输入的密码加密保护的<br />
 密钥文件存储在以太坊客户端的 keystore 的目录中，要定期备份</p>
 <h2 id="_7">搭建私有链多节点</h2>
-<p>net  查看网络状态
-net.   然后 tab 键可以看一下 net 可以进行哪些操作
-net.listening   查看网络是否处于监听状态
-net.peerCount     查看已连接的结点的数量
-admin   查看网络
+<p>net  查看网络状态<br />
+net.   然后 tab 键可以看一下 net 可以进行哪些操作<br />
+net.listening   查看网络是否处于监听状态<br />
+net.peerCount     查看已连接的结点的数量<br />
+admin   查看网络<br />
 admin.   查看 admin 可以进行哪些操作</p>
 <p><img alt="image.png" src="../img/wt3fzkqpia4l5c0m/1587302711918-44c3aebf-951b-4cd0-8ed7-236cdb15edcf-609704.png" /></p>
 <p>书上不详细，差评，参考：<a href="https://blog.csdn.net/hantangduhey/article/details/81017602">https://blog.csdn.net/hantangduhey/article/details/81017602</a></p>
-<p>新开一个节点，这里我又设置了一下，把这些节点移动到了 chain 下面
+<p>新开一个节点，这里我又设置了一下，把这些节点移动到了 chain 下面<br />
 <code>geth init ./ethdev/genesis.json --datadir ./ethdev/chain/01</code></p>
-<p>进入另一个的控制台：
-<code>geth --identity chainpi --rpc --rpcport 8081 --rpccorsdomain "*" --datadir ./ethdev/chain/01 --port 30304 --nodiscover --rpcapi "db,eth,net,web3" --networkid 555 console 2&gt;&gt;./ethdev/chain/01/eth_output.log --allow-insecure-unlock --ipcdisable</code>
+<p>进入另一个的控制台：<br />
+<code>geth --identity chainpi --rpc --rpcport 8081 --rpccorsdomain "*" --datadir ./ethdev/chain/01 --port 30304 --nodiscover --rpcapi "db,eth,net,web3" --networkid 555 console 2&gt;&gt;./ethdev/chain/01/eth_output.log --allow-insecure-unlock --ipcdisable</code><br />
 win 下面好像不加后面的参数 <code>--ipcdisable</code> 不能多开 geth</p>
-<p>进入另一个节点一的控制台（就是之前一直用的那个控制台）运行如下命令，与节点二连接
+<p>进入另一个节点一的控制台（就是之前一直用的那个控制台）运行如下命令，与节点二连接<br />
 <code>admin.addPeer("enode://928acba0da90d952b3802f7ddab2a99d29164934c407b56f8c47ed52d44e843314457a40e9ff1dd5d2da632b5be6f8d346fddac35b9f2755650a17ed78a2e139@127.0.0.1:30304")</code></p>
-<p>连接成功之后，节点二就会开始同步节点一的区块。同步完成之后只要任意节点开始挖矿，另一节点就会自动同步区块，~~向任意一个节点发送交易，另一个节点也会收到该交易的信息~~，我这里不会显示
+<p>连接成功之后，节点二就会开始同步节点一的区块。同步完成之后只要任意节点开始挖矿，另一节点就会自动同步区块，~~向任意一个节点发送交易，另一个节点也会收到该交易的信息~~，我这里不会显示<br />
 使用 <code>net.peerCount</code> 可以看一下已连接的节点数</p>
 <p><img alt="image.png" src="../img/wt3fzkqpia4l5c0m/1587302834753-db98fdc6-172e-4ba0-9c1b-8fe3bc3147ab-476362.png" /></p>
 <p>当然，除了在控制台用命令添加，也可以在 --datadir 指定的目录里面添加 static-nodes.json 文件，让各个节点取得联系，具体如下：</p>
@@ -7897,8 +7897,8 @@ win 下面好像不加后面的参数 <code>--ipcdisable</code> 不能多开 g
 <p><img alt="image.png" src="../img/wt3fzkqpia4l5c0m/1587375456112-46a67dd8-4677-4379-a759-3017092eded1-404594.png" /></p>
 <p>选择右边的 copy address</p>
 <p><img alt="image.png" src="../img/wt3fzkqpia4l5c0m/1587375511537-ce148053-014c-41a2-a212-8161b90ebce6-873852.png" /></p>
-<p>把那俩的地址都保存出来：
-0xE2fA80E6D74b9f63157EcD131Eb11F8130D0416D
+<p>把那俩的地址都保存出来：<br />
+0xE2fA80E6D74b9f63157EcD131Eb11F8130D0416D<br />
 0x27EdE661c026b64DdEF9d9D965d710af40afaea0</p>
 <p>点击 Wallet Contracts</p>
 <p><img alt="image.png" src="../img/wt3fzkqpia4l5c0m/1587375349031-691afb3d-ccab-410a-b576-c1e30bc7229f-947023.png" /></p>
@@ -7906,7 +7906,7 @@ win 下面好像不加后面的参数 <code>--ipcdisable</code> 不能多开 g
 <p><img alt="image.png" src="../img/wt3fzkqpia4l5c0m/1587375698495-ca871c01-2a39-4906-8200-2400f504b149-210401.png" /></p>
 <p>然后创建</p>
 <p><img alt="image.png" src="../img/wt3fzkqpia4l5c0m/1587375756545-227baac5-ff89-423f-affd-2010570cd100-148608.png" /></p>
-<p>然后可以自己设置一下最高交易费用，输入密码就可以了
+<p>然后可以自己设置一下最高交易费用，输入密码就可以了<br />
 <strong>只有在挖矿状态下才能将合约打包到区块中</strong></p>
 <p><img alt="image.png" src="../img/wt3fzkqpia4l5c0m/1587375868879-a74ce8d8-70fb-4268-8aa5-3af4bd0723d3-760130.png" /></p>
 <p>使用我们自己的账户，给刚才创建的钱包转个帐</p>

@@ -7631,7 +7631,7 @@
   <h1>Python库：Bleak</h1>
 
 <h2 id="pythonbleak">Python库：Bleak</h2>
-<p>这个库比较新，试一下：<a href="https://github.com/hbldh/bleak">https://github.com/hbldh/bleak</a>
+<p>这个库比较新，试一下：<a href="https://github.com/hbldh/bleak">https://github.com/hbldh/bleak</a><br />
 用这个库写了一个小工具可以体验一下：<a href="https://github.com/yichen115/BLE-Security-Tool">BLE-Security-Tool</a></p>
 <h2 id="_1">扫描周围蓝牙设备</h2>
 <pre><code class="language-python">import asyncio
@@ -7644,8 +7644,8 @@ async def scan_devices():
     for d in devices:
         print(d)
 </code></pre>
-<p>通过 BleakScanner.discover() 扫描出来的结果是一个列表，列表的每个是一个 bleak.backends.device.BLEDevice 类，bleak 的源代码中定义在这里：bleak\backends\device.py
-<img alt="image.png" src="../img/piQbVDkDQn-qLmOt/1650348375192-6d84accf-2ba8-4881-a215-6bf869530900-524941.png" />
+<p>通过 BleakScanner.discover() 扫描出来的结果是一个列表，列表的每个是一个 bleak.backends.device.BLEDevice 类，bleak 的源代码中定义在这里：bleak\backends\device.py<br />
+<img alt="image.png" src="../img/piQbVDkDQn-qLmOt/1650348375192-6d84accf-2ba8-4881-a215-6bf869530900-524941.png" /><br />
 可以看出来每个设备有 address（设备地址，字符串）、name（设备名，字符串）、details（详情，包含了所有的信息，字典）、rssi（信号强度，整数）、metadata（包含服务 UUID 和 manufacturer_data，字典）</p>
 <h2 id="_2">连接与断开设备</h2>
 <pre><code class="language-python">client = BleakClient(address,adapter=&quot;hci0&quot;)#使用adapter指定蓝牙适配器
@@ -7672,14 +7672,14 @@ await client.connect()
 </code></pre>
 <p>对于一个服务来说用 .characteristics 获取 characteristic 列表，对于获取到的 characteristic 列表可以遍历出每一个，通过 .uuid 获取 uuid，通过 .handle 获取句柄的值（十进制整数）通过 properties 来获取特性的属性（读写啥的）</p>
 <h2 id="_4">读写属性值</h2>
-<p>获取到之后对于 read 的特征属性可以通过 read_gatt_char(char.uuid) 来获取相应的值
-<code>await client.read_gatt_char(char.uuid)</code>
+<p>获取到之后对于 read 的特征属性可以通过 read_gatt_char(char.uuid) 来获取相应的值<br />
+<code>await client.read_gatt_char(char.uuid)</code><br />
 这样读出来是一个 bytearray，使用 value = bytes() 可以转成 bytes</p>
-<p>可以通过 write_gatt_char 写相应的值，传递的参数是特征的 UUID 或者句柄
-<code>await client.write_gatt_char(0x2b,b'd205303e099ceff44835')</code>
-问题是传递的值有时候传字符串，有时候传十六进制，例如 BLECTF 的<a href="https://bbs.pediy.com/thread-271543.htm#msg_header_h1_7">这一关</a>和<a href="https://bbs.pediy.com/thread-271543.htm#msg_header_h1_1">这一关</a>
-关于这俩格式的转换，这个下面的代码可以看出来，所以分成两个函数来用
-<img alt="image.png" src="../img/piQbVDkDQn-qLmOt/1650622167672-9ae4ba89-ac1e-498c-afd5-6241be49dce0-805744.png" />
+<p>可以通过 write_gatt_char 写相应的值，传递的参数是特征的 UUID 或者句柄<br />
+<code>await client.write_gatt_char(0x2b,b'd205303e099ceff44835')</code><br />
+问题是传递的值有时候传字符串，有时候传十六进制，例如 BLECTF 的<a href="https://bbs.pediy.com/thread-271543.htm#msg_header_h1_7">这一关</a>和<a href="https://bbs.pediy.com/thread-271543.htm#msg_header_h1_1">这一关</a><br />
+关于这俩格式的转换，这个下面的代码可以看出来，所以分成两个函数来用<br />
+<img alt="image.png" src="../img/piQbVDkDQn-qLmOt/1650622167672-9ae4ba89-ac1e-498c-afd5-6241be49dce0-805744.png" /><br />
 这里写的数据都是可以是这里面的任何一种 bytes, bytearray, memoryview，所以代码中的 #1 这里的 bytes 可有可无</p>
 <pre><code class="language-python">async def write_value_raw(client,charuuid,value):
     try:
@@ -7714,8 +7714,8 @@ async def main(address, char_uuid):
 
 asyncio.run(main(address, char_uuid))
 </code></pre>
-<p>start_notify()传入的参数是特征的 uuid，以及回调函数，即监听到之后干啥
-想要监听到通知或者指示需要先使能特征值，这个 write 应该就是使能的过程
+<p>start_notify()传入的参数是特征的 uuid，以及回调函数，即监听到之后干啥<br />
+想要监听到通知或者指示需要先使能特征值，这个 write 应该就是使能的过程<br />
 最后使用 stop_notify(char_uuid) 停止</p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/psuwyl">https://www.yuque.com/hxfqg9/iot/psuwyl</a></p>

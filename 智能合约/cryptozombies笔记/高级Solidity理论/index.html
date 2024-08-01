@@ -8065,7 +8065,7 @@
 <h2 id="solidity">高级 Solidity 理论</h2>
 <h2 id="_1">智能协议的永固性</h2>
 <h3 id="_2">外部依赖关系</h3>
-<p>在第 2 课中，我们将加密小猫（CryptoKitties）合约的地址硬编码到 DApp 中去了。有没有想过，如果加密小猫出了点问题，比方说，集体消失了会怎么样？ 虽然这种事情几乎不可能发生，但是，如果小猫没了，我们的 DApp 也会随之失效，因为我们在 DApp 的代码中用“硬编码”的方式指定了加密小猫的地址，如果这个根据地址找不到小猫，我们的僵尸也就吃不到小猫了，而按照前面的描述，我们却没法修改合约去应付这个变化！
+<p>在第 2 课中，我们将加密小猫（CryptoKitties）合约的地址硬编码到 DApp 中去了。有没有想过，如果加密小猫出了点问题，比方说，集体消失了会怎么样？ 虽然这种事情几乎不可能发生，但是，如果小猫没了，我们的 DApp 也会随之失效，因为我们在 DApp 的代码中用“硬编码”的方式指定了加密小猫的地址，如果这个根据地址找不到小猫，我们的僵尸也就吃不到小猫了，而按照前面的描述，我们却没法修改合约去应付这个变化！<br />
 因此，我们不能硬编码，而要采用“函数”，以便于 DApp 的关键部分可以以参数形式修改。</p>
 <p>比方说，我们不再一开始就把猎物地址给写入代码，而是写个函数 setKittyContractAddress, 运行时再设定猎物的地址，这样我们就可以随时去锁定新的猎物，也不用担心加密小猫集体消失了</p>
 <p>请修改第2课的代码，使得可以通过程序更改 CryptoKitties 合约地址</p>
@@ -8116,13 +8116,13 @@ contract ZombieFeeding is ZombieFactory {
 }
 </code></pre>
 <h2 id="ownable-contracts">Ownable Contracts</h2>
-<p>上一章中，您有没有发现任何安全漏洞呢？
-呀！setKittyContractAddress 可见性居然申明为“外部的”（external），岂不是任何人都可以调用它！ 也就是说，任何调用该函数的人都可以更改 CryptoKitties 合约的地址，使得其他人都没法再运行我们的程序了
-我们确实是希望这个地址能够在合约中修改，但我可没说让每个人去改它呀
+<p>上一章中，您有没有发现任何安全漏洞呢？<br />
+呀！setKittyContractAddress 可见性居然申明为“外部的”（external），岂不是任何人都可以调用它！ 也就是说，任何调用该函数的人都可以更改 CryptoKitties 合约的地址，使得其他人都没法再运行我们的程序了<br />
+我们确实是希望这个地址能够在合约中修改，但我可没说让每个人去改它呀<br />
 要对付这样的情况，通常的做法是指定合约的“所有权”就是说，给它指定一个主人（没错，就是您），只有主人对它享有特权</p>
 <h3 id="openzeppelinownable">OpenZeppelin库的Ownable 合约</h3>
-<p>下面是一个 Ownable 合约的例子： 来自 _ OpenZeppelin _ Solidity 库的 Ownable 合约
-OpenZeppelin 是主打安保和社区审查的智能合约库，您可以在自己的 DApps中引用。等把这一课学完，您不要催我们发布下一课，最好利用这个时间把 OpenZeppelin 的网站看看，保管您会学到很多东西！
+<p>下面是一个 Ownable 合约的例子： 来自 _ OpenZeppelin _ Solidity 库的 Ownable 合约<br />
+OpenZeppelin 是主打安保和社区审查的智能合约库，您可以在自己的 DApps中引用。等把这一课学完，您不要催我们发布下一课，最好利用这个时间把 OpenZeppelin 的网站看看，保管您会学到很多东西！<br />
 把楼下这个合约读读通，是不是还有些没见过代码？别担心，我们随后会解释</p>
 <pre><code class="language-javascript">/**
 * @title Ownable
@@ -8157,8 +8157,8 @@ contract Ownable {
  }
 }
 </code></pre>
-<p>构造函数：function Ownable()是一个 _ constructor_ (构造函数)，构造函数不是必须的，它与合约同名，构造函数一生中唯一的一次执行，就是在合约最初被创建的时候
-函数修饰符：modifier onlyOwner()。 修饰符跟函数很类似，不过是用来修饰其他已有函数用的， 在其他语句执行前，为它检查下先验条件。 在这个例子中，我们就可以写个修饰符 onlyOwner 检查下调用者，确保只有合约的主人才能运行本函数。我们下一章中会详细讲述修饰符，以及那个奇怪的_;
+<p>构造函数：function Ownable()是一个 _ constructor_ (构造函数)，构造函数不是必须的，它与合约同名，构造函数一生中唯一的一次执行，就是在合约最初被创建的时候<br />
+函数修饰符：modifier onlyOwner()。 修饰符跟函数很类似，不过是用来修饰其他已有函数用的， 在其他语句执行前，为它检查下先验条件。 在这个例子中，我们就可以写个修饰符 onlyOwner 检查下调用者，确保只有合约的主人才能运行本函数。我们下一章中会详细讲述修饰符，以及那个奇怪的_;<br />
 indexed 关键字：别担心，我们还用不到它</p>
 <p>所以 Ownable 合约基本都会这么干：</p>
 <ol>
@@ -8166,7 +8166,7 @@ indexed 关键字：别担心，我们还用不到它</p>
 <li>为它加上一个修饰符 onlyOwner，它会限制陌生人的访问，将访问某些函数的权限锁定在 owner 上</li>
 <li>允许将合约所有权转让给他人</li>
 </ol>
-<p>onlyOwner 简直人见人爱，大多数人开发自己的 Solidity DApps，都是从复制/粘贴 Ownable 开始的，从它再继承出的子类，并在之上进行功能开发
+<p>onlyOwner 简直人见人爱，大多数人开发自己的 Solidity DApps，都是从复制/粘贴 Ownable 开始的，从它再继承出的子类，并在之上进行功能开发<br />
 既然我们想把 setKittyContractAddress 限制为 onlyOwner ，我们也要做同样的事情</p>
 <ul>
 <li>首先，将 Ownable 合约的代码复制一份到新文件 ownable.sol 中。 接下来，创建一个 ZombieFactory，继承 Ownable</li>
@@ -8205,15 +8205,15 @@ contract ZombieFactory is Ownable {
 }
 </code></pre>
 <h2 id="onlyowner">onlyOwner 函数修饰符</h2>
-<p>现在我们有了个基本版的合约 ZombieFactory 了，它继承自 Ownable 接口，我们也可以给 ZombieFeeding 加上 onlyOwner 函数修饰符
+<p>现在我们有了个基本版的合约 ZombieFactory 了，它继承自 Ownable 接口，我们也可以给 ZombieFeeding 加上 onlyOwner 函数修饰符<br />
 这就是合约继承的工作原理。记得：</p>
 <blockquote>
-<p>ZombieFeeding 是个 ZombieFactory
+<p>ZombieFeeding 是个 ZombieFactory<br />
 ZombieFactory 是个 Ownable</p>
 </blockquote>
 <p>因此 ZombieFeeding 也是个 Ownable, 并可以通过 Ownable 接口访问父类中的函数/事件/修饰符。往后，ZombieFeeding 的继承者合约们同样也可以这么延续下去。</p>
 <h3 id="_3">函数修饰符</h3>
-<p>函数修饰符看起来跟函数没什么不同，不过关键字 modifier 告诉编译器，这是个 modifier (修饰符)，而不是个 function (函数)。它不能像函数那样被直接调用，只能被添加到函数定义的末尾，用以改变函数的行为
+<p>函数修饰符看起来跟函数没什么不同，不过关键字 modifier 告诉编译器，这是个 modifier (修饰符)，而不是个 function (函数)。它不能像函数那样被直接调用，只能被添加到函数定义的末尾，用以改变函数的行为<br />
 咱们仔细读读 onlyOwner：</p>
 <pre><code class="language-javascript">/**
 * @dev 调用者不是‘主人’，就会抛出异常
@@ -8231,10 +8231,10 @@ contract MyContract is Ownable {
  }
 }
 </code></pre>
-<p>注意 likeABoss 函数上的 onlyOwner 修饰符。 当你调用 likeABoss 时，首先执行 onlyOwner 中的代码， 执行到 onlyOwner 中的 _; 语句时，程序再返回并执行 likeABoss 中的代码
-可见，尽管函数修饰符也可以应用到各种场合，但最常见的还是放在函数执行之前添加快速的 require 检查
-因为给函数添加了修饰符 onlyOwner，使得唯有合约的主人（也就是部署者）才能调用它
-注意：主人对合约享有的特权当然是正当的，不过也可能被恶意使用。比如，万一，主人添加了个后门，允许他偷走别人的僵尸呢？
+<p>注意 likeABoss 函数上的 onlyOwner 修饰符。 当你调用 likeABoss 时，首先执行 onlyOwner 中的代码， 执行到 onlyOwner 中的 _; 语句时，程序再返回并执行 likeABoss 中的代码<br />
+可见，尽管函数修饰符也可以应用到各种场合，但最常见的还是放在函数执行之前添加快速的 require 检查<br />
+因为给函数添加了修饰符 onlyOwner，使得唯有合约的主人（也就是部署者）才能调用它<br />
+注意：主人对合约享有的特权当然是正当的，不过也可能被恶意使用。比如，万一，主人添加了个后门，允许他偷走别人的僵尸呢？<br />
 所以非常重要的是，部署在以太坊上的 DApp，并不能保证它真正做到去中心，你需要阅读并理解它的源代码，才能防止其中没有被部署者恶意植入后门；作为开发人员，如何做到既要给自己留下修复 bug 的余地，又要尽量地放权给使用者，以便让他们放心你，从而愿意把数据放在你的 DApp 中，这确实需要个微妙的平衡</p>
 <p>现在我们可以限制第三方对 setKittyContractAddress的访问，除了我们自己，谁都无法去修改它</p>
 <ul>
@@ -8281,17 +8281,17 @@ contract ZombieFeeding is ZombieFactory {
 </code></pre>
 <h2 id="gas">Gas</h2>
 <h3 id="gas-dapps">Gas - 驱动以太坊DApps的能源</h3>
-<p>在 Solidity 中，你的用户想要每次执行你的 DApp 都需要支付一定的 gas，gas 可以用以太币购买，因此，用户每次跑 DApp 都得花费以太币
+<p>在 Solidity 中，你的用户想要每次执行你的 DApp 都需要支付一定的 gas，gas 可以用以太币购买，因此，用户每次跑 DApp 都得花费以太币<br />
 一个 DApp 收取多少 gas 取决于功能逻辑的复杂程度。每个操作背后，都在计算完成这个操作所需要的计算资源，（比如，存储数据就比做个加法运算贵得多），一次操作所需要花费的 gas 等于这个操作背后的所有运算花销的总和</p>
 <p>由于运行你的程序需要花费用户的真金白银，在以太坊中代码的编程语言，比其他任何编程语言都更强调优化。同样的功能，使用笨拙的代码开发的程序，比起经过精巧优化的代码来，运行花费更高，这显然会给成千上万的用户带来大量不必要的开销</p>
 <h3 id="gas_1">为什么要用 gas 来驱动？</h3>
-<p>以太坊就像一个巨大、缓慢、但非常安全的电脑。当你运行一个程序的时候，网络上的每一个节点都在进行相同的运算，以验证它的输出，这就是所谓的“去中心化” 由于数以千计的节点同时在验证着每个功能的运行，这可以确保它的数据不会被被监控，或者被刻意修改
+<p>以太坊就像一个巨大、缓慢、但非常安全的电脑。当你运行一个程序的时候，网络上的每一个节点都在进行相同的运算，以验证它的输出，这就是所谓的“去中心化” 由于数以千计的节点同时在验证着每个功能的运行，这可以确保它的数据不会被被监控，或者被刻意修改<br />
 可能会有用户用无限循环堵塞网络，抑或用密集运算来占用大量的网络资源，为了防止这种事情的发生，以太坊的创建者为以太坊上的资源制定了价格，想要在以太坊上运算或者存储，你需要先付费</p>
 <p>注意：如果你使用侧链，倒是不一定需要付费，比如咱们在 Loom Network 上构建的 CryptoZombies 就免费。你不会想要在以太坊主网上玩儿“魔兽世界”吧？ - 所需要的 gas 可能会买到你破产。但是你可以找个算法理念不同的侧链来玩它。我们将在以后的课程中咱们会讨论到，什么样的 DApp 应该部署在太坊主链上，什么又最好放在侧链</p>
 <h3 id="struct-packing">结构封装 （Struct packing）</h3>
-<p>在第 1 课中，我们提到除了基本版的 uint 外，还有其他变种 uint：uint8，uint16，uint32 等。
-通常情况下我们不会考虑使用 uint 变种，因为无论如何定义 uint 的大小，Solidity 为它保留256位的存储空间。例如，使用 uint8 而不是 uint（uint256）不会为你节省任何 gas。
-除非，把 uint 绑定到 struct 里面。
+<p>在第 1 课中，我们提到除了基本版的 uint 外，还有其他变种 uint：uint8，uint16，uint32 等。<br />
+通常情况下我们不会考虑使用 uint 变种，因为无论如何定义 uint 的大小，Solidity 为它保留256位的存储空间。例如，使用 uint8 而不是 uint（uint256）不会为你节省任何 gas。<br />
+除非，把 uint 绑定到 struct 里面。<br />
 如果一个 struct 中有多个 uint，则尽可能使用较小的 uint, Solidity 会将这些 uint 打包在一起，从而占用较少的存储空间。例如：</p>
 <pre><code class="language-javascript">struct NormalStruct {
  uint a;
@@ -8307,8 +8307,8 @@ struct MiniMe {
 NormalStruct normal = NormalStruct(10, 20, 30);
 MiniMe mini = MiniMe(10, 20, 30);
 </code></pre>
-<p>所以，当 uint 定义在一个 struct 中的时候，尽量使用最小的整数子类型以节约空间。 并且把同样类型的变量放一起（即在 struct 中将把变量按照类型依次放置），这样 Solidity 可以将存储空间最小化。例如，有两个 struct：
-uint c; uint32 a; uint32 b; 和 uint32 a; uint c; uint32 b;
+<p>所以，当 uint 定义在一个 struct 中的时候，尽量使用最小的整数子类型以节约空间。 并且把同样类型的变量放一起（即在 struct 中将把变量按照类型依次放置），这样 Solidity 可以将存储空间最小化。例如，有两个 struct：<br />
+uint c; uint32 a; uint32 b; 和 uint32 a; uint c; uint32 b;<br />
 前者比后者需要的 gas 更少，因为前者把 uint32 放一起了</p>
 <p>在本课中，咱们给僵尸添2个新功能：level 和 readyTime - 后者是用来实现一个“冷却定时器”，以限制僵尸猎食的频率，让我们回到 zombiefactory.sol</p>
 <ul>
@@ -8349,13 +8349,13 @@ contract ZombieFactory is Ownable {
 }
 </code></pre>
 <h2 id="_4">时间单位</h2>
-<p>level 属性表示僵尸的级别。以后，在我们创建的战斗系统中，打胜仗的僵尸会逐渐升级并获得更多的能力。
-readyTime 稍微复杂点。我们希望增加一个“冷却周期”，表示僵尸在两次猎食或攻击之之间必须等待的时间。如果没有它，僵尸每天可能会攻击和繁殖 1000 次，这样游戏就太简单了
+<p>level 属性表示僵尸的级别。以后，在我们创建的战斗系统中，打胜仗的僵尸会逐渐升级并获得更多的能力。<br />
+readyTime 稍微复杂点。我们希望增加一个“冷却周期”，表示僵尸在两次猎食或攻击之之间必须等待的时间。如果没有它，僵尸每天可能会攻击和繁殖 1000 次，这样游戏就太简单了<br />
 为了记录僵尸在下一次进击前需要等待的时间，我们使用了 Solidity 的时间单位</p>
 <h3 id="_5">时间单位</h3>
-<p>Solidity 使用自己的本地时间单位
+<p>Solidity 使用自己的本地时间单位<br />
 变量 now 将返回当前的unix时间戳（自1970年1月1日以来经过的秒数）。我写这句话时 unix 时间是 1515527488</p>
-<p>Solidity 还包含秒(seconds)，分钟(minutes)，小时(hours)，天(days)，周(weeks) 和 年(years) 等时间单位。它们都会转换成对应的秒数放入 uint 中。所以 1 分钟 就是 60，1 小时是 3600（60秒×60分钟），1 天是 86400（24小时 ×60 分钟 ×60 秒），以此类推
+<p>Solidity 还包含秒(seconds)，分钟(minutes)，小时(hours)，天(days)，周(weeks) 和 年(years) 等时间单位。它们都会转换成对应的秒数放入 uint 中。所以 1 分钟 就是 60，1 小时是 3600（60秒×60分钟），1 天是 86400（24小时 ×60 分钟 ×60 秒），以此类推<br />
 下面是一些使用时间单位的实用案例：</p>
 <pre><code class="language-javascript">uint lastUpdated;
 // 将‘上次更新时间’ 设置为 ‘现在’
@@ -8368,7 +8368,7 @@ function fiveMinutesHavePassed() public view returns (bool) {
  return (now &gt;= (lastUpdated + 5 minutes));
 }
 </code></pre>
-<p>有了这些工具，我们可以为僵尸设定“冷静时间”功能
+<p>有了这些工具，我们可以为僵尸设定“冷静时间”功能<br />
 现在咱们给DApp添加一个“冷却周期”的设定，让僵尸两次攻击或捕猎之间必须等待 1天</p>
 <ul>
 <li>声明一个名为 cooldownTime 的uint，并将其设置为 1 days。（没错，”1 days“使用了复数， 否则通不过编译器）</li>
@@ -8379,16 +8379,16 @@ function fiveMinutesHavePassed() public view returns (bool) {
 </ul>
 <p>now + cooldownTime 将等于当前的unix时间戳（以秒为单位）加上 1 天里的秒数，这将等于从现在起 1 天后的unix时间戳。然后我们就比较，看看这个僵尸的 readyTime是否大于 now，以决定再次启用僵尸的时机有没有到来。</p>
 <h2 id="_6">僵尸冷却</h2>
-<p>现在，Zombie 结构体中定义好了一个 readyTime 属性，让我们跳到 zombiefeeding.sol， 去实现一个”冷却周期定时器“
+<p>现在，Zombie 结构体中定义好了一个 readyTime 属性，让我们跳到 zombiefeeding.sol， 去实现一个”冷却周期定时器“<br />
 按照以下步骤修改 feedAndMultiply：</p>
 <ol>
 <li>捕猎“行为会触发僵尸的”冷却周期</li>
 <li>僵尸在这段”冷却周期“结束前不可再捕猎小猫</li>
 </ol>
-<p>这将限制僵尸，防止其无限制地捕猎小猫或者整天不停地繁殖。将来，当我们增加战斗功能时，我们同样用”冷却周期“限制僵尸之间打斗的频率
+<p>这将限制僵尸，防止其无限制地捕猎小猫或者整天不停地繁殖。将来，当我们增加战斗功能时，我们同样用”冷却周期“限制僵尸之间打斗的频率<br />
 首先，我们要定义一些辅助函数，设置并检查僵尸的 readyTime</p>
 <h3 id="_7">将结构体作为参数传入</h3>
-<p>由于结构体的存储指针可以以参数的方式传递给一个 private 或 internal 的函数，因此结构体可以在多个函数之间相互传递。
+<p>由于结构体的存储指针可以以参数的方式传递给一个 private 或 internal 的函数，因此结构体可以在多个函数之间相互传递。<br />
 遵循这样的语法：</p>
 <pre><code class="language-javascript">function _doStuff(Zombie storage _zombie) internal {
  // do stuff with _zombie
@@ -8446,9 +8446,9 @@ contract ZombieFeeding is ZombieFactory {
 }
 </code></pre>
 <h2 id="_8">公有函数和安全性</h2>
-<p>现在来修改 feedAndMultiply ，实现冷却周期
-回顾一下这个函数，前一课上我们将其可见性设置为public。你必须仔细地检查所有声明为 public 和 external的函数，一个个排除用户滥用它们的可能，谨防安全漏洞。请记住，如果这些函数没有类似 onlyOwner 这样的函数修饰符，用户能利用各种可能的参数去调用它们
-检查完这个函数，用户就可以直接调用这个它，并传入他们所希望的 _targetDna 或 species 。打个游戏还得遵循这么多的规则，还能不能愉快地玩耍啊！
+<p>现在来修改 feedAndMultiply ，实现冷却周期<br />
+回顾一下这个函数，前一课上我们将其可见性设置为public。你必须仔细地检查所有声明为 public 和 external的函数，一个个排除用户滥用它们的可能，谨防安全漏洞。请记住，如果这些函数没有类似 onlyOwner 这样的函数修饰符，用户能利用各种可能的参数去调用它们<br />
+检查完这个函数，用户就可以直接调用这个它，并传入他们所希望的 _targetDna 或 species 。打个游戏还得遵循这么多的规则，还能不能愉快地玩耍啊！<br />
 仔细观察，这个函数只需被 feedOnKitty() 调用，因此，想要防止漏洞，最简单的方法就是设其可见性为 internal</p>
 <ul>
 <li>目前函数 feedAndMultiply 可见性为 public。我们将其改为 internal 以保障合约安全。因为我们不希望用户调用它的时候塞进一堆乱七八糟的 DNA。</li>
@@ -8502,8 +8502,8 @@ contract ZombieFeeding is ZombieFactory {
 }
 </code></pre>
 <h2 id="_9">进一步了解函数修饰符</h2>
-<p>相当不错！我们的僵尸现在有了“冷却定时器”功能
-接下来，我们将添加一些辅助方法。我们为您创建了一个名为 zombiehelper.sol 的新文件，并且将 zombiefeeding.sol 导入其中，这让我们的代码更整洁
+<p>相当不错！我们的僵尸现在有了“冷却定时器”功能<br />
+接下来，我们将添加一些辅助方法。我们为您创建了一个名为 zombiehelper.sol 的新文件，并且将 zombiefeeding.sol 导入其中，这让我们的代码更整洁<br />
 我们打算让僵尸在达到一定水平后，获得特殊能力。但是达到这个小目标，我们还需要学一学什么是“函数修饰符”</p>
 <h3 id="_10">带参数的函数修饰符</h3>
 <p>之前我们已经读过一个简单的函数修饰符了：onlyOwner。函数修饰符也可以带参数。例如：</p>
@@ -8520,7 +8520,7 @@ function driveCar(uint _userId) public olderThan(16, _userId) {
  // 其余的程序逻辑
 }
 </code></pre>
-<p>看到了吧， olderThan 修饰符可以像函数一样接收参数，是“宿主”函数 driveCar 把参数传递给它的修饰符的
+<p>看到了吧， olderThan 修饰符可以像函数一样接收参数，是“宿主”函数 driveCar 把参数传递给它的修饰符的<br />
 来，我们自己生产一个修饰符，通过传入的level参数来限制僵尸使用某些特殊功能</p>
 <ul>
 <li>在ZombieHelper 中，创建一个名为 aboveLevel 的modifier，它接收2个参数， _level (uint类型) 以及 _zombieId (uint类型)</li>
@@ -8538,10 +8538,10 @@ contract ZombieHelper is ZombieFeeding {
 }
 </code></pre>
 <h2 id="_11">僵尸修饰符</h2>
-<p>现在让我们设计一些使用 aboveLevel 修饰符的函数
-作为游戏，您得有一些措施激励玩家们去升级他们的僵尸：
-2 级以上的僵尸，玩家可给他们改名
-20 级以上的僵尸，玩家能给他们定制的 DNA
+<p>现在让我们设计一些使用 aboveLevel 修饰符的函数<br />
+作为游戏，您得有一些措施激励玩家们去升级他们的僵尸：<br />
+2 级以上的僵尸，玩家可给他们改名<br />
+20 级以上的僵尸，玩家能给他们定制的 DNA<br />
 是实现这些功能的时候了。以下是上一课的示例代码，供参考：</p>
 <pre><code class="language-javascript">// 存储用户年龄的映射
 mapping (uint =&gt; uint) public age;
@@ -8580,15 +8580,15 @@ contract ZombieHelper is ZombieFeeding {
 }
 </code></pre>
 <h2 id="view-gas">利用 'View' 函数节省 Gas</h2>
-<p>酷炫！现在高级别僵尸可以拥有特殊技能了，这一定会鼓动我们的玩家去打怪升级的。你喜欢的话，回头我们还能添加更多的特殊技能
-现在需要添加的一个功能是：我们的 DApp 需要一个方法来查看某玩家的整个僵尸军团，我们称之为 getZombiesByOwner
+<p>酷炫！现在高级别僵尸可以拥有特殊技能了，这一定会鼓动我们的玩家去打怪升级的。你喜欢的话，回头我们还能添加更多的特殊技能<br />
+现在需要添加的一个功能是：我们的 DApp 需要一个方法来查看某玩家的整个僵尸军团，我们称之为 getZombiesByOwner<br />
 实现这个功能只需从区块链中读取数据，所以它可以是一个 view 函数。这让我们不得不回顾一下“gas优化”这个重要话题</p>
 <h3 id="view-gas_1">“view” 函数不花 “gas”</h3>
-<p>当玩家从外部调用一个view函数，是不需要支付一分 gas 的
-这是因为 view 函数不会真正改变区块链上的任何数据，它们只是读取。因此用 view 标记一个函数，意味着告诉 web3.js，运行这个函数只需要查询你的本地以太坊节点，而不需要在区块链上创建一个事务（事务需要运行在每个节点上，因此花费 gas）
-稍后我们将介绍如何在自己的节点上设置 web3.js。但现在，你关键是要记住，在所能只读的函数上标记上表示“只读”的“external view 声明，就能为你的玩家减少在 DApp 中 gas 用量
+<p>当玩家从外部调用一个view函数，是不需要支付一分 gas 的<br />
+这是因为 view 函数不会真正改变区块链上的任何数据，它们只是读取。因此用 view 标记一个函数，意味着告诉 web3.js，运行这个函数只需要查询你的本地以太坊节点，而不需要在区块链上创建一个事务（事务需要运行在每个节点上，因此花费 gas）<br />
+稍后我们将介绍如何在自己的节点上设置 web3.js。但现在，你关键是要记住，在所能只读的函数上标记上表示“只读”的“external view 声明，就能为你的玩家减少在 DApp 中 gas 用量<br />
 注意：<strong>如果一个 view 函数在另一个函数的内部被调用，而调用函数与 view 函数的不属于同一个合约，也会产生调用成本</strong>。这是因为如果主调函数在以太坊创建了一个事务，它仍然需要逐个节点去验证。所以标记为 view 的函数只有在外部调用时才是免费的</p>
-<p>我们来写一个”返回某玩家的整个僵尸军团“的函数。当我们从 web3.js 中调用它，即可显示某一玩家的个人资料页。
+<p>我们来写一个”返回某玩家的整个僵尸军团“的函数。当我们从 web3.js 中调用它，即可显示某一玩家的个人资料页。<br />
 这个函数的逻辑有点复杂，我们需要好几个章节来描述它的实现。</p>
 <ul>
 <li>创建一个名为 getZombiesByOwner 的新函数。它有一个名为 _owner 的 address 类型的参数</li>
@@ -8615,12 +8615,12 @@ contract ZombieHelper is ZombieFeeding {
 }
 </code></pre>
 <h2 id="_12">存储非常昂贵</h2>
-<p>Solidity 使用 storage(存储) 是相当昂贵的，”写入“操作尤其贵。
-这是因为，无论是写入还是更改一段数据， 这都将永久性地写入区块链。永久性啊！需要在全球数千个节点的硬盘上存入这些数据，随着区块链的增长，拷贝份数更多，存储量也就越大。这是需要成本的！
+<p>Solidity 使用 storage(存储) 是相当昂贵的，”写入“操作尤其贵。<br />
+这是因为，无论是写入还是更改一段数据， 这都将永久性地写入区块链。永久性啊！需要在全球数千个节点的硬盘上存入这些数据，随着区块链的增长，拷贝份数更多，存储量也就越大。这是需要成本的！<br />
 为了降低成本，不到万不得已，避免将数据写入存储。这也会导致效率低下的编程逻辑，比如每次调用一个函数，都需要在 memory(内存) 中重建一个数组，而不是简单地将上次计算的数组给存储下来以便快速查找。</p>
 <p>在大多数编程语言中，遍历大数据集合都是昂贵的。但是在 Solidity 中，使用一个标记了external view 的函数，遍历比 storage 要便宜太多，因为 view 函数不会产生任何花销（gas可是真金白银啊！）</p>
 <h3 id="_13">在内存中声明数组</h3>
-<p>在数组后面加上 memory 关键字， 表明这个数组是仅仅在内存中创建，不需要写入外部存储，并且在函数调用结束时它就解散了。与在程序结束时把数据保存进 storage 的做法相比，内存运算可以大大节省 gas 开销，把这数组放在view 里用，完全不用花钱。
+<p>在数组后面加上 memory 关键字， 表明这个数组是仅仅在内存中创建，不需要写入外部存储，并且在函数调用结束时它就解散了。与在程序结束时把数据保存进 storage 的做法相比，内存运算可以大大节省 gas 开销，把这数组放在view 里用，完全不用花钱。<br />
 以下是申明一个内存数组的例子：</p>
 <pre><code class="language-javascript">function getArray() external pure returns(uint[]) {
  // 初始化一个长度为3的内存数组
@@ -8665,17 +8665,17 @@ contract ZombieHelper is ZombieFeeding {
 }
 </code></pre>
 <h2 id="for">for循环</h2>
-<p>在之前的章节中，我们提到过，函数中使用的数组是运行时在内存中通过 for 循环实时构建，而不是预先建立在存储中的
-为什么要这样做呢？
-为了实现 getZombiesByOwner 函数，一种“无脑式”的解决方案是在 ZombieFactory 中存入”主人“和”僵尸军团“的映射
-<code>mapping (address =&gt; uint[]) public ownerToZombies</code>
+<p>在之前的章节中，我们提到过，函数中使用的数组是运行时在内存中通过 for 循环实时构建，而不是预先建立在存储中的<br />
+为什么要这样做呢？<br />
+为了实现 getZombiesByOwner 函数，一种“无脑式”的解决方案是在 ZombieFactory 中存入”主人“和”僵尸军团“的映射<br />
+<code>mapping (address =&gt; uint[]) public ownerToZombies</code><br />
 然后我们每次创建新僵尸时，执行 ownerToZombies [owner] .push（zombieId） 将其添加到主人的僵尸数组中，而 getZombiesByOwner 函数也非常简单：</p>
 <pre><code class="language-javascript">function getZombiesByOwner(address _owner) external view returns (uint[]) {
  return ownerToZombies[_owner];
 }
 </code></pre>
-<p><strong>这个做法有问题</strong>
-做法倒是简单。可是如果我们需要一个函数来把一头僵尸转移到另一个主人名下（我们一定会在后面的课程中实现的），又会发生什么？
+<p><strong>这个做法有问题</strong><br />
+做法倒是简单。可是如果我们需要一个函数来把一头僵尸转移到另一个主人名下（我们一定会在后面的课程中实现的），又会发生什么？<br />
 这个“换主”函数要做到：</p>
 <ol>
 <li>将僵尸push到新主人的 ownerToZombies 数组中</li>
@@ -8688,9 +8688,9 @@ contract ZombieHelper is ZombieFeeding {
 <blockquote>
 <p>注意：当然，我们也可以把数组中最后一个僵尸往前挪来填补空槽，并将数组长度减少一。但这样每做一笔交易，都会改变僵尸军团的秩序</p>
 </blockquote>
-<p>由于从外部调用一个 view 函数是免费的，我们也可以在 getZombiesByOwner 函数中用一个 for 循环遍历整个僵尸数组，把属于某个主人的僵尸挑出来构建出僵尸数组。那么我们的 transfer 函数将会便宜得多，因为我们不需要挪动存储里的僵尸数组重新排序，总体上这个方法会更便宜，虽然有点反直觉
-使用 for 循环
-for循环的语法在 Solidity 和 JavaScript 中类似。
+<p>由于从外部调用一个 view 函数是免费的，我们也可以在 getZombiesByOwner 函数中用一个 for 循环遍历整个僵尸数组，把属于某个主人的僵尸挑出来构建出僵尸数组。那么我们的 transfer 函数将会便宜得多，因为我们不需要挪动存储里的僵尸数组重新排序，总体上这个方法会更便宜，虽然有点反直觉<br />
+使用 for 循环<br />
+for循环的语法在 Solidity 和 JavaScript 中类似。<br />
 来看一个创建偶数数组的例子：</p>
 <pre><code class="language-javascript">function getEvens() pure external returns(uint[]) {
  uint[] memory evens = new uint[](5);

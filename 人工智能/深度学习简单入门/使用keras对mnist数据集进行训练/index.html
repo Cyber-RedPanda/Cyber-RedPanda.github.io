@@ -8017,22 +8017,22 @@
 <h2 id="kerasmnist">使用keras对mnist数据集进行训练</h2>
 <h2 id="mnist">修改mnist数据集从本地导入</h2>
 <p>找一下 mnist.py，在我这里就这俩，第二个就是</p>
-<p><img alt="image.png" src="../img/b3AAe7ZlPBJuppyE/1611558568221-fdc11cf7-3d27-443d-9164-25a74d7b877c-981580.png" />
+<p><img alt="image.png" src="../img/b3AAe7ZlPBJuppyE/1611558568221-fdc11cf7-3d27-443d-9164-25a74d7b877c-981580.png" /><br />
 找东西用的软件叫：listary</p>
 <p>把原来的 path 改为本地下好的路径</p>
 <p><img alt="image.png" src="../img/b3AAe7ZlPBJuppyE/1611558521759-bfd31919-3f91-442b-80f7-f8dad5cd1f65-487662.png" /></p>
 <p>参考：<a href="https://blog.csdn.net/wayne1000/article/details/102901960">https://blog.csdn.net/wayne1000/article/details/102901960</a></p>
 <h2 id="mnist_1">mnist数据集介绍</h2>
-<p>mnist 数据集分两部分：训练数据、测试数据
-训练数据分为：训练特征、训练标签
+<p>mnist 数据集分两部分：训练数据、测试数据<br />
+训练数据分为：训练特征、训练标签<br />
 测试数据分为：测试特征、测试标签</p>
-<p>使用 <code>mnist.load_data()</code> 导入数据集
+<p>使用 <code>mnist.load_data()</code> 导入数据集<br />
 可以给训练数据跟测试数据起个名字</p>
 <pre><code class="language-python">(train_image,train_label),(test_image,test_label) = mnist.load_data()
 </code></pre>
 <p>这样，train_image 就表示训练数据，通过 print 可以看出，训练数据一共有 60000 个</p>
 <p><img alt="image.png" src="../img/b3AAe7ZlPBJuppyE/1611573222012-b7f99aba-6022-468d-979b-06218202e0f6-064870.png" /></p>
-<p>可以使用
+<p>可以使用<br />
 train_image[0] 来查看训练数据中的第一个，这是像素值，因为是灰度图片，所以不是 r,g,b 那样三个值</p>
 <p><img alt="image.png" src="../img/b3AAe7ZlPBJuppyE/1611574975557-c29b461e-d55f-4f9c-8954-2355e3a63aff-852697.png" /></p>
 <p>可以编写一个函数，来查看图片</p>
@@ -8050,10 +8050,10 @@ print(&quot;训练图片标签&quot;,train_label.shape)
 <p><img alt="image.png" src="../img/b3AAe7ZlPBJuppyE/1611575573530-a9cd9474-8a54-457b-9549-1c3cb2249d31-274809.png" /></p>
 <h2 id="mlp">MLP多层感知器模型</h2>
 <p><img alt="image.png" src="../img/b3AAe7ZlPBJuppyE/1611795678169-b8f41768-ce90-45ef-84a7-61618d719b32-323415.png" /></p>
-<p>它是一种全连接的模型，上一层任何一个神经元与下一层的所有神经元都有连接
+<p>它是一种全连接的模型，上一层任何一个神经元与下一层的所有神经元都有连接<br />
 <a href="https://player.bilibili.com/player.html?bvid=BV1bx411M7Zx">点击查看【bilibili】</a></p>
 <h3 id="_1">数据预处理</h3>
-<p>现在的数据没法加载到模型中，因为输入层传入的数据只能是一维的那种数组数据，所以需要对数据进行处理
+<p>现在的数据没法加载到模型中，因为输入层传入的数据只能是一维的那种数组数据，所以需要对数据进行处理<br />
 首先转成一维的并且改为浮点型</p>
 <pre><code class="language-python">train_image_matric = train_image.reshape(60000, 784).astype(float)
 test_image_matric = test_image.reshape(10000, 784).astype(float)
@@ -8063,11 +8063,11 @@ test_image_matric = test_image.reshape(10000, 784).astype(float)
 <pre><code class="language-python">train_image_normalize = train_image_matric / 255
 test_image_normalize = test_image_matric / 255
 </code></pre>
-<p>把标签改为一位有效编码（独热编码）：通过使用 N 个状态寄存器来对 N 个状态进行编码
-因为我们仅仅是识别数字，直接用 10 个 0 和 1 组成的编码来判断是十种中的哪一种就可以
-0：1000000000
-1：0100000000
-2：0010000000
+<p>把标签改为一位有效编码（独热编码）：通过使用 N 个状态寄存器来对 N 个状态进行编码<br />
+因为我们仅仅是识别数字，直接用 10 个 0 和 1 组成的编码来判断是十种中的哪一种就可以<br />
+0：1000000000<br />
+1：0100000000<br />
+2：0010000000<br />
 ......</p>
 <pre><code class="language-python">train_label_onehotencoding = np_utils.to_categorical(train_label)
 test_label_onehotencoding = np_utils.to_categorical(test_label)
@@ -8078,9 +8078,9 @@ from keras.layers import Dense
 model = Sequential()
 </code></pre>
 <h3 id="_2">添加输入层与隐藏层之间的关系</h3>
-<p>units = 256 表示隐藏层有 256 个神经单元
-input_dim=784 表示输入层有 784 个神经单元
-kernel_initializer='normal' 表示采用正态分布的方式产生权重和偏差
+<p>units = 256 表示隐藏层有 256 个神经单元<br />
+input_dim=784 表示输入层有 784 个神经单元<br />
+kernel_initializer='normal' 表示采用正态分布的方式产生权重和偏差<br />
 activation='relu' 表示使用 relu 作为激活函数</p>
 <pre><code class="language-python">model.add(Dense(units = 256, input_dim=784, kernel_initializer='normal', activation='relu'))
 </code></pre>
@@ -8097,12 +8097,12 @@ activation='relu' 表示使用 relu 作为激活函数</p>
 <p>激活函数 softmax 让每个神经单元都会计算出当前样本属于本类的概率</p>
 <pre><code class="language-python">model.add(Dense(units=10, kernel_initializer='normal', activation='softmax'))
 </code></pre>
-<p>查看当前神经网络模型，每一层神经单元的关联数：<code>上一层神经单元个数*本层神经单元个数+本层神经单元个数</code>
+<p>查看当前神经网络模型，每一层神经单元的关联数：<code>上一层神经单元个数*本层神经单元个数+本层神经单元个数</code><br />
 200960 = 784*256+256</p>
 <p><img alt="image.png" src="../img/b3AAe7ZlPBJuppyE/1611805273447-d5d7b261-4d21-4780-962a-a08f41a338d6-374787.png" /></p>
 <h3 id="_4">配置训练模型</h3>
-<p>loss='categorical_crossentropy' 设置损失函数，预测值与真实值之间的误差称为：损失，用于计算损失的函数称为损失函数，通过损失函数来判断模型的好坏
-optimizer='adam' 设置优化器
+<p>loss='categorical_crossentropy' 设置损失函数，预测值与真实值之间的误差称为：损失，用于计算损失的函数称为损失函数，通过损失函数来判断模型的好坏<br />
+optimizer='adam' 设置优化器<br />
 metrics=['accuracy'] 目的是提高准确度</p>
 <pre><code class="language-python">model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 </code></pre>
@@ -8137,7 +8137,7 @@ plt.show()
 <p><img alt="image.png" src="../img/b3AAe7ZlPBJuppyE/1611825233370-53846931-8e51-471a-8afc-844ad4abe65a-786505.png" /></p>
 <p><img alt="image.png" src="../img/b3AAe7ZlPBJuppyE/1611825337387-308d06bd-a386-4f73-873e-e7f03438b3a2-361239.png" /></p>
 <h3 id="_6">验证模型准确率</h3>
-<p>之前说过 mnist 包含了 10000 个用来测试的数据，接下来用这些数据验证模型准确率
+<p>之前说过 mnist 包含了 10000 个用来测试的数据，接下来用这些数据验证模型准确率<br />
 <code>model.evaluate</code> 的两个参数分别是测试用的图片跟标签（经过预处理）</p>
 <pre><code class="language-python">scores = model.evaluate(test_image_normalize, test_label_onehotencoding)
 print(scores)
@@ -8162,21 +8162,21 @@ np.argmax(prediction)
 <h3 id="_8">导出模型</h3>
 <p><code>model.save('number_model.h5')</code></p>
 <h3 id="_9">提高精度</h3>
-<p>增加神经单元个数、增加训练次数等
+<p>增加神经单元个数、增加训练次数等<br />
 增加隐藏层，输入来自上层可以直接去掉</p>
 <pre><code class="language-python">model.add(Dense(units = 256, kernel_initializer='normal', activation='relu'))
 </code></pre>
 <h3 id="_10">解决过度拟合</h3>
 <p>值得注意的是随着训练次数的增加训练准确率很高了，但是验证准确率却越来越平，上不去了</p>
 <p><img alt="image.png" src="../img/b3AAe7ZlPBJuppyE/1611838270271-89a7183f-9dc5-4f8d-b35a-f3e1211be22d-988249.png" /></p>
-<p>为了解决这个问题，有一个简单粗暴的方法 Dropout，每次训练都随机忽略一部分神经单元
-要先：<code>from keras.layers import Dropout</code>
+<p>为了解决这个问题，有一个简单粗暴的方法 Dropout，每次训练都随机忽略一部分神经单元<br />
+要先：<code>from keras.layers import Dropout</code><br />
 然后在每层之间添加一个：<code>model.add(Dropout(0.5))</code></p>
 <p><img alt="image.png" src="../img/b3AAe7ZlPBJuppyE/1611837730663-ef28e737-3e4c-4671-9197-097d047cbb67-320986.png" /></p>
 <p>效果不错！</p>
 <h2 id="cnn">CNN卷积神经网络模型</h2>
 <p>卷积操作就是卷积核（kernal）跟输入数据每个值相乘再加起来得到的一个值作为输出</p>
-<p><img alt="1611888083053-0fda0e17-d1de-4acf-8b83-e34fb35038b6.gif" src="../img/b3AAe7ZlPBJuppyE/1611888083053-0fda0e17-d1de-4acf-8b83-e34fb35038b6-249853.gif" />
+<p><img alt="1611888083053-0fda0e17-d1de-4acf-8b83-e34fb35038b6.gif" src="../img/b3AAe7ZlPBJuppyE/1611888083053-0fda0e17-d1de-4acf-8b83-e34fb35038b6-249853.gif" /><br />
 图源：<a href="https://flat2010.github.io/2018/06/15/手算CNN中的参数">https://flat2010.github.io/2018/06/15/手算CNN中的参数</a></p>
 <h3 id="_11">数据预处理</h3>
 <p>在数据预处理上需要注意不再是一维的了，而要保持数组样式，是 28<em>28</em>1 的，其他的没差别</p>
@@ -8195,10 +8195,10 @@ from keras.layers import Conv2D, MaxPooling2D, Flatten #卷积层、池化层、
 model = Sequential()
 </code></pre>
 <h3 id="_12">添加卷积层</h3>
-<p>filters=16 表示有 16 个卷积核（也叫滤镜）
-kernel_size=(5,5) 表示卷积核的尺寸
-padding='same' 表示对原图片进行填充，使得输出能够保持和输入尺寸一致
-input_shape=(28,28,1) 输入的尺寸
+<p>filters=16 表示有 16 个卷积核（也叫滤镜）<br />
+kernel_size=(5,5) 表示卷积核的尺寸<br />
+padding='same' 表示对原图片进行填充，使得输出能够保持和输入尺寸一致<br />
+input_shape=(28,28,1) 输入的尺寸<br />
 activation='relu' 激活函数</p>
 <pre><code class="language-python">model.add(Conv2D(filters=16, kernel_size=(5,5), padding='same', input_shape=(28,28,1), activation='relu'))
 </code></pre>
@@ -8207,9 +8207,9 @@ activation='relu' 激活函数</p>
 <h3 id="_13">添加池化层</h3>
 <p>池化层也有一个池化核，但池化运算分为几种：</p>
 <blockquote>
-<p>最大池化核，取池化数据的最大值；
-平均池化核，取池化数据的平均值；
-最小池化核，取池化数据的最小值；
+<p>最大池化核，取池化数据的最大值；<br />
+平均池化核，取池化数据的平均值；<br />
+最小池化核，取池化数据的最小值；<br />
 L2池化核，取池化数据的L2范数；</p>
 </blockquote>
 <p>图示是最大池化过程</p>
@@ -8242,10 +8242,10 @@ model.add(Dropout(0.5))
 <p><img alt="image.png" src="../img/b3AAe7ZlPBJuppyE/1611893180013-9c1d7f2b-4f81-4001-a41f-d84ab8f4b99e-214340.png" /></p>
 <p>可以看到 CNN 比 MLP 不仅准确率提高了，在不加 Dropout 的情况下过度拟合现象也比 MLP 要小一些</p>
 <h2 id="_20">导入训练好的模型进行预测</h2>
-<p>还是先用之前的方法导出模型
+<p>还是先用之前的方法导出模型<br />
 <code>model.save('CNN_MNIST_model.h5')</code></p>
-<p>导入模型
-<code>load_model('CNN_MNIST_model.h5')</code>
+<p>导入模型<br />
+<code>load_model('CNN_MNIST_model.h5')</code><br />
 处理好数据之后调用 predict 函数就可以啦</p>
 <p><img alt="image.png" src="../img/b3AAe7ZlPBJuppyE/1611894920547-054d330d-f392-4f5d-a476-b89849b6878f-017178.png" /></p>
 <blockquote>

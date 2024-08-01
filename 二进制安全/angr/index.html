@@ -7575,28 +7575,28 @@
   <h1>Angr</h1>
 
 <h2 id="angr">angr</h2>
-<p>~~python3 的话版本要高于 3.6，这是 python2 的~~
+<p>~~python3 的话版本要高于 3.6，这是 python2 的~~<br />
 ~~<code>sudo apt-get install python-dev libffi-dev build-essential virtualenvwrapper</code>~~</p>
 <pre><code>export WORKON_HOME=~/Envs
 mkdir -p $WORKON_HOME
 source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 mkvirtualenv angr
 </code></pre>
-<p>~~在这个虚拟环境里面安装 angr~~
+<p>~~在这个虚拟环境里面安装 angr~~<br />
 ~~pip install angr~~</p>
-<p>~~这俩可能要单独安装一下~~
-~~pip install gitdb2==2.0.6~~
+<p>~~这俩可能要单独安装一下~~<br />
+~~pip install gitdb2==2.0.6~~<br />
 ~~pip install GitPython==2.1.14~~</p>
 <p><img alt="image.png" src="../img/M24ZzuH34vyx1yhS/1592618861848-f0e2771d-33b9-4292-8740-d624739ecb0f-775867.png" /></p>
-<p>~~<strong>进：mkvirtualenv angr </strong>~~
+<p>~~<strong>进：mkvirtualenv angr </strong>~~<br />
 ~~<strong>退：deactivate</strong>~~</p>
 <h2 id="_1">安装</h2>
 <p><strong>直接用 docker 吧！</strong></p>
 <h2 id="_2">例子</h2>
-<p>想要用 angr 的话先要 import angr
-p=angr.Project('文件名')，那以后再操作的时候就用 p 来表示了
-init_state = p.factory.entry_state()  定义一个入口的状态
-sm = p.factory.simulation_manager(init_state)  符号执行
+<p>想要用 angr 的话先要 import angr<br />
+p=angr.Project('文件名')，那以后再操作的时候就用 p 来表示了<br />
+init_state = p.factory.entry_state()  定义一个入口的状态<br />
+sm = p.factory.simulation_manager(init_state)  符号执行<br />
 sm.explore(find=0x8048678)  我们希望他能执行到这个地方</p>
 <p>拿深思杯一道 PWN 题举个例子，他需要先逆向找出一个 key，才能继续，可以用 angr 找一下</p>
 <p><img alt="image.png" src="../img/M24ZzuH34vyx1yhS/1592882428796-ea8bd7f7-36fd-4178-97e9-c99d7f1bfb1d-050219.png" /></p>

@@ -7883,7 +7883,7 @@
   <h1>搭建僵尸工厂</h1>
 
 <h2 id="_1">搭建僵尸工厂</h2>
-<p>我准备按照这个编一遍
+<p>我准备按照这个编一遍<br />
 下面内容中这样的是每一小节的任务</p>
 <ul>
 <li>任务一</li>
@@ -7892,12 +7892,12 @@
 <p><a href="https://cryptozombies.io/"><img alt="image.png" src="../img/igazddynlqrivvpf/1587686339536-48d0ba9b-0143-41ce-8756-d813c41636ae-942625.png" /></a></p>
 <h2 id="_2">搭建僵尸工厂</h2>
 <h3 id="_3">合约</h3>
-<p><strong>Solidity 的代码都包裹在合约里面。一份合约就是以太应币应用的基本模块</strong>， 所有的变量和函数都属于一份合约，它是你所有应用的起点。
+<p><strong>Solidity 的代码都包裹在合约里面。一份合约就是以太应币应用的基本模块</strong>， 所有的变量和函数都属于一份合约，它是你所有应用的起点。<br />
 一份名为 HelloWorld 的空合约如下</p>
 <pre><code class="language-javascript">contract HelloWorld {
 }
 </code></pre>
-<p>所有的 Solidity 源码都必须冠以 "version pragma" — 标明 Solidity 编译器的版本。以避免将来新的编译器可能破坏你的代码。
+<p>所有的 Solidity 源码都必须冠以 "version pragma" — 标明 Solidity 编译器的版本。以避免将来新的编译器可能破坏你的代码。<br />
 例如: pragma solidity ^0.4.19; (当前 Solidity 的最新版本是 0.4.19)。</p>
 <pre><code class="language-javascript">pragma solidity ^0.4.19;
 contract HelloWorld {
@@ -7915,7 +7915,7 @@ contract ZombieFactory{
 }
 </code></pre>
 <h3 id="_4">状态和变量</h3>
-<p>真棒！我们已经为我们的合约做了一个外壳， 下面学习 Solidity 中如何使用变量。
+<p>真棒！我们已经为我们的合约做了一个外壳， 下面学习 Solidity 中如何使用变量。<br />
 <strong>状态变量是被永久地保存在合约中,也就是说它们被写入以太币区块链中</strong>，想象成写入一个数据库。</p>
 <p>例子:</p>
 <pre><code class="language-javascript">contract Example {
@@ -7923,7 +7923,7 @@ contract ZombieFactory{
  uint myUnsignedInteger = 100;
 }
 </code></pre>
-<p>在上面的例子中，定义 myUnsignedInteger 为 uint 类型，并赋值100
+<p>在上面的例子中，定义 myUnsignedInteger 为 uint 类型，并赋值100<br />
 uint 无符号数据类型， 指其值不能是负数，对于有符号的整数存在名为 int 的数据类型。</p>
 <blockquote>
 <p>注: Solidity中， uint 实际上是 uint256代名词， 一个256位的无符号整数。你也可以定义位数少的uints — uint8， uint16， uint32， 等…… 但一般来讲你愿意使用简单的 uint， 除非在某些特殊情况下，这我们后面会讲。</p>
@@ -7941,12 +7941,12 @@ contract ZombieFactory {
 <h3 id="_5">数学运算</h3>
 <p>在 Solidity 中，数学运算很直观明了，与其它程序设计语言相同:</p>
 <blockquote>
-<p><strong>加法: x + y</strong>
-<strong>减法: x - y</strong>
-<strong>乘法: x * y</strong>
-<strong>除法: x / y</strong>
-<strong>取模 / 求余: x % y (例如, 13 % 5 余 3, 因为13除以5，余3)</strong>
-<strong>Solidity 还支持 乘方操作 (如：x 的 y次方）例如： 5 ** 2 = 25：</strong>
+<p><strong>加法: x + y</strong><br />
+<strong>减法: x - y</strong><br />
+<strong>乘法: x * y</strong><br />
+<strong>除法: x / y</strong><br />
+<strong>取模 / 求余: x % y (例如, 13 % 5 余 3, 因为13除以5，余3)</strong><br />
+<strong>Solidity 还支持 乘方操作 (如：x 的 y次方）例如： 5 ** 2 = 25：</strong><br />
 <strong><code>uint x = 5 ** 2; // equal to 5^2 = 25</code></strong></p>
 </blockquote>
 <p>为了保证我们的僵尸的DNA只含有16个字符，我们先造一个uint数据，让它等于10^16。这样一来以后我们可以用模运算符 % 把一个整数变成16位。</p>
@@ -7967,8 +7967,8 @@ contract ZombieFactory {
  string name;
 }
 </code></pre>
-<p>结构体允许你生成一个更复杂的数据类型，它有多个属性。
-注：我们刚刚引进了一个新类型，string。 字符串用于保存任意长度的 UTF-8 编码数据。
+<p>结构体允许你生成一个更复杂的数据类型，它有多个属性。<br />
+注：我们刚刚引进了一个新类型，string。 字符串用于保存任意长度的 UTF-8 编码数据。<br />
 如：<code>string greeting = "Hello world!"</code></p>
 <p>在我们的程序中，我们将创建一些僵尸！每个僵尸将拥有多个属性，所以这是一个展示结构体的完美例子。</p>
 <ul>
@@ -7988,20 +7988,20 @@ contract ZombieFactory {
 }
 </code></pre>
 <h3 id="_7">数组</h3>
-<p>如果你想建立一个集合，可以用 数组 这样的数据类型.Solidity 支持两种数组: 静态数组和动态数组
-固定长度为 2 的静态数组
-<code>uint[2] fixedArray;</code>
-固定长度为5的string类型的静态数组
-<code>string[5] stringArray;</code>
-动态数组，长度不固定，可以动态添加元素
-<code>uint[] dynamicArray;</code>
-你也可以建立一个 结构体类型的数组 例如，上一章提到的 Person:
-<code>Person[] people;</code>
+<p>如果你想建立一个集合，可以用 数组 这样的数据类型.Solidity 支持两种数组: 静态数组和动态数组<br />
+固定长度为 2 的静态数组<br />
+<code>uint[2] fixedArray;</code><br />
+固定长度为5的string类型的静态数组<br />
+<code>string[5] stringArray;</code><br />
+动态数组，长度不固定，可以动态添加元素<br />
+<code>uint[] dynamicArray;</code><br />
+你也可以建立一个 结构体类型的数组 例如，上一章提到的 Person:<br />
+<code>Person[] people;</code><br />
 这是动态数组，我们可以不断添加元素</p>
 <p>记住：<strong>状态变量被永久保存在区块链中，所以在你的合约中创建动态数组来保存成结构的数据是非常有意义的</strong></p>
-<p>公共数组
-你可以定义 public 数组，Solidity 会自动创建 getter 方法。语法如下:
-<code>Person[] public people;</code>
+<p>公共数组<br />
+你可以定义 public 数组，Solidity 会自动创建 getter 方法。语法如下:<br />
+<code>Person[] public people;</code><br />
 其它的合约可以从这个数组读取数据（但不能写入数据），所以这在合约中是一个有用的保存公共数据的模式。</p>
 <ul>
 <li>创建一个数据类型为 Zombie 的结构体数组，用 public 修饰，命名为：zombies.</li>
@@ -8023,9 +8023,9 @@ contract ZombieFactory {
 <pre><code class="language-javascript">function eatHamburgers(string _name, uint _amount) {
 }
 </code></pre>
-<p>这是一个名为 eatHamburgers 的函数，它接受两个参数：一个 string类型的和 一个 uint类型的。现在函数内部还是空的。
-注：: 习惯上函数里的变量都是以 _ 开头 (但不是硬性规定) 以区别全局变量。我们整个教程都会沿用这个习惯。
-我们的函数定义如下:
+<p>这是一个名为 eatHamburgers 的函数，它接受两个参数：一个 string类型的和 一个 uint类型的。现在函数内部还是空的。<br />
+注：: 习惯上函数里的变量都是以 _ 开头 (但不是硬性规定) 以区别全局变量。我们整个教程都会沿用这个习惯。<br />
+我们的函数定义如下:<br />
 <code>eatHamburgers("vitalik",100);</code></p>
 <ul>
 <li>建立一个函数 createZombie。 它有两个参数: _name (类型为string), 和 _dna (类型为uint)。</li>
@@ -8050,20 +8050,20 @@ contract ZombieFactory {
  string name;
 }
 </code></pre>
-<p><code>Person[] public people;</code>
-现在我们学习创建新的 Person 结构，然后把它加入到名为 people 的数组中
-创建一个新的Person：
-<code>Person satoshi = Person(172, "Satoshi");</code>
-将新创建的satoshi添加进people数组：
-<code>people.push(satoshi);</code>
-你也可以两步并一步，用一行代码更简洁：
-<code>people.push(Person(16, "Vitalik"));</code>
+<p><code>Person[] public people;</code><br />
+现在我们学习创建新的 Person 结构，然后把它加入到名为 people 的数组中<br />
+创建一个新的Person：<br />
+<code>Person satoshi = Person(172, "Satoshi");</code><br />
+将新创建的satoshi添加进people数组：<br />
+<code>people.push(satoshi);</code><br />
+你也可以两步并一步，用一行代码更简洁：<br />
+<code>people.push(Person(16, "Vitalik"));</code><br />
 <strong>array.push() 在数组的 尾部 加入新元素 ，所以元素在数组中的顺序就是我们添加的顺序</strong>， 如:</p>
 <blockquote>
-<p>uint[] numbers;
-numbers.push(5);
-numbers.push(10);
-numbers.push(15);
+<p>uint[] numbers;<br />
+numbers.push(5);<br />
+numbers.push(10);<br />
+numbers.push(15);<br />
 // numbers is now equal to [5, 10, 15]</p>
 </blockquote>
 <ul>
@@ -8085,16 +8085,16 @@ contract ZombieFactory {
 }
 </code></pre>
 <h3 id="_10">私有 / 公共函数</h3>
-<p>Solidity 定义的函数的属性默认为公共。 这就意味着任何一方 (或其它合约) 都可以调用你合约里的函数。
-显然，不是什么时候都需要这样，而且这样的合约易于受到攻击。 所以将自己的函数定义为私有是一个好的编程习惯，只有当你需要外部世界调用它时才将它设置为公共。
+<p>Solidity 定义的函数的属性默认为公共。 这就意味着任何一方 (或其它合约) 都可以调用你合约里的函数。<br />
+显然，不是什么时候都需要这样，而且这样的合约易于受到攻击。 所以将自己的函数定义为私有是一个好的编程习惯，只有当你需要外部世界调用它时才将它设置为公共。<br />
 如何定义一个私有的函数呢？</p>
 <pre><code class="language-javascript">uint[] numbers;
 function _addToArray(uint _number) private {
  numbers.push(_number);
 }
 </code></pre>
-<p>这意味着只有我们合约中的其它函数才能够调用这个函数，给 numbers 数组添加新成员。
-可以看到，在函数名字后面使用关键字 private 即可。和函数的参数类似，私有函数的名字用 _ 起始。
+<p>这意味着只有我们合约中的其它函数才能够调用这个函数，给 numbers 数组添加新成员。<br />
+可以看到，在函数名字后面使用关键字 private 即可。和函数的参数类似，私有函数的名字用 _ 起始。<br />
 我们合约的函数 createZombie 的默认属性是公共的，这意味着任何一方都可以调用它去创建一个僵尸。 咱们来把它变成私有吧！</p>
 <ul>
 <li>变 createZombie 为私有函数，不要忘记遵守命名的规矩哦</li>
@@ -8123,8 +8123,8 @@ function sayHello() public returns (string) {
 </code></pre>
 <p>Solidity 里，函数的定义里可包含返回值的数据类型(如本例中 string)</p>
 <h4 id="_13">函数的修饰符</h4>
-<p>上面的函数实际上没有改变 Solidity 里的状态，即它<strong>没有改变任何值或者写任何东西</strong>
-这种情况下我们<strong>可以把函数定义为 view, 意味着它只能读取数据不能更改数据：</strong>
+<p>上面的函数实际上没有改变 Solidity 里的状态，即它<strong>没有改变任何值或者写任何东西</strong><br />
+这种情况下我们<strong>可以把函数定义为 view, 意味着它只能读取数据不能更改数据：</strong><br />
 <code>function sayHello() public view returns (string) {}</code></p>
 <p>Solidity 还支持 pure 函数, 表明这个函数甚至都不访问应用里的数据，例如：</p>
 <pre><code class="language-javascript">function _multiply(uint a, uint b) private pure returns (uint) {
@@ -8160,12 +8160,12 @@ contract ZombieFactory {
 </code></pre>
 <h3 id="keccak256">Keccak256 和 类型转换</h3>
 <p>如何让 _generateRandomDna 函数返回一个全(半) 随机的 uint?</p>
-<p><strong>Ethereum 内部有一个散列函数 keccak256</strong>，它用了 SHA3 版本。<strong>一个散列函数基本上就是把一个字符串转换为一个256位的16进制数字</strong>。字符串的一个微小变化会引起散列数据极大变化
+<p><strong>Ethereum 内部有一个散列函数 keccak256</strong>，它用了 SHA3 版本。<strong>一个散列函数基本上就是把一个字符串转换为一个256位的16进制数字</strong>。字符串的一个微小变化会引起散列数据极大变化<br />
 例子:</p>
 <blockquote>
-<p>//6e91ec6b618bb462a4a6ee5aa2cb0e9cf30f7a052bb467b0ba58b8748c00d2e5
-keccak256("aaaab");
-//b1f078126895a1424524de5321b339ab00408010b7cf0e6ed451514981e58aa9
+<p>//6e91ec6b618bb462a4a6ee5aa2cb0e9cf30f7a052bb467b0ba58b8748c00d2e5<br />
+keccak256("aaaab");<br />
+//b1f078126895a1424524de5321b339ab00408010b7cf0e6ed451514981e58aa9<br />
 keccak256("aaaac");</p>
 </blockquote>
 <p>显而易见，输入字符串只改变了一个字母，输出就已经天壤之别了</p>
@@ -8206,19 +8206,19 @@ contract ZombieFactory {
 }
 </code></pre>
 <h4 id="_15">补充整理</h4>
-<p>uint8 -&gt; uint16
-小单位变到大单位，值不变
-uint16 -&gt; uint8
+<p>uint8 -&gt; uint16<br />
+小单位变到大单位，值不变<br />
+uint16 -&gt; uint8<br />
 大单位变到小单位，变为 原值 mod 256</p>
-<p>bytes8 -&gt; bytes16
-后面补0
-bytes16 -&gt; bytes8
+<p>bytes8 -&gt; bytes16<br />
+后面补0<br />
+bytes16 -&gt; bytes8<br />
 只取前面的 8 数</p>
-<p>address -&gt; uint
-按照 uint 的单位从地址后面开始截取对应长度
-address -&gt; bytes
+<p>address -&gt; uint<br />
+按照 uint 的单位从地址后面开始截取对应长度<br />
+address -&gt; bytes<br />
 按照 bytes 的单位从地址前面开始截取对应长度</p>
-<p>uint/bytes -&gt; address
+<p>uint/bytes -&gt; address<br />
 前面填充 0，直到符合 address 长度</p>
 <h3 id="_16">放在一起</h3>
 <p>我们就快完成我们的随机僵尸制造器了，来写一个公共的函数把所有的部件连接起来</p>
@@ -8252,8 +8252,8 @@ contract ZombieFactory {
 }
 </code></pre>
 <h3 id="_17">事件</h3>
-<p>我们的合约几乎就要完成了！让我们加上一个事件
-<strong>事件是合约和区块链通讯的一种机制。你的前端应用“监听”某些事件，并做出反应</strong>
+<p>我们的合约几乎就要完成了！让我们加上一个事件<br />
+<strong>事件是合约和区块链通讯的一种机制。你的前端应用“监听”某些事件，并做出反应</strong><br />
 例子：</p>
 <pre><code class="language-javascript">// 这里建立事件
 event IntegersAdded(uint x, uint y, uint result);

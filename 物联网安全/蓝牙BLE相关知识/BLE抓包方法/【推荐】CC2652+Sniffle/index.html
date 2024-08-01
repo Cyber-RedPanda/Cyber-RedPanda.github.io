@@ -7543,25 +7543,25 @@
   <h1>【推荐】CC2652+Sniffle</h1>
 
 <h2 id="cc2652sniffle">【推荐】CC2652+Sniffle</h2>
-<p>这是 NCC Group 开源的一个工具 Sniffle，项目地址：https://github.com/nccgroup/Sniffle
-:::info
-可以使用 python 脚本控制，可自定义程度比较高，而且 BLE 的链路层中继也是用这个做的
-:::
-想要使用这个工具需要购买相应的硬件，人家在 README 也写好了，最下面的应该就是最便宜的了，一两百块钱，其他的都得三四百
-<img alt="image.png" src="../img/N9HeOrt7eKqThKEu/1716172737751-b35878ca-9ff2-47ac-8885-06053756d136-818214.png" />
-买来工具之后需要刷固件，软件使用 Ti 自己的 UNIFLASH 工具，直接在这个链接下载安装即可 
-https://www.ti.com.cn/tool/cn/download/UNIFLASH/8.6.0
-安装好后把开发板插上会自动探测到设备，也可以在下面手动输入设备型号匹配一下，点击 Start 进入固件刷写步骤
-<img alt="image.png" src="../img/N9HeOrt7eKqThKEu/1716173305450-0ab44f34-ea5b-4468-ae92-8bdb1c3ee801-699901.png" />
-固件在 Sniffle 的 releases 页面 https://github.com/nccgroup/Sniffle/releases 下载自己型号的即可，比如我的是 sniffle_cc2652rb.hex，选择好固件，点击 Load Image 等待刷写完成即可
-<img alt="image.png" src="../img/N9HeOrt7eKqThKEu/1716173441927-c5c7b9fc-38ff-4639-aa43-879c1553d849-601485.png" />
-刷写完成后可以进入 python_cli 文件夹进行操作
-reset.py 就是用来重置的，没啥好说的
-<img alt="image.png" src="../img/N9HeOrt7eKqThKEu/1716173799043-a95c79b4-628c-472f-aa04-122e24b92f4c-675363.png" />
+<p>这是 NCC Group 开源的一个工具 Sniffle，项目地址：https://github.com/nccgroup/Sniffle<br />
+:::info<br />
+可以使用 python 脚本控制，可自定义程度比较高，而且 BLE 的链路层中继也是用这个做的<br />
+:::<br />
+想要使用这个工具需要购买相应的硬件，人家在 README 也写好了，最下面的应该就是最便宜的了，一两百块钱，其他的都得三四百<br />
+<img alt="image.png" src="../img/N9HeOrt7eKqThKEu/1716172737751-b35878ca-9ff2-47ac-8885-06053756d136-818214.png" /><br />
+买来工具之后需要刷固件，软件使用 Ti 自己的 UNIFLASH 工具，直接在这个链接下载安装即可 <br />
+https://www.ti.com.cn/tool/cn/download/UNIFLASH/8.6.0<br />
+安装好后把开发板插上会自动探测到设备，也可以在下面手动输入设备型号匹配一下，点击 Start 进入固件刷写步骤<br />
+<img alt="image.png" src="../img/N9HeOrt7eKqThKEu/1716173305450-0ab44f34-ea5b-4468-ae92-8bdb1c3ee801-699901.png" /><br />
+固件在 Sniffle 的 releases 页面 https://github.com/nccgroup/Sniffle/releases 下载自己型号的即可，比如我的是 sniffle_cc2652rb.hex，选择好固件，点击 Load Image 等待刷写完成即可<br />
+<img alt="image.png" src="../img/N9HeOrt7eKqThKEu/1716173441927-c5c7b9fc-38ff-4639-aa43-879c1553d849-601485.png" /><br />
+刷写完成后可以进入 python_cli 文件夹进行操作<br />
+reset.py 就是用来重置的，没啥好说的<br />
+<img alt="image.png" src="../img/N9HeOrt7eKqThKEu/1716173799043-a95c79b4-628c-472f-aa04-122e24b92f4c-675363.png" /><br />
 想要抓包的话可以是用 sniff_receiver.py 来操作，-m 可以指定 MAC 地址进行过滤，-o 指定保存的文件名</p>
 <pre><code>sniff_receiver.py -m 11:22:33:44:55:66 -o 1.pcapng
 </code></pre>
-<p><img alt="image.png" src="../img/N9HeOrt7eKqThKEu/1716173857048-b68e584d-880d-43be-8f4f-8b528e7432d4-087113.png" />
+<p><img alt="image.png" src="../img/N9HeOrt7eKqThKEu/1716173857048-b68e584d-880d-43be-8f4f-8b528e7432d4-087113.png" /><br />
 还有很多过滤选项</p>
 <pre><code>-r RSSI, --rssi RSSI           按最小 RSSI 过滤数据包
 -m MAC, --mac MAC              按广告商 MAC 过滤数据包

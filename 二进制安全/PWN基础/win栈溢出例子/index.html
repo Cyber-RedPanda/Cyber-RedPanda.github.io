@@ -7673,7 +7673,7 @@ main()
     fclose(fp);
 }
 </code></pre>
-<p>使用 Dependency walker 查看一下 user32.dll 的基址 0x77d10000 与 messagebox 的偏移 0x407ea
+<p>使用 Dependency walker 查看一下 user32.dll 的基址 0x77d10000 与 messagebox 的偏移 0x407ea<br />
 加起来就是 0x77D507EA</p>
 <p><img alt="image.png" src="../img/0tD1zFCPwVMOIy-0/1603372264924-3d700972-b80a-403b-8b53-c0cbb8804092-330557.png" /></p>
 <h2 id="shellcode">编写shellcode</h2>
@@ -7741,13 +7741,13 @@ main()
 </table>
 <pre><code>33DB53684841434B8BC453505053B8EA07D577FFD0
 </code></pre>
-<p>然后可以填入一堆 90（也就是 NOP）
+<p>然后可以填入一堆 90（也就是 NOP）<br />
 最后在 ret 的那个地方填入 0012FAF0（也就是栈顶），最终是这样的</p>
 <p><img alt="image.png" src="../img/0tD1zFCPwVMOIy-0/1603373942595-be08db1c-851b-46a6-a544-ec14fa54faa2-629247.png" /></p>
 <p><img alt="image.png" src="../img/0tD1zFCPwVMOIy-0/1603373876978-eec1a316-b45f-4998-92ec-1044f4de6317-099150.png" /></p>
 <h2 id="jmp-esp">jmp esp</h2>
-<p>直接填入栈顶是需要我们自己去找栈顶的地址的，可以用 jmp esp 让他自己跳转到 esp 去执行 shellcode
-可以用 <a href="https://bbs.pediy.com/thread-65240.htm">https://bbs.pediy.com/thread-65240.htm</a> 这个插件（评论区下载）找到
+<p>直接填入栈顶是需要我们自己去找栈顶的地址的，可以用 jmp esp 让他自己跳转到 esp 去执行 shellcode<br />
+可以用 <a href="https://bbs.pediy.com/thread-65240.htm">https://bbs.pediy.com/thread-65240.htm</a> 这个插件（评论区下载）找到<br />
 （OD 插件有上限，如果放进去之后 OD 打不开了可以先拿出几个插件来）</p>
 <p><img alt="image.png" src="../img/0tD1zFCPwVMOIy-0/1603375159943-cb5632a9-3582-4bce-97bc-5c3cfc6e1c43-821340.png" /></p>
 <p><img alt="image.png" src="../img/0tD1zFCPwVMOIy-0/1603375351327-f6dae35a-5ade-4d67-9518-189491e5d8f1-150501.png" /></p>

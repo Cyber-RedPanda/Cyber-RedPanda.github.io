@@ -7539,13 +7539,13 @@
   <h1>Jlink连接SWD时为何要接VREF</h1>
 
 <h2 id="jlinkswdvref">Jlink连接SWD时为何要接VREF</h2>
-<p>使用 ST-Link 时 SWD 接口只需要接 3 根线就够了，但是使用 Jlink 的时候直接三根线会连接不上，这时候需要把 VDD 接到 Jlink 的 VREF
-先来看一下官方给的定义是什么，VREF 是个目标参考电压，J-Link使用目标参考电压来创建调试信号的电平，这个VERF实际是给Jlink内部缓冲芯片供电的接口，Jlink使用它来检查目标是否具有功率
-<img alt="image.png" src="../img/-rd3cqdG_cvThMLK/1700732278103-6851a11f-ee8d-4e14-bfe8-286d2c2abb91-836527.png" />
-SWD 的 SWDIO 用于数据传输，SWCLK 用于时钟同步，GND 和 VREF 用于确保 SWD 接口的逻辑高电平和逻辑低电平与目标设备的工作电压相匹配，也是必须要接的，不然 SWD 可能找不到芯片
-可以通过直接在 Jlink 里面给他短接一个 3.3v 的方式来避免连接这个引脚，但是就局限住了
+<p>使用 ST-Link 时 SWD 接口只需要接 3 根线就够了，但是使用 Jlink 的时候直接三根线会连接不上，这时候需要把 VDD 接到 Jlink 的 VREF<br />
+先来看一下官方给的定义是什么，VREF 是个目标参考电压，J-Link使用目标参考电压来创建调试信号的电平，这个VERF实际是给Jlink内部缓冲芯片供电的接口，Jlink使用它来检查目标是否具有功率<br />
+<img alt="image.png" src="../img/-rd3cqdG_cvThMLK/1700732278103-6851a11f-ee8d-4e14-bfe8-286d2c2abb91-836527.png" /><br />
+SWD 的 SWDIO 用于数据传输，SWCLK 用于时钟同步，GND 和 VREF 用于确保 SWD 接口的逻辑高电平和逻辑低电平与目标设备的工作电压相匹配，也是必须要接的，不然 SWD 可能找不到芯片<br />
+可以通过直接在 Jlink 里面给他短接一个 3.3v 的方式来避免连接这个引脚，但是就局限住了<br />
 <img alt="image.png" src="../img/-rd3cqdG_cvThMLK/1700734211671-4f94dabc-a14b-4140-a128-dbdc1d621acc-066982.png" /></p>
-<p>参考：
+<p>参考：<br />
 <a href="https://webcache.googleusercontent.com/search?q=cache:bC0vBdOQSW0J:https://www.amobbs.com/thread-5602297-1-1.html&amp;hl=zh-CN">https://webcache.googleusercontent.com/search?q=cache:bC0vBdOQSW0J:https://www.amobbs.com/thread-5602297-1-1.html&amp;hl=zh-CN</a></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/scns6pq653rpc6rc">https://www.yuque.com/hxfqg9/iot/scns6pq653rpc6rc</a></p>

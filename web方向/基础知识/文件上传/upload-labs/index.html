@@ -7867,8 +7867,8 @@
   <h1>Upload labs</h1>
 
 <h2 id="upload-labs">upload-labs</h2>
-<p><a href="https://github.com/c0ny1/upload-labs">https://github.com/c0ny1/upload-labs</a>
-<img alt="mind-map.png" src="../img/w1TvFvOwLXgQ1VYQ/1715172176847-945a76e5-4856-4e1f-a935-b8834a4f8bf2-830195.png" />
+<p><a href="https://github.com/c0ny1/upload-labs">https://github.com/c0ny1/upload-labs</a><br />
+<img alt="mind-map.png" src="../img/w1TvFvOwLXgQ1VYQ/1715172176847-945a76e5-4856-4e1f-a935-b8834a4f8bf2-830195.png" /><br />
 <img alt="sum_up.png" src="../img/w1TvFvOwLXgQ1VYQ/1715172200214-b70447ac-64d6-41fa-84c8-6aeb5188b015-876611.png" /></p>
 <h2 id="pass-1">pass-1</h2>
 <pre><code class="language-javascript">function checkFile() {
@@ -7948,12 +7948,12 @@ if (isset($_POST['submit'])) {
 }
 
 </code></pre>
-<p>使用了黑名单，过滤掉了 asp、aspx、php、jsp，只要找一个能解析的替换掉就可以了
-这里正常来说是在 apache 的配置文件 httpd.conf 中设置的哪些可以解析才行的，但是我修改了却没起作用
+<p>使用了黑名单，过滤掉了 asp、aspx、php、jsp，只要找一个能解析的替换掉就可以了<br />
+这里正常来说是在 apache 的配置文件 httpd.conf 中设置的哪些可以解析才行的，但是我修改了却没起作用<br />
 <code>AddType application/x-httpd-php .php .phtml</code></p>
-<p>一些能解析的后缀：
-php、php3、php4、php5、php7、pht、phtml、phar、phps
-asp、aspx、cer、cdx、asa、asax
+<p>一些能解析的后缀：<br />
+php、php3、php4、php5、php7、pht、phtml、phar、phps<br />
+asp、aspx、cer、cdx、asa、asax<br />
 jsp、jspa、jspx</p>
 <h2 id="pass-4">pass-4</h2>
 <p>这里黑名单扩充了很多，把一些常见的都给写进去了</p>
@@ -7992,24 +7992,24 @@ if (isset($_POST['submit'])) {
 <p>的 .htaccess，他会把当前目录的 .jpg 当成 .php 来解析</p>
 <p><img alt="image.png" src="../img/w1TvFvOwLXgQ1VYQ/1594645572098-7bac98df-80a8-4cdc-853d-3dfc6ae0713f-009799.png" /></p>
 <h2 id="pass-5">pass-5</h2>
-<p>新版增加了一个第五关，没有过滤 .ini 文件
-在 .user.ini 文件中写入：<code>auto_prepend_file=yichen.jpg</code>
+<p>新版增加了一个第五关，没有过滤 .ini 文件<br />
+在 .user.ini 文件中写入：<code>auto_prepend_file=yichen.jpg</code><br />
 而 yichen.jpg 中的内容写的是一句话，这样再去访问任何一个 php 都会包含这个 yichen.jpg</p>
 <p><img alt="image.png" src="../img/w1TvFvOwLXgQ1VYQ/1594647866642-ff90fb94-9919-4916-8fb8-0b13415ed91f-611347.png" /></p>
 <h2 id="pass-6">pass-6</h2>
-<p>源码中把统一转换成小写去掉了，所以可以使用大小写绕过黑名单中的后缀名 .Php 就可以
+<p>源码中把统一转换成小写去掉了，所以可以使用大小写绕过黑名单中的后缀名 .Php 就可以<br />
 （可惜了这么长的黑名单了）</p>
 <pre><code class="language-php">&lt;?php
 $deny_ext = array(&quot;.php&quot;,&quot;.php5&quot;,&quot;.php4&quot;,&quot;.php3&quot;,&quot;.php2&quot;,&quot;.html&quot;,&quot;.htm&quot;,&quot;.phtml&quot;,&quot;.pht&quot;,&quot;.pHp&quot;,&quot;.pHp5&quot;,&quot;.pHp4&quot;,&quot;.pHp3&quot;,&quot;.pHp2&quot;,&quot;.Html&quot;,&quot;.Htm&quot;,&quot;.pHtml&quot;,&quot;.jsp&quot;,&quot;.jspa&quot;,&quot;.jspx&quot;,&quot;.jsw&quot;,&quot;.jsv&quot;,&quot;.jspf&quot;,&quot;.jtml&quot;,&quot;.jSp&quot;,&quot;.jSpx&quot;,&quot;.jSpa&quot;,&quot;.jSw&quot;,&quot;.jSv&quot;,&quot;.jSpf&quot;,&quot;.jHtml&quot;,&quot;.asp&quot;,&quot;.aspx&quot;,&quot;.asa&quot;,&quot;.asax&quot;,&quot;.ascx&quot;,&quot;.ashx&quot;,&quot;.asmx&quot;,&quot;.cer&quot;,&quot;.aSp&quot;,&quot;.aSpx&quot;,&quot;.aSa&quot;,&quot;.aSax&quot;,&quot;.aScx&quot;,&quot;.aShx&quot;,&quot;.aSmx&quot;,&quot;.cEr&quot;,&quot;.sWf&quot;,&quot;.swf&quot;,&quot;.htaccess&quot;);
 </code></pre>
 <h2 id="pass-7">pass-7</h2>
-<p>没有去除空格
+<p>没有去除空格<br />
 后缀名后面加上个空格就可以</p>
 <p><img alt="image.png" src="../img/w1TvFvOwLXgQ1VYQ/1594646298826-c9d32e2a-05c3-47e8-a601-a54f2590de9b-923226.png" /></p>
 <h2 id="pass-8">pass-8</h2>
 <p>没有去掉 . ，在文件名后面追加一个<code>.</code></p>
 <h2 id="pass-9">pass-9</h2>
-<p>代码里又去掉了 ::$DATA，所以在后缀加上 ::$DATA 绕过
+<p>代码里又去掉了 ::$DATA，所以在后缀加上 ::$DATA 绕过<br />
 （抓包的时候加上 ::$data，访问的时候不带着）</p>
 <h2 id="pass-10">pass-10</h2>
 <p><code>.空格.</code>绕过</p>
@@ -8025,9 +8025,9 @@ $deny_ext = array(&quot;.php&quot;,&quot;.php5&quot;,&quot;.php4&quot;,&quot;.ph
 <h2 id="pass-141516">pass-14/15/16</h2>
 <p>图片马，可以在前面加上个 GIF89a 伪装成 gif 的文件头或者直接在图片后面写上一句话，然后通过文件包含来利用</p>
 <h2 id="pass-17">pass-17</h2>
-<p>传上去的图片会再次渲染
-对于 gif 来说，只要传个正常的上去，然后下载下来对比看看那个地方没有变在那个没变的地方写一句话就可以
-对于 png 来说，有个脚本
+<p>传上去的图片会再次渲染<br />
+对于 gif 来说，只要传个正常的上去，然后下载下来对比看看那个地方没有变在那个没变的地方写一句话就可以<br />
+对于 png 来说，有个脚本<br />
 要安装 php-gd <code>apt-get -y install php-gd</code></p>
 <pre><code class="language-php">&lt;?php
 $p = array(0xa3, 0x9f, 0x67, 0xf7, 0x0e, 0x93, 0x1b, 0x23,

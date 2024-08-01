@@ -7616,8 +7616,8 @@
 <h2 id="unsorted-bin">Unsorted Bin</h2>
 <p>双向循环链表，先进先出，以下几种情况会分到 unsorted bin 中</p>
 <blockquote>
-<p>1、当一个较大的 chunk 被分割成两半后，如果剩下的部分大于 MINSIZE，就会被放到 unsorted bin 中
-2、释放一个不属于 fast bin 的 chunk，并且该 chunk 不和 top chunk 紧邻时，该 chunk 会被首先放到 unsorted bin 中
+<p>1、当一个较大的 chunk 被分割成两半后，如果剩下的部分大于 MINSIZE，就会被放到 unsorted bin 中<br />
+2、释放一个不属于 fast bin 的 chunk，并且该 chunk 不和 top chunk 紧邻时，该 chunk 会被首先放到 unsorted bin 中<br />
 3、当进行 malloc_consolidate 时，可能会把合并后的 chunk 放到 unsorted bin 中，如果不是和 top chunk 近邻的话</p>
 </blockquote>
 <h2 id="unsorted-bin-attack">unsorted bin attack</h2>
@@ -7650,8 +7650,8 @@ int main(){
     fprintf(stderr, &quot;%p: %p\n&quot;, &amp;stack_var, (void*)stack_var);
 }
 </code></pre>
-<p><code>gcc -g unsorted_bin_attack.c</code>
-分别在 10、13、16、19 下断点
+<p><code>gcc -g unsorted_bin_attack.c</code><br />
+分别在 10、13、16、19 下断点<br />
 然后运行，一开始先申请两个 chunk，第二个是为了防止与 top chunk 合并</p>
 <p><img alt="image.png" src="../img/o6-_OWrnqBc5_Hap/1597930574266-a2ff2303-386d-4f23-82f7-a60d78dc56cd-811356.png" /></p>
 <p>当 free之后，这个 chunk 的 fd、bk 都指向了 unsorted bin 的位置，因为 unsorted bin 是双向链表嘛</p>
@@ -7668,7 +7668,7 @@ bck-&gt;fd = unsorted_chunks (av);
 <p><img alt="image.png" src="../img/o6-_OWrnqBc5_Hap/1606572866040-8c8283f8-2e23-4716-8b13-ac2fc7f19447-011947.png" /></p>
 <p><img alt="image.png" src="../img/o6-_OWrnqBc5_Hap/1606572899992-2fc6079d-41af-4a93-af85-17b8ee334b7c-256039.png" /></p>
 <p>同时因为对于一个 chunk 来说 chunk 头是占据 0x10 大小的（也就是图中 address），所以 fd 正好是我们想要改的那个地址</p>
-<p><img alt="1597930824435-64316a8a-4378-441f-9726-24792698968d.png" src="../img/o6-_OWrnqBc5_Hap/1597930824435-64316a8a-4378-441f-9726-24792698968d-541843.png" />
+<p><img alt="1597930824435-64316a8a-4378-441f-9726-24792698968d.png" src="../img/o6-_OWrnqBc5_Hap/1597930824435-64316a8a-4378-441f-9726-24792698968d-541843.png" /><br />
 wiki的图示</p>
 <p><img alt="image.png" src="../img/o6-_OWrnqBc5_Hap/1601689629963-ed06c60a-cf08-4b7a-8861-7221d5867530-289833.png" /></p>
 <h2 id="hitcon-training-lab14-magic-heap">HITCON Training lab14 magic heap</h2>
@@ -7679,8 +7679,8 @@ wiki的图示</p>
 <p>在 insert 功能中创建的 chunk 的大小在 128 到 4096 之间</p>
 <p><img alt="image.png" src="../img/o6-_OWrnqBc5_Hap/1598004480060-20c9bec2-bdf9-4330-9c7e-1ff46b8a30d3-041210.png" /></p>
 <p>在 merge 功能中会把第一个给 free，然后合并，但是如果合并同一个就会造成 UAF</p>
-<p>使用 unsortedbin attack 把 global_max_fast 改成 unsortedbin 让它不管 chunk 有多大都认为是 fastbin，这样再用 fastbin attack
-（我他妈拍案叫绝）
+<p>使用 unsortedbin attack 把 global_max_fast 改成 unsortedbin 让它不管 chunk 有多大都认为是 fastbin，这样再用 fastbin attack<br />
+（我他妈拍案叫绝）<br />
 好像有点麻烦，先跳过去了</p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/bin/tubv6q">https://www.yuque.com/hxfqg9/bin/tubv6q</a></p>

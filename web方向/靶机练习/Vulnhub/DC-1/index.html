@@ -7564,15 +7564,15 @@
 <p><img alt="image.png" src="../img/551828_ut7zzdscl6550ub5/1584350826999-90054011-cbab-4849-8ee7-4db7070c58fa-569954.png" /></p>
 <p>cat 一下看看内容，告诉我们一个好的 cms 需要 config 文件，</p>
 <p><img alt="image.png" src="../img/551828_ut7zzdscl6550ub5/1584350871138-3730c6a9-002d-447a-ba43-59c1653de6d8-347261.png" /></p>
-<p>去找一下这个 config 文件，Drupal的默认配置文件为 /var/www/sites/default/settings.php
+<p>去找一下这个 config 文件，Drupal的默认配置文件为 /var/www/sites/default/settings.php<br />
 同时找到了 flag2 和 数据库的用户名与密码</p>
 <p><img alt="image.png" src="../img/551828_ut7zzdscl6550ub5/1584351124560-8bb67ac0-bc6c-4b73-b879-e1a022217cb7-525188.png" /></p>
 <p>连接不上，自闭? python -c "import pty;pty.spawn('/bin/bash')" 这样开一个交互试试，nice</p>
 <p><img alt="image.png" src="../img/551828_ut7zzdscl6550ub5/1584361261096-7a9646e3-51e9-40be-8aa3-dd92a4c8dfc3-694209.png" /></p>
 <p>select * from users;，发现了 admin ，以及他密码的 hash 值</p>
 <p><img alt="image.png" src="../img/551828_ut7zzdscl6550ub5/1584361486038-815063e7-6eb2-442e-a148-b6fc0d48a609-905573.png" /></p>
-<p><a href="http://drupalchina.cn/node/2128">http://drupalchina.cn/node/2128</a>
-参考这个方法，把密码给改成 yichen，拿到 hash 后去 mysql 里面替换就可以了
+<p><a href="http://drupalchina.cn/node/2128">http://drupalchina.cn/node/2128</a><br />
+参考这个方法，把密码给改成 yichen，拿到 hash 后去 mysql 里面替换就可以了<br />
 $S$DAowqHa2RDeEsjEuWpJWUE28BF0Hs4QjzoFsMRb8Qvz9Hl87oJKj</p>
 <p><img alt="image.png" src="../img/551828_ut7zzdscl6550ub5/1584362330675-dc5b21df-7cc6-4091-83d0-d4b214e518a5-097898.png" /></p>
 <p>update users set pass='$S$DAowqHa2RDeEsjEuWpJWUE28BF0Hs4QjzoFsMRb8Qvz9Hl87oJKj' where name='admin';</p>

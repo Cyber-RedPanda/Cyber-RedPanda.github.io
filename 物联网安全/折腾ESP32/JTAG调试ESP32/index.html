@@ -7541,34 +7541,34 @@
   <h1>JTAG调试ESP32</h1>
 
 <h2 id="jtagesp32">JTAG调试ESP32</h2>
-<p>硬件：jlink、esp32、杜邦线
+<p>硬件：jlink、esp32、杜邦线<br />
 软件：<a href="https://www.segger.com/downloads/jlink/JLink_Windows.exe">jlink</a>、<a href="https://zadig.akeo.ie/">zadig</a>、opencod-esp32</p>
-<p>先把正常的 jlink 驱动装好，插上 jlink 检查一下是不是识别到了设备
-<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1671615661586-3eea8fe6-bd72-4ae8-b85b-a3db2ce3beb7-263900.png" />
-然后运行 zadig，选择 Options
-<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1671615703006-96cf9e9f-3dc7-4953-8c23-df8d21fec37c-453529.png" />
-List All Devices 列出所有驱动
-<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1671615735171-eaeabd21-9372-4eb9-bd1d-2c278c1ca76b-670326.png" />
-此时效果如下，虽然显示的驱动时 jlink 的，但是这个是串口的，不是我们要的，不要改这个！
-<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1671615774525-9d6d2cef-4cd2-497d-bcc5-ce8a4481aa8a-990800.png" />
-选择 BULK 这一项，点击 Replace Driver
-<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1671615810945-04b95ab0-54a1-4642-8b40-0a85791da7cc-596249.png" />
-找到 esp32 开发环境中自带的 opencod.exe 所在的路径：C:\Espressif\tools\openocd-esp32\v0.11.0-esp32-20220706\openocd-esp32\bin
-<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1671617267222-1b561813-fd6d-4e1a-abbb-7bd0407d01ea-923037.png" />
-然后把 esp32.cfg（C:\Espressif\tools\openocd-esp32\v0.11.0-esp32-20220706\openocd-esp32\share\openocd\scripts\target\esp32.cfg）复制到当前 openocd 目录
-<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1671617974988-e36ba8ac-34e3-4613-8115-479e02305cb3-383666.png" />
-前面加上句：source [find interface/jlink.cfg]
-<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1671618057956-d713e659-4bec-4b19-994e-7cd2c1c38fe9-133402.png" />
-运行：openocd.exe -f interface/jlink.cfg -f ./esp32.cfg 发现报错：JTAG I/O operation failed: 0x1.
-<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1671618115693-0b6ff0a1-52da-4385-964d-d8b9e208d2c9-719382.png" />
-找一下 jlink.cfg（C:\Espressif\tools\openocd-esp32\v0.11.0-esp32-20220706\openocd-esp32\share\openocd\scripts\interface\jlink.cfg）编辑上一行 adapter speed 9600
-<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1671618216051-f3b6b6bc-0bcc-4ac6-a7e8-198cf1feaf96-826095.png" />
-在执行 openocd.exe -f interface/jlink.cfg -f ./esp32.cfg 就没问题了
-<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1671618234191-33bb0b76-aa85-4baf-9ee8-998e294b5c06-683393.png" />
-我们以 esp32 的示例程序 hello world 为例，找到例子中的 hello world 位置 C:\Espressif\frameworks\esp-idf-v4.4.3\examples\get-started\hello_world
-打开 ESP-IDF 切换到 hello_world 路径，使用 idf.py build 将 hello_world 编译出来，然后将 ESP32 插入电脑，使用 idf.py flash 将编译成功的 hello_world 烧录到 ESP32 中
-按照 ESP32 的引脚定义连接好 ESP32 的板子和 Jlink 设备上的针脚
-<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1678257977628-249df505-b61b-460a-b0ed-966bc7a6b7a9-925945.png" />
+<p>先把正常的 jlink 驱动装好，插上 jlink 检查一下是不是识别到了设备<br />
+<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1671615661586-3eea8fe6-bd72-4ae8-b85b-a3db2ce3beb7-263900.png" /><br />
+然后运行 zadig，选择 Options<br />
+<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1671615703006-96cf9e9f-3dc7-4953-8c23-df8d21fec37c-453529.png" /><br />
+List All Devices 列出所有驱动<br />
+<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1671615735171-eaeabd21-9372-4eb9-bd1d-2c278c1ca76b-670326.png" /><br />
+此时效果如下，虽然显示的驱动时 jlink 的，但是这个是串口的，不是我们要的，不要改这个！<br />
+<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1671615774525-9d6d2cef-4cd2-497d-bcc5-ce8a4481aa8a-990800.png" /><br />
+选择 BULK 这一项，点击 Replace Driver<br />
+<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1671615810945-04b95ab0-54a1-4642-8b40-0a85791da7cc-596249.png" /><br />
+找到 esp32 开发环境中自带的 opencod.exe 所在的路径：C:\Espressif\tools\openocd-esp32\v0.11.0-esp32-20220706\openocd-esp32\bin<br />
+<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1671617267222-1b561813-fd6d-4e1a-abbb-7bd0407d01ea-923037.png" /><br />
+然后把 esp32.cfg（C:\Espressif\tools\openocd-esp32\v0.11.0-esp32-20220706\openocd-esp32\share\openocd\scripts\target\esp32.cfg）复制到当前 openocd 目录<br />
+<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1671617974988-e36ba8ac-34e3-4613-8115-479e02305cb3-383666.png" /><br />
+前面加上句：source [find interface/jlink.cfg]<br />
+<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1671618057956-d713e659-4bec-4b19-994e-7cd2c1c38fe9-133402.png" /><br />
+运行：openocd.exe -f interface/jlink.cfg -f ./esp32.cfg 发现报错：JTAG I/O operation failed: 0x1.<br />
+<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1671618115693-0b6ff0a1-52da-4385-964d-d8b9e208d2c9-719382.png" /><br />
+找一下 jlink.cfg（C:\Espressif\tools\openocd-esp32\v0.11.0-esp32-20220706\openocd-esp32\share\openocd\scripts\interface\jlink.cfg）编辑上一行 adapter speed 9600<br />
+<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1671618216051-f3b6b6bc-0bcc-4ac6-a7e8-198cf1feaf96-826095.png" /><br />
+在执行 openocd.exe -f interface/jlink.cfg -f ./esp32.cfg 就没问题了<br />
+<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1671618234191-33bb0b76-aa85-4baf-9ee8-998e294b5c06-683393.png" /><br />
+我们以 esp32 的示例程序 hello world 为例，找到例子中的 hello world 位置 C:\Espressif\frameworks\esp-idf-v4.4.3\examples\get-started\hello_world<br />
+打开 ESP-IDF 切换到 hello_world 路径，使用 idf.py build 将 hello_world 编译出来，然后将 ESP32 插入电脑，使用 idf.py flash 将编译成功的 hello_world 烧录到 ESP32 中<br />
+按照 ESP32 的引脚定义连接好 ESP32 的板子和 Jlink 设备上的针脚<br />
+<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1678257977628-249df505-b61b-460a-b0ed-966bc7a6b7a9-925945.png" /><br />
 在 hello_world 文件夹创建一个 gdbinit 文件，内容为：</p>
 <pre><code class="language-c">target remote :3333
 set remote hardware-watchpoint-limit 2
@@ -7579,34 +7579,34 @@ c
 </code></pre>
 <p>对 gdbinit 每条指令做一个解释：</p>
 <blockquote>
-<p>target remote :3333 指定了连接的端口
-set remote hardware-watchpoint-limit 2 限制 GDB 仅使用 ESP32 支持的两个硬件观察点
-mon reset halt 复位芯片并使 CPU 停止运行
-flushregs 一种强制 GDB 从目标获取最新状态的方法
-thb app_main 在 app_main 处插入一个临时的硬件断点
+<p>target remote :3333 指定了连接的端口<br />
+set remote hardware-watchpoint-limit 2 限制 GDB 仅使用 ESP32 支持的两个硬件观察点<br />
+mon reset halt 复位芯片并使 CPU 停止运行<br />
+flushregs 一种强制 GDB 从目标获取最新状态的方法<br />
+thb app_main 在 app_main 处插入一个临时的硬件断点<br />
 c 恢复程序运行，它将会在 app_main 的断点处停止运行</p>
 </blockquote>
-<p>使用 xtensa-esp32-elf-gdb -x gdbinit .\build\hello_world.elf 调试程序，运行起来之后输入 c 就会断在源码文件的第 17 行
-<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1678259452228-e894debc-2174-49b2-a637-fd58d1d3ad45-691595.png" />
-<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1678259388771-cc3cdfcd-bb6e-4321-937f-dd44ae1c0bde-223193.png" />
-我们可以通过串口工具观察整个过程，先使用 b 22 给源码的第 22 行下一个断点
-<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1678259772748-ed831b2c-ef96-41ac-a79a-984c28bee713-697257.png" />
-然后输入 c 将会断到第 22 行，这时串口应该输出 Hello world! 这个串口信息，但不应该打印 This is xxx 这一段话，我们运行看看实际情况
-<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1678259906941-63bd54c9-3e45-47af-80f0-25897d787c99-428720.png" />
-到此调试是能调试了，怎么通过 opencode 提取固件呢，想要提取固件首先得知道你要提取的东西在内存中的位置与大小（其实大小也无所谓，你可以尽量大一点哈哈哈），我们看烧录过程中的日志：
-<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1678933719172-e6ad4d0f-8a46-456f-97cc-66958f77859c-890723.png" />
+<p>使用 xtensa-esp32-elf-gdb -x gdbinit .\build\hello_world.elf 调试程序，运行起来之后输入 c 就会断在源码文件的第 17 行<br />
+<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1678259452228-e894debc-2174-49b2-a637-fd58d1d3ad45-691595.png" /><br />
+<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1678259388771-cc3cdfcd-bb6e-4321-937f-dd44ae1c0bde-223193.png" /><br />
+我们可以通过串口工具观察整个过程，先使用 b 22 给源码的第 22 行下一个断点<br />
+<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1678259772748-ed831b2c-ef96-41ac-a79a-984c28bee713-697257.png" /><br />
+然后输入 c 将会断到第 22 行，这时串口应该输出 Hello world! 这个串口信息，但不应该打印 This is xxx 这一段话，我们运行看看实际情况<br />
+<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1678259906941-63bd54c9-3e45-47af-80f0-25897d787c99-428720.png" /><br />
+到此调试是能调试了，怎么通过 opencode 提取固件呢，想要提取固件首先得知道你要提取的东西在内存中的位置与大小（其实大小也无所谓，你可以尽量大一点哈哈哈），我们看烧录过程中的日志：<br />
+<img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1678933719172-e6ad4d0f-8a46-456f-97cc-66958f77859c-890723.png" /><br />
 然后使用命令将这一块的内存提取到 opencod 目录的 output.bin：</p>
 <pre><code class="language-c">openocd.exe -f interface/jlink.cfg -f ./esp32.cfg -c init -c &quot;reset halt&quot; -c &quot;flash read_bank 0 output.bin 0x10000 0x29c40&quot; -c &quot;reset&quot; -c shutdown
 </code></pre>
-<p><img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1678933882925-643f0fae-eae1-47c4-9aca-9c70313279c4-832448.png" />
+<p><img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1678933882925-643f0fae-eae1-47c4-9aca-9c70313279c4-832448.png" /><br />
 我们将提取出来的与 build 编译的固件计算一下 md5 值，可以看到两者 hash 相同，证明我们完美的提取了 hello_world.bin</p>
 <pre><code class="language-c">certutil -hashfile &lt;filename&gt; MD5
 </code></pre>
-<p><img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1678933904790-1f013858-5c04-4fae-ae06-ad58169b5133-104574.png" />
+<p><img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1678933904790-1f013858-5c04-4fae-ae06-ad58169b5133-104574.png" /><br />
 最后：esp32官方是有 esptool.py 能够直接提取固件的，命令如下</p>
 <pre><code class="language-c">esptool.py --baud 115200  read_flash 0x10000 0x29c40 output.bin
 </code></pre>
-<p>效果是一样的
+<p>效果是一样的<br />
 <img alt="image.png" src="../img/9wZqnwh98DfgfUuv/1678934233167-ce5a4a5c-8fb4-415c-b7fb-a47d5a090809-878140.png" /></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/kn7rl91t9e3k1zwy">https://www.yuque.com/hxfqg9/iot/kn7rl91t9e3k1zwy</a></p>

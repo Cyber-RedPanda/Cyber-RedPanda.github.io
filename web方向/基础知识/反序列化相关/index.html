@@ -7867,12 +7867,12 @@
 <h2 id="_1">反序列化相关</h2>
 <h2 id="_2">概念</h2>
 <p>数据（变量）序列化（持久化）</p>
-<p>将一个变量的数据“转换为”字符串，但并不是类型转换，目的是将该字符串存储在本地，相反的行为称为反序列化
+<p>将一个变量的数据“转换为”字符串，但并不是类型转换，目的是将该字符串存储在本地，相反的行为称为反序列化<br />
 序列化和反序列化目的是是的程序间传输对象会更加方便</p>
 <h2 id="_3">相关函数</h2>
-<p><strong>serialize()</strong>
+<p><strong>serialize()</strong><br />
 产生一个可存储的值的表示</p>
-<p><strong>unserialize()</strong>
+<p><strong>unserialize()</strong><br />
 从已存储的表示中创建php的值</p>
 <h2 id="php">php基础</h2>
 <p>关于 php 的类与对象</p>
@@ -7912,11 +7912,11 @@ $user1-&gt;print_data();
 echo serialize($user1);
 ?&gt;
 </code></pre>
-<p>结果：y1chen is 21 years old
+<p>结果：y1chen is 21 years old<br />
 O:4:"user":2:{s:4:"name";s:6:"y1chen";s:3:"age";i:21;}</p>
-<p>解释：O 表示对象，4 表示对象名的长度，后面跟的是对象名
-2 表示里面有两个变量
-s 表示变量是字符串，4 意思是变量名有 4 的长度，后面跟着的值的部分表示，一样
+<p>解释：O 表示对象，4 表示对象名的长度，后面跟的是对象名<br />
+2 表示里面有两个变量<br />
+s 表示变量是字符串，4 意思是变量名有 4 的长度，后面跟着的值的部分表示，一样<br />
 i 意思是变量赋的值是整形，值为 21</p>
 <h2 id="_5">反序列化</h2>
 <pre><code class="language-php">&lt;?php
@@ -7945,14 +7945,14 @@ $user2-&gt;print_data($user2);
 <p>![{Q9J${2WQL@H5`<a href="../img/551828_rek468mcdz89kezm/1564188975245-ec3dbeb3-716d-4bb5-80c6-91d2adc0a572-532088.png">3X75N6KI.png</a></p>
 <p>接下来我们自己写一下一些魔术方法，然后再调用一下一些函数，看看他们在什么时候调用了这些魔术方法</p>
 <blockquote>
-<p>to_string 条件比较多
-(1)echo ($obj) / print($obj) 打印时会触发
-(2)反序列化对象与字符串连接时
-(3)反序列化对象参与格式化字符串时
-(4)反序列化对象与字符串进行==比较时（PHP进行==比较的时候会转换参数类型）
-(5)反序列化对象参与格式化SQL语句，绑定参数时
-(6)反序列化对象在经过php字符串函数，如 strlen()、addslashes()时
-(7)在in_array()方法中，第一个参数是反序列化对象，第二个参数的数组中有toString返回的字符串的时候toString会被调用
+<p>to_string 条件比较多<br />
+(1)echo ($obj) / print($obj) 打印时会触发<br />
+(2)反序列化对象与字符串连接时<br />
+(3)反序列化对象参与格式化字符串时<br />
+(4)反序列化对象与字符串进行==比较时（PHP进行==比较的时候会转换参数类型）<br />
+(5)反序列化对象参与格式化SQL语句，绑定参数时<br />
+(6)反序列化对象在经过php字符串函数，如 strlen()、addslashes()时<br />
+(7)在in_array()方法中，第一个参数是反序列化对象，第二个参数的数组中有toString返回的字符串的时候toString会被调用<br />
 (8)反序列化的对象作为 class_exists() 的参数的时候</p>
 </blockquote>
 <h3 id="_7">例子</h3>
@@ -8068,10 +8068,10 @@ echo &quot;调用结束&lt;br&gt;&quot;;
 </code></pre>
 <p>执行一下，自己理解理解</p>
 <h3 id="_8">注意点</h3>
-<p>直接变量名反序列化出来的是 public 变量
-\x00+类名+\x00+变量名 反序列化出来是 private 变量
-\x00+*+\x00+变量名 反序列化出来是 protected 变量
-浏览器会不显示，用终端
+<p>直接变量名反序列化出来的是 public 变量<br />
+\x00+类名+\x00+变量名 反序列化出来是 private 变量<br />
+\x00+*+\x00+变量名 反序列化出来是 protected 变量<br />
+浏览器会不显示，用终端<br />
 在对象长度前面可以加符号（+-）</p>
 <h3 id="bypass-__wakeupcve-2016-7124">bypass __wakeup（CVE-2016-7124）</h3>
 <p>当序列化字符串中，如果表示对象属性的个数的值大于真实的属性个数时就会跳过 __wakeup 的执行</p>
@@ -8121,7 +8121,7 @@ echo urlencode(serialize($a));
 <h2 id="22020_phpweb">例2（2020网鼎杯朱雀组_PHPweb）</h2>
 <p>抓包发现了请求信息</p>
 <p><img alt="image.png" src="../img/551828_rek468mcdz89kezm/1630235980261-61c78273-ff64-47bc-bfdc-85089183d743-592493.png" /></p>
-<p>date 是一个 php 的函数，参数后面的，这里可以执行 php 的函数
+<p>date 是一个 php 的函数，参数后面的，这里可以执行 php 的函数<br />
 通过 func=file_get_contents&amp;p=index.php 读取 index.php 的源码如下：</p>
 <pre><code class="language-php">&lt;?php
     $disable_fun = array(&quot;exec&quot;,&quot;shell_exec&quot;,&quot;system&quot;,&quot;passthru&quot;,&quot;proc_open&quot;,&quot;show_source&quot;,&quot;phpinfo&quot;,&quot;popen&quot;,&quot;dl&quot;,&quot;eval&quot;,&quot;proc_terminate&quot;,&quot;touch&quot;,&quot;escapeshellcmd&quot;,&quot;escapeshellarg&quot;,&quot;assert&quot;,&quot;substr_replace&quot;,&quot;call_user_func_array&quot;,&quot;call_user_func&quot;,&quot;array_filter&quot;, &quot;array_walk&quot;,  &quot;array_map&quot;,&quot;registregister_shutdown_function&quot;,&quot;register_tick_function&quot;,&quot;filter_var&quot;, &quot;filter_var_array&quot;, &quot;uasort&quot;, &quot;uksort&quot;, &quot;array_reduce&quot;,&quot;array_walk&quot;, &quot;array_walk_recursive&quot;,&quot;pcntl_exec&quot;,&quot;fopen&quot;,&quot;fwrite&quot;,&quot;file_put_contents&quot;);
@@ -8365,8 +8365,8 @@ echo urlencode($pop);
 ?&gt;
 </code></pre>
 <h2 id="phar-php">利用 phar 拓展 php 反序列化漏洞</h2>
-<p><a href="https://paper.seebug.org/680">https://paper.seebug.org/680</a>
-phar 可以在没有 unserialize 函数的情况下去反序列化
+<p><a href="https://paper.seebug.org/680">https://paper.seebug.org/680</a><br />
+phar 可以在没有 unserialize 函数的情况下去反序列化<br />
 将 php.ini 中的 phar.readonly 选项设置为 Off，否则无法生成 phar 文件</p>
 <pre><code class="language-php">&lt;?php
     class TestObject {

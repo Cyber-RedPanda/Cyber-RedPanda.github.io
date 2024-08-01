@@ -7626,8 +7626,8 @@
 
 <h2 id="canctf">CAN总线CTF题目</h2>
 <h2 id="2020-teslaaaaa">2020网鼎杯 青龙组 teslaaaaa</h2>
-<p>附件需改为 zip，wp：https://blog.csdn.net/Breeze_CAT/article/details/106156567
-<a href="../attachments/_BkUtsfIWRKTOu0K/teslaaaaa.pdf">附件: teslaaaaa.pdf</a>
+<p>附件需改为 zip，wp：https://blog.csdn.net/Breeze_CAT/article/details/106156567<br />
+<a href="../attachments/_BkUtsfIWRKTOu0K/teslaaaaa.pdf">附件: teslaaaaa.pdf</a><br />
 给了一段 CAN 报文，通过报文数据可以很明显看出来是进行 UDS 诊断的，那就一点一点梳理一下整个流程</p>
 <pre><code>4.000621 1  7DF             Tx   d 8 02 3E 80 00 00 00 00 00  会话保持
 9.498709 1  7DF             Tx   d 8 02 10 02 AA AA AA AA AA  切换编程会话
@@ -7644,7 +7644,7 @@
 </code></pre>
 <pre><code>31 01 FF 00 44 08 00 00 00 00 00 20 00
 </code></pre>
-<p>其中 31 表示 RoutineControl 用来执行一些已经定义好的步骤序列也叫例程，他有三个子功能：01 表示开始，02 表示停止，03 表示获取结果；FF00 表示擦除 flash，44 表示后面两个参数的长度（第7至第4位: memorySize参数的长度，第3至第0位: memoryAddress参数的长度），也就是地址为：0x08000000，长度为：0x00002000
+<p>其中 31 表示 RoutineControl 用来执行一些已经定义好的步骤序列也叫例程，他有三个子功能：01 表示开始，02 表示停止，03 表示获取结果；FF00 表示擦除 flash，44 表示后面两个参数的长度（第7至第4位: memorySize参数的长度，第3至第0位: memoryAddress参数的长度），也就是地址为：0x08000000，长度为：0x00002000<br />
 请求下载 34，这个服务没有子功能，后面的 00 有厂商自定义，高半字节指定压缩法，低半字节指定加密法；再后面的 44 和上面一样是参数长度；请求下载地址为：0x08000000，长度为：0x00002000</p>
 <pre><code>9.791765 1  730             Tx   d 8 10 0B 34 00 44 08 00 00
 9.792061 1  7B0             Rx   d 8 30 08 00 00 00 00 00 00
@@ -7664,8 +7664,8 @@
 10.322633 1  730             Tx   d 8 04 31 01 FF 01 AA AA AA  这两条应该是后续的检查
 10.325697 1  7DF             Tx   d 8 02 11 01 AA AA AA AA AA  ECU复位
 </code></pre>
-<p>那就把这些过程性的东西删一删，然后把所有 RX 的数据也删掉，剩下的就是纯发数据的了
-<img alt="image.png" src="../img/_BkUtsfIWRKTOu0K/1716277300733-a9961a10-29b7-482b-b574-6a3a474f50d8-724390.png" />
+<p>那就把这些过程性的东西删一删，然后把所有 RX 的数据也删掉，剩下的就是纯发数据的了<br />
+<img alt="image.png" src="../img/_BkUtsfIWRKTOu0K/1716277300733-a9961a10-29b7-482b-b574-6a3a474f50d8-724390.png" /><br />
 用 python 过滤一下没用的字符和控制字段，输出为纯二进制文件</p>
 <pre><code class="language-python">f = open('ecu_can_log.asc', 'r')
 f1 = open('result', 'wb')

@@ -7577,32 +7577,32 @@
 <h2 id="_1">工具整理</h2>
 <p><strong>其中❎表示没有实际试过。✅表示实际试过</strong></p>
 <h3 id="crackle">✅crackle</h3>
-<p>用来解密 BLE Legacy Pairing 配对方式加密的流量包
-<a href="https://github.com/mikeryan/crackle">https://github.com/mikeryan/crackle</a> 
-<a href="https://github.com/yichen115/crackle">https://github.com/yichen115/crackle</a> 大佬不更新了，放一个自己缝合的版本
-如果编译报 pcap.h 没找到可以安装：
-<code>sudo apt-get install libpcap-dev</code>
+<p>用来解密 BLE Legacy Pairing 配对方式加密的流量包<br />
+<a href="https://github.com/mikeryan/crackle">https://github.com/mikeryan/crackle</a> <br />
+<a href="https://github.com/yichen115/crackle">https://github.com/yichen115/crackle</a> 大佬不更新了，放一个自己缝合的版本<br />
+如果编译报 pcap.h 没找到可以安装：<br />
+<code>sudo apt-get install libpcap-dev</code><br />
 主要用法：<code>crackle -i input.pcap -o decrypted.pcap</code></p>
 <h3 id="bluetooth-dos-attack-script">✅BLUETOOTH-DOS-ATTACK-SCRIPT</h3>
-<p>渗透测试为目的在蓝牙设备上进行快速简单的 DOS 攻击的脚本，借助 l2ping
+<p>渗透测试为目的在蓝牙设备上进行快速简单的 DOS 攻击的脚本，借助 l2ping<br />
 <a href="https://github.com/crypt0b0y/BLUETOOTH-DOS-ATTACK-SCRIPT">https://github.com/crypt0b0y/BLUETOOTH-DOS-ATTACK-SCRIPT</a></p>
 <h3 id="bt-ddos-tool">✅BT-ddos-tool</h3>
-<p>使用随机数据包溢出启用蓝牙的设备，导致设备崩溃，借助 L2CAP ping
+<p>使用随机数据包溢出启用蓝牙的设备，导致设备崩溃，借助 L2CAP ping<br />
 <a href="https://github.com/deadlysnowman3308/BT-ddos-tool">https://github.com/deadlysnowman3308/BT-ddos-tool</a></p>
 <h3 id="btlejuice">✅BtleJuice</h3>
-<p>GATT 层面的中继/中间人攻击
-<a href="https://github.com/DigitalSecurity/btlejuice">https://github.com/DigitalSecurity/btlejuice</a>
-原理是借助两个适配器 A/B，A 连接目标设备，遍历 GATT 服务与特性，B 伪造成目标设备，当用户去连接的时候连接上伪造的设备 B，用户发送 GATT 指令给 B 会通过网络转发给 A，再由 A 发送给目标设备，这期间可以修改 GATT 数据
+<p>GATT 层面的中继/中间人攻击<br />
+<a href="https://github.com/DigitalSecurity/btlejuice">https://github.com/DigitalSecurity/btlejuice</a><br />
+原理是借助两个适配器 A/B，A 连接目标设备，遍历 GATT 服务与特性，B 伪造成目标设备，当用户去连接的时候连接上伪造的设备 B，用户发送 GATT 指令给 B 会通过网络转发给 A，再由 A 发送给目标设备，这期间可以修改 GATT 数据<br />
 参考：<a href="https://www.yuque.com/hxfqg9/iot/owswf4">https://www.yuque.com/hxfqg9/iot/owswf4</a></p>
 <h3 id="gattacker">❎gattacker</h3>
-<p>与 BtleJuice 功能差不多，但是这个没搭建起来
+<p>与 BtleJuice 功能差不多，但是这个没搭建起来<br />
 <a href="https://github.com/securing/gattacker">https://github.com/securing/gattacker</a></p>
 <h3 id="blueranger">✅blueranger</h3>
-<p>它发送 l2cap（蓝牙）ping 以在蓝牙接口之间创建连接，因为大多数设备允许 ping 而无需任何身份验证或授权
-<a href="https://www.kali.org/tools/blueranger/">https://www.kali.org/tools/blueranger/</a>
+<p>它发送 l2cap（蓝牙）ping 以在蓝牙接口之间创建连接，因为大多数设备允许 ping 而无需任何身份验证或授权<br />
+<a href="https://www.kali.org/tools/blueranger/">https://www.kali.org/tools/blueranger/</a><br />
 网上有文章说这个是蓝牙强制连接的工具</p>
 <h3 id="braktooth">✅BrakTooth</h3>
-<p>用来模糊测试的工具，目前拿来对一个对一个蓝牙音箱进行攻击，出现了声音断断续续的情况，但是不能导致设备崩溃
+<p>用来模糊测试的工具，目前拿来对一个对一个蓝牙音箱进行攻击，出现了声音断断续续的情况，但是不能导致设备崩溃<br />
 <a href="https://github.com/Matheus-Garbelini/braktooth_esp32_bluetooth_classic_attacks">https://github.com/Matheus-Garbelini/braktooth_esp32_bluetooth_classic_attacks</a></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/fgkdi1vtwr7nxy69">https://www.yuque.com/hxfqg9/iot/fgkdi1vtwr7nxy69</a></p>

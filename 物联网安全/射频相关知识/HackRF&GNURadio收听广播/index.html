@@ -7541,76 +7541,76 @@
   <h1>HackRF&GNURadio收听广播</h1>
 
 <h2 id="hackrfgnu-radio">HackRF&amp;GNU Radio收听广播</h2>
-<p>安装 GNU Radio 直接在 github 下载 release 版本即可，我选择了 windows 版本的
-<a href="https://github.com/ryanvolz/radioconda/releases">Releases · ryanvolz/radioconda</a>
-安装完成后会有一个快捷方式 <img alt="image.png" src="../img/McAnh87myS8jAOVz/1665627378275-d5ac4d31-8675-4758-af2f-e0ecea3bb574-310778.png" />，点击打开即可
-打开后界面如下，右边是各种组件，后面所有组件都可以通过 ctrl+f 打开搜索框直接搜索名字，可以直接拖拽到左侧的流程图进行连线与配置
-<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665627442776-5e6c6460-f4ff-48c9-8937-8de8abb001c1-893624.png" />
-首先我们找到 osmocom Source，在新款的 GNU Radio 在 OsmoSDR 这个折叠目录下，osmocom Source 可以让我们与各种软件定义无线电设备进行通信
-<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665627544253-259620b4-1a07-4711-88c4-b3b4680de96b-323930.png" />
-将其直接拖拽到流程图界面，它作为一个 Source 会生成数据给后面的模块继续处理，这个模块的实际工作是通知 HackRF 工作于接收模式，采样获得的数据流从 HackRF 中流出，通过 USB 接口流入后面的模块
-<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665627787203-b987dff8-8ee0-4d80-adde-0960ccd16203-334077.png" />
-然后我们选择一个 QT GUI Frequency Sink 来采用一组浮点数据流绘制信号的功率谱密度PSD，将其拖拽到流程图区域
-<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665630683475-0e0dcdd3-f602-41e2-8a87-3389ab89f23d-602038.png" />
-点击 osmocom source 的 out 再点击 QT GUI Frequency Sink 的 in 就可以把两个模块连接起来，同时因为满足了输入输出的条件，这两个模块由原本的红色标题变为了黑色
-<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665646514823-841b62b9-8000-4eef-b4c9-d0c9ab443850-934649.png" />
-同时可以注意到两个模块都有一个共同的值 32k，如果右键模块选择 Properties 查看模块属性
-<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665647061241-6b75a7e5-fd94-455c-829c-7e8c12c0f8e5-749830.png" />
-会发现他们其实是用的是变量的名字
-<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665647170538-e7996e0d-7adf-46e2-8c80-9805392e9309-380561.png" />
-当我们修改变量的时候，他们就会随之改变<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665647251089-f5aff6a3-a448-410c-853d-f7a0f7abffd3-588157.png" />
-接下来修改一下 Ch0: Frequency（Hz），这一步可以先用手机自带的收音机搜索一下你附近比较清晰的广播，然后再在这里设置
-<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665647565703-361b2cbd-09c9-43f7-8911-56e56c425647-854992.png" />
-然后把 osmocom source 的 RF Gain 设置为 0 即关闭天线旁边的前端放大器，这个东西一般在接收微小信号时用到，其他的暂时保持默认，把 QT GUI Frequency Sink 的 Average 打开，新版本有高中低选项，我选了个中
-然后 ctrl+s 保存一下这个流程图，点击导航栏的开始摁扭即可运行
-<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665648170982-4a59db76-0f87-4ca8-8ad1-1d74c5404bb3-713936.png" />
-这里可以看到下面的 Frequency 表示的是与我们设定的 101.1 的偏移，接下来我们通过创建一个变量的方式让他直接显示频率
-<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665651777535-8362bcd6-c59e-4eb8-a8c4-8e420394ddc3-404791.png" />
-修改 Center Frequency（Hz）为想要起的变量名，这里为 center_freq，此时这里变红了，因为我们还没有设置这个变量，他没有找到
-<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665648776164-25cf3944-e68e-42b2-a0aa-8348b3fab0c5-779438.png" />
-接下来新建一个变量
-<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665648869016-d1a5412e-0be3-4b6a-ac54-3f42ea1949ce-510221.png" />
-然后设置为 101.1e6 同时把 Ch0: Frequency（Hz）也改成这个变量
-<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665649468519-126947f4-db0a-4c68-859e-226a2a356c7e-520821.png" />
-再次运行，可以看到，下面的频率已经变化了！！
-<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665651710541-d81d5a67-d859-4d68-82e5-b1ad3b0ba824-091031.png" />
-我们一开始就选择了一个准确的频率，但是原教程讲了一个进行偏移的方法（他嗅探到了好多个广播频道，但没有在正中间的）我们故意把 center_freq 改为其他的使用偏移的方式让最终的频率中心点在 101.1 上（这一改不要紧，为啥我的在选定的那里这么高啊，待解决的疑惑 Orz）
-<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665652144132-1a9369c0-ed16-446f-b16b-0d1f2f6a2254-539189.png" />
-新建一个变量，设置为想要的那一个频率
-<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665652690398-2d691482-ffcb-49dc-9af8-2f1dea607c3e-068253.png" />
-然后产生一个新的信号，这个新的信号使用 Signal Source 模块通过 CPU 生成
-<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665652756470-79412ff2-2190-43e5-8153-198a5f820747-881556.png" />
-并设置频率为 center_freq - channel_freq
-<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665653111171-ac5aee5e-515f-4bf8-bea5-704a81b3029d-449936.png" />
-然后找到 Multiply 模块，他的作用是点对点乘法，把一个信号乘以另一个信号
-<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665652565727-53e8e630-a84b-46c3-9e12-8fff5b29cb87-260490.png" />
-这里我们把他的两个输入信号分别设置为 HackRF 捕获的和 CPU 生成的
-<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665653184777-35e3501b-53d7-4591-b382-0e22d2490ddc-621270.png" />
-接下来我们复制一个 QT GUI Frequency Sink 并且把 Center Frequency（Hz）改为 channel_freq
-<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665653377227-ab405db5-8032-4e7e-863d-8ab93ac9e64f-970863.png" />
-再次运行流程图，可以看到两个，上面这个是我们处理后的，下面那个是 HackRF 捕获到的
-<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665653622981-1da756f1-eb6f-46fd-8fdf-ead132fa8867-453343.png" />
-接下来解调信号转为音频信号，首先要过滤一下，因为我们要的是 0Hz 附近的信号，找到 filter 中的 Low Pass Filter，然后把 Multiply 的输出输入到 Low Pass Filter 设置 Cutoff Freq 为 75e3，Transition Width 为 25e3
-<img alt="image.png" src="../img/McAnh87myS8jAOVz/1666003391531-b3ebe5d9-9808-43c3-ac40-0ce5391fca45-939932.png" />
-同时可以通过修改 Low Pass Filter 的 Decimation 降低采样率，降低多少倍取决于我们信号的带宽，我们现在带宽太大了，同时采样了多个广播。为了计算 Decimation 我们添加一个变量 channel_freq，表示带宽，FM电台的带宽是 200kHz，即 channel_freq 值应为 200e3，然后设置 Decimation 为 int(samp_rate/channel_width)
-整个过程是把每秒 10M 的采样点 Low Pass Filter，Low Pass Filter 会把采样率降低 50 倍，输出 200k 每秒的采样点
-<img alt="image.png" src="../img/McAnh87myS8jAOVz/1666005431825-bc19c6d3-9513-47a9-a479-df44be146083-292805.png" />
-接下来添加一个 Rational Resam pler ，对采样点乘上一个 12/5 的比值，我们这么做的原因是 12/5 不是一个整数而 Low Pass Filter 只能接收整数参数，但是我们需要使用非整数参数修改采样率
-<img alt="image.png" src="../img/McAnh87myS8jAOVz/1666062015304-e9f54ddf-5eb1-4028-b62a-b858393a448e-997907.png" />
-设置好之后添加一个 FM 解调器 WBFM Receive，把 FM 无线电信号（复数基带信号）转为实数音频信号，设置 WBFM 带宽调频，这是 FM 广播的调试方式，他只需要两个参数，输入采样率 Quadrature Rate：200k*12/5 = 480k，Audio Decimation 填写进一步降低的采样率倍数，这里填个 10
-一开始采样率是 10M，经过 Low Pass Filter 之后采样率变为 480k，再经过 WBFM Receive 降低 10 倍，最终输出 48k 每秒的数据给声卡
-<img alt="image.png" src="../img/McAnh87myS8jAOVz/1666065156588-952cf54e-c539-4012-b322-6f62a856c8eb-255722.png" />
-那么接下来我们加个声卡 Audio Sink，把他的采样率改为 48k，然后点击执行流程图即可收听到 92.3M 的广播了
-<img alt="image.png" src="../img/McAnh87myS8jAOVz/1666065314970-059d228f-d2ed-49b4-9599-1122c3ed7d94-336188.png" />
-接下来再给我们的收音机增加一个调节音量的选项，我们通过在 Audio Sink 之前乘以一个量来实现，需要把它的 IO Type 改为 float
-<img alt="image.png" src="../img/McAnh87myS8jAOVz/1666065796018-d5e948eb-e2aa-4138-8778-e2f7d5970ff2-707071.png" />
-我们还可以增加一个 QT GUI Range，以便通过滑动模块调节音量，这里如果设置调节的值大了就起不到调节音量的作用了，还会影响收听效果出现杂音，start、stop、step 这些含义很明显了，Widget 表示调节摁扭的效果，有滑动（Slider）、数值（Counter）、摁扭（Knob）等等
-<img alt="image.png" src="../img/McAnh87myS8jAOVz/1666088367601-b0a3c5d3-43fe-460c-996d-3051f6ee0f72-035742.png" />
-同时设置 Multiply Const 的值为 QT GUI Range 变量名
-<img alt="image.png" src="../img/McAnh87myS8jAOVz/1666088720614-6be44cbf-2bfc-471b-a7ad-516128c4b633-570888.png" />
-最终流程图如下：
-<img alt="image.png" src="../img/McAnh87myS8jAOVz/1666089006032-82751dca-3a58-4f93-ae75-18be08d79f06-949041.png" />
-效果如下
+<p>安装 GNU Radio 直接在 github 下载 release 版本即可，我选择了 windows 版本的<br />
+<a href="https://github.com/ryanvolz/radioconda/releases">Releases · ryanvolz/radioconda</a><br />
+安装完成后会有一个快捷方式 <img alt="image.png" src="../img/McAnh87myS8jAOVz/1665627378275-d5ac4d31-8675-4758-af2f-e0ecea3bb574-310778.png" />，点击打开即可<br />
+打开后界面如下，右边是各种组件，后面所有组件都可以通过 ctrl+f 打开搜索框直接搜索名字，可以直接拖拽到左侧的流程图进行连线与配置<br />
+<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665627442776-5e6c6460-f4ff-48c9-8937-8de8abb001c1-893624.png" /><br />
+首先我们找到 osmocom Source，在新款的 GNU Radio 在 OsmoSDR 这个折叠目录下，osmocom Source 可以让我们与各种软件定义无线电设备进行通信<br />
+<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665627544253-259620b4-1a07-4711-88c4-b3b4680de96b-323930.png" /><br />
+将其直接拖拽到流程图界面，它作为一个 Source 会生成数据给后面的模块继续处理，这个模块的实际工作是通知 HackRF 工作于接收模式，采样获得的数据流从 HackRF 中流出，通过 USB 接口流入后面的模块<br />
+<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665627787203-b987dff8-8ee0-4d80-adde-0960ccd16203-334077.png" /><br />
+然后我们选择一个 QT GUI Frequency Sink 来采用一组浮点数据流绘制信号的功率谱密度PSD，将其拖拽到流程图区域<br />
+<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665630683475-0e0dcdd3-f602-41e2-8a87-3389ab89f23d-602038.png" /><br />
+点击 osmocom source 的 out 再点击 QT GUI Frequency Sink 的 in 就可以把两个模块连接起来，同时因为满足了输入输出的条件，这两个模块由原本的红色标题变为了黑色<br />
+<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665646514823-841b62b9-8000-4eef-b4c9-d0c9ab443850-934649.png" /><br />
+同时可以注意到两个模块都有一个共同的值 32k，如果右键模块选择 Properties 查看模块属性<br />
+<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665647061241-6b75a7e5-fd94-455c-829c-7e8c12c0f8e5-749830.png" /><br />
+会发现他们其实是用的是变量的名字<br />
+<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665647170538-e7996e0d-7adf-46e2-8c80-9805392e9309-380561.png" /><br />
+当我们修改变量的时候，他们就会随之改变<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665647251089-f5aff6a3-a448-410c-853d-f7a0f7abffd3-588157.png" /><br />
+接下来修改一下 Ch0: Frequency（Hz），这一步可以先用手机自带的收音机搜索一下你附近比较清晰的广播，然后再在这里设置<br />
+<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665647565703-361b2cbd-09c9-43f7-8911-56e56c425647-854992.png" /><br />
+然后把 osmocom source 的 RF Gain 设置为 0 即关闭天线旁边的前端放大器，这个东西一般在接收微小信号时用到，其他的暂时保持默认，把 QT GUI Frequency Sink 的 Average 打开，新版本有高中低选项，我选了个中<br />
+然后 ctrl+s 保存一下这个流程图，点击导航栏的开始摁扭即可运行<br />
+<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665648170982-4a59db76-0f87-4ca8-8ad1-1d74c5404bb3-713936.png" /><br />
+这里可以看到下面的 Frequency 表示的是与我们设定的 101.1 的偏移，接下来我们通过创建一个变量的方式让他直接显示频率<br />
+<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665651777535-8362bcd6-c59e-4eb8-a8c4-8e420394ddc3-404791.png" /><br />
+修改 Center Frequency（Hz）为想要起的变量名，这里为 center_freq，此时这里变红了，因为我们还没有设置这个变量，他没有找到<br />
+<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665648776164-25cf3944-e68e-42b2-a0aa-8348b3fab0c5-779438.png" /><br />
+接下来新建一个变量<br />
+<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665648869016-d1a5412e-0be3-4b6a-ac54-3f42ea1949ce-510221.png" /><br />
+然后设置为 101.1e6 同时把 Ch0: Frequency（Hz）也改成这个变量<br />
+<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665649468519-126947f4-db0a-4c68-859e-226a2a356c7e-520821.png" /><br />
+再次运行，可以看到，下面的频率已经变化了！！<br />
+<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665651710541-d81d5a67-d859-4d68-82e5-b1ad3b0ba824-091031.png" /><br />
+我们一开始就选择了一个准确的频率，但是原教程讲了一个进行偏移的方法（他嗅探到了好多个广播频道，但没有在正中间的）我们故意把 center_freq 改为其他的使用偏移的方式让最终的频率中心点在 101.1 上（这一改不要紧，为啥我的在选定的那里这么高啊，待解决的疑惑 Orz）<br />
+<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665652144132-1a9369c0-ed16-446f-b16b-0d1f2f6a2254-539189.png" /><br />
+新建一个变量，设置为想要的那一个频率<br />
+<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665652690398-2d691482-ffcb-49dc-9af8-2f1dea607c3e-068253.png" /><br />
+然后产生一个新的信号，这个新的信号使用 Signal Source 模块通过 CPU 生成<br />
+<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665652756470-79412ff2-2190-43e5-8153-198a5f820747-881556.png" /><br />
+并设置频率为 center_freq - channel_freq<br />
+<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665653111171-ac5aee5e-515f-4bf8-bea5-704a81b3029d-449936.png" /><br />
+然后找到 Multiply 模块，他的作用是点对点乘法，把一个信号乘以另一个信号<br />
+<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665652565727-53e8e630-a84b-46c3-9e12-8fff5b29cb87-260490.png" /><br />
+这里我们把他的两个输入信号分别设置为 HackRF 捕获的和 CPU 生成的<br />
+<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665653184777-35e3501b-53d7-4591-b382-0e22d2490ddc-621270.png" /><br />
+接下来我们复制一个 QT GUI Frequency Sink 并且把 Center Frequency（Hz）改为 channel_freq<br />
+<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665653377227-ab405db5-8032-4e7e-863d-8ab93ac9e64f-970863.png" /><br />
+再次运行流程图，可以看到两个，上面这个是我们处理后的，下面那个是 HackRF 捕获到的<br />
+<img alt="image.png" src="../img/McAnh87myS8jAOVz/1665653622981-1da756f1-eb6f-46fd-8fdf-ead132fa8867-453343.png" /><br />
+接下来解调信号转为音频信号，首先要过滤一下，因为我们要的是 0Hz 附近的信号，找到 filter 中的 Low Pass Filter，然后把 Multiply 的输出输入到 Low Pass Filter 设置 Cutoff Freq 为 75e3，Transition Width 为 25e3<br />
+<img alt="image.png" src="../img/McAnh87myS8jAOVz/1666003391531-b3ebe5d9-9808-43c3-ac40-0ce5391fca45-939932.png" /><br />
+同时可以通过修改 Low Pass Filter 的 Decimation 降低采样率，降低多少倍取决于我们信号的带宽，我们现在带宽太大了，同时采样了多个广播。为了计算 Decimation 我们添加一个变量 channel_freq，表示带宽，FM电台的带宽是 200kHz，即 channel_freq 值应为 200e3，然后设置 Decimation 为 int(samp_rate/channel_width)<br />
+整个过程是把每秒 10M 的采样点 Low Pass Filter，Low Pass Filter 会把采样率降低 50 倍，输出 200k 每秒的采样点<br />
+<img alt="image.png" src="../img/McAnh87myS8jAOVz/1666005431825-bc19c6d3-9513-47a9-a479-df44be146083-292805.png" /><br />
+接下来添加一个 Rational Resam pler ，对采样点乘上一个 12/5 的比值，我们这么做的原因是 12/5 不是一个整数而 Low Pass Filter 只能接收整数参数，但是我们需要使用非整数参数修改采样率<br />
+<img alt="image.png" src="../img/McAnh87myS8jAOVz/1666062015304-e9f54ddf-5eb1-4028-b62a-b858393a448e-997907.png" /><br />
+设置好之后添加一个 FM 解调器 WBFM Receive，把 FM 无线电信号（复数基带信号）转为实数音频信号，设置 WBFM 带宽调频，这是 FM 广播的调试方式，他只需要两个参数，输入采样率 Quadrature Rate：200k*12/5 = 480k，Audio Decimation 填写进一步降低的采样率倍数，这里填个 10<br />
+一开始采样率是 10M，经过 Low Pass Filter 之后采样率变为 480k，再经过 WBFM Receive 降低 10 倍，最终输出 48k 每秒的数据给声卡<br />
+<img alt="image.png" src="../img/McAnh87myS8jAOVz/1666065156588-952cf54e-c539-4012-b322-6f62a856c8eb-255722.png" /><br />
+那么接下来我们加个声卡 Audio Sink，把他的采样率改为 48k，然后点击执行流程图即可收听到 92.3M 的广播了<br />
+<img alt="image.png" src="../img/McAnh87myS8jAOVz/1666065314970-059d228f-d2ed-49b4-9599-1122c3ed7d94-336188.png" /><br />
+接下来再给我们的收音机增加一个调节音量的选项，我们通过在 Audio Sink 之前乘以一个量来实现，需要把它的 IO Type 改为 float<br />
+<img alt="image.png" src="../img/McAnh87myS8jAOVz/1666065796018-d5e948eb-e2aa-4138-8778-e2f7d5970ff2-707071.png" /><br />
+我们还可以增加一个 QT GUI Range，以便通过滑动模块调节音量，这里如果设置调节的值大了就起不到调节音量的作用了，还会影响收听效果出现杂音，start、stop、step 这些含义很明显了，Widget 表示调节摁扭的效果，有滑动（Slider）、数值（Counter）、摁扭（Knob）等等<br />
+<img alt="image.png" src="../img/McAnh87myS8jAOVz/1666088367601-b0a3c5d3-43fe-460c-996d-3051f6ee0f72-035742.png" /><br />
+同时设置 Multiply Const 的值为 QT GUI Range 变量名<br />
+<img alt="image.png" src="../img/McAnh87myS8jAOVz/1666088720614-6be44cbf-2bfc-471b-a7ad-516128c4b633-570888.png" /><br />
+最终流程图如下：<br />
+<img alt="image.png" src="../img/McAnh87myS8jAOVz/1666089006032-82751dca-3a58-4f93-ae75-18be08d79f06-949041.png" /><br />
+效果如下<br />
 <img alt="image.png" src="../img/McAnh87myS8jAOVz/1666089127033-1e6caab0-7b22-49a4-9769-c3b7bdb64f5d-346733.png" /></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/vuzqs8">https://www.yuque.com/hxfqg9/iot/vuzqs8</a></p>

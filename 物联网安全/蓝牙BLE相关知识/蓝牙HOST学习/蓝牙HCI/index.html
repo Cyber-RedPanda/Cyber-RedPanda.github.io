@@ -7815,112 +7815,112 @@
 <h2 id="hci">蓝牙HCI</h2>
 <h2 id="hci_1">HCI概述</h2>
 <p>HCI 是 Host Controller Interface 的缩写，也就是说，他是 Host 和 Controller 之间的桥梁</p>
-<p>HCI COMMAND 是蓝牙协议栈发送个芯片的命令
-HCI EVENT 是蓝牙芯片上报给蓝牙协议栈的事件
-HCI ACL 是蓝牙协议栈与蓝牙芯片双向交互的普通数据
-HCI SCO 是蓝牙协议栈与蓝牙芯片双向交互的通话/语音识别数据
+<p>HCI COMMAND 是蓝牙协议栈发送个芯片的命令<br />
+HCI EVENT 是蓝牙芯片上报给蓝牙协议栈的事件<br />
+HCI ACL 是蓝牙协议栈与蓝牙芯片双向交互的普通数据<br />
+HCI SCO 是蓝牙协议栈与蓝牙芯片双向交互的通话/语音识别数据<br />
 HCI ISO 是 BLE audio，是 core5.2 才添加的</p>
 <h2 id="hci_2">HCI数据格式</h2>
 <p>HCI 数据格式如果没额外强调就是小端格式</p>
 <h3 id="hci-command-packet">HCI Command packet</h3>
-<p>HCI Command 的数据格式有两个字节的 Opcode，其中 OCF 占 10bit，OGF 占 6bit，一个字节的参数长度，剩下的是参数，因为参数长度用一个字节表示所以后面参数最大有 255 个，整个 Command 的长度最大就是 258
-<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667783528567-8cb14366-de58-4338-bcce-36cff3cf24f0-375469.png" />
-每一个命令去执行都有自己的 Opcode，这个 Opcode 是唯一的，OGF 是一个组，OCF 是组中的一个，在 HCI COMMANDS AND EVENTS 这个目录下面，每一个小标题都有一个 OGF，里面每个 command 都有自己的 OCF（另外还有个 0x3F 是给厂商预留能自己定义的）
-比如截图这里 LINK CONTROL 的 OGF 是 0x01，还有个 OCF 是 0x0001 的 Inquiry，他俩组合起来的 opcode 表示 HCI_Inquiry，其他的 command 道理是一样的
-<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667784095455-e3dec44b-256e-41d8-84d2-9dacfab6efba-814450.png" />
-接下来随便打开一个 hci log，看一下 hci_reset，wireshark 已经帮我们解析出来了，OGF 和 OCF 都是 3，并且他们是咋拼起来的也很清楚了，OGF 左移两位，然后和 OCF 拼起来
-<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667785070389-1b641f1c-47be-44cb-9898-adb13cd63d5a-928050.png" />
-按照 OGF 和 OCF 去找也能在核心规范里面找到
-<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667803603202-31ecc22c-a43e-4e5f-b1c2-ea3f19cab4ef-576121.png" />
-再找一个带参数的，看一下格式
-<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667804558276-282d5c1a-69db-41d8-b793-c3e2db695a2d-737634.png" />
-根据 OGF 和 OCF 在定位核心规范中定位
-<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667804776965-0a68f083-ee3b-4864-8888-fb742202f657-422723.png" />
+<p>HCI Command 的数据格式有两个字节的 Opcode，其中 OCF 占 10bit，OGF 占 6bit，一个字节的参数长度，剩下的是参数，因为参数长度用一个字节表示所以后面参数最大有 255 个，整个 Command 的长度最大就是 258<br />
+<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667783528567-8cb14366-de58-4338-bcce-36cff3cf24f0-375469.png" /><br />
+每一个命令去执行都有自己的 Opcode，这个 Opcode 是唯一的，OGF 是一个组，OCF 是组中的一个，在 HCI COMMANDS AND EVENTS 这个目录下面，每一个小标题都有一个 OGF，里面每个 command 都有自己的 OCF（另外还有个 0x3F 是给厂商预留能自己定义的）<br />
+比如截图这里 LINK CONTROL 的 OGF 是 0x01，还有个 OCF 是 0x0001 的 Inquiry，他俩组合起来的 opcode 表示 HCI_Inquiry，其他的 command 道理是一样的<br />
+<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667784095455-e3dec44b-256e-41d8-84d2-9dacfab6efba-814450.png" /><br />
+接下来随便打开一个 hci log，看一下 hci_reset，wireshark 已经帮我们解析出来了，OGF 和 OCF 都是 3，并且他们是咋拼起来的也很清楚了，OGF 左移两位，然后和 OCF 拼起来<br />
+<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667785070389-1b641f1c-47be-44cb-9898-adb13cd63d5a-928050.png" /><br />
+按照 OGF 和 OCF 去找也能在核心规范里面找到<br />
+<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667803603202-31ecc22c-a43e-4e5f-b1c2-ea3f19cab4ef-576121.png" /><br />
+再找一个带参数的，看一下格式<br />
+<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667804558276-282d5c1a-69db-41d8-b793-c3e2db695a2d-737634.png" /><br />
+根据 OGF 和 OCF 在定位核心规范中定位<br />
+<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667804776965-0a68f083-ee3b-4864-8888-fb742202f657-422723.png" /><br />
 一共有两个参数，一个是 BD_ADDR(蓝牙地址)，长度是 6 字节，一个是 Role(角色) 长度是 1 字节</p>
 <h3 id="hci-acl-data-packet">HCI ACL Data packet</h3>
-<p>牵扯到上层的数据就是 ACL 格式的，数据格式比较简单，首先是 12bit 的 Handle，这个是连接后生成的 connection handle
+<p>牵扯到上层的数据就是 ACL 格式的，数据格式比较简单，首先是 12bit 的 Handle，这个是连接后生成的 connection handle<br />
 <img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667807547873-e825f073-beac-4cfd-9948-f2d5b3c89dae-773738.png" /></p>
 <h3 id="hci-event-packet">HCI Event packet</h3>
-<p>相比 command event 比较简单，直接用 event code 来定位 event
-<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667823662449-f5ca49c6-7b98-4487-9087-63a18e2e371f-760825.png" />
-比如 HCI_Command_Status 的 event code 是 0xf
-<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667823878629-579320b5-d8ad-4559-8747-dc22581ecdca-399542.png" />
+<p>相比 command event 比较简单，直接用 event code 来定位 event<br />
+<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667823662449-f5ca49c6-7b98-4487-9087-63a18e2e371f-760825.png" /><br />
+比如 HCI_Command_Status 的 event code 是 0xf<br />
+<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667823878629-579320b5-d8ad-4559-8747-dc22581ecdca-399542.png" /><br />
 <img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667823853426-f7ef289c-ba46-447f-8ab2-c309bea5e5e9-302875.png" /></p>
 <h2 id="hci_3">HCI流控</h2>
-<p>流控，数据流控制，就是用来管理两个节点之间的数据的传输，防止出现一个节点数据缓冲区满了，另一个节点还在给他发数据导致数据丢失的情况
-controller 的流控：host 先发送 hci command 去读取 controller 的信息，controller会把包括节点的数量、每个节点的大小等发回给 host。正常开始发送数据的时候（假如 controller 有 8 个节点），host 发送一个，controller 会自己变为 7，等处理完这一个之后会发送一个 packet Completed event 给 host 同时变为 8 个
+<p>流控，数据流控制，就是用来管理两个节点之间的数据的传输，防止出现一个节点数据缓冲区满了，另一个节点还在给他发数据导致数据丢失的情况<br />
+controller 的流控：host 先发送 hci command 去读取 controller 的信息，controller会把包括节点的数量、每个节点的大小等发回给 host。正常开始发送数据的时候（假如 controller 有 8 个节点），host 发送一个，controller 会自己变为 7，等处理完这一个之后会发送一个 packet Completed event 给 host 同时变为 8 个<br />
 host 流控：host 主动发送 command 给 controller 告诉自己的信息，然后发送 set controller to host flow control。正常开始发数据的时候 controller 发给 host 数据，host 处理完会发一个 host number of completed packets</p>
 <h2 id="_1">蓝牙初始化流程</h2>
 <h3 id="csr8x11">CSR8X11</h3>
 <p>略</p>
 <h3 id="sig">SIG标准</h3>
-<p>HCI Reset 相当于芯片的软复位，OGF 是 0x03，OCF 也是 0x0003，他没有参数
-<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667875228479-fc4e9a6e-c27e-4267-8909-91f142711209-031773.png" />
-芯片会回复一个 Command Complete，他的 event code 是 0x0e，还有三个参数，Num_HCI_Command_Packets，1byte，对应 Number of Allowed Command Packets 表示可以发送数据包的数量
-Command Opcode 就是 command 的 opcode，Return_Parameters 对应 Status: Success (0x00) 表示状态
-<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667875911150-3dcea213-a944-47f2-bb0f-d448b0d3f228-141007.png" />
-Read Local Version Information 读取芯片版本，对应的 OGF 是 0x04，OCF 是 0x01，他返回的参数就比较多了
-<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667878884742-0cf5540e-39d8-42dc-b4c5-80f86e5acda7-047809.png" />
-主要是返回了蓝牙芯片的版本信息
-<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667879319470-d173a3c3-6135-4ffb-848b-b02a8aecfecd-301719.png" />
-这些版本对应的编号在：<a href="https://www.bluetooth.com/specifications/assigned-numbers/">Assigned Numbers | Bluetooth® Technology Website</a> 第七页中有定义，HCI Version 就是蓝牙协议的版本
-<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667886321895-fc05fb7e-4bf9-4a3c-bca1-46550eb3ca6e-379155.png" />
-Read Buffer Size，读取缓冲区大小 OGF 是 0x04，OCF 是 0x05，没有参数，缓冲区大小是流控用到的
-<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667887377435-2d2c57e4-1c22-4cd1-ae4f-cacee0a84c9c-363386.png" />
-Read BD ADDR 然后获取蓝牙地址，OGF 是 0x04，OCF 是 0x09，返回一个状态和一个蓝牙地址
-<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667887435172-29cb437f-6228-4faa-ad68-6996b8a4dc07-554960.png" />Write Class of Device 设置 Class of Device，OGF 是 0x03，OCF 是 0x024 用来标识设备类型，手机配对蓝牙设备的时候前面的耳机、键盘这种类型就是靠 cod 来标识的，详细见：<a href="https://blog.csdn.net/XiaoXiaoPengBo/article/details/108366776">蓝牙设备类型cod（蓝牙class of device介绍）_Wireless_Link的博客-CSDN博客_蓝牙设备类型</a>
-<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667887856763-b1f5bc64-7231-48c5-9052-a38c202d691a-566110.png" />
-Write Local Name 设置蓝牙设备的名字，OGF 是 0x03，OCF 是 0x013，有一个参数就是设备的名字
-<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667888868023-efeb84f8-9d02-47b3-b9e5-3ab5f419b3c9-655558.png" />
-Write Page Timeout 作用是给 controller 设置一个超时时间，当 controller 超过了这个时间还连接不上对端设备就给 host 上报
-<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667889231135-890482dc-f79f-4dfb-9404-d7146f6cc657-109962.png" />
-Set Event Mask 是 host 告诉 controller 想要接受哪些事件，不想接受哪些事件，controller 就只会上报 host 想接收的的事件
-<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667889802482-000ade79-f0c8-43cb-a9f7-aab49e47a2e6-446764.png" />
-Write Simple Pairing Mode 是设置 SSP 配对方式，如果 Simple Pairing Mode 是 disable 的话就是 PINCODE 方式，需要手动输入配对码；如果双方都是 Simple Pairing Mode enable 的话，会以弹出一个小窗口展示配对码，点击配对的形式
-<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667890374020-db010666-c121-4c8e-bf40-d860fd6c6a8a-753961.png" />
-Write Inquiry Mode 设置搜索模式有三种搜索模式
-第一种模式每个设备只上报一次标准信息，有蓝牙地址、cod 等，不管信号强度咋变，只上报一次
-第二种模式会在标准的蓝牙信息前提再带上信号强度 RSSI，会重复上报
-第三种模式会带 EIR 会带蓝牙名称、支持的 UUID 以及自定义的信息，会重复上报
-这个数据包就是告诉告诉芯片要第三种模式，对端支持的信息都要拿到 Inquiry Result with RSSI format or Extended Inquiry Result format
-<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667892404154-7f42dae2-0195-4bc3-adcd-bdc32dbc39ac-420364.png" />
-Write Scan Enable 设置 scan 模式，有两种模式，一个是 Inquiry Scan 一种是 Page Scan，只有开启了 Inquiry Scan 才能被搜索到，只有开启了 Page Scan 才能被连接，这里全部开启了，即可以被搜索和连接
-<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667893584755-7cf67c78-7da1-43d2-b4fa-55b5a4bfe142-616295.png" />
-Write LE Host Supported 这一步相当于是使能 LE
-<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667893879022-0159281e-2ee0-4dd9-917c-56013b89e9ef-373665.png" />
-Write LE Host Supported 设置 EIR 信息，这个东西之后具体学习
-<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667893952137-c4da328b-bf56-463b-b847-914a00cfec57-342311.png" />
-初始化到这里就算是结束了，再往下就是对端设备的连接请求了
+<p>HCI Reset 相当于芯片的软复位，OGF 是 0x03，OCF 也是 0x0003，他没有参数<br />
+<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667875228479-fc4e9a6e-c27e-4267-8909-91f142711209-031773.png" /><br />
+芯片会回复一个 Command Complete，他的 event code 是 0x0e，还有三个参数，Num_HCI_Command_Packets，1byte，对应 Number of Allowed Command Packets 表示可以发送数据包的数量<br />
+Command Opcode 就是 command 的 opcode，Return_Parameters 对应 Status: Success (0x00) 表示状态<br />
+<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667875911150-3dcea213-a944-47f2-bb0f-d448b0d3f228-141007.png" /><br />
+Read Local Version Information 读取芯片版本，对应的 OGF 是 0x04，OCF 是 0x01，他返回的参数就比较多了<br />
+<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667878884742-0cf5540e-39d8-42dc-b4c5-80f86e5acda7-047809.png" /><br />
+主要是返回了蓝牙芯片的版本信息<br />
+<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667879319470-d173a3c3-6135-4ffb-848b-b02a8aecfecd-301719.png" /><br />
+这些版本对应的编号在：<a href="https://www.bluetooth.com/specifications/assigned-numbers/">Assigned Numbers | Bluetooth® Technology Website</a> 第七页中有定义，HCI Version 就是蓝牙协议的版本<br />
+<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667886321895-fc05fb7e-4bf9-4a3c-bca1-46550eb3ca6e-379155.png" /><br />
+Read Buffer Size，读取缓冲区大小 OGF 是 0x04，OCF 是 0x05，没有参数，缓冲区大小是流控用到的<br />
+<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667887377435-2d2c57e4-1c22-4cd1-ae4f-cacee0a84c9c-363386.png" /><br />
+Read BD ADDR 然后获取蓝牙地址，OGF 是 0x04，OCF 是 0x09，返回一个状态和一个蓝牙地址<br />
+<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667887435172-29cb437f-6228-4faa-ad68-6996b8a4dc07-554960.png" />Write Class of Device 设置 Class of Device，OGF 是 0x03，OCF 是 0x024 用来标识设备类型，手机配对蓝牙设备的时候前面的耳机、键盘这种类型就是靠 cod 来标识的，详细见：<a href="https://blog.csdn.net/XiaoXiaoPengBo/article/details/108366776">蓝牙设备类型cod（蓝牙class of device介绍）_Wireless_Link的博客-CSDN博客_蓝牙设备类型</a><br />
+<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667887856763-b1f5bc64-7231-48c5-9052-a38c202d691a-566110.png" /><br />
+Write Local Name 设置蓝牙设备的名字，OGF 是 0x03，OCF 是 0x013，有一个参数就是设备的名字<br />
+<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667888868023-efeb84f8-9d02-47b3-b9e5-3ab5f419b3c9-655558.png" /><br />
+Write Page Timeout 作用是给 controller 设置一个超时时间，当 controller 超过了这个时间还连接不上对端设备就给 host 上报<br />
+<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667889231135-890482dc-f79f-4dfb-9404-d7146f6cc657-109962.png" /><br />
+Set Event Mask 是 host 告诉 controller 想要接受哪些事件，不想接受哪些事件，controller 就只会上报 host 想接收的的事件<br />
+<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667889802482-000ade79-f0c8-43cb-a9f7-aab49e47a2e6-446764.png" /><br />
+Write Simple Pairing Mode 是设置 SSP 配对方式，如果 Simple Pairing Mode 是 disable 的话就是 PINCODE 方式，需要手动输入配对码；如果双方都是 Simple Pairing Mode enable 的话，会以弹出一个小窗口展示配对码，点击配对的形式<br />
+<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667890374020-db010666-c121-4c8e-bf40-d860fd6c6a8a-753961.png" /><br />
+Write Inquiry Mode 设置搜索模式有三种搜索模式<br />
+第一种模式每个设备只上报一次标准信息，有蓝牙地址、cod 等，不管信号强度咋变，只上报一次<br />
+第二种模式会在标准的蓝牙信息前提再带上信号强度 RSSI，会重复上报<br />
+第三种模式会带 EIR 会带蓝牙名称、支持的 UUID 以及自定义的信息，会重复上报<br />
+这个数据包就是告诉告诉芯片要第三种模式，对端支持的信息都要拿到 Inquiry Result with RSSI format or Extended Inquiry Result format<br />
+<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667892404154-7f42dae2-0195-4bc3-adcd-bdc32dbc39ac-420364.png" /><br />
+Write Scan Enable 设置 scan 模式，有两种模式，一个是 Inquiry Scan 一种是 Page Scan，只有开启了 Inquiry Scan 才能被搜索到，只有开启了 Page Scan 才能被连接，这里全部开启了，即可以被搜索和连接<br />
+<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667893584755-7cf67c78-7da1-43d2-b4fa-55b5a4bfe142-616295.png" /><br />
+Write LE Host Supported 这一步相当于是使能 LE<br />
+<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667893879022-0159281e-2ee0-4dd9-917c-56013b89e9ef-373665.png" /><br />
+Write LE Host Supported 设置 EIR 信息，这个东西之后具体学习<br />
+<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1667893952137-c4da328b-bf56-463b-b847-914a00cfec57-342311.png" /><br />
+初始化到这里就算是结束了，再往下就是对端设备的连接请求了<br />
 如果只是想要被搜索到，下一个 HCI Reset、一个 Write Local Name、一个 Scan Enable 就足够了</p>
 <h2 id="ble-scan">BLE scan</h2>
 <h3 id="ble-scan_1">传统蓝牙与BLE Scan的差异</h3>
-<p>传统蓝牙分为 79 个信道，0 到 78，BLE 是 40个信道，0 到 39
-传统蓝牙搜索的话，对端设备要 write scan enable 我们才能扫描到，然后跳频也是在整个 79 个信道跳，我们扫描设备的时候要么遍历信道，要么也是随机扫，所以哪怕两个设备扫描到的时间也不固定
-BLE 为了弥补这个问题，把广播信道固定在了 37、38、39，之所以选这三个是为了避开同样在 2.4Ghz 的 WIFI 的 ch1、ch6、ch11 
-同时也没有 Inquiry Scan 这类的模式了，改成了 advertising
+<p>传统蓝牙分为 79 个信道，0 到 78，BLE 是 40个信道，0 到 39<br />
+传统蓝牙搜索的话，对端设备要 write scan enable 我们才能扫描到，然后跳频也是在整个 79 个信道跳，我们扫描设备的时候要么遍历信道，要么也是随机扫，所以哪怕两个设备扫描到的时间也不固定<br />
+BLE 为了弥补这个问题，把广播信道固定在了 37、38、39，之所以选这三个是为了避开同样在 2.4Ghz 的 WIFI 的 ch1、ch6、ch11 <br />
+同时也没有 Inquiry Scan 这类的模式了，改成了 advertising<br />
 同时传统蓝牙 inquiry 会通过设置 number 和 timeout 自动停止，但是 BLE 的 scan 不会停止，只能是通过上层修改 scan disable 才能停止</p>
-<p>在初始化过程中设置 Event Mask 的时候需要设置上 LE Meta，否则获取不到扫描的数据
-需要对 LE 的功能进行使能，Write LE Host Supported，OGF 是 0x03，OCF 是 0x006D，本来有两个参数，但是有一个弃用了，现在只需要关注 LE_Supported_Host 这个参数就行了
-<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1672461554945-dadca3d4-a345-43e7-b056-1e111435c0f6-297619.png" />
-设置扫描的参数 LE Set Scan Parameters，其中 LE_Scan_Interval 表示一次扫描总共花费的时间，LE_Scan_Window 表示一次扫描中真实扫描的时间
-<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1672463224659-5df66430-ebf1-4c0b-bbf6-777a708d174a-590361.png" />
+<p>在初始化过程中设置 Event Mask 的时候需要设置上 LE Meta，否则获取不到扫描的数据<br />
+需要对 LE 的功能进行使能，Write LE Host Supported，OGF 是 0x03，OCF 是 0x006D，本来有两个参数，但是有一个弃用了，现在只需要关注 LE_Supported_Host 这个参数就行了<br />
+<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1672461554945-dadca3d4-a345-43e7-b056-1e111435c0f6-297619.png" /><br />
+设置扫描的参数 LE Set Scan Parameters，其中 LE_Scan_Interval 表示一次扫描总共花费的时间，LE_Scan_Window 表示一次扫描中真实扫描的时间<br />
+<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1672463224659-5df66430-ebf1-4c0b-bbf6-777a708d174a-590361.png" /><br />
 还要使能 LE Set Scan Enable</p>
 <h3 id="ble_scan-hci">BLE_Scan HCI 解析</h3>
-<p>返回的结果是在 LE Meta Event 中的 LE Advertising Report event，因此又多了个 Subevent Code 的概念，LE Meta Event Code 是 0x3E，LE Advertising Report Subevent Code 是 0x02
-后面跟一个 Num_Reports，表示上报的数量，但一般都是一个一个报的
-Event_Type 这个字段就表示扫描到的设备广播的类型（可搜索可连接的非定向广播 0x00、可连接的定向广播 0x01、可扫描的非定向广播 0x02、不可连接的非定向广播 0x03）
-Address_Type 是地址类型，正常来说安卓都是 random 地址
-<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1672468128647-822e47b3-2fd2-416d-a147-be00a86a4c34-752304.png" />
+<p>返回的结果是在 LE Meta Event 中的 LE Advertising Report event，因此又多了个 Subevent Code 的概念，LE Meta Event Code 是 0x3E，LE Advertising Report Subevent Code 是 0x02<br />
+后面跟一个 Num_Reports，表示上报的数量，但一般都是一个一个报的<br />
+Event_Type 这个字段就表示扫描到的设备广播的类型（可搜索可连接的非定向广播 0x00、可连接的定向广播 0x01、可扫描的非定向广播 0x02、不可连接的非定向广播 0x03）<br />
+Address_Type 是地址类型，正常来说安卓都是 random 地址<br />
+<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1672468128647-822e47b3-2fd2-416d-a147-be00a86a4c34-752304.png" /><br />
 Manufacturer Specific Data 里面的数据是厂商自定义的，会带一些厂商 id，主要是用来识别设备的，比如你的蓝牙耳机打开盒子之后手机上会弹出一个窗口，会问你是不是要连接这个耳机之类的</p>
 <h2 id="ble">BLE 广播</h2>
-<p>核心的三条命令，Set Advertising Parameters 设置广播的参数（广播行为是什么）
-<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1674884034133-3c267bdf-e57d-41ba-8150-d554aae1bb4d-300319.png" />
-Set Advertising Data 设置广播的数据（广播什么数据）
-<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1674884046265-334890fe-e2f8-4f1a-a9a0-91d202300dc7-104694.png" />
-Set Advertising Enable 使能广播
+<p>核心的三条命令，Set Advertising Parameters 设置广播的参数（广播行为是什么）<br />
+<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1674884034133-3c267bdf-e57d-41ba-8150-d554aae1bb4d-300319.png" /><br />
+Set Advertising Data 设置广播的数据（广播什么数据）<br />
+<img alt="image.png" src="../img/yLfXGPxuELH21MSv/1674884046265-334890fe-e2f8-4f1a-a9a0-91d202300dc7-104694.png" /><br />
+Set Advertising Enable 使能广播<br />
 <img alt="image.png" src="../img/yLfXGPxuELH21MSv/1674884059375-2dc86e85-cd85-4c3b-a9a1-4594a176663d-106959.png" /></p>
-<p>因为在 BLE5.0 之前 Advertising Data 只能放 31 byte 的数据，如果东西一多就放不下来了。因此引入了一个 scan response 的概念，这里面的数据就是被扫描到之后才会给的
-如果设备使用主动扫描会发送 ScanReq，且目标注册了 Set Scan Response Data 的话，就能同时把 advertising data 和 scan response data 扫描出来
+<p>因为在 BLE5.0 之前 Advertising Data 只能放 31 byte 的数据，如果东西一多就放不下来了。因此引入了一个 scan response 的概念，这里面的数据就是被扫描到之后才会给的<br />
+如果设备使用主动扫描会发送 ScanReq，且目标注册了 Set Scan Response Data 的话，就能同时把 advertising data 和 scan response data 扫描出来<br />
 如果使用被动扫描，就只会收到 advertising data 了</p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/mup763">https://www.yuque.com/hxfqg9/iot/mup763</a></p>

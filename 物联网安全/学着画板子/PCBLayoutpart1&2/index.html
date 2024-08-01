@@ -7541,40 +7541,40 @@
   <h1>PCBLayoutpart1&2</h1>
 
 <h2 id="pcb-layout-part12">PCB Layout part1&amp;2</h2>
-<p>在 Projects 中添加 PCB
-<img alt="image.png" src="../img/FGUErqy8JdCb0dmR/1679876321579-1d4363c8-962f-4b24-8e01-b391c5cbcad9-234254.png" />
-保存好后点击设计 -&gt; Import Changes From xxxxx.PrjPcb 将原理图中编辑好的元器件和连接关系导入进来
-<img alt="image.png" src="../img/FGUErqy8JdCb0dmR/1680228164478-6fd33acd-d9f3-45f6-a770-db265777987d-251776.png" />
-先点击生效更改，再点击执行更改，然后就能看到导入的元器件和连接方式了，这里的图对应的时 PcbLib 里面的封装，导入完成之后先点一下上面盖着的那层红色的按 delete 删掉
-<img alt="image.png" src="../img/FGUErqy8JdCb0dmR/1680228294599-8c170650-96d8-4ef1-9f4e-5262345e3917-444547.png" />
-可以看到已经按照网络编号将各个引脚连接起来了，下一步我们就排排版画画线
-<img alt="image.png" src="../img/FGUErqy8JdCb0dmR/1680228461429-0283e790-09f2-4d6f-931a-4e5243d21f8f-565264.png" />
-现在改一下规则（因为焊盘间距太细了？不知道，但反正有变化）点击菜单栏的 设计 -&gt; 规则
-<img alt="image.png" src="../img/FGUErqy8JdCb0dmR/1680228717106-04727bfd-c2f8-4271-9753-bc5470b4c57c-685224.png" />
-接下来正式开始画板子，先设置网格栅格为 5mm
-<img alt="image.png" src="../img/FGUErqy8JdCb0dmR/1680229496289-7ab688e4-81b6-424a-9933-ecdf1ad1b24c-185480.png" />
-在选择下面的标签为 Keep-Out Layer 放置 -&gt; 禁止布线 -&gt; 线径，画出一个框
-<img alt="image.png" src="../img/FGUErqy8JdCb0dmR/1680229581449-74c5bba5-305e-42ef-9c58-46cdde19c056-071776.png" />
-点击圈出来一个四个大方格的正方形，然后鼠标拖框选中它
-<img alt="image.png" src="../img/FGUErqy8JdCb0dmR/1680229866716-7da39340-7232-41f6-ab27-83fff7418cc2-552835.png" />
-点击设计 -&gt; 板子形状 -&gt; 按照选择对象定义
-<img alt="image.png" src="../img/FGUErqy8JdCb0dmR/1680229835154-5068847b-ac08-423e-a8dd-d3bcb2c1b2bc-192844.png" />
-这样就能够把选中的形状切割出来了，然后选择放置 -&gt; 禁止布线 -&gt; 圆弧(边沿) 让板子圆润起来（圆弧方向也是按空格旋转）
-<img alt="image.png" src="../img/FGUErqy8JdCb0dmR/1680231108697-34535bbc-97e0-4196-b3a2-6d33022b46df-588503.png" />
-然后选中某一个角，往里面一拖，让他变成连接圆弧两个点的这样子，这样选中这个小线段就可以删除了，删完以后就可以再选中设计一下板子形状，让板子变得圆润起来
-<img alt="image.png" src="../img/FGUErqy8JdCb0dmR/1680231343598-1afc57ea-c867-47dc-9f5c-b96b4a655829-364581.png" />
-将跳转栅格设置为 1mil
-然后回到原理图的界面，选中一部分电路，点击 工具 -&gt; 选择 PCB 器件
-<img alt="image.png" src="../img/FGUErqy8JdCb0dmR/1680233169543-de451b45-d211-4040-b9b4-5ae15a060c72-093783.png" />
-再回到 PCB 界面，会看到我们选中的原理图中用到的器件也被选中了，这时候选择 工具 -&gt; 器件布局 -&gt; 在矩形区域排列，然后在 PCB 板上用鼠标左键拖出一个矩形区域，这几个选中的元器件就会在哪里排列好，可以用这个方法先把元器件按照原理图那样分类大致排列一下
-<img alt="image.png" src="../img/FGUErqy8JdCb0dmR/1680233288206-998f5767-5868-4bd6-aac1-9ee56f1d94ff-681472.png" />
-摆放的时候要注意几点：
-1、几个去耦电容要距离芯片的 VCC 近一点，否则不能起到去耦效果，也不要太近，会影响焊接
-2、晶振也要尽可能离芯片近一点，而且晶振下面出了地不能过其他网络线
-然后就是布线，选择菜单栏的交互式布线连接，连线的时候要尽量使用钝角，不要有锐角，尽量不要有直角
-<img alt="image.png" src="../img/FGUErqy8JdCb0dmR/1680243617171-56f27566-0aba-4a0f-b6d8-56313b97d706-359922.png" />
-其实后面内容不是很多了，有一部分根据电流大小计算布线粗细的步骤，我暂时看不懂直接跳过了，全都用的粗细相同的线，然后重要的一点是，当你在连线的时候，有个之前布好的线挡着，可以先引出来，加一个过孔，然后来到板子的另一面接线（图中蓝色线）
-<img alt="image.png" src="../img/FGUErqy8JdCb0dmR/1680262234114-f6e3d107-1cc0-4df2-b644-9eaa0b70360d-080942.png" />
+<p>在 Projects 中添加 PCB<br />
+<img alt="image.png" src="../img/FGUErqy8JdCb0dmR/1679876321579-1d4363c8-962f-4b24-8e01-b391c5cbcad9-234254.png" /><br />
+保存好后点击设计 -&gt; Import Changes From xxxxx.PrjPcb 将原理图中编辑好的元器件和连接关系导入进来<br />
+<img alt="image.png" src="../img/FGUErqy8JdCb0dmR/1680228164478-6fd33acd-d9f3-45f6-a770-db265777987d-251776.png" /><br />
+先点击生效更改，再点击执行更改，然后就能看到导入的元器件和连接方式了，这里的图对应的时 PcbLib 里面的封装，导入完成之后先点一下上面盖着的那层红色的按 delete 删掉<br />
+<img alt="image.png" src="../img/FGUErqy8JdCb0dmR/1680228294599-8c170650-96d8-4ef1-9f4e-5262345e3917-444547.png" /><br />
+可以看到已经按照网络编号将各个引脚连接起来了，下一步我们就排排版画画线<br />
+<img alt="image.png" src="../img/FGUErqy8JdCb0dmR/1680228461429-0283e790-09f2-4d6f-931a-4e5243d21f8f-565264.png" /><br />
+现在改一下规则（因为焊盘间距太细了？不知道，但反正有变化）点击菜单栏的 设计 -&gt; 规则<br />
+<img alt="image.png" src="../img/FGUErqy8JdCb0dmR/1680228717106-04727bfd-c2f8-4271-9753-bc5470b4c57c-685224.png" /><br />
+接下来正式开始画板子，先设置网格栅格为 5mm<br />
+<img alt="image.png" src="../img/FGUErqy8JdCb0dmR/1680229496289-7ab688e4-81b6-424a-9933-ecdf1ad1b24c-185480.png" /><br />
+在选择下面的标签为 Keep-Out Layer 放置 -&gt; 禁止布线 -&gt; 线径，画出一个框<br />
+<img alt="image.png" src="../img/FGUErqy8JdCb0dmR/1680229581449-74c5bba5-305e-42ef-9c58-46cdde19c056-071776.png" /><br />
+点击圈出来一个四个大方格的正方形，然后鼠标拖框选中它<br />
+<img alt="image.png" src="../img/FGUErqy8JdCb0dmR/1680229866716-7da39340-7232-41f6-ab27-83fff7418cc2-552835.png" /><br />
+点击设计 -&gt; 板子形状 -&gt; 按照选择对象定义<br />
+<img alt="image.png" src="../img/FGUErqy8JdCb0dmR/1680229835154-5068847b-ac08-423e-a8dd-d3bcb2c1b2bc-192844.png" /><br />
+这样就能够把选中的形状切割出来了，然后选择放置 -&gt; 禁止布线 -&gt; 圆弧(边沿) 让板子圆润起来（圆弧方向也是按空格旋转）<br />
+<img alt="image.png" src="../img/FGUErqy8JdCb0dmR/1680231108697-34535bbc-97e0-4196-b3a2-6d33022b46df-588503.png" /><br />
+然后选中某一个角，往里面一拖，让他变成连接圆弧两个点的这样子，这样选中这个小线段就可以删除了，删完以后就可以再选中设计一下板子形状，让板子变得圆润起来<br />
+<img alt="image.png" src="../img/FGUErqy8JdCb0dmR/1680231343598-1afc57ea-c867-47dc-9f5c-b96b4a655829-364581.png" /><br />
+将跳转栅格设置为 1mil<br />
+然后回到原理图的界面，选中一部分电路，点击 工具 -&gt; 选择 PCB 器件<br />
+<img alt="image.png" src="../img/FGUErqy8JdCb0dmR/1680233169543-de451b45-d211-4040-b9b4-5ae15a060c72-093783.png" /><br />
+再回到 PCB 界面，会看到我们选中的原理图中用到的器件也被选中了，这时候选择 工具 -&gt; 器件布局 -&gt; 在矩形区域排列，然后在 PCB 板上用鼠标左键拖出一个矩形区域，这几个选中的元器件就会在哪里排列好，可以用这个方法先把元器件按照原理图那样分类大致排列一下<br />
+<img alt="image.png" src="../img/FGUErqy8JdCb0dmR/1680233288206-998f5767-5868-4bd6-aac1-9ee56f1d94ff-681472.png" /><br />
+摆放的时候要注意几点：<br />
+1、几个去耦电容要距离芯片的 VCC 近一点，否则不能起到去耦效果，也不要太近，会影响焊接<br />
+2、晶振也要尽可能离芯片近一点，而且晶振下面出了地不能过其他网络线<br />
+然后就是布线，选择菜单栏的交互式布线连接，连线的时候要尽量使用钝角，不要有锐角，尽量不要有直角<br />
+<img alt="image.png" src="../img/FGUErqy8JdCb0dmR/1680243617171-56f27566-0aba-4a0f-b6d8-56313b97d706-359922.png" /><br />
+其实后面内容不是很多了，有一部分根据电流大小计算布线粗细的步骤，我暂时看不懂直接跳过了，全都用的粗细相同的线，然后重要的一点是，当你在连线的时候，有个之前布好的线挡着，可以先引出来，加一个过孔，然后来到板子的另一面接线（图中蓝色线）<br />
+<img alt="image.png" src="../img/FGUErqy8JdCb0dmR/1680262234114-f6e3d107-1cc0-4df2-b644-9eaa0b70360d-080942.png" /><br />
 反正提示的线我是连接好了，不明白有些线路为啥要闭合</p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/agigdih9maf6hpvt">https://www.yuque.com/hxfqg9/iot/agigdih9maf6hpvt</a></p>

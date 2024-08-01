@@ -7568,16 +7568,16 @@
 <p><img alt="image.png" src="../img/551833_vufpu7flxo4332pc/1573865966529-5f8588ab-f2b4-49ab-b5f3-b51c31958b6f-649435.png" /></p>
 <p>查看缓存在内存中的注册表：volatility -f xp.raw --profile=WinXPSP2x86 hivelist</p>
 <p><img alt="image.png" src="../img/551833_vufpu7flxo4332pc/1573866565329-27c5cde5-0792-4def-aeed-32075fd694ed-527396.png" /></p>
-<p>获取 SAM 表中的用户：
+<p>获取 SAM 表中的用户：<br />
 volatility -f xp.raw --profile=WinXPSP2x86 printkey -K "SAM\Domains\Account\Users\Names"</p>
 <p><img alt="image.png" src="../img/551833_vufpu7flxo4332pc/1573866528790-901a4e08-97ef-4e72-a2e2-2d3468d8ff76-843884.png" /></p>
-<p>把内存中某个进程的数据以 dmp 的形式保存出来：
+<p>把内存中某个进程的数据以 dmp 的形式保存出来：<br />
 volatility -f xp.raw --profile=WinXPSP2x86 memdump -p [PID] -D [dump 出的文件保存的目录]</p>
 <p><img alt="image.png" src="../img/551833_vufpu7flxo4332pc/1573867574489-91f7556f-2529-4ac3-8266-6d117bd7c574-022746.png" /></p>
-<p>把内存中保留的 cmd 的命令打印出来：
+<p>把内存中保留的 cmd 的命令打印出来：<br />
 volatility -f xp.raw --profile=WinXPSP2x86 cmdscan</p>
 <p><img alt="image.png" src="../img/551833_vufpu7flxo4332pc/1573867830202-786c8f68-17f1-4fe7-9b4f-11ef0f7d6a50-419102.png" /></p>
-<p>查看内存中的系统密码：
+<p>查看内存中的系统密码：<br />
 volatility -f xp.raw --profile=WinXPSP2x86 hashdump -y （注册表 system 的 virtual 地址 ）-s （SAM 的 virtual 地址）</p>
 <p>首先要获取注册表 system 的 virtual 地址和 SAM 的 virtual 地址，使用 hivelist 查看</p>
 <p><img alt="image.png" src="../img/551833_vufpu7flxo4332pc/1573868295441-b94af119-234b-4c85-83d7-22d4b872bb43-954741.png" /></p>

@@ -7831,15 +7831,15 @@
 <li>view 告诉我们运行这个函数不会更改和保存任何数据；</li>
 <li>pure 告诉我们这个函数不但不会往区块链写数据，它甚至不从区块链读取数据。这两种在被从合约外部调用的时候都不花费任何gas（但是它们在被内部其他函数调用的时候将会耗费gas）</li>
 </ol>
-<p>然后我们有了<strong>自定义的 modifiers</strong>，例如在第三课学习的: onlyOwner 和 aboveLevel。 对于这些修饰符我们<strong>可以自定义其对函数的约束逻辑</strong>
-这些修饰符可以同时作用于一个函数定义上：
+<p>然后我们有了<strong>自定义的 modifiers</strong>，例如在第三课学习的: onlyOwner 和 aboveLevel。 对于这些修饰符我们<strong>可以自定义其对函数的约束逻辑</strong><br />
+这些修饰符可以同时作用于一个函数定义上：<br />
 <code>function test() external view onlyOwner anotherModifier { /* ... */ }</code></p>
 <p>在这一章，我们来学习一个新的修饰符 payable.</p>
 <h3 id="payable">payable 修饰符</h3>
-<p>payable 方法是让 Solidity 和以太坊变得如此酷的一部分 —— 它们是<strong>一种可以接收以太的特殊函数</strong>
-先放一下。当你在调用一个普通网站服务器上的API函数的时候，你无法用你的函数传送美元——你也不能传送比特币
-但是在以太坊中， 因为钱 (以太），数据 (事务负载)， 以及合约代码本身都存在于以太坊。你可以在同时调用函数 并付钱给另外一个合约
-这就允许出现很多有趣的逻辑， 比如向一个合约要求支付一定的钱来运行一个函数
+<p>payable 方法是让 Solidity 和以太坊变得如此酷的一部分 —— 它们是<strong>一种可以接收以太的特殊函数</strong><br />
+先放一下。当你在调用一个普通网站服务器上的API函数的时候，你无法用你的函数传送美元——你也不能传送比特币<br />
+但是在以太坊中， 因为钱 (以太），数据 (事务负载)， 以及合约代码本身都存在于以太坊。你可以在同时调用函数 并付钱给另外一个合约<br />
+这就允许出现很多有趣的逻辑， 比如向一个合约要求支付一定的钱来运行一个函数<br />
 来看个例子</p>
 <pre><code class="language-javascript">contract OnlineStore {
  function buySomething() external payable {
@@ -7850,15 +7850,15 @@
  }
 }
 </code></pre>
-<p>在这里，msg.value 是一种可以查看向合约发送了多少以太的方法，另外 ether 是一个內建单元
-这里发生的事是，一些人会从 web3.js 调用这个函数 (从DApp的前端)， 像这样 :
-// 假设 <code>OnlineStore</code> 在以太坊上指向你的合约：
-<code>OnlineStore.buySomething().send(from: web3.eth.defaultAccount, value: web3.utils.toWei(0.001))</code>
+<p>在这里，msg.value 是一种可以查看向合约发送了多少以太的方法，另外 ether 是一个內建单元<br />
+这里发生的事是，一些人会从 web3.js 调用这个函数 (从DApp的前端)， 像这样 :<br />
+// 假设 <code>OnlineStore</code> 在以太坊上指向你的合约：<br />
+<code>OnlineStore.buySomething().send(from: web3.eth.defaultAccount, value: web3.utils.toWei(0.001))</code><br />
 注意这个 value 字段， JavaScript 调用来指定发送多少(0.001)以太。如果把事务想象成一个信封，你发送到函数的参数就是信的内容。 添加一个 value 很像在信封里面放钱 —— 信件内容和钱同时发送给了接收者。</p>
 <blockquote>
 <p>注意： 如果一个函数没标记为payable， 而你尝试利用上面的方法发送以太，函数将拒绝你的事务</p>
 </blockquote>
-<p>我们来在僵尸游戏里面创建一个payable 函数。
+<p>我们来在僵尸游戏里面创建一个payable 函数。<br />
 假定在我们的游戏中，玩家可以通过支付ETH来升级他们的僵尸。ETH将存储在你拥有的合约中 —— 一个简单明了的例子，向你展示你可以通过自己的游戏赚钱。</p>
 <ul>
 <li>定义一个 uint ，命名为 levelUpFee, 将值设定为 0.001 ether</li>
@@ -7900,8 +7900,8 @@ contract ZombieHelper is ZombieFeeding {
 }
 </code></pre>
 <h2 id="_3">提现</h2>
-<p>在上一章，我们学习了如何向合约发送以太，那么在发送之后会发生什么呢？
-在你发送以太之后，它将被存储进以合约的以太坊账户中， 并冻结在哪里 —— 除非你添加一个函数来从合约中把以太提现
+<p>在上一章，我们学习了如何向合约发送以太，那么在发送之后会发生什么呢？<br />
+在你发送以太之后，它将被存储进以合约的以太坊账户中， 并冻结在哪里 —— 除非你添加一个函数来从合约中把以太提现<br />
 你可以写一个函数来从合约中提现以太，类似这样：</p>
 <pre><code class="language-javascript">contract GetPaid is Ownable {
  function withdraw() external onlyOwner {
@@ -7909,13 +7909,13 @@ contract ZombieHelper is ZombieFeeding {
  }
 }
 </code></pre>
-<p>注意我们使用 Ownable 合约中的 owner 和 onlyOwner，假定它已经被引入了
-你可以通过 transfer 函数向一个地址发送以太， 然后 this.balance 将返回当前合约存储了多少以太。 所以如果 100 个用户每人向我们支付 1 以太， this.balance 将是 100 以太
+<p>注意我们使用 Ownable 合约中的 owner 和 onlyOwner，假定它已经被引入了<br />
+你可以通过 transfer 函数向一个地址发送以太， 然后 this.balance 将返回当前合约存储了多少以太。 所以如果 100 个用户每人向我们支付 1 以太， this.balance 将是 100 以太<br />
 你可以通过 transfer 向任何以太坊地址付钱。 比如，你可以有一个函数在 msg.sender 超额付款的时候给他们退钱：</p>
 <pre><code class="language-javascript">uint itemFee = 0.001 ether;
 msg.sender.transfer(msg.value - itemFee);
 </code></pre>
-<p>或者在一个有卖家和卖家的合约中， 你可以把卖家的地址存储起来， 当有人买了它的东西的时候，把买家支付的钱发送给它 seller.transfer(msg.value)
+<p>或者在一个有卖家和卖家的合约中， 你可以把卖家的地址存储起来， 当有人买了它的东西的时候，把买家支付的钱发送给它 seller.transfer(msg.value)<br />
 有很多例子来展示什么让以太坊编程如此之酷 —— 你可以拥有一个不被任何人控制的去中心化市场</p>
 <ul>
 <li>
@@ -7970,7 +7970,7 @@ contract ZombieHelper is ZombieFeeding {
 }
 </code></pre>
 <h2 id="_4">僵尸战斗</h2>
-<p>在我们学习了可支付函数和合约余额之后，是时候为僵尸战斗添加功能了
+<p>在我们学习了可支付函数和合约余额之后，是时候为僵尸战斗添加功能了<br />
 遵循上一章的格式，我们新建一个攻击功能合约，并将代码放进新的文件中，引入上一个合约</p>
 <p>如果你不记得怎么做了, 查看一下 zombiehelper.sol — 不过最好先试着做一下，检查一下你掌握的情况</p>
 <ul>
@@ -7985,10 +7985,10 @@ contract ZombieBattle is ZombieHelper{
 }
 </code></pre>
 <h2 id="_5">随机数</h2>
-<p>优秀的游戏都需要一些随机元素，那么我们在 Solidity 里如何生成随机数呢？
+<p>优秀的游戏都需要一些随机元素，那么我们在 Solidity 里如何生成随机数呢？<br />
 真正的答案是你不能，或者最起码，你无法安全地做到这一点，我们来看看为什么</p>
 <h3 id="keccak256">用 keccak256 来制造随机数</h3>
-<p>Solidity 中最好的随机数生成器是 keccak256 哈希函数.
+<p>Solidity 中最好的随机数生成器是 keccak256 哈希函数.<br />
 我们可以这样来生成一些随机数</p>
 <pre><code class="language-javascript">// 生成一个0到100的随机数:
 uint randNonce = 0;
@@ -7996,17 +7996,17 @@ uint random = uint(keccak256(now, msg.sender, randNonce)) % 100;
 randNonce++;
 uint random2 = uint(keccak256(now, msg.sender, randNonce)) % 100;
 </code></pre>
-<p>这个方法首先拿到 now 的时间戳、 msg.sender、 以及一个自增数 nonce （一个仅会被使用一次的数，这样我们就不会对相同的输入值调用一次以上哈希函数了）
+<p>这个方法首先拿到 now 的时间戳、 msg.sender、 以及一个自增数 nonce （一个仅会被使用一次的数，这样我们就不会对相同的输入值调用一次以上哈希函数了）<br />
 然后利用 keccak 把输入的值转变为一个哈希值, 再将哈希值转换为 uint, 然后利用 % 100 来取最后两位, 就生成了一个0到100之间随机数了</p>
 <h3 id="_6">这个方法容易被不诚实节点攻击</h3>
-<p>在以太坊上, 当你在和一个合约上调用函数的时候, 你会把它广播给一个节点或者在网络上的 transaction 节点们。 网络上的节点将收集很多事务, 试着成为第一个解决计算密集型数学问题的人，作为“工作证明”，然后将“工作证明”(Proof of Work, PoW) 和事务一起作为一个 block 发布在网络上。
+<p>在以太坊上, 当你在和一个合约上调用函数的时候, 你会把它广播给一个节点或者在网络上的 transaction 节点们。 网络上的节点将收集很多事务, 试着成为第一个解决计算密集型数学问题的人，作为“工作证明”，然后将“工作证明”(Proof of Work, PoW) 和事务一起作为一个 block 发布在网络上。<br />
 一旦一个节点解决了一个 PoW, 其他节点就会停止尝试解决这个 PoW, 并验证其他节点的事务列表是有效的，然后接受这个节点转而尝试解决下一个节点，这就让我们的随机数函数变得可利用了</p>
-<p>我们假设我们有一个硬币翻转合约——正面你赢双倍钱，反面你输掉所有的钱。假如它使用上面的方法来决定是正面还是反面 (random &gt;= 50 算正面, random &lt; 50 算反面)
+<p>我们假设我们有一个硬币翻转合约——正面你赢双倍钱，反面你输掉所有的钱。假如它使用上面的方法来决定是正面还是反面 (random &gt;= 50 算正面, random &lt; 50 算反面)<br />
 如果我正运行一个节点，我可以 只对我自己的节点 发布一个事务，且不分享它。 我可以运行硬币翻转方法来偷窥我的输赢 — 如果我输了，我就不把这个事务包含进我要解决的下一个区块中去。我可以一直运行这个方法，直到我赢得了硬币翻转并解决了下一个区块，然后获利</p>
-<p>所以我们该如何在以太坊上安全地生成随机数呢
-因为区块链的全部内容对所有参与者来说是透明的， 这就让这个问题变得很难，它的解决方法不在本课程讨论范围，你可以阅读 这个 StackOverflow 上的讨论 来获得一些主意。 一个方法是利用 oracle 来访问以太坊区块链之外的随机数函数
-当然， 因为网络上成千上万的以太坊节点都在竞争解决下一个区块，我能成功解决下一个区块的几率非常之低。 这将花费我们巨大的计算资源来开发这个获利方法 — 但是如果奖励异常地高(比如我可以在硬币翻转函数中赢得 1个亿)， 那就很值得去攻击了
-所以尽管这个方法在以太坊上不安全，在实际中，除非我们的随机函数有一大笔钱在上面，你游戏的用户一般是没有足够的资源去攻击的
+<p>所以我们该如何在以太坊上安全地生成随机数呢<br />
+因为区块链的全部内容对所有参与者来说是透明的， 这就让这个问题变得很难，它的解决方法不在本课程讨论范围，你可以阅读 这个 StackOverflow 上的讨论 来获得一些主意。 一个方法是利用 oracle 来访问以太坊区块链之外的随机数函数<br />
+当然， 因为网络上成千上万的以太坊节点都在竞争解决下一个区块，我能成功解决下一个区块的几率非常之低。 这将花费我们巨大的计算资源来开发这个获利方法 — 但是如果奖励异常地高(比如我可以在硬币翻转函数中赢得 1个亿)， 那就很值得去攻击了<br />
+所以尽管这个方法在以太坊上不安全，在实际中，除非我们的随机函数有一大笔钱在上面，你游戏的用户一般是没有足够的资源去攻击的<br />
 因为在这个教程中，我们只是在编写一个简单的游戏来做演示，也没有真正的钱在里面，所以我们决定接受这个不足之处，使用这个简单的随机数生成函数。但是要谨记它是不安全的</p>
 <p>我们来实现一个随机数生成函数，好来计算战斗的结果。虽然这个函数一点儿也不安全</p>
 <ul>
@@ -8027,7 +8027,7 @@ contract ZombieBattle is ZombieHelper {
 }
 </code></pre>
 <h2 id="_7">僵尸对战</h2>
-<p>我们的合约已经有了一些随机性的来源，可以用进我们的僵尸战斗中去计算结果
+<p>我们的合约已经有了一些随机性的来源，可以用进我们的僵尸战斗中去计算结果<br />
 我们的僵尸战斗看起来将是这个流程：</p>
 <ol>
 <li>你选择一个自己的僵尸，然后选择一个对手的僵尸去攻击</li>
@@ -8056,13 +8056,13 @@ contract ZombieBattle is ZombieHelper {
 }
 </code></pre>
 <h2 id="_8">重构通用逻辑</h2>
-<p>不管谁调用我们的 attack 函数 —— 我们想确保用户的确拥有他们用来攻击的僵尸。如果你能用其他人的僵尸来攻击将是一个很大的安全问题
-你能想一下我们如何添加一个检查步骤来看看调用这个函数的人就是他们传入的 _zombieId 的拥有者么？
-想一想，看看你能不能自己找到一些答案
-花点时间…… 参考我们前面课程的代码来获得灵感
+<p>不管谁调用我们的 attack 函数 —— 我们想确保用户的确拥有他们用来攻击的僵尸。如果你能用其他人的僵尸来攻击将是一个很大的安全问题<br />
+你能想一下我们如何添加一个检查步骤来看看调用这个函数的人就是他们传入的 _zombieId 的拥有者么？<br />
+想一想，看看你能不能自己找到一些答案<br />
+花点时间…… 参考我们前面课程的代码来获得灵感<br />
 答案在下面，在你有一些想法之前不要继续阅读</p>
-<p>我们在前面的课程里面已经做过很多次这样的检查了。在 changeName(), changeDna(), 和 feedAndMultiply() 里，我们做过这样的检查：
-<code>require(msg.sender == zombieToOwner[_zombieId]);</code>
+<p>我们在前面的课程里面已经做过很多次这样的检查了。在 changeName(), changeDna(), 和 feedAndMultiply() 里，我们做过这样的检查：<br />
+<code>require(msg.sender == zombieToOwner[_zombieId]);</code><br />
 这和我们 attack 函数将要用到的检查逻辑是相同的。 正因我们要多次调用这个检查逻辑，让我们把它移到它自己的 modifier 中来清理代码并避免重复编码</p>
 <p>我们回到了 zombiefeeding.sol， 因为这是我们第一次调用检查逻辑的地方。让我们把它重构进它自己的 modifier</p>
 <ul>
@@ -8164,7 +8164,7 @@ contract ZombieHelper is ZombieFeeding {
 }
 </code></pre>
 <h2 id="_10">回到攻击！</h2>
-<p>重构完成了，回到 zombieattack.sol
+<p>重构完成了，回到 zombieattack.sol<br />
 继续来完善我们的 attack 函数， 现在我们有了 ownerOf 修饰符来用了</p>
 <ul>
 <li>将 ownerOf 修饰符添加到 attack 来确保调用者拥有_zombieId</li>
@@ -8190,9 +8190,9 @@ contract ZombieBattle is ZombieHelper {
 }
 </code></pre>
 <h2 id="_11">僵尸的输赢</h2>
-<p>对我们的僵尸游戏来说，我们将要追踪我们的僵尸输赢了多少场。有了这个我们可以在游戏里维护一个 "僵尸排行榜"
-有多种方法在我们的 DApp 里面保存一个数值作为一个单独的映射，作为一个“排行榜”结构体，或者保存在 Zombie 结构体内
-每个方法都有其优缺点，取决于我们打算如何和这些数据打交道。在这个教程中，简单起见我们将这个状态保存在 Zombie 结构体中，将其命名为 winCount 和 lossCount
+<p>对我们的僵尸游戏来说，我们将要追踪我们的僵尸输赢了多少场。有了这个我们可以在游戏里维护一个 "僵尸排行榜"<br />
+有多种方法在我们的 DApp 里面保存一个数值作为一个单独的映射，作为一个“排行榜”结构体，或者保存在 Zombie 结构体内<br />
+每个方法都有其优缺点，取决于我们打算如何和这些数据打交道。在这个教程中，简单起见我们将这个状态保存在 Zombie 结构体中，将其命名为 winCount 和 lossCount<br />
 我们跳回 zombiefactory.sol, 将这些属性添加进 Zombie 结构体</p>
 <ul>
 <li>修改 Zombie 结构体，添加两个属性:</li>
@@ -8243,7 +8243,7 @@ contract ZombieFactory is Ownable {
 }
 </code></pre>
 <h2 id="_12">僵尸胜利了</h2>
-<p>有了 winCount 和 lossCount，我们可以根据僵尸哪个僵尸赢了战斗来更新它们了。
+<p>有了 winCount 和 lossCount，我们可以根据僵尸哪个僵尸赢了战斗来更新它们了。<br />
 在第六章我们计算出来一个0到100的随机数。现在让我们用那个数来决定那谁赢了战斗，并以此更新我们的状态。</p>
 <ul>
 <li>创建一个 if 语句来检查 rand 是不是 小于或者等于 attackVictoryProbability。</li>
@@ -8276,9 +8276,9 @@ contract ZombieBattle is ZombieHelper {
 }
 </code></pre>
 <h2 id="_13">僵尸失败</h2>
-<p>我们已经编写了你的僵尸赢了之后会发生什么， 该看看 输了 的时候要怎么做了。
-在我们的游戏中，僵尸输了后并不会降级 —— 只是简单地给 lossCount 加一，并触发冷却，等待一天后才能再次参战。
-要实现这个逻辑，我们需要一个 else 语句。
+<p>我们已经编写了你的僵尸赢了之后会发生什么， 该看看 输了 的时候要怎么做了。<br />
+在我们的游戏中，僵尸输了后并不会降级 —— 只是简单地给 lossCount 加一，并触发冷却，等待一天后才能再次参战。<br />
+要实现这个逻辑，我们需要一个 else 语句。<br />
 else 语句和 JavaScript 以及很多其他语言的 else 语句一样。</p>
 <pre><code class="language-javascript">if (zombieCoins[msg.sender] &gt; 100000000) {
  // 你好有钱!!!

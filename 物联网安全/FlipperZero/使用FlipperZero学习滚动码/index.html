@@ -7679,55 +7679,55 @@
   <h1>使用FlipperZero学习滚动码</h1>
 
 <h2 id="flipper-zero">使用Flipper Zero学习滚动码</h2>
-<p>参考：https://www.youtube.com/playlist?list=PLM1cyTMe-PYJfnlDk3NjM85kU5VyCViNp
-作者使用了两个 flipper 进行互相验证学习，但是我没有两个 flipper，尝试用 HackRF 直接录制信号，然后重放，但是录制下来的信号 flipper 竟然识别不了！？经过尝试可能是内置的射频模块太拉垮了，接了个外置的 CC1101 就能识别了
-<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1712198674886-358ff813-b865-411a-9a80-aea6c17fdd69-338751.png" />
-<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1712198738226-d6c3de4f-4956-4e11-9d22-2cbab01761fb-039969.png" />
-<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1712198758174-9ea179d6-ff4e-48e2-bd97-63ab650011d2-387703.png" />
-在开始之前先来想一下为什么要有滚动码这个机制，最简单的固定码机制每次发送的信号是不变的，可以录制信号后直接进行重放，来达到与原来的遥控钥匙相同的控制效果。通过一张动态图片感受一下，固定码技术就像是你在附近喊一句：芝麻开门，车门就打开了
-<img alt="image41.GIF" src="../img/DkeXk-sP1mKFQTdJ/1712991188285-0e73d584-241b-4c67-862c-bb0a23cfd382-009284.gif" />
-这就会出现一个问题，如果有人在附近偷听你喊的是什么，他也那么喊一句，那么他就能打开你的门了。为了解决固定码重放的问题，人们发明了滚动码，每次的信号是变化的，这样哪怕别人听到了你喊了什么，他再去喊一遍也没法打开你的门。
-同时为了防止使用者误触钥匙导致信号不同步，滚动码也包含同步机制，当接收端发现钥匙发射的信号在未来的序列时，会同步到未来的序列位置。
-如下图所示，当钥匙背景为黄色时表示不在接收器识别范围内，这时候不小心多按了几次导致钥匙信号不同步也不要紧，接收器会跟未来的信号进行匹配。但是同步也有一个范围，不是说你的信号在序列中离接收端的信号有多远都可以同步，同步的范围称为窗口，例如窗口为 16，当前接收端序列在 3，你发送一个大于 19 的信号接收端也不会同步
-<img alt="image42.GIF" src="../img/DkeXk-sP1mKFQTdJ/1712992519698-ef82d697-35a8-4777-b902-cce33cd154c1-119324.gif" />
-上图中传递的信号仍然是明文的，如果有人多次录制信号并分析，可能找出信号滚动的规律，从而自己生成一段信号用来攻击，所以后面又引入了伪随机数生成器与加密等技术，这样滚动序列就是一串攻击者没有密钥的情况下无法分析的序列了
+<p>参考：https://www.youtube.com/playlist?list=PLM1cyTMe-PYJfnlDk3NjM85kU5VyCViNp<br />
+作者使用了两个 flipper 进行互相验证学习，但是我没有两个 flipper，尝试用 HackRF 直接录制信号，然后重放，但是录制下来的信号 flipper 竟然识别不了！？经过尝试可能是内置的射频模块太拉垮了，接了个外置的 CC1101 就能识别了<br />
+<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1712198674886-358ff813-b865-411a-9a80-aea6c17fdd69-338751.png" /><br />
+<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1712198738226-d6c3de4f-4956-4e11-9d22-2cbab01761fb-039969.png" /><br />
+<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1712198758174-9ea179d6-ff4e-48e2-bd97-63ab650011d2-387703.png" /><br />
+在开始之前先来想一下为什么要有滚动码这个机制，最简单的固定码机制每次发送的信号是不变的，可以录制信号后直接进行重放，来达到与原来的遥控钥匙相同的控制效果。通过一张动态图片感受一下，固定码技术就像是你在附近喊一句：芝麻开门，车门就打开了<br />
+<img alt="image41.GIF" src="../img/DkeXk-sP1mKFQTdJ/1712991188285-0e73d584-241b-4c67-862c-bb0a23cfd382-009284.gif" /><br />
+这就会出现一个问题，如果有人在附近偷听你喊的是什么，他也那么喊一句，那么他就能打开你的门了。为了解决固定码重放的问题，人们发明了滚动码，每次的信号是变化的，这样哪怕别人听到了你喊了什么，他再去喊一遍也没法打开你的门。<br />
+同时为了防止使用者误触钥匙导致信号不同步，滚动码也包含同步机制，当接收端发现钥匙发射的信号在未来的序列时，会同步到未来的序列位置。<br />
+如下图所示，当钥匙背景为黄色时表示不在接收器识别范围内，这时候不小心多按了几次导致钥匙信号不同步也不要紧，接收器会跟未来的信号进行匹配。但是同步也有一个范围，不是说你的信号在序列中离接收端的信号有多远都可以同步，同步的范围称为窗口，例如窗口为 16，当前接收端序列在 3，你发送一个大于 19 的信号接收端也不会同步<br />
+<img alt="image42.GIF" src="../img/DkeXk-sP1mKFQTdJ/1712992519698-ef82d697-35a8-4777-b902-cce33cd154c1-119324.gif" /><br />
+上图中传递的信号仍然是明文的，如果有人多次录制信号并分析，可能找出信号滚动的规律，从而自己生成一段信号用来攻击，所以后面又引入了伪随机数生成器与加密等技术，这样滚动序列就是一串攻击者没有密钥的情况下无法分析的序列了<br />
 <img alt="image43.GIF" src="../img/DkeXk-sP1mKFQTdJ/1712994923886-73a454ab-d0ea-400b-b7c9-39a93db324a9-295876.gif" /></p>
 <h2 id="security10">Security+1.0</h2>
-<p>先来看一个滚动但是没加密的例子，这个协议在 Unleashed firmware 固件中叫：Security+1.0，在官方固件中叫：LiftMaster，是 https://www.liftmaster.com 这家公司自己的协议，相关专利：https://patents.google.com/patent/US6980655B2，目前他们还在推 security+2.0，相关专利：https://patents.google.com/patent/US20110317835A1
-接下来实际操作一下，来到 SubGHz 这个 APP，通过 Add Manually 添加一个 Security+1.0 433MHz 的信号，填写好名字直接保存，在 Saved 中选择创建的 Security+1.0 433MHz 的信号，点击 Emulate 进入信号发射界面，PC 端使用 HackRF 和 URH 录制信号并保存这个信号
-<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1712499049466-c792d873-4bbb-415a-8f2f-b5b46ab29c9c-646583.png" />
-再使用 SubGHz 的 Read 功能接收 HackRF 的重放，可以看到成功识别到了 Security+1.0 信号
-<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1712499450710-631914ae-a779-4728-9bd1-ae002194c1e9-226877.png" />
-按 OK 键选择这个信号可以直接进入模拟界面，进行发射或保存信号，同时 Cnt 这个计数器已经自动增加了
-<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1712499521954-251d7037-ba82-40a3-86b7-c9d098e8f677-742047.png" />
-接下来详细分析一下这段信号的含义，整个信号数据实际是以三进制组织起来的
-<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1711877357051-49544535-64ec-404d-842d-212920a92ede-761013.png" />
-Key 就是传输的主要内容了，可以将其拆开，分为两部分：63A5EB6D 和 E6000044 
-前面的 63A5EB6D 是固定不变的，转为三进制是：11022111211011021122
-其中后三位分别是：
-id1（表示是否发送 PIN 码）：1
-id0（含义未知）：2
-Btn（1 表示左，0 表示中间，2 表示右，与 Sw_id 是同一个值）：2
-剩下的前面的部分是设备序列号 Sn：11022111211011021 = 0x3B0CFD4
-<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1712499841441-b95c2515-9967-4bed-ad14-eafb31fa8318-753004.png" />
-后面的 E6000044 就是计数器了，每次发送，就只有 Cnt 在变化
+<p>先来看一个滚动但是没加密的例子，这个协议在 Unleashed firmware 固件中叫：Security+1.0，在官方固件中叫：LiftMaster，是 https://www.liftmaster.com 这家公司自己的协议，相关专利：https://patents.google.com/patent/US6980655B2，目前他们还在推 security+2.0，相关专利：https://patents.google.com/patent/US20110317835A1<br />
+接下来实际操作一下，来到 SubGHz 这个 APP，通过 Add Manually 添加一个 Security+1.0 433MHz 的信号，填写好名字直接保存，在 Saved 中选择创建的 Security+1.0 433MHz 的信号，点击 Emulate 进入信号发射界面，PC 端使用 HackRF 和 URH 录制信号并保存这个信号<br />
+<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1712499049466-c792d873-4bbb-415a-8f2f-b5b46ab29c9c-646583.png" /><br />
+再使用 SubGHz 的 Read 功能接收 HackRF 的重放，可以看到成功识别到了 Security+1.0 信号<br />
+<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1712499450710-631914ae-a779-4728-9bd1-ae002194c1e9-226877.png" /><br />
+按 OK 键选择这个信号可以直接进入模拟界面，进行发射或保存信号，同时 Cnt 这个计数器已经自动增加了<br />
+<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1712499521954-251d7037-ba82-40a3-86b7-c9d098e8f677-742047.png" /><br />
+接下来详细分析一下这段信号的含义，整个信号数据实际是以三进制组织起来的<br />
+<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1711877357051-49544535-64ec-404d-842d-212920a92ede-761013.png" /><br />
+Key 就是传输的主要内容了，可以将其拆开，分为两部分：63A5EB6D 和 E6000044 <br />
+前面的 63A5EB6D 是固定不变的，转为三进制是：11022111211011021122<br />
+其中后三位分别是：<br />
+id1（表示是否发送 PIN 码）：1<br />
+id0（含义未知）：2<br />
+Btn（1 表示左，0 表示中间，2 表示右，与 Sw_id 是同一个值）：2<br />
+剩下的前面的部分是设备序列号 Sn：11022111211011021 = 0x3B0CFD4<br />
+<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1712499841441-b95c2515-9967-4bed-ad14-eafb31fa8318-753004.png" /><br />
+后面的 E6000044 就是计数器了，每次发送，就只有 Cnt 在变化<br />
 因此这个协议只是单纯的让信号滚动起来了，如果有攻击者多次录制信号，可以找到其中的规律，从而自己编辑下一次信号</p>
 <h2 id="keeloq">KeeLoq</h2>
-<p>在滚动码机制中，最常听的是 KeeLoq，但是其实各家实现的方式也有所不同，我们这里以 DoorHan 这家公司的协议为例，整个数据 64bit 的，C02F91572A68F314
-<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1712502304255-ed2bff4e-8db9-4cc1-a406-a4af2b167f77-467533.png" />
-想要解析这些数据首先需要转为二进制然后翻转
+<p>在滚动码机制中，最常听的是 KeeLoq，但是其实各家实现的方式也有所不同，我们这里以 DoorHan 这家公司的协议为例，整个数据 64bit 的，C02F91572A68F314<br />
+<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1712502304255-ed2bff4e-8db9-4cc1-a406-a4af2b167f77-467533.png" /><br />
+想要解析这些数据首先需要转为二进制然后翻转<br />
 C02F91572A68F314 转为二进制序列为：</p>
 <pre><code class="language-xml">1100 0000 0010 1111 1001 0001 0101 0111 0010 1010 0110 1000 1111 0011 0001 0100
 </code></pre>
 <p>反转二进制序列得到（老外将原来的序列称为 Key，反转后的称为 Yek 哈哈哈）：</p>
 <pre><code class="language-xml">0010 1000 1100 1111 0001 0110 0101 0100 1110 1010 1000 1001 1111 0100 0000 0011
 </code></pre>
-<p>将反转的序列转为十六进制得到：28CF1654EA89F403，将该值拆分为两部分：28CF1654 和 EA89F403
-其中 28CF1654 是固定的，前面的 2 是 Btn，后面的内容是序列号 Sn：8CF1654
+<p>将反转的序列转为十六进制得到：28CF1654EA89F403，将该值拆分为两部分：28CF1654 和 EA89F403<br />
+其中 28CF1654 是固定的，前面的 2 是 Btn，后面的内容是序列号 Sn：8CF1654<br />
 EA89F403 是滚动的部分，这部分被加密了只有通过厂商的 key 才能解密，好在 flipper 是知道这个 key 的，可以看到上图中成功识别了 Cnt，并且你每次发射信号他也会增加</p>
 <h2 id="_1">滚动码缺陷</h2>
-<p><img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1713967585717-e8fc73d4-b350-4a8a-b5b5-0a51027886a7-737778.png" />
-简单介绍了滚动码机制后，接下来我们来借助 rolling-flaws 这个 APP，看一下在具体滚动码协议实现上，各家自己实现的滚动码机制可能会出现什么缺陷，接下来将左边的设备称呼为 flipper1 作为攻击设备，右边的设备称为 flipper2 作为被攻击设备及其射频钥匙
+<p><img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1713967585717-e8fc73d4-b350-4a8a-b5b5-0a51027886a7-737778.png" /><br />
+简单介绍了滚动码机制后，接下来我们来借助 rolling-flaws 这个 APP，看一下在具体滚动码协议实现上，各家自己实现的滚动码机制可能会出现什么缺陷，接下来将左边的设备称呼为 flipper1 作为攻击设备，右边的设备称为 flipper2 作为被攻击设备及其射频钥匙<br />
 Subghz Rolling Flaws 这个 APP 有几个选项</p>
 <pre><code class="language-python">Config 用来配置 APP 的设置，每次重启都会重置配置
 Reset count 0 用来将滚动码的计数器回滚到 0
@@ -7736,49 +7736,49 @@ Receive Signals 接收信号界面，会显示出是否解锁
 Sync Remote 使用远程信号同步配置
 About 有关应用程序的信息
 </code></pre>
-<p>在配置中主要关注：
+<p>在配置中主要关注：<br />
 频率（Frequency）、协议（Protocol）、固定码部分（Fix [SN+Btn]）、是否允许重放攻击（Replay attack）、Window [next] 表示当前多少个滚动码序列后仍然可以解锁（例如当前设备滚动码序列为 2，Window [next]=3，那么滚动码序列 3、4、5 都可以解锁设备）</p>
 <h3 id="_2">重放攻击</h3>
-<p>虽然是滚动码，但是有些设备确实收到已经过期的信号后仍然会有效，这纯属实现的问题
-flipper1 进入Sub-GHz 中使用 Read RAW 监听信号，flipper2 在 rolling-flaws 的 Config 选项中设置 Replay Attack 为 Yes，将设备切换至可受重放攻击的状态
-<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1714200400876-9db73915-d535-43a5-afbd-a772b4821750-660758.png" />
-点击 flipper2 的 Transmit Signal 模拟设备遥控器发射信号，flipper1 捕获到信号
-<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1714200428022-1df4f0c6-e23e-4e44-8a30-3e4b37b6a30a-890728.png" />
-随后 flipper2  回到 Receive Signals 此时 flipper2 屏幕上显示 CLOSED！表示设备未解锁
-<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1714200657410-cea4442a-3318-48d4-a9b6-dfefef906fd0-332387.png" />
-按下 flipper1 的确认键发送刚刚捕获的信号，flipper2 接收到信号显示 OPENED！表示设备已解锁同时显示解锁原因是 REPLAY
+<p>虽然是滚动码，但是有些设备确实收到已经过期的信号后仍然会有效，这纯属实现的问题<br />
+flipper1 进入Sub-GHz 中使用 Read RAW 监听信号，flipper2 在 rolling-flaws 的 Config 选项中设置 Replay Attack 为 Yes，将设备切换至可受重放攻击的状态<br />
+<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1714200400876-9db73915-d535-43a5-afbd-a772b4821750-660758.png" /><br />
+点击 flipper2 的 Transmit Signal 模拟设备遥控器发射信号，flipper1 捕获到信号<br />
+<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1714200428022-1df4f0c6-e23e-4e44-8a30-3e4b37b6a30a-890728.png" /><br />
+随后 flipper2  回到 Receive Signals 此时 flipper2 屏幕上显示 CLOSED！表示设备未解锁<br />
+<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1714200657410-cea4442a-3318-48d4-a9b6-dfefef906fd0-332387.png" /><br />
+按下 flipper1 的确认键发送刚刚捕获的信号，flipper2 接收到信号显示 OPENED！表示设备已解锁同时显示解锁原因是 REPLAY<br />
 <img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1714200624888-d0639d90-4f17-4f58-8257-2160282f46dd-337120.png" /></p>
 <h3 id="_3">克隆攻击</h3>
-<p>此种攻击仅限于你知道该协议的构造，并且知道制造商密钥，像 flipper 就包含了像 Security+1.0、DoorHan 这些国外常见车库门的滚动码协议及制造商密钥，所以它能够直接解码并找到其中滚动码计数部分，还可以随着你发送的次数自动增加计数器
-flipper1 进入到 Sub-GHz 的 Read 选项进入监听状态，重启 flipper2 的 rolling-flaws APP 使其恢复到初始状态，然后按下 Transmit Signal，此时 flipper1 收到滚动码信号并解析
-<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1714201514863-5fc9a61a-a6ed-4e73-93c1-d775f43e229c-963315.png" />
-flipper2 进入 Receive Signals 界面，此时 flipper1 选中这个信号选择发送，flipper2 的界面上仍然显示 CLOSED！因为我们重放的是已经发过的信号，不允许重放后自然是解不开的
-<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1714201779235-559f83aa-2ae5-4e7a-a17b-c00f2cf15536-163532.png" />
-但是当你再次使用 flipper1 发送信号时 flipper 会自动帮你将计数器加一，这时候 flipper2 屏幕上就将显示 OPENED！了，可以看到理由是 NEXT 说明是正常的滚动码发送序列中的下一个代码
+<p>此种攻击仅限于你知道该协议的构造，并且知道制造商密钥，像 flipper 就包含了像 Security+1.0、DoorHan 这些国外常见车库门的滚动码协议及制造商密钥，所以它能够直接解码并找到其中滚动码计数部分，还可以随着你发送的次数自动增加计数器<br />
+flipper1 进入到 Sub-GHz 的 Read 选项进入监听状态，重启 flipper2 的 rolling-flaws APP 使其恢复到初始状态，然后按下 Transmit Signal，此时 flipper1 收到滚动码信号并解析<br />
+<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1714201514863-5fc9a61a-a6ed-4e73-93c1-d775f43e229c-963315.png" /><br />
+flipper2 进入 Receive Signals 界面，此时 flipper1 选中这个信号选择发送，flipper2 的界面上仍然显示 CLOSED！因为我们重放的是已经发过的信号，不允许重放后自然是解不开的<br />
+<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1714201779235-559f83aa-2ae5-4e7a-a17b-c00f2cf15536-163532.png" /><br />
+但是当你再次使用 flipper1 发送信号时 flipper 会自动帮你将计数器加一，这时候 flipper2 屏幕上就将显示 OPENED！了，可以看到理由是 NEXT 说明是正常的滚动码发送序列中的下一个代码<br />
 <img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1714201916314-35538b19-b324-43b6-8e31-03e76aad811f-673324.png" /></p>
 <h3 id="_4">回滚攻击</h3>
-<p>前面提到，为了防止用户不在接受其范围内不小心按下了遥控器导致滚动码不匹配，接收器在收到一个在窗口（Window [next]）范围内的信号时会将自己的序列同步到该信号的位置，例如 flipper2 的滚动码序列此时已经到 4 了
-<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1714204069957-783bc7c4-94aa-49f9-9c04-a8309329910f-278671.png" />
-当 flipper1 发送滚动码序列为 0xB 的时候即使不匹配仍然可以解锁设备，这说明 0xB 目前仍然在滚动码序列的窗口内（在 Config 中可以看到目前设置为 16）
-<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1714204250809-7a193070-e8eb-4e4f-9ffd-0db1fe2d2976-054511.png" />
-还有一种同步机制是，如果你能连续发送几个相邻的信号，那么即使你不在 Window [next] 范围内，在 Window [future] 范围内也是可以同步信号的，但是我们说的这种回滚攻击他的 Window [future] 实际没有做限制，即使是已经用过的几个相邻的信号也可以被同步，实际效果是整个接收器的滚动码序列回滚到了之前的，因此称为回滚攻击，之前星舆实验室对本田汽车进行的测试就是这种攻击，参考：
-https://rollingpwn.github.io/rolling-pwn/
-接下来通过 flipper 简单的复现一下这个过程，首先将 flipper2 的 Window [future] 设置为 ALL，这样哪怕是已经使用过的信号也会被认为是未来的滚动码序列
-<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1714208817779-3f022ce4-7661-40e9-841b-d3402fe5616d-091752.png" />
-将 flipper1 切换到 Read RAW 记录原始信号，将 flipper2 的信号多发射几次，我们录下前两次信号，正常情况下重放必然是不成功的，因为已经属于用过的信号了
-<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1714208213769-01f5df2c-a203-4d06-999a-e8700902e52a-861490.png" />
-但是当我们使用 flipper1 重放第一个的时候，flipper2 的屏幕上显示的是 FUTURE，表示接收端识别到这是一个在未来序列的信号
-<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1714208131399-d102d395-11be-4be8-addc-800aa753b1df-120907.png" />
-在发送第二个信号时便显示 OPENED！了，这种攻击方式不需要去解码信号，直接录制原始无线信号即可
+<p>前面提到，为了防止用户不在接受其范围内不小心按下了遥控器导致滚动码不匹配，接收器在收到一个在窗口（Window [next]）范围内的信号时会将自己的序列同步到该信号的位置，例如 flipper2 的滚动码序列此时已经到 4 了<br />
+<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1714204069957-783bc7c4-94aa-49f9-9c04-a8309329910f-278671.png" /><br />
+当 flipper1 发送滚动码序列为 0xB 的时候即使不匹配仍然可以解锁设备，这说明 0xB 目前仍然在滚动码序列的窗口内（在 Config 中可以看到目前设置为 16）<br />
+<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1714204250809-7a193070-e8eb-4e4f-9ffd-0db1fe2d2976-054511.png" /><br />
+还有一种同步机制是，如果你能连续发送几个相邻的信号，那么即使你不在 Window [next] 范围内，在 Window [future] 范围内也是可以同步信号的，但是我们说的这种回滚攻击他的 Window [future] 实际没有做限制，即使是已经用过的几个相邻的信号也可以被同步，实际效果是整个接收器的滚动码序列回滚到了之前的，因此称为回滚攻击，之前星舆实验室对本田汽车进行的测试就是这种攻击，参考：<br />
+https://rollingpwn.github.io/rolling-pwn/<br />
+接下来通过 flipper 简单的复现一下这个过程，首先将 flipper2 的 Window [future] 设置为 ALL，这样哪怕是已经使用过的信号也会被认为是未来的滚动码序列<br />
+<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1714208817779-3f022ce4-7661-40e9-841b-d3402fe5616d-091752.png" /><br />
+将 flipper1 切换到 Read RAW 记录原始信号，将 flipper2 的信号多发射几次，我们录下前两次信号，正常情况下重放必然是不成功的，因为已经属于用过的信号了<br />
+<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1714208213769-01f5df2c-a203-4d06-999a-e8700902e52a-861490.png" /><br />
+但是当我们使用 flipper1 重放第一个的时候，flipper2 的屏幕上显示的是 FUTURE，表示接收端识别到这是一个在未来序列的信号<br />
+<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1714208131399-d102d395-11be-4be8-addc-800aa753b1df-120907.png" /><br />
+在发送第二个信号时便显示 OPENED！了，这种攻击方式不需要去解码信号，直接录制原始无线信号即可<br />
 <img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1714208718902-65522ec3-885c-48d5-8431-0b0850d3ab68-637789.png" /></p>
 <h3 id="_5">屏蔽重放攻击</h3>
-<p>这种攻击方式很容易理解，当发射端发射信号时攻击者发送干扰信号，使接收端收不到该信号，但攻击者记录下这个信号后再进行重放
+<p>这种攻击方式很容易理解，当发射端发射信号时攻击者发送干扰信号，使接收端收不到该信号，但攻击者记录下这个信号后再进行重放<br />
 <img alt="cd376e5018ae26f6f737957b9ea1921.png" src="../img/DkeXk-sP1mKFQTdJ/1716175679359-4edbb3e3-5597-4fc1-8221-06fccded59c8-567313.png" /></p>
-<p>跟很多师傅讨论过这个小玩意到底有啥用，看着好像集成了很多功能，但是很多功能都不够好，感觉没什么地方用。我在和别人介绍它的时候也说就是个玩具😂那为啥加拿大、澳大利亚都说这设备可能被用来做坏事呢
-<img alt="dcd454d2bac44601713bc3b5318b401.jpg" src="../img/DkeXk-sP1mKFQTdJ/1714209958033-42b626ee-cb2b-4c4d-8e5e-35d189089488-554102.jpeg" />
-前些天与朋友吃饭，聊起国外的时候突然灵光一闪，这东西在国外那么火，有没有可能是因为人家真的能用上哇！像是这篇文章我们就可以看到，flipper 里面集成了很多国外车库门滚动码的制造商密钥，在写这篇文章的时候关注的一个国外的博主，他介绍 flipper 的时候直接拿出了三四个不同的车库门的接收器来作为目标。感觉其实车库在国内不太常见，要么直接停路边，要么有停车场，虽然没去过国外，但是电影里国外每家都是小别墅配车库😂
-<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1714222159105-7ce41c9f-0228-4aa2-9d81-6de769cf54c6-047591.png" />
-关注的车联网安全事件中，像是撬开车大灯注入 CAN 指令偷车、背个包举着天线中继信号偷车等等，国内你看看谁敢干（狗头）所以有时候不要总是找自己的原因，可以抱怨一下大环境哈哈哈哈
+<p>跟很多师傅讨论过这个小玩意到底有啥用，看着好像集成了很多功能，但是很多功能都不够好，感觉没什么地方用。我在和别人介绍它的时候也说就是个玩具😂那为啥加拿大、澳大利亚都说这设备可能被用来做坏事呢<br />
+<img alt="dcd454d2bac44601713bc3b5318b401.jpg" src="../img/DkeXk-sP1mKFQTdJ/1714209958033-42b626ee-cb2b-4c4d-8e5e-35d189089488-554102.jpeg" /><br />
+前些天与朋友吃饭，聊起国外的时候突然灵光一闪，这东西在国外那么火，有没有可能是因为人家真的能用上哇！像是这篇文章我们就可以看到，flipper 里面集成了很多国外车库门滚动码的制造商密钥，在写这篇文章的时候关注的一个国外的博主，他介绍 flipper 的时候直接拿出了三四个不同的车库门的接收器来作为目标。感觉其实车库在国内不太常见，要么直接停路边，要么有停车场，虽然没去过国外，但是电影里国外每家都是小别墅配车库😂<br />
+<img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1714222159105-7ce41c9f-0228-4aa2-9d81-6de769cf54c6-047591.png" /><br />
+关注的车联网安全事件中，像是撬开车大灯注入 CAN 指令偷车、背个包举着天线中继信号偷车等等，国内你看看谁敢干（狗头）所以有时候不要总是找自己的原因，可以抱怨一下大环境哈哈哈哈<br />
 <img alt="image.png" src="../img/DkeXk-sP1mKFQTdJ/1714210734937-4c6ef5ba-7429-4a01-80ed-eab9d42e44e4-549636.png" /></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/niybvwv2g4gx2vqa">https://www.yuque.com/hxfqg9/iot/niybvwv2g4gx2vqa</a></p>

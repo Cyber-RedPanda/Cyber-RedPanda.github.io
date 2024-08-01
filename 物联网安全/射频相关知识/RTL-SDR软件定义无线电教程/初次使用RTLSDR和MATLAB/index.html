@@ -7543,30 +7543,30 @@
   <h1>初次使用RTLSDR和MATLAB</h1>
 
 <h2 id="rtlsdrmatlab">初次使用RTLSDR和MATLAB</h2>
-<p>看一下这本书：《Software Defined Radio using MATLAB Simulink and the RTL-SDR》
-下载地址：<a href="https://ww2.mathworks.cn/campaigns/offers/download-rtl-sdr-ebook.html">https://ww2.mathworks.cn/campaigns/offers/download-rtl-sdr-ebook.html</a>
-很明显，用的 matlab 和 RTL-SDR
-关于 matlab 可以淘宝30多块钱买个账号，自己下载就行了
+<p>看一下这本书：《Software Defined Radio using MATLAB Simulink and the RTL-SDR》<br />
+下载地址：<a href="https://ww2.mathworks.cn/campaigns/offers/download-rtl-sdr-ebook.html">https://ww2.mathworks.cn/campaigns/offers/download-rtl-sdr-ebook.html</a><br />
+很明显，用的 matlab 和 RTL-SDR<br />
+关于 matlab 可以淘宝30多块钱买个账号，自己下载就行了<br />
 RTL-SDR 尽量买原装进口的，我试了两家不同的国内产的 RTL-SDR，在别的软件上都可以用，但是 matlab 识别不了，最后狠心买了个贵的原装进口的一点阻碍都没有，很轻松的把环境搭建起来了</p>
-<p>matlab 下好之后去附加功能中搜索 rtl sdr 安装就行，然后点击管理
-<img alt="image.png" src="../img/SpY96P0PvIkTnN-d/1681633638483-767af713-ab10-4fac-9a22-67275d4276b4-333020.png" />
-如果没装过驱动应该会让你用 zadig 安装驱动。然后 Test Connection，能找到设备就行
-<img alt="image.png" src="../img/SpY96P0PvIkTnN-d/1681633751275-00846622-2fba-4281-a41b-14f68afa3329-436689.png" />
+<p>matlab 下好之后去附加功能中搜索 rtl sdr 安装就行，然后点击管理<br />
+<img alt="image.png" src="../img/SpY96P0PvIkTnN-d/1681633638483-767af713-ab10-4fac-9a22-67275d4276b4-333020.png" /><br />
+如果没装过驱动应该会让你用 zadig 安装驱动。然后 Test Connection，能找到设备就行<br />
+<img alt="image.png" src="../img/SpY96P0PvIkTnN-d/1681633751275-00846622-2fba-4281-a41b-14f68afa3329-436689.png" /><br />
 或者直接在命令行敲命令，检查能不能识别到</p>
 <pre><code>sdrinfo
 </code></pre>
-<p><img alt="image.png" src="../img/SpY96P0PvIkTnN-d/1681633842119-9b895c4d-04b1-4157-8006-9d32a4252f86-311972.png" />
-同时在 Simulink 中应该也有了 RTL SDR 的模块
-选择 Simulink，然后随便创建一个
-<img alt="image.png" src="../img/SpY96P0PvIkTnN-d/1685450518836-6aff2335-15cb-411f-9de7-2f2af84b115d-870179.png" />
-在 Library Browser 中就可以看到了，这是一个 RTL-SDR 的接收机，它是一个参数化的接口，可以实时的把 RTL-SDR 的采样值送入 Simulink
-<img alt="image.png" src="../img/SpY96P0PvIkTnN-d/1685450649839-ac9536f9-836b-4bb6-9f6e-7b24043251d8-059074.png" />
-将附件中的 rtlsdr_book_library 添加到路径中<img alt="image.png" src="../img/SpY96P0PvIkTnN-d/1683525026747-f0de24da-770e-4384-a75f-b26ed0342e39-448148.png" />
-然后看一下 Simulink Library Browser，是不是有 RTL-SDR Book Library 这个库，没有的话刷新一下
-<img alt="image.png" src="../img/SpY96P0PvIkTnN-d/1683525158370-45483ec8-3eb2-4a6a-909c-36922d34d16e-348219.png" />
-打开附件的 intro\rtlsdr_rx_startup_simulink.slxc 之后，修改 Centre Frequency 的频率为 433.92MHz，然后运行，这时候就能收到 433.92MHz 的信号了
-<img alt="image.png" src="../img/SpY96P0PvIkTnN-d/1683525588710-a4801717-c35b-4d9c-babe-5b523bfdd7e3-908554.png" />
-<img alt="image.png" src="../img/SpY96P0PvIkTnN-d/1683525464170-11345f4a-6673-4381-9106-05c3016e363e-712551.png" />
+<p><img alt="image.png" src="../img/SpY96P0PvIkTnN-d/1681633842119-9b895c4d-04b1-4157-8006-9d32a4252f86-311972.png" /><br />
+同时在 Simulink 中应该也有了 RTL SDR 的模块<br />
+选择 Simulink，然后随便创建一个<br />
+<img alt="image.png" src="../img/SpY96P0PvIkTnN-d/1685450518836-6aff2335-15cb-411f-9de7-2f2af84b115d-870179.png" /><br />
+在 Library Browser 中就可以看到了，这是一个 RTL-SDR 的接收机，它是一个参数化的接口，可以实时的把 RTL-SDR 的采样值送入 Simulink<br />
+<img alt="image.png" src="../img/SpY96P0PvIkTnN-d/1685450649839-ac9536f9-836b-4bb6-9f6e-7b24043251d8-059074.png" /><br />
+将附件中的 rtlsdr_book_library 添加到路径中<img alt="image.png" src="../img/SpY96P0PvIkTnN-d/1683525026747-f0de24da-770e-4384-a75f-b26ed0342e39-448148.png" /><br />
+然后看一下 Simulink Library Browser，是不是有 RTL-SDR Book Library 这个库，没有的话刷新一下<br />
+<img alt="image.png" src="../img/SpY96P0PvIkTnN-d/1683525158370-45483ec8-3eb2-4a6a-909c-36922d34d16e-348219.png" /><br />
+打开附件的 intro\rtlsdr_rx_startup_simulink.slxc 之后，修改 Centre Frequency 的频率为 433.92MHz，然后运行，这时候就能收到 433.92MHz 的信号了<br />
+<img alt="image.png" src="../img/SpY96P0PvIkTnN-d/1683525588710-a4801717-c35b-4d9c-babe-5b523bfdd7e3-908554.png" /><br />
+<img alt="image.png" src="../img/SpY96P0PvIkTnN-d/1683525464170-11345f4a-6673-4381-9106-05c3016e363e-712551.png" /><br />
 然后来看一下 rtlsdr_rx_startup_matlab.m，这是 matlab 的代码，里面先设置了一堆 RTLSDR 的参数</p>
 <pre><code>rtlsdr_id           = '0';          % RTL-SDR ID
 rtlsdr_tunerfreq    = 433.92e6;     % RTL-SDR tuner frequency in Hz

@@ -7694,41 +7694,41 @@
 <p>iptables 的结构：iptables -&gt; Tables -&gt; Chains -&gt; Rules</p>
 <h2 id="_1">规则、表和链</h2>
 <h3 id="_2">规则</h3>
-<p>规则就是我们设置的那些个过滤的条件，一般规则是：如果数据包头满足这样的条件就这样处理数据包
+<p>规则就是我们设置的那些个过滤的条件，一般规则是：如果数据包头满足这样的条件就这样处理数据包<br />
 规则指定了源地址、目的地址、传输协议（TCP\UDP\ICMP）、服务类型（HTTP\FTP\SMTP）等，昂数据包与规则匹配的时候，iptables 就根据定义的方法处理这些数据包，如：放行 accept、拒绝 reject、丢弃 drop 等</p>
 <h3 id="_3">链</h3>
 <p>链就是数据包传播的路径，每一条链中有一条或多条规则，数据包到达一条链时，iptables 就会从该链中的第一条规则开始检查，如果满足规则就根据这个规则定义的方法处理数据包，否则继续检查下一条规则，如果数据包不符合链中任何一条规则，iptables 就根据这条链预先定义的默认策略处理数据包</p>
 <h3 id="_4">表</h3>
 <p>默认有四个表 filter、NAT、Mangle、Raw</p>
 <blockquote>
-<p>（1） 一个数据包进入网卡时，它首先进入 PREROUTING 链，内核根据数据包目的 IP 判断是否需要转发出去
-（2） 如果数据包就是进入本机的，它就会沿着图向下移动，到达 INPUT 链。数据包到了 INPUT 链后，任何进程都会收到它。本机上运行的程序可以发送数据包，这些数据包会经过 OUTPUT 链，然后到达POSTROUTING 链输出
+<p>（1） 一个数据包进入网卡时，它首先进入 PREROUTING 链，内核根据数据包目的 IP 判断是否需要转发出去<br />
+（2） 如果数据包就是进入本机的，它就会沿着图向下移动，到达 INPUT 链。数据包到了 INPUT 链后，任何进程都会收到它。本机上运行的程序可以发送数据包，这些数据包会经过 OUTPUT 链，然后到达POSTROUTING 链输出<br />
 （3）如果数据包是要转发出去的，且内核允许转发，数据包就会如图所示向右移动，经过 FORWARD 链，然后到达 POSTROUTING 链输出</p>
 </blockquote>
 <p><img alt="1670988315160-d7a21f5c-98db-457e-9895-daaa26fe2c68.png" src="../img/0WqaHgI7HDJ92OpQ/1670988315160-d7a21f5c-98db-457e-9895-daaa26fe2c68-612696.png" /></p>
 <h2 id="_5">使用方法</h2>
-<p>iptables -F 删除所有规则
-iptables -L -v -n  查看规则，其中还有个 -t 表示看哪个表，不指定默认是 filter
+<p>iptables -F 删除所有规则<br />
+iptables -L -v -n  查看规则，其中还有个 -t 表示看哪个表，不指定默认是 filter<br />
 <img alt="image.png" src="../img/0WqaHgI7HDJ92OpQ/1670988146067-6c92a4f1-edbb-44bf-955a-3a703f96010d-236036.png" /></p>
 <h3 id="_6">防火墙</h3>
-<p>在虚拟机使用 python 启动一个 http 的服务器，监听在 80 端口，正常情况下是可以访问的
-<img alt="image.png" src="../img/0WqaHgI7HDJ92OpQ/1671100160914-26ab0d69-8307-421f-9661-fb1e157eadbb-826785.png" />
-使用 <code>iptables -t filter -A INPUT -j DROP -p tcp --dport 80</code>
--t filter 是指定 filter 表，-A 表示添加，INPUT 是添加的链，-j 表示规则，-p 表示协议（TCP\UDP\ICMP...），--dport 表示端口，整条规则表示丢弃从 80 端口进来的流量
-<img alt="image.png" src="../img/0WqaHgI7HDJ92OpQ/1671100237943-9064568a-c8a5-4ca1-96c5-70f48646bf9d-280540.png" />
-使用 iptables -t filter -D INPUT 1
--D 表示删除，INPUT 表示删除的链，1 表示链上第一条规则（如果不知道规则，使用 iptables -L --line-numbers）
-<img alt="image.png" src="../img/0WqaHgI7HDJ92OpQ/1671104326458-02b28630-f93c-4c55-9266-c3669eb2e2e8-684239.png" />
-当然也可以指定某个 IP 不能访问 80 端口：
-<code>iptables -t filter -A INPUT  -s 192.168.127.128 -j DROP -p tcp --dport 80</code>
-<img alt="image.png" src="../img/0WqaHgI7HDJ92OpQ/1671156698734-000ae409-563f-46e1-a507-78769ddc1294-074161.png" />
-指定某个 IP 能访问，其他 IP 不能访问
-<code>iptables -t filter -A INPUT  -s 192.168.127.128 -j ACCEPT -p tcp --dport 80</code>
-<code>iptables -t filter -A INPUT  -j DROP -p tcp --dport 80</code>
-因为匹配顺序是从上往下的，所以如果这个顺序反过来就先匹配到了全都 DROP，直接就给丢弃了，哪怕是 192.168.127.128 也不行
+<p>在虚拟机使用 python 启动一个 http 的服务器，监听在 80 端口，正常情况下是可以访问的<br />
+<img alt="image.png" src="../img/0WqaHgI7HDJ92OpQ/1671100160914-26ab0d69-8307-421f-9661-fb1e157eadbb-826785.png" /><br />
+使用 <code>iptables -t filter -A INPUT -j DROP -p tcp --dport 80</code><br />
+-t filter 是指定 filter 表，-A 表示添加，INPUT 是添加的链，-j 表示规则，-p 表示协议（TCP\UDP\ICMP...），--dport 表示端口，整条规则表示丢弃从 80 端口进来的流量<br />
+<img alt="image.png" src="../img/0WqaHgI7HDJ92OpQ/1671100237943-9064568a-c8a5-4ca1-96c5-70f48646bf9d-280540.png" /><br />
+使用 iptables -t filter -D INPUT 1<br />
+-D 表示删除，INPUT 表示删除的链，1 表示链上第一条规则（如果不知道规则，使用 iptables -L --line-numbers）<br />
+<img alt="image.png" src="../img/0WqaHgI7HDJ92OpQ/1671104326458-02b28630-f93c-4c55-9266-c3669eb2e2e8-684239.png" /><br />
+当然也可以指定某个 IP 不能访问 80 端口：<br />
+<code>iptables -t filter -A INPUT  -s 192.168.127.128 -j DROP -p tcp --dport 80</code><br />
+<img alt="image.png" src="../img/0WqaHgI7HDJ92OpQ/1671156698734-000ae409-563f-46e1-a507-78769ddc1294-074161.png" /><br />
+指定某个 IP 能访问，其他 IP 不能访问<br />
+<code>iptables -t filter -A INPUT  -s 192.168.127.128 -j ACCEPT -p tcp --dport 80</code><br />
+<code>iptables -t filter -A INPUT  -j DROP -p tcp --dport 80</code><br />
+因为匹配顺序是从上往下的，所以如果这个顺序反过来就先匹配到了全都 DROP，直接就给丢弃了，哪怕是 192.168.127.128 也不行<br />
 <img alt="image.png" src="../img/0WqaHgI7HDJ92OpQ/1671156872140-d8c178e6-ffc4-4efb-ba5e-7c639b5783ee-751854.png" /></p>
-<p>有的时候使用 iptables -L -n 看的不全，比如如果看到有一条
-<code>ACCEPT     all  --  0.0.0.0/0        0.0.0.0/0</code>
+<p>有的时候使用 iptables -L -n 看的不全，比如如果看到有一条<br />
+<code>ACCEPT     all  --  0.0.0.0/0        0.0.0.0/0</code><br />
 结果怎么都访问不到，可能是你有个参数没看到，使用 iptables -L -nv 看的仔细一点会发现，in 上有个 lo 表示本地回环，所以白搭</p>
 <pre><code class="language-c"> pkts bytes target     prot opt in     out     source               destination         
    28  4801 ACCEPT     all  --  lo      *       0.0.0.0/0            0.0.0.0/0           
@@ -7738,8 +7738,8 @@ iptables -L -v -n  查看规则，其中还有个 -t 表示看哪个表，不指
 iptables -t filter -A INPUT -i lo -j ACCEPT -p all
 iptables -t filter -A INPUT -j REJECT --reject-with icmp-net-unreachable
 </code></pre>
-<p>这种情况下第一条说的是 192.168.127.128 能访问到我们的 80 端口，第二条表示本地回环的随便访问，第三条表示其他主机一律回应 icmp-net-unreachable
-<img alt="image.png" src="../img/0WqaHgI7HDJ92OpQ/1671160448534-bd170324-593d-4438-84aa-fd0e22de4e5d-890066.png" />
+<p>这种情况下第一条说的是 192.168.127.128 能访问到我们的 80 端口，第二条表示本地回环的随便访问，第三条表示其他主机一律回应 icmp-net-unreachable<br />
+<img alt="image.png" src="../img/0WqaHgI7HDJ92OpQ/1671160448534-bd170324-593d-4438-84aa-fd0e22de4e5d-890066.png" /><br />
 此时查看 iptables 效果如下</p>
 <pre><code class="language-c">root@research:~# iptables -L -vn
 Chain INPUT (policy ACCEPT 0 packets, 0 bytes)
@@ -7756,22 +7756,22 @@ ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0
 REJECT     all  --  0.0.0.0/0            0.0.0.0/0            reject-with icmp-net-unreachable
 </code></pre>
 <h3 id="_7">流量转发</h3>
-<p>网络情况如下，我们的电脑是 PC，可以访问 A 设备，但是访问不到 B 设备
-<img alt="image.png" src="../img/0WqaHgI7HDJ92OpQ/1671168125030-6db34205-d31d-4321-9489-dd48b42e725c-834324.png" />
-在 A 设备上使用 iptables 进行流量的转发，使得 PC 可以通过 A 设备登录到 B 设备的 SSH
+<p>网络情况如下，我们的电脑是 PC，可以访问 A 设备，但是访问不到 B 设备<br />
+<img alt="image.png" src="../img/0WqaHgI7HDJ92OpQ/1671168125030-6db34205-d31d-4321-9489-dd48b42e725c-834324.png" /><br />
+在 A 设备上使用 iptables 进行流量的转发，使得 PC 可以通过 A 设备登录到 B 设备的 SSH<br />
 这里转发的时候要使用 nat 这个表，PREROUTING 链是流量首先进入的链，经过这个链的处理再干别的，所以我么在这条链上新建了一个规则，把去 192.168.127.170 的 6666 端口的流量修改目的地址为 192.168.47.131:22</p>
 <pre><code class="language-c">iptables -t nat -A PREROUTING -d 192.168.127.170 -p tcp --dport 6666 -j DNAT --to-destination 192.168.47.131:22
 </code></pre>
 <p>然后通过 nat 表 POSTROUTING 链把去往 192.168.47.131:22 的源地址改为 192.168.47.129</p>
 <pre><code class="language-c">iptables -t nat -A POSTROUTING -d 192.168.47.131 -p tcp --dport 22 -j SNAT --to-source 192.168.47.129
 </code></pre>
-<p>上面两条规则实际上就是把流量包里面的源地址和目的地址全都改了，这样来看就成了 192.168.47.129 在和 192.168.47.131 通信了
+<p>上面两条规则实际上就是把流量包里面的源地址和目的地址全都改了，这样来看就成了 192.168.47.129 在和 192.168.47.131 通信了<br />
 另外我们把流量包都给改了，数据包出了 PREROUTING 链之后是根据目标地址选择去向的，如果是本机地址那就进入 INPUT 链，如果是其他地址就进入 FORWARD 链，因为我们改了目标地址，所以会进入到 FORWARD 链，而这个链默认会拒绝所有的地址，所以我们得加上一个 192.168.47.131 的 ACCEPT</p>
 <pre><code class="language-c">iptables -I FORWARD 1 -d 192.168.47.131 -p tcp --dport 22 -j ACCEPT
 iptables -I FORWARD 2 -s 192.168.47.131 -p tcp --sport 22 -j ACCEPT
 </code></pre>
-<p>话说，只是规定了从 A 到 B 没规定从 B 到 A 之后再咋到 PC 啊？
-<img alt="image.png" src="../img/0WqaHgI7HDJ92OpQ/1671168064148-01537e4d-3da6-413f-b17d-f89a983e2e77-466770.png" />
+<p>话说，只是规定了从 A 到 B 没规定从 B 到 A 之后再咋到 PC 啊？<br />
+<img alt="image.png" src="../img/0WqaHgI7HDJ92OpQ/1671168064148-01537e4d-3da6-413f-b17d-f89a983e2e77-466770.png" /><br />
 再试一下，换台电脑，win7，IP 是 192.168.47.130 ，尝试通过端口转发，使用 192.168.127.170 连一下远程桌面</p>
 <pre><code class="language-c">iptables -t nat -A PREROUTING -d 192.168.127.170 -p tcp --dport 9999 -j DNAT --to-destination 192.168.47.130:3389
 iptables -t nat -A POSTROUTING -d 192.168.47.130 -p tcp --dport 3389 -j SNAT --to-source 192.168.47.129
@@ -7779,9 +7779,9 @@ iptables -I FORWARD 1 -d 192.168.47.130 -p tcp --dport 3389 -j ACCEPT
 iptables -I FORWARD 2 -s 192.168.47.130 -p tcp --sport 3389 -j ACCEPT
 </code></pre>
 <p><img alt="image.png" src="../img/0WqaHgI7HDJ92OpQ/1671171338731-7f6cec83-f22e-4223-8415-a6224f432100-502752.png" /></p>
-<p>参考：
-<a href="https://www.cnblogs.com/Dicky-Zhang/p/5904429.html">https://www.cnblogs.com/Dicky-Zhang/p/5904429.html</a>
-<a href="https://wooyun.js.org/drops/Iptables%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B.html">https://wooyun.js.org/drops/Iptables%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B.html</a>
+<p>参考：<br />
+<a href="https://www.cnblogs.com/Dicky-Zhang/p/5904429.html">https://www.cnblogs.com/Dicky-Zhang/p/5904429.html</a><br />
+<a href="https://wooyun.js.org/drops/Iptables%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B.html">https://wooyun.js.org/drops/Iptables%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B.html</a><br />
 <a href="https://macdfree.cc/post/iptables%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/">https://macdfree.cc/post/iptables%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/</a></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/misc/av2bgwhf58fhct4z">https://www.yuque.com/hxfqg9/misc/av2bgwhf58fhct4z</a></p>

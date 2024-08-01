@@ -7606,9 +7606,9 @@ jump_table[3] = (size_t) &amp;winner;
 <p><img alt="image.png" src="../img/D6Tc1eSKXG2mUfJ8/1605604719702-0cf0dfd4-7758-4189-8acd-990020ab3a99-084774.png" /></p>
 <p>因为 unsorted bin 被改掉了当 malloc 的时候会出错，会依次调用 malloc_printerr、 __libc_message、abort()、_IO_flush_all_lockp()，在调用 _IO_flush_all_lockp() 的时候需要在 vtable 中找 _IO_OVERFLOW，而 _IO_OVERFLOW 我们已经覆盖掉为 winner 的地址了，而早在之前我们就把前面写上了 '/bin/sh' 这样就可以达到执行 system('/bin/sh') 了</p>
 <p>害，其实就是这样的：通过 unsorted bin attack 把 _IO_list_all 改成 unsorted bin 的地址，然后因为我们把 old top chunk 的 size 改为了 0x61 属于 smallbin，恰好这个大小的 smallbin 相对 unsorted bin 的偏移与 _chain 相对 _IO_list_all 的偏移是一样的</p>
-<p><img alt="image.png" src="../img/D6Tc1eSKXG2mUfJ8/1605614176600-8d4d6d86-8f04-4252-8327-69594ea8108d-791866.png" />
+<p><img alt="image.png" src="../img/D6Tc1eSKXG2mUfJ8/1605614176600-8d4d6d86-8f04-4252-8327-69594ea8108d-791866.png" /><br />
 （感觉不太准确，但大概是这么个意思）</p>
-<p>而通过 unsorted bin attack 我们把 _IO_list_all 改成了 unsorted bin 的地址，这样 _chain 指向的就是 old top chunk 的地址了
+<p>而通过 unsorted bin attack 我们把 _IO_list_all 改成了 unsorted bin 的地址，这样 _chain 指向的就是 old top chunk 的地址了<br />
 我们的那些伪造的操作也是在 old top chunk 上做的，我对 how2heap 的代码做了点替换，对着下面的图片与偏移更容易理解是怎么伪造的</p>
 <pre><code class="language-c">    //fp-&gt;_mode = 0;
     top[24] = 0;
@@ -7680,7 +7680,7 @@ void * funcs[] = {
    21 NULL, // imbue
 };
 </code></pre>
-<p>参考：<a href="https://bbs.pediy.com/thread-223334.htm">https://bbs.pediy.com/thread-223334.htm</a>
+<p>参考：<a href="https://bbs.pediy.com/thread-223334.htm">https://bbs.pediy.com/thread-223334.htm</a><br />
 <a href="https://nightrainy.github.io/2020/02/02/how2heap%E6%80%BB%E7%BB%93%E8%AE%A1%E5%88%92%E4%B8%83/">https://nightrainy.github.io/2020/02/02/how2heap%E6%80%BB%E7%BB%93%E8%AE%A1%E5%88%92%E4%B8%83/</a></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/bin/ct0mzz">https://www.yuque.com/hxfqg9/bin/ct0mzz</a></p>

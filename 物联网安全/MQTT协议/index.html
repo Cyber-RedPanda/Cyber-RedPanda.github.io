@@ -7629,35 +7629,35 @@
   <h1>MQTT协议</h1>
 
 <h2 id="mqtt">MQTT协议</h2>
-<p>MQTT 服务使用的 emqx，在 <a href="https://www.emqx.com/zh/try?product=broker">https://www.emqx.com/zh/try?product=broker</a> 下载开源版本即可
-下载下来之后解压，进到里面的 bin 文件夹下面运行：<code>emqx start</code>服务就启动了，访问浏览器 ip:18083 就可以来到 WEB 端的控制台，默认密码 admin/public
-在监听器中可以看到对应的协议以及监听的端口
+<p>MQTT 服务使用的 emqx，在 <a href="https://www.emqx.com/zh/try?product=broker">https://www.emqx.com/zh/try?product=broker</a> 下载开源版本即可<br />
+下载下来之后解压，进到里面的 bin 文件夹下面运行：<code>emqx start</code>服务就启动了，访问浏览器 ip:18083 就可以来到 WEB 端的控制台，默认密码 admin/public<br />
+在监听器中可以看到对应的协议以及监听的端口<br />
 <img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1654089614768-40fb442d-43e3-4bc3-be9e-062ac7028d91-147523.png" /></p>
 <h2 id="mqtt_1">MQTT</h2>
-<p>默认情况下，连账号密码都不用，<a href="https://www.emqx.com/zh/products/mqttx">mqttx</a> 直接填好地址和端口就行，其他的随意
-<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1654089631130-5a3b9aae-f76b-4fd8-8e82-64fb354e4180-887366.png" />
-去 WEB 端插件页面把 emqx_auth_mnesia 插件启动了，就需要账号密码认证了
-<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1653969028123-06888308-33f0-4982-b715-dd78d826a83e-209132.png" />
-然后找到下载的文件夹里的 etc 目录里的 emqx.conf 搜索 allow_anonymous 改为 false
-<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1653968679951-9fff5023-01ec-43fb-9760-bced4166e98d-665133.png" />
-去 etc/plugins 下面把想要使用的用户名去掉注释或者自己根据他的样子写一个
-<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1653968750380-2cd72d7b-a73d-43ef-8380-b5dee0a906f0-881007.png" />
-然后重启 emqx 的服务 <code>emqx restart</code>
-然后就可以使用 MQTTX 去测试一下是否生效了，随便输个密码报错了
-<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1653968851905-e9074489-5743-457b-8028-64c0c51adecf-745047.png" />
-MQTTX 这个软件的输入框上面那个 Retain 是保留消息的意思，勾上这个之后发出去的消息当再次连接上就会收到，重复发送会覆盖，broker 为每个主题仅存储一条保留消息
-<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1653988276486-1fcbb7ac-7e44-4216-aa94-6846dbec48dd-304203.png" />
-除了保留消息还有遗嘱消息，遗嘱消息是针对客户端可能因为未知的原因掉线、连接不正常的，客户端指定一条消息作为遗嘱消息发送给 broker 后，当 broker 检测到客户端连接不正常断开的话会将它的遗嘱消息发送给所在主题的所有客户端，如果是正确的 disconnect 则 broker 会丢弃存储的遗嘱消息
-在 MQTTX 里面遗嘱消息在建立连接时设置
-<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1654156035529-f6ce5913-6bd0-4d0b-a610-31a259629b70-505455.png" />
-还有一个 keep live 的报文，过一段时间双方确认一下是不是还在线，MQTTX 也是在连接时设置即可
-<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1654156519249-dac6b2eb-ccd8-4bf9-a171-d346f67e5799-252415.png" />
-接下来抓包分析一下，客户端向服务器（broker）建立连接的请求，除了图中标出来的，还有 keep alive 的时间
-<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1654130762561-73a83aa7-ea9b-4470-868d-ae7ce7d9eeeb-564949.png" />
-这是包含遗嘱消息建立连接的流量包
-<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1654156732464-1e6f920b-086e-458b-b515-f56e7ba69368-666957.png" />
-服务端返回的响应
-<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1654130904444-a20d23a5-6bef-4bd4-bd74-abd2b1e64923-318132.png" />
+<p>默认情况下，连账号密码都不用，<a href="https://www.emqx.com/zh/products/mqttx">mqttx</a> 直接填好地址和端口就行，其他的随意<br />
+<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1654089631130-5a3b9aae-f76b-4fd8-8e82-64fb354e4180-887366.png" /><br />
+去 WEB 端插件页面把 emqx_auth_mnesia 插件启动了，就需要账号密码认证了<br />
+<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1653969028123-06888308-33f0-4982-b715-dd78d826a83e-209132.png" /><br />
+然后找到下载的文件夹里的 etc 目录里的 emqx.conf 搜索 allow_anonymous 改为 false<br />
+<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1653968679951-9fff5023-01ec-43fb-9760-bced4166e98d-665133.png" /><br />
+去 etc/plugins 下面把想要使用的用户名去掉注释或者自己根据他的样子写一个<br />
+<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1653968750380-2cd72d7b-a73d-43ef-8380-b5dee0a906f0-881007.png" /><br />
+然后重启 emqx 的服务 <code>emqx restart</code><br />
+然后就可以使用 MQTTX 去测试一下是否生效了，随便输个密码报错了<br />
+<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1653968851905-e9074489-5743-457b-8028-64c0c51adecf-745047.png" /><br />
+MQTTX 这个软件的输入框上面那个 Retain 是保留消息的意思，勾上这个之后发出去的消息当再次连接上就会收到，重复发送会覆盖，broker 为每个主题仅存储一条保留消息<br />
+<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1653988276486-1fcbb7ac-7e44-4216-aa94-6846dbec48dd-304203.png" /><br />
+除了保留消息还有遗嘱消息，遗嘱消息是针对客户端可能因为未知的原因掉线、连接不正常的，客户端指定一条消息作为遗嘱消息发送给 broker 后，当 broker 检测到客户端连接不正常断开的话会将它的遗嘱消息发送给所在主题的所有客户端，如果是正确的 disconnect 则 broker 会丢弃存储的遗嘱消息<br />
+在 MQTTX 里面遗嘱消息在建立连接时设置<br />
+<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1654156035529-f6ce5913-6bd0-4d0b-a610-31a259629b70-505455.png" /><br />
+还有一个 keep live 的报文，过一段时间双方确认一下是不是还在线，MQTTX 也是在连接时设置即可<br />
+<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1654156519249-dac6b2eb-ccd8-4bf9-a171-d346f67e5799-252415.png" /><br />
+接下来抓包分析一下，客户端向服务器（broker）建立连接的请求，除了图中标出来的，还有 keep alive 的时间<br />
+<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1654130762561-73a83aa7-ea9b-4470-868d-ae7ce7d9eeeb-564949.png" /><br />
+这是包含遗嘱消息建立连接的流量包<br />
+<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1654156732464-1e6f920b-086e-458b-b515-f56e7ba69368-666957.png" /><br />
+服务端返回的响应<br />
+<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1654130904444-a20d23a5-6bef-4bd4-bd74-abd2b1e64923-318132.png" /><br />
 主要是看这个 return code</p>
 <table>
 <thead>
@@ -7693,24 +7693,24 @@ MQTTX 这个软件的输入框上面那个 Retain 是保留消息的意思，勾
 </tr>
 </tbody>
 </table>
-<p>发布消息
-<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1654132374526-ef36cf4d-0ca8-413b-ac4e-29f451a3213f-598158.png" />
-这里的 Message Identifier 与 <a href="https://www.hivemq.com/blog/mqtt-essentials-part-4-mqtt-publish-subscribe-unsubscribe/">HiveMQ 这篇文章</a>中的 packetId 应该是一个东西我觉着？用来唯一的标识一条消息
-这里的 QoS 是服务质量，为 0 时最多发送一次，发送方不保证能发到，接收方也不确认收到消息，消息也不会被存储和重新发送
-QoS 为 1 时保证一条消息至少一次发送给接收方，发送方会保存消息，直到从接收方收到了确认收到消息的 ACK 包，就像上面那个截图一样
-QoS 为 2 时保证每条消息仅由预期接收者接收一次，双方之间有四次握手（这里面夹杂的那条从 broker 发回来的消息是在他们四次握手结束之前就发回来了？）
-<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1654153945802-b9ff1330-742d-46fe-a3d8-2dd85d70e9cc-727294.png" />
-客户端订阅，这里面有订阅的主题和请求订阅的质量，服务端也会给一个 ACK
-<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1654132763918-14850306-d020-4450-8922-9cce07c37644-994961.png" />
-取消订阅也一样
-<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1654148225405-0981554e-4eb9-4f10-a074-50454d4edb41-260457.png" />
-在 MQTT 中，客户端发布或订阅之前不需要事先创建主题，服务端（broker）接受每个有效的主题而无需事先初始化
+<p>发布消息<br />
+<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1654132374526-ef36cf4d-0ca8-413b-ac4e-29f451a3213f-598158.png" /><br />
+这里的 Message Identifier 与 <a href="https://www.hivemq.com/blog/mqtt-essentials-part-4-mqtt-publish-subscribe-unsubscribe/">HiveMQ 这篇文章</a>中的 packetId 应该是一个东西我觉着？用来唯一的标识一条消息<br />
+这里的 QoS 是服务质量，为 0 时最多发送一次，发送方不保证能发到，接收方也不确认收到消息，消息也不会被存储和重新发送<br />
+QoS 为 1 时保证一条消息至少一次发送给接收方，发送方会保存消息，直到从接收方收到了确认收到消息的 ACK 包，就像上面那个截图一样<br />
+QoS 为 2 时保证每条消息仅由预期接收者接收一次，双方之间有四次握手（这里面夹杂的那条从 broker 发回来的消息是在他们四次握手结束之前就发回来了？）<br />
+<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1654153945802-b9ff1330-742d-46fe-a3d8-2dd85d70e9cc-727294.png" /><br />
+客户端订阅，这里面有订阅的主题和请求订阅的质量，服务端也会给一个 ACK<br />
+<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1654132763918-14850306-d020-4450-8922-9cce07c37644-994961.png" /><br />
+取消订阅也一样<br />
+<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1654148225405-0981554e-4eb9-4f10-a074-50454d4edb41-260457.png" /><br />
+在 MQTT 中，客户端发布或订阅之前不需要事先创建主题，服务端（broker）接受每个有效的主题而无需事先初始化<br />
 主题必须至少包含一个字符，区分大小写，一些主题的示例：</p>
 <pre><code class="language-python">myhome/livingroom/temperature
 5ff4a2ce-e485-40f4-826c-b1a5d81be9b6/status
 BMW/Control/car/238234053/status
 </code></pre>
-<p>如果不想直接订阅某个精准的主题，MQTT 也有通配符，可以使用通配符同时订阅多个主题。<strong>通配符只能用于订阅主题，不能用于发布消息</strong>
+<p>如果不想直接订阅某个精准的主题，MQTT 也有通配符，可以使用通配符同时订阅多个主题。<strong>通配符只能用于订阅主题，不能用于发布消息</strong><br />
 加号（+）就代表单级通配符，这样用：BMW/Control/car/+/status，订阅产生的效果是：</p>
 <pre><code>BMW/Control/car/238234053/status        √
 BMW/Control/car/842661654/status        √
@@ -7724,14 +7724,14 @@ BMW/Control/car/238233453/car           √
 BMW/Control/fly/238234053/status        ×
 </code></pre>
 <h2 id="mqtts">MQTTS</h2>
-<p>根据 <a href="https://www.emqx.com/zh/blog/emqx-server-ssl-tls-secure-connection-configuration-guide">官方文档</a> 中的自签名做就行
-首先生成一个自签名的 CA 证书，生成一个长度为 2048 的密钥保存在 ca.key 中
-<code>openssl genrsa -out ca.key 2048</code>
-生成 emqx 根证书
-<code>openssl req -x509 -new -nodes -key ca.key -sha256 -days 3650 -out ca.pem</code>
-有了根证书就可以用来给其他实体签发实体证书
-先给 emqx 生成一个私钥
-<code>openssl genrsa -out emqx.key 2048</code>
+<p>根据 <a href="https://www.emqx.com/zh/blog/emqx-server-ssl-tls-secure-connection-configuration-guide">官方文档</a> 中的自签名做就行<br />
+首先生成一个自签名的 CA 证书，生成一个长度为 2048 的密钥保存在 ca.key 中<br />
+<code>openssl genrsa -out ca.key 2048</code><br />
+生成 emqx 根证书<br />
+<code>openssl req -x509 -new -nodes -key ca.key -sha256 -days 3650 -out ca.pem</code><br />
+有了根证书就可以用来给其他实体签发实体证书<br />
+先给 emqx 生成一个私钥<br />
+<code>openssl genrsa -out emqx.key 2048</code><br />
 建立一个 openssl.cnf 文件</p>
 <pre><code class="language-python">[req]
 default_bits  = 2048
@@ -7753,10 +7753,10 @@ subjectAltName = @alt_names
 IP.1 = BROKER_ADDRESS   #主要改这里
 DNS.1 = BROKER_ADDRESS  #主要改这里
 </code></pre>
-<p>以私钥和配置文件签发一个证书
-<code>openssl req -new -key ./emqx.key -config openssl.cnf -out emqx.csr</code>
-以根证书签发 emqx 实体证书
-<code>openssl x509 -req -in ./emqx.csr -CA ca.pem -CAkey ca.key -CAcreateserial -out emqx.pem -days 3650 -sha256 -extensions v3_req -extfile openssl.cnf</code>
+<p>以私钥和配置文件签发一个证书<br />
+<code>openssl req -new -key ./emqx.key -config openssl.cnf -out emqx.csr</code><br />
+以根证书签发 emqx 实体证书<br />
+<code>openssl x509 -req -in ./emqx.csr -CA ca.pem -CAkey ca.key -CAcreateserial -out emqx.pem -days 3650 -sha256 -extensions v3_req -extfile openssl.cnf</code><br />
 将生成的 emqx.pem、emqx.key、ca.pem 放在 emqx 的 etc/certs 目录下，修改 etc 目录下的 emqx.conf</p>
 <pre><code class="language-python">listener.ssl.external = 8883
 ...
@@ -7766,22 +7766,22 @@ listener.ssl.external.certfile = etc/certs/emqx.pem
 ...
 listener.ssl.external.cacertfile = etc/certs/ca.pem
 </code></pre>
-<p>然后打开 MQTTX 配置好就可以连接了
-<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1654083472492-42699252-e08b-4e60-b7e4-314ae6198640-395564.png" />
-这样再连接后就是加密的了
-<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1654083628102-4df5ace0-717a-4942-a475-7dac90443320-108882.png" />
-问题在于，我密钥证书啥的都有，我该怎么解密Orz。知道了，麻了，用了 ECDHE，即使有私钥也解不了
-<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1654085327049-58489a5c-f14c-4a7e-a637-38bda4cfb0eb-284590.png" />
+<p>然后打开 MQTTX 配置好就可以连接了<br />
+<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1654083472492-42699252-e08b-4e60-b7e4-314ae6198640-395564.png" /><br />
+这样再连接后就是加密的了<br />
+<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1654083628102-4df5ace0-717a-4942-a475-7dac90443320-108882.png" /><br />
+问题在于，我密钥证书啥的都有，我该怎么解密Orz。知道了，麻了，用了 ECDHE，即使有私钥也解不了<br />
+<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1654085327049-58489a5c-f14c-4a7e-a637-38bda4cfb0eb-284590.png" /><br />
 <a href="https://www.wangan.com/p/7fy7f67838fafafb"><img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1654086368564-2bf50a0c-c7a8-4215-9f20-be89ec74810c-923367.png" /></a></p>
 <h2 id="ws">WS</h2>
-<p>MQTT-WebSoket 统一使用 /path 作为连接路径，连接时需指明，在 EMQX 上使用的路径为 /mqtt
+<p>MQTT-WebSoket 统一使用 /path 作为连接路径，连接时需指明，在 EMQX 上使用的路径为 /mqtt<br />
 <img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1654089110308-4ce68ee8-83c3-4fa3-b477-f1b91e136872-583969.png" /></p>
 <h2 id="wss">WSS</h2>
-<p>需要用域名访问，直接改 hosts 文件就行，（把 MQTTX 的 SSL 安全给关掉）
+<p>需要用域名访问，直接改 hosts 文件就行，（把 MQTTX 的 SSL 安全给关掉）<br />
 <img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1654089394789-dfb7c416-744b-4d8f-a9cd-3357516031f0-418173.png" /></p>
 <h2 id="python">用 Python 连接</h2>
-<p>使用的库：<code>pip install paho-mqtt</code>
-里面用的 broker.emqx.io 是 emqx 提供的公共服务器，免费试用
+<p>使用的库：<code>pip install paho-mqtt</code><br />
+里面用的 broker.emqx.io 是 emqx 提供的公共服务器，免费试用<br />
 发布：</p>
 <pre><code class="language-python">import random
 import time
@@ -7861,12 +7861,12 @@ def run():
 if __name__ == '__main__':
     run()
 </code></pre>
-<p><img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1653977135315-a4cf7711-7a28-4e00-8cc1-78d19923db6a-695317.png" />
+<p><img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1653977135315-a4cf7711-7a28-4e00-8cc1-78d19923db6a-695317.png" /><br />
 如果是像上面那样开启了认证的话，可以在 connect 之前加上</p>
 <pre><code class="language-python">client.username_pw_set(username='admin', password='public')
 </code></pre>
-<p>比如我上面那个自己搭建的
-<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1653977439399-2647aa70-86a8-4e5c-9f81-939830377503-003074.png" />
+<p>比如我上面那个自己搭建的<br />
+<img alt="image.png" src="../img/G2-Z3sWuto9mumQg/1653977439399-2647aa70-86a8-4e5c-9f81-939830377503-003074.png" /><br />
 如果使用 ws 的话，直接加上个 transport 改好端口即可</p>
 <pre><code class="language-python">client = mqtt_client.Client(client_id,transport=&quot;websockets&quot;)
 </code></pre>
@@ -7874,7 +7874,7 @@ if __name__ == '__main__':
 <pre><code class="language-python">client.tls_set(ca_certs=&quot;./emqx/ca.pem&quot;,cert_reqs = ssl.CERT_NONE)
 </code></pre>
 <p>如果使用 wss 的话，就两个缝合一下</p>
-<p>参考：
+<p>参考：<br />
 <a href="https://www.hivemq.com/blog/mqtt-essentials-wrap-up/">mqtt-essentials-wrap-up</a> （HiveMQ 团队写的 MQTT 要点总结）</p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/pqfymw">https://www.yuque.com/hxfqg9/iot/pqfymw</a></p>

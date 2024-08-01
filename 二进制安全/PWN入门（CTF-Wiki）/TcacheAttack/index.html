@@ -7633,13 +7633,13 @@
 <h2 id="tcache-attack">Tcache Attack</h2>
 <p><strong>ubuntu 18.04 下测试</strong></p>
 <h2 id="tcache">tcache介绍</h2>
-<p>**
-源码看不动，说一下通过实验得到的：
+<p>**<br />
+源码看不动，说一下通过实验得到的：<br />
 同一大小的 chunk free 之后前 7 个会放到一个 tcache 链表里面，不同大小的放在不同的链表中</p>
 <p><img alt="image.png" src="../img/PMF0f2koV0-b8gYN/1599203249256-82f5ac65-5d0c-489f-8178-5e15e27abba0-953940.png" /></p>
 <p>最大能放 0x408 的，再大就要按照原本的那样放到 unsortedbin 中了</p>
 <p><img alt="image.png" src="../img/PMF0f2koV0-b8gYN/1599203512319-36373ba7-3af0-472d-a517-f6d67416983c-573187.png" /></p>
-<p>程序再次申请内存块的时候首先判断在 tchche 中是否存在，如果存在的话会先从 tcache 中拿
+<p>程序再次申请内存块的时候首先判断在 tchche 中是否存在，如果存在的话会先从 tcache 中拿<br />
 <strong>后进先出</strong></p>
 <h2 id="tcache_dup">tcache_dup</h2>
 <pre><code class="language-c">#include &lt;stdio.h&gt;
@@ -7661,7 +7661,7 @@ int main()
     return 0;
 }
 </code></pre>
-<p><code>gcc -g tcache_dup.c</code>
+<p><code>gcc -g tcache_dup.c</code><br />
 运行之后的结果：</p>
 <p><img alt="image.png" src="../img/PMF0f2koV0-b8gYN/1599284768870-733f0d35-4baa-4943-baf1-ccde4bd1555b-468599.png" /></p>
 <p>一开始申请了 0x8 大小的 chunk，后来 free了两次</p>
@@ -7730,7 +7730,7 @@ int main()
     return 0;
 }
 </code></pre>
-<p>程序首先定义了一个变量，我们想要做的就是让程序 malloc 到变量那里
+<p>程序首先定义了一个变量，我们想要做的就是让程序 malloc 到变量那里<br />
 malloc 两个 chunk，然后 free 掉，这时候链表及内存布局是这样的</p>
 <p><img alt="image.png" src="../img/PMF0f2koV0-b8gYN/1599286703548-270e2724-e62a-4843-a54e-4717f99fc472-648338.png" /></p>
 <p><img alt="image.png" src="../img/PMF0f2koV0-b8gYN/1599286781524-8c5511ff-9009-4574-94db-828e6f67b73a-414342.png" /></p>
@@ -7789,9 +7789,9 @@ int main(){
     return 0;
 }
 </code></pre>
-<p>在 tcache 有剩余（不够 7 个）的时候，smallbin 中的相同大小空闲块会放入 tcache 中，这时候也会出现 unlink 操作
+<p>在 tcache 有剩余（不够 7 个）的时候，smallbin 中的相同大小空闲块会放入 tcache 中，这时候也会出现 unlink 操作<br />
 <strong>calloc 在分配时不会用 tcache bin 的</strong></p>
-<p>首先把 7 个放到 tcache bin 中，剩下两个放在 unsorted bin 中
+<p>首先把 7 个放到 tcache bin 中，剩下两个放在 unsorted bin 中<br />
 0x555555757250 是 chunk0，0x555555757390 是 chunk2</p>
 <p><img alt="image.png" src="../img/PMF0f2koV0-b8gYN/1599354065945-5fc05706-0e52-4062-8e2d-c59b11ce8065-500890.png" /></p>
 <p>这时候去申请一个 0xa0 大小的 chunk，那俩在 unsorted bin 中的 chunk 整理放在了 small bin 中</p>
@@ -7804,12 +7804,12 @@ int main(){
 <p><img alt="image.png" src="../img/PMF0f2koV0-b8gYN/1599392428602-b29c4a87-a03b-4e63-a7c3-b64b6f2efe08-446397.png" /></p>
 <p>另外此时的 bins</p>
 <p><img alt="image.png" src="../img/PMF0f2koV0-b8gYN/1599392911786-3e4c1118-6118-4ef6-9699-c0d0991bd94a-600971.png" /></p>
-<p>使用 calloc 去申请 0x90 大小的 chunk 会把 0x555555757250 申请出去，这时候如果 tcachebin 还有空闲的位置，剩下的 smallbin 从最后一个 0x7fffffffddc0 开始顺着 bk 链接到 tcachebin 中
+<p>使用 calloc 去申请 0x90 大小的 chunk 会把 0x555555757250 申请出去，这时候如果 tcachebin 还有空闲的位置，剩下的 smallbin 从最后一个 0x7fffffffddc0 开始顺着 bk 链接到 tcachebin 中<br />
 <a href="https://dayjun.top/2020/02/07/smallbin在unlink的时候存在的漏洞/">https://dayjun.top/2020/02/07/smallbin在unlink的时候存在的漏洞/</a></p>
 <p><img alt="image.png" src="../img/PMF0f2koV0-b8gYN/1599366939897-e7859525-377b-433b-849b-d1ec792d5cdd-666057.png" /></p>
 <p>tcache 是后进先出的，所以这时候再去申请就拿到了 0x7fffffffddc0 这个地址的 chunk</p>
 <p><img alt="image.png" src="../img/PMF0f2koV0-b8gYN/1599382053572-a6b1bb56-75da-46c5-a923-60290d507c44-921320.png" /></p>
-<p><strong>调试不了！？先放过去了Orz</strong>
+<p><strong>调试不了！？先放过去了Orz</strong><br />
 找了几道题，都调不出来。。。貌似环境不一样！？烦！</p>
 <p>LCTF 2018 easy_heap</p>
 <pre><code class="language-python">from pwn import *

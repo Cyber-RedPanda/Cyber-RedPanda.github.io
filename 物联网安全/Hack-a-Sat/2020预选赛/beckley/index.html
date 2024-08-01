@@ -7653,13 +7653,13 @@
 <h2 id="beckley">beckley</h2>
 <p>这一关叫做模拟卫星视角，给了我们一个卫星拍摄时的 TLE，我们通过谷歌地球去设置卫星视角观察得到 flag</p>
 <h2 id="_1">环境搭建</h2>
-<p>进入 generator-base 之后运行<code>docker build -t generator-base .</code>把基础的镜像生成出来
-然后进入 beckley 文件夹把 solver 和 challenge 文件夹中的 Dockerfile 的 get-pip.py 的 url 换一下，换成：
-<a href="https://bootstrap.pypa.io/pip/2.7/get-pip.py">https://bootstrap.pypa.io/pip/2.7/get-pip.py</a>
-<img alt="image.png" src="../img/7fpSOMQGZUfj1_PT/1670410052916-ccedc3b6-5f37-49a5-9014-ee3f331929e1-436927.png" />
-我会把我用的最终版本放在 <a href="https://github.com/yichen115/hackasat-qualifier-2020">https://github.com/yichen115/hackasat-qualifier-2020</a> 用这个就不用改 url 了
-使用<code>make build</code>生成镜像，也可以用<code>make challenge</code>只生成题目镜像
-使用<code>apt install socat</code>安装 socat
+<p>进入 generator-base 之后运行<code>docker build -t generator-base .</code>把基础的镜像生成出来<br />
+然后进入 beckley 文件夹把 solver 和 challenge 文件夹中的 Dockerfile 的 get-pip.py 的 url 换一下，换成：<br />
+<a href="https://bootstrap.pypa.io/pip/2.7/get-pip.py">https://bootstrap.pypa.io/pip/2.7/get-pip.py</a><br />
+<img alt="image.png" src="../img/7fpSOMQGZUfj1_PT/1670410052916-ccedc3b6-5f37-49a5-9014-ee3f331929e1-436927.png" /><br />
+我会把我用的最终版本放在 <a href="https://github.com/yichen115/hackasat-qualifier-2020">https://github.com/yichen115/hackasat-qualifier-2020</a> 用这个就不用改 url 了<br />
+使用<code>make build</code>生成镜像，也可以用<code>make challenge</code>只生成题目镜像<br />
+使用<code>apt install socat</code>安装 socat<br />
 使用以下命令运行环境</p>
 <pre><code class="language-c">socat -v tcp-listen:19020,reuseaddr exec:&quot;docker run --rm -i -e SERVICE_HOST=172.17.0.1 -e SERVICE_PORT=19021 -e SEED=1000 -e FLAG=flag{zulu49225delta\:GG1EnNVMK3-hPvlNKAdEJxcujvp9WK4rEchuEdlDp3yv_Wh_uvB5ehGq-fyRowvwkWpdAMTKbidqhK4JhFsaz1k} -p 19021\:80 beckley\:challenge&quot;
 </code></pre>
@@ -7669,10 +7669,10 @@
 <p>然后运行下面的命令得到 flag</p>
 <pre><code class="language-c">curl http://172.17.0.1:19021/cgi-bin/HSCKML.py?CAMERA=-77.03,38.89,430000,40.3694166667,63.5358055556 -H 'User-Agent: GoogleEarth/7.3.2.5815(X11;Linux (5.2.0.0);en;kml:2.2;client:Pro;type:default)' -H 'Accept: application/vnd.google-earth.kml+xml, application/vnd.google-earth.kmz, image/*, */*' -H 'Accept-Language: en-US, *' -H 'Connection: keep-alive'
 </code></pre>
-<p>如图所示
+<p>如图所示<br />
 <img alt="image.png" src="../img/7fpSOMQGZUfj1_PT/1670469285235-8c0f85d4-3764-4168-a26d-fd6ea6e6618a-705649.png" /></p>
 <h2 id="_2">正式做题</h2>
-<p>按照 <a href="https://blog.csdn.net/hackasat/article/details/127814688">https://blog.csdn.net/hackasat/article/details/127814688</a> 的描述，这道题环境搭建起来后你能看的就只有 static 文件夹里面的 remote.kml 和一个 172.17.0.1 19020 的地址
+<p>按照 <a href="https://blog.csdn.net/hackasat/article/details/127814688">https://blog.csdn.net/hackasat/article/details/127814688</a> 的描述，这道题环境搭建起来后你能看的就只有 static 文件夹里面的 remote.kml 和一个 172.17.0.1 19020 的地址<br />
 就从这两个提示开始入手，nc 连接之后获得了如下信息</p>
 <pre><code class="language-c">We've captured data from a satellite that shows a flag located at the base of the Washington Monument.
 The image was taken on March 26th, 2020, at 21:53:13
@@ -7685,33 +7685,33 @@ REDACT
 Use a Google Earth Pro KML file to 'Link' to http://172.17.0.1:19021/cgi-bin/HSCKML.py
 and 'LookAt' that spot from where the satellite when it took the photo and get us that flag!
 </code></pre>
-<p>大意是太空中有颗卫星于 2020 年 3 月 26 日 21:52:55 按照特定的视角拍到了华盛顿纪念碑，让我们通过 Google Earth Pro 的 KML 文件模拟卫星拍摄时的位置看一下华盛顿纪念碑从而获得 flag
+<p>大意是太空中有颗卫星于 2020 年 3 月 26 日 21:52:55 按照特定的视角拍到了华盛顿纪念碑，让我们通过 Google Earth Pro 的 KML 文件模拟卫星拍摄时的位置看一下华盛顿纪念碑从而获得 flag<br />
 Google Earth Pro 可以在这里下载到 <a href="https://www.google.com/earth/versions/">https://www.google.com/earth/versions/</a></p>
 <h2 id="kml">KML 文件格式</h2>
-<p><a href="https://developers.google.com/kml/documentation/kmlreference">https://developers.google.com/kml/documentation/kmlreference</a>
-可以在谷歌地球上新建一个地标，试试 kml 文件是怎么创建的，点击这个黄色的工字钉
-<img alt="image.png" src="../img/7fpSOMQGZUfj1_PT/1670499178278-b6451ecd-3ae6-4e02-bf28-beb191cd1286-808089.png" />
-然后随便在地图上找个点，把工字钉拖上去，随便写点名称和说明
-<img alt="image.png" src="../img/7fpSOMQGZUfj1_PT/1670499284583-ff46a87a-31be-4075-b21e-6842fe685237-688473.png" />
-然后将右键地图上的工字钉，保存的时候选择类型是 kml 格式
-<img alt="image.png" src="../img/7fpSOMQGZUfj1_PT/1670499313894-03bd72d6-71c3-4547-90c7-ae7bd0cc6faa-481665.png" /><img alt="image.png" src="../img/7fpSOMQGZUfj1_PT/1670499385697-5fe120be-261f-4276-9cbd-a5afdcde8d16-854467.png" />
-可以看到主要的位置信息就是在 LookAt 这个标签里面的，LookAt 就是你从哪个视角来观看这个地标的
-<img alt="image.png" src="../img/7fpSOMQGZUfj1_PT/1670499734621-329d124f-2cbd-413d-994a-124915214353-952140.png" />
-对应的，在题目给的 remote.kml 文件中也是要我们修改这个位置的信息
-<img alt="image.png" src="../img/7fpSOMQGZUfj1_PT/1670501179413-052e3085-b18b-4e63-a948-9b289d44f633-021283.png" />
-longitude 是经度，不用解释吧
-latitude 是纬度，不用解释吧
-altitude 是海拔，不用解释吧
-heading 是飞行器前进的方向，看下面的图示，就是按照左边这个图来的
-<img alt="heading.gif" src="../img/7fpSOMQGZUfj1_PT/1670509197854-e969d424-a206-4c5b-a042-0d8165777d67-226874.gif" />
-tilt 是卫星与地球表面法线之间的角度
-range 是卫星距离目标的距离
-altitudeMode 是高度模式，这个不用咱们改
-<img alt="lookAt.gif" src="../img/7fpSOMQGZUfj1_PT/1670509085510-b8456cbd-fbef-49ee-a59e-cd5eb0e0aa8b-756316.gif" />
+<p><a href="https://developers.google.com/kml/documentation/kmlreference">https://developers.google.com/kml/documentation/kmlreference</a><br />
+可以在谷歌地球上新建一个地标，试试 kml 文件是怎么创建的，点击这个黄色的工字钉<br />
+<img alt="image.png" src="../img/7fpSOMQGZUfj1_PT/1670499178278-b6451ecd-3ae6-4e02-bf28-beb191cd1286-808089.png" /><br />
+然后随便在地图上找个点，把工字钉拖上去，随便写点名称和说明<br />
+<img alt="image.png" src="../img/7fpSOMQGZUfj1_PT/1670499284583-ff46a87a-31be-4075-b21e-6842fe685237-688473.png" /><br />
+然后将右键地图上的工字钉，保存的时候选择类型是 kml 格式<br />
+<img alt="image.png" src="../img/7fpSOMQGZUfj1_PT/1670499313894-03bd72d6-71c3-4547-90c7-ae7bd0cc6faa-481665.png" /><img alt="image.png" src="../img/7fpSOMQGZUfj1_PT/1670499385697-5fe120be-261f-4276-9cbd-a5afdcde8d16-854467.png" /><br />
+可以看到主要的位置信息就是在 LookAt 这个标签里面的，LookAt 就是你从哪个视角来观看这个地标的<br />
+<img alt="image.png" src="../img/7fpSOMQGZUfj1_PT/1670499734621-329d124f-2cbd-413d-994a-124915214353-952140.png" /><br />
+对应的，在题目给的 remote.kml 文件中也是要我们修改这个位置的信息<br />
+<img alt="image.png" src="../img/7fpSOMQGZUfj1_PT/1670501179413-052e3085-b18b-4e63-a948-9b289d44f633-021283.png" /><br />
+longitude 是经度，不用解释吧<br />
+latitude 是纬度，不用解释吧<br />
+altitude 是海拔，不用解释吧<br />
+heading 是飞行器前进的方向，看下面的图示，就是按照左边这个图来的<br />
+<img alt="heading.gif" src="../img/7fpSOMQGZUfj1_PT/1670509197854-e969d424-a206-4c5b-a042-0d8165777d67-226874.gif" /><br />
+tilt 是卫星与地球表面法线之间的角度<br />
+range 是卫星距离目标的距离<br />
+altitudeMode 是高度模式，这个不用咱们改<br />
+<img alt="lookAt.gif" src="../img/7fpSOMQGZUfj1_PT/1670509085510-b8456cbd-fbef-49ee-a59e-cd5eb0e0aa8b-756316.gif" /><br />
 还有一个在这里面没有体现出来的 <Link> 标签，这个是用来通过网络链接获取 KML 文件，那我们先把这个 link 换成 nc 连接上后获得的地址 <a href="http://172.17.0.1:19021/cgi-bin/HSCKML.py">http://172.17.0.1:19021/cgi-bin/HSCKML.py</a>，选择文件 -&gt; 打开 -&gt; remote.kml 把临时位置的层级全部展开，可以看到一个地标是 Keep Looking... 说明咱还没找到正确的观察视角<img alt="image.png" src="../img/7fpSOMQGZUfj1_PT/1670503374181-b3d8119f-9de2-4a9f-8f26-2b1f4792e999-676694.png" /></p>
 <h2 id="tle">双线元素集 (TLE)</h2>
-<p>接下来我们研究研究 LookAt 要怎么设置，就是卫星拍到华盛顿纪念碑时的位置，相关线索就是 nc 上去输出的两行信息，这个叫做双线元素集 (TLE)，好家伙，专业知识来了
-<a href="https://www.space-track.org/documentation#/tle">https://www.space-track.org/documentation#/tle</a>
+<p>接下来我们研究研究 LookAt 要怎么设置，就是卫星拍到华盛顿纪念碑时的位置，相关线索就是 nc 上去输出的两行信息，这个叫做双线元素集 (TLE)，好家伙，专业知识来了<br />
+<a href="https://www.space-track.org/documentation#/tle">https://www.space-track.org/documentation#/tle</a><br />
 卫星双线元素集（TLE）是一种编码格式，用于在两行中存储卫星的轨道参数。这些轨道参数是由观测到的卫星运动数据计算得出的。TLE 可以用来预测卫星的运动，并用于各种应用，例如卫星导航和通信</p>
 <pre><code class="language-c">REDACT
 1 13337U 98067A   20087.38052801 -.00000452  00000-0  00000+0 0  9995
@@ -7870,11 +7870,11 @@ altitudeMode 是高度模式，这个不用咱们改
 </tbody>
 </table>
 <h2 id="tle_1">解析TLE得到卫星视角</h2>
-<p>我们需要通过给出的 TLE 数据填充 LookAt 中的信息，其中 longitude 和 latitude 是经纬度，直接在谷歌地球中找就行了，按照上面添加地标的方式添加保存为 KML 文件，再查看即可，纬度：38.88937190244597，经度：-77.03521514741283
-同时因为 altitudeMode 是 clampToGround，表示可以忽略高度，因此 altitude 是 0
-<img alt="image.png" src="../img/7fpSOMQGZUfj1_PT/1670595166121-8d95f129-d23a-40b1-aa8d-18ca762c78c1-074792.png" />
-这意味着我们只需要解析出来 heading、tilt、range 即可，我们用 Python 来实现，参考这个库：
-<a href="https://rhodesmill.org/skyfield/earth-satellites.html">https://rhodesmill.org/skyfield/earth-satellites.html</a>
+<p>我们需要通过给出的 TLE 数据填充 LookAt 中的信息，其中 longitude 和 latitude 是经纬度，直接在谷歌地球中找就行了，按照上面添加地标的方式添加保存为 KML 文件，再查看即可，纬度：38.88937190244597，经度：-77.03521514741283<br />
+同时因为 altitudeMode 是 clampToGround，表示可以忽略高度，因此 altitude 是 0<br />
+<img alt="image.png" src="../img/7fpSOMQGZUfj1_PT/1670595166121-8d95f129-d23a-40b1-aa8d-18ca762c78c1-074792.png" /><br />
+这意味着我们只需要解析出来 heading、tilt、range 即可，我们用 Python 来实现，参考这个库：<br />
+<a href="https://rhodesmill.org/skyfield/earth-satellites.html">https://rhodesmill.org/skyfield/earth-satellites.html</a><br />
 首先从字符集加载 TLE 数据，然后根据时间确定卫星在头顶的位置（注意这里的时间要用 nc 上去之后题目给我们的时间而不是 TLE 解析的时间），这里得到的位置是地心天球参考系中卫星的 x、y、z 坐标，也就是说是以地心为观察者视角得到的卫星的位置</p>
 <pre><code class="language-python">from skyfield.api import EarthSatellite, load, Topos
 
@@ -7905,9 +7905,9 @@ print('\nAltitude: %f' % alt.degrees)   # 高度角
 print('Azimuth: %f' % az.degrees)       # 方位角
 print('Distance: %d' % int(distance.m)) # 距离
 </code></pre>
-<p>得到这个之后我们来看一下 heading 和 tilt 与高度角和方位角的关系，其中 tilt 与高度角是互补的，因此直接用 90 减去高度角就是 tilt
-<img alt="altitude_crop.png" src="../img/7fpSOMQGZUfj1_PT/1670662912949-be09c18c-9c5a-41ce-9e8d-a347b6e2f5ea-862468.png" />
-heading 是卫星前进的方向，与当前的方位角有个 180 度的差值，所以在 Azimuth 的基础上加上 180 度得到 heading，再模 360 度是为了保证度数在 360 度之内
+<p>得到这个之后我们来看一下 heading 和 tilt 与高度角和方位角的关系，其中 tilt 与高度角是互补的，因此直接用 90 减去高度角就是 tilt<br />
+<img alt="altitude_crop.png" src="../img/7fpSOMQGZUfj1_PT/1670662912949-be09c18c-9c5a-41ce-9e8d-a347b6e2f5ea-862468.png" /><br />
+heading 是卫星前进的方向，与当前的方位角有个 180 度的差值，所以在 Azimuth 的基础上加上 180 度得到 heading，再模 360 度是为了保证度数在 360 度之内<br />
 <img alt="image.png" src="../img/7fpSOMQGZUfj1_PT/1670673053704-139ec96b-ab3b-4c5d-968b-5cc3b15ab7f9-702633.png" /></p>
 <pre><code class="language-python">heading = (180 + az.degrees) % 360
 print('\nHeading: %f' % heading)
@@ -7927,7 +7927,7 @@ print('Tilt: %f' % tilt)
 </code></pre>
 <p><img alt="image.png" src="../img/7fpSOMQGZUfj1_PT/1670593047495-8ad92b99-efce-40cd-b120-b1b2b3bb9491-650029.png" /></p>
 <h2 id="_3">参考</h2>
-<p><a href="https://github.com/solar-wine/writeups/blob/master/2020/Qualifications/Astronomy%2C%20Astrophysics%2C%20Astrometry%2C%20Astrodynamics%2C%20AAAA/I%20Like%20to%20Watch/writeup.md">https://github.com/solar-wine/writeups/blob/master/2020/Qualifications/Astronomy%2C%20Astrophysics%2C%20Astrometry%2C%20Astrodynamics%2C%20AAAA/I%20Like%20to%20Watch/writeup.md</a>
+<p><a href="https://github.com/solar-wine/writeups/blob/master/2020/Qualifications/Astronomy%2C%20Astrophysics%2C%20Astrometry%2C%20Astrodynamics%2C%20AAAA/I%20Like%20to%20Watch/writeup.md">https://github.com/solar-wine/writeups/blob/master/2020/Qualifications/Astronomy%2C%20Astrophysics%2C%20Astrometry%2C%20Astrodynamics%2C%20AAAA/I%20Like%20to%20Watch/writeup.md</a><br />
 <a href="https://blog.csdn.net/hackasat/article/details/127814688">https://blog.csdn.net/hackasat/article/details/127814688</a></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/hao7seuuop37u8gk">https://www.yuque.com/hxfqg9/iot/hao7seuuop37u8gk</a></p>

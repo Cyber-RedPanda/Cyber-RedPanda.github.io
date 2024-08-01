@@ -7545,7 +7545,7 @@
 <h2 id="fristileaks_13">FristiLeaks_1.3</h2>
 <p>要把 MAC 地址改为 08:00:27:A5:A6:76</p>
 <p><img alt="image.png" src="../img/AcNZQvxnoz-BqAks/1603276965506-e5b69b3d-0217-479d-a85c-75dfaf647565-952931.png" /></p>
-<p>访问 80 端口，nmap 的结果上有个 robots.txt，挨个访问里面的网址没啥发现
+<p>访问 80 端口，nmap 的结果上有个 robots.txt，挨个访问里面的网址没啥发现<br />
 扫描目录的结果：</p>
 <p><img alt="image.png" src="../img/AcNZQvxnoz-BqAks/1603277117844-e33d3308-aae9-4a7b-a6b9-1de1898b1e89-808006.png" /></p>
 <p><a href="http://192.168.17.139/fristi/">http://192.168.17.139/fristi/</a> 是一个登录页面</p>
@@ -7557,17 +7557,17 @@
 <p><img alt="image.png" src="../img/AcNZQvxnoz-BqAks/1603277725733-d00f5885-770d-40b4-88d7-b2010383d2aa-376578.png" /></p>
 <p>同时注释中还有这么一段</p>
 <p><img alt="image.png" src="../img/AcNZQvxnoz-BqAks/1603277811311-18ca785c-4b3a-41af-ae78-7275cd1d8b0f-223562.png" /></p>
-<p>试一下 eezeepz::keKkeKKeKKeKkEkkEk 登录一下
+<p>试一下 eezeepz::keKkeKKeKKeKkEkkEk 登录一下<br />
 登录成功！有一个上传文件的地方</p>
 <p><img alt="image.png" src="../img/AcNZQvxnoz-BqAks/1603277893559-bdf0ac05-1b16-4288-9e21-04cf98e3b57c-992067.png" /></p>
 <p>只能上传 png、jpg、gif</p>
 <p><img alt="image.png" src="../img/AcNZQvxnoz-BqAks/1603278793678-7dfd36a1-ffbb-486a-a236-34262a6fb34b-471239.png" /></p>
-<p>可以利用 apache 的解析漏洞传一个 xxx.php.jpg 的上去，然后 php 写个反弹 shell
-（再次记录一下下面这一句，总是忘了 Orz）
+<p>可以利用 apache 的解析漏洞传一个 xxx.php.jpg 的上去，然后 php 写个反弹 shell<br />
+（再次记录一下下面这一句，总是忘了 Orz）<br />
 <code>python -c "import pty;pty.spawn('/bin/bash')"</code></p>
-<p>利用脏牛提权
-<a href="https://www.exploit-db.com/exploits/40839">https://www.exploit-db.com/exploits/40839</a>
-<code>gcc -pthread 40839.c -o exe -lcrypt</code>
+<p>利用脏牛提权<br />
+<a href="https://www.exploit-db.com/exploits/40839">https://www.exploit-db.com/exploits/40839</a><br />
+<code>gcc -pthread 40839.c -o exe -lcrypt</code><br />
 用这个的时候注意换到 /bin/bash 这一个，之前在蚁剑的终端里试了几次没交互效果</p>
 <p><img alt="image.png" src="../img/AcNZQvxnoz-BqAks/1603589780205-b77deb3d-e098-4740-b9f2-0a5dc42894d3-614839.png" /></p>
 <blockquote>

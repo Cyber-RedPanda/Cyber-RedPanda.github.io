@@ -7541,7 +7541,7 @@
   <h1>Ciscn 2019 final 3</h1>
 
 <h2 id="ciscn_2019_final_3">ciscn_2019_final_3</h2>
-<p>感觉这个题调试着学到不少知识，单独放出来一篇 Orz
+<p>感觉这个题调试着学到不少知识，单独放出来一篇 Orz<br />
 exp</p>
 <pre><code class="language-python"># encoding=utf-8
 from pwn import *
@@ -7610,11 +7610,11 @@ p.interactive()
 <p><img alt="image.png" src="../img/Yq8CY0XdY8NsvVM5/1601204919868-d24dc1bd-79ec-4d19-9642-258563063614-990174.png" /></p>
 <p>接下来申请回来 0x50，反手把 fd 指针改掉，改成 0x555555768e70-0x11e60=0x555555757010</p>
 <p><img alt="image.png" src="../img/Yq8CY0XdY8NsvVM5/1601379128404-13c68619-8e8e-4936-8afc-129090447413-655736.png" /></p>
-<p>~~不太理解这个分配机制，都改掉链表了啊！？为啥还会分到之前那里！？~~
-可能是这样的，本来：
-<code>0x555555768e70 -&gt; 0x555555768e70</code>
-申请一个，同时把这个地方的 fd 指针给改为 0x555555757010
-这时候成了 <code>0x555555768e70 -&gt; 0x555555757010</code>，再去申请的时候申请到了 0x555555768e70
+<p>~~不太理解这个分配机制，都改掉链表了啊！？为啥还会分到之前那里！？~~<br />
+可能是这样的，本来：<br />
+<code>0x555555768e70 -&gt; 0x555555768e70</code><br />
+申请一个，同时把这个地方的 fd 指针给改为 0x555555757010<br />
+这时候成了 <code>0x555555768e70 -&gt; 0x555555757010</code>，再去申请的时候申请到了 0x555555768e70<br />
 然后 tcache 链表是这样的：<code>0x555555757010</code>，然后再去申请的时候把 fd+0x40（~~不明白为啥是这样一个地方 fd+0x40 这样子~~，明白了看后面吧hhhh）改成 0x555555768ec0，而 tcache 再去找的时候也确实是找了这个地方</p>
 <p>然后我发现在一开始 remove 之后 <code>0x555555757070</code> 这里就有指向第 0 个的指针了，难道这是链表头部？</p>
 <p><img alt="image.png" src="../img/Yq8CY0XdY8NsvVM5/1601981906306-7fc21fa1-c7f4-42ee-91f4-6f4d272ba612-916905.png" /></p>
@@ -7624,24 +7624,24 @@ p.interactive()
 <p><img alt="image.png" src="../img/Yq8CY0XdY8NsvVM5/1601982456667-b78c7efe-e155-44bd-9ac8-026325cdc5f2-048820.png" /></p>
 <p>对第 0 个第二次 remove 后：第 0 个的 fd 也指向第 0 个了，合情合理</p>
 <p><img alt="image.png" src="../img/Yq8CY0XdY8NsvVM5/1601982533507-3697e935-3bbf-450c-b5dd-7ce4de157bfd-988204.png" /></p>
-<p>然后去 malloc 一个，同时把 fd 指针改成 0x0000555555757010
+<p>然后去 malloc 一个，同时把 fd 指针改成 0x0000555555757010<br />
 因为 free 了两次，所以应该还指向第 0 个，但是第 0 个的 fd 指针已经改变了</p>
 <p><img alt="image.png" src="../img/Yq8CY0XdY8NsvVM5/1601982645935-de6c1ff0-5126-4f37-aa6b-e96db3198b50-527447.png" /></p>
 <p>然后再去申请一个的话 tcache 就指向更改的那个 0x0000555555757010 了</p>
 <p><img alt="image.png" src="../img/Yq8CY0XdY8NsvVM5/1601983149090-781ecf4e-b5b6-45f6-a601-a993d539809e-707644.png" /></p>
-<p>我们再通过申请时写入到 0x555555757050 使得前面有个地方改成 0x0000555555768ec0
+<p>我们再通过申请时写入到 0x555555757050 使得前面有个地方改成 0x0000555555768ec0<br />
 （这时候突然意识到 tcache 是每种大小的在一个链表），exp 中后面再去 malloc 的是 0x10，往后数一下，我们之前看到的 0x555555757070 正好是 0x50 大小的链表那里！！</p>
 <p><img alt="image.png" src="../img/Yq8CY0XdY8NsvVM5/1601983282247-758a840b-90b2-48df-bd23-683292276649-834469.png" /></p>
-<p>也就是说如果下一个申请的是 0x10 大小的话就应该去 0x555555757050 去找指针
+<p>也就是说如果下一个申请的是 0x10 大小的话就应该去 0x555555757050 去找指针<br />
 而我们写入的那个 0x0000555555768ec0 正好是第 1 个 chunk 的 chunk 头，也就是说这样我们就能控制第 1 个 chunk 的 size 了，我们在申请时将它的 size 改为了 0x100</p>
 <p><img alt="image.png" src="../img/Yq8CY0XdY8NsvVM5/1601984042207-d9ab5862-fb38-489d-95c8-5b1284adb5d0-126781.png" /></p>
 <p>另外 0x555555757010 这个地方正好对应着 tcache 的数量，比如一开始 remove 了两个以后这个地方成了 2</p>
 <p><img alt="image.png" src="../img/Yq8CY0XdY8NsvVM5/1601985029726-fcbce3ce-b308-477c-b09a-598838f04e84-223163.png" /></p>
-<p>因为我们前面已经把除了我们要用的都改成了 0x61（'a'）了，所以即使 0x100 也会放入 unsorted bin 中
+<p>因为我们前面已经把除了我们要用的都改成了 0x61（'a'）了，所以即使 0x100 也会放入 unsorted bin 中<br />
 然后去 malloc 一个的同时把第 0 个的 fd 指针又改为了刚才释放的那一个，强行排队2333</p>
 <p><img alt="image.png" src="../img/Yq8CY0XdY8NsvVM5/1601985493737-a635d4ca-21d1-480c-b3ab-e523081818fe-385733.png" /></p>
 <p>这样再去申请第三次的时候就会申请到 unsorted bin 的地址，通过给的 gift 就能知道 main_arena+96 的地址了，然后就能计算出 libc 的地址啦！</p>
-<p>然后要做的就是 double free 编辑 free_hook 为 system 的地址，然后去 free 第三个就可以拿到 shell 了（因为前面我们把第三个上写入的是 "/bin/sh"）
+<p>然后要做的就是 double free 编辑 free_hook 为 system 的地址，然后去 free 第三个就可以拿到 shell 了（因为前面我们把第三个上写入的是 "/bin/sh"）<br />
 当然，也可以直接编辑 free_hook 为 one gadget，这样随便 free 哪一个都可以啦！</p>
 <p><img alt="image.png" src="../img/Yq8CY0XdY8NsvVM5/1601987398055-d22228ca-cf44-4d3b-9bff-794b17e2ac33-135399.png" /></p>
 <blockquote>

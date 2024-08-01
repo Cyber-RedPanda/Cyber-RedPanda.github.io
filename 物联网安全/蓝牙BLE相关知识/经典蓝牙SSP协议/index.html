@@ -7541,16 +7541,16 @@
   <h1>经典蓝牙SSP协议</h1>
 
 <h2 id="ssp">经典蓝牙SSP协议</h2>
-<p><strong>Core_v5.3核心规范 P737</strong>
-<img alt="image.png" src="../img/rhQZ7r7U44AdDAzK/1656495237857-7e4e4824-2884-4dbc-8fe9-52245a5af189-793877.png" />
-首先收集 OOB 信息啥的，然后开始 ssp 的配对，先发一个 Sent Write Simple Pairing Mode
-然后接收一个 Rcvd Command Complete (Write Simple Pairing Mode) 这样就是 enable ssp 这一步了
-<img alt="image.png" src="../img/rhQZ7r7U44AdDAzK/1658393828545-55bd6801-c30b-41ce-bf88-8b5889189381-201848.png" />
-然后 Sent Set Event Mask  --&gt;  bthci_cmd.opcode = 0x0c01
-<img alt="image.png" src="../img/rhQZ7r7U44AdDAzK/1658394100740-6469da73-e9b7-439b-9167-00717f8f67d0-846489.png" />
-然后交换 IO 能力，这一步与 BLE 一样，会决定 Authentication 的算法
-<img alt="image.png" src="../img/rhQZ7r7U44AdDAzK/1658394676321-a5f50032-d40c-4b2a-9aa5-b766a86e0399-634038.png" />
-最后 Rcvd Simple Pairing Complete 表示配对完成，但是有些设备，有头没尾，只有 ssp 的请求，没有 complete 还不知道为啥
+<p><strong>Core_v5.3核心规范 P737</strong><br />
+<img alt="image.png" src="../img/rhQZ7r7U44AdDAzK/1656495237857-7e4e4824-2884-4dbc-8fe9-52245a5af189-793877.png" /><br />
+首先收集 OOB 信息啥的，然后开始 ssp 的配对，先发一个 Sent Write Simple Pairing Mode<br />
+然后接收一个 Rcvd Command Complete (Write Simple Pairing Mode) 这样就是 enable ssp 这一步了<br />
+<img alt="image.png" src="../img/rhQZ7r7U44AdDAzK/1658393828545-55bd6801-c30b-41ce-bf88-8b5889189381-201848.png" /><br />
+然后 Sent Set Event Mask  --&gt;  bthci_cmd.opcode = 0x0c01<br />
+<img alt="image.png" src="../img/rhQZ7r7U44AdDAzK/1658394100740-6469da73-e9b7-439b-9167-00717f8f67d0-846489.png" /><br />
+然后交换 IO 能力，这一步与 BLE 一样，会决定 Authentication 的算法<br />
+<img alt="image.png" src="../img/rhQZ7r7U44AdDAzK/1658394676321-a5f50032-d40c-4b2a-9aa5-b766a86e0399-634038.png" /><br />
+最后 Rcvd Simple Pairing Complete 表示配对完成，但是有些设备，有头没尾，只有 ssp 的请求，没有 complete 还不知道为啥<br />
 <img alt="image.png" src="../img/rhQZ7r7U44AdDAzK/1658453063760-079b131a-949d-4902-885e-4d90675a1ef0-266025.png" /></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/lc3h2w">https://www.yuque.com/hxfqg9/iot/lc3h2w</a></p>

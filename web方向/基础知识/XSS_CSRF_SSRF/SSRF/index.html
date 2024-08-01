@@ -7862,7 +7862,7 @@
 
 <h2 id="ssrf">SSRF</h2>
 <h2 id="_1">概念</h2>
-<p>SSRF，Server-Side Request Forgery，服务端请求伪造，是一种由攻击者构造形成由服务器端发起请求的一个漏洞。一般情况下，SSRF 攻击的目标是从外网无法访问的内部系统。
+<p>SSRF，Server-Side Request Forgery，服务端请求伪造，是一种由攻击者构造形成由服务器端发起请求的一个漏洞。一般情况下，SSRF 攻击的目标是从外网无法访问的内部系统。<br />
 漏洞形成的原因大多是因为服务端提供了从其他服务器应用获取数据的功能且没有对目标地址作过滤和限制。</p>
 <h2 id="_2">利用</h2>
 <ol>
@@ -7886,11 +7886,11 @@ curl($url);
 ?&gt;
 </code></pre>
 <h3 id="dict">dict协议查看端口</h3>
-<p>开着就显示
-<a href="http://127.0.0.1/php/csrf/ssrftest.php?url=dict://127.0.0.1:80">http://127.0.0.1/php/csrf/ssrftest.php?url=dict://127.0.0.1:80</a>
+<p>开着就显示<br />
+<a href="http://127.0.0.1/php/csrf/ssrftest.php?url=dict://127.0.0.1:80">http://127.0.0.1/php/csrf/ssrftest.php?url=dict://127.0.0.1:80</a><br />
 <img alt="image.png" src="../img/551828_vkergaw8vu94ykvf/1565317815792-f3d01a5b-a533-4459-b343-34e79408e150-034642.png" /></p>
 <h3 id="file">file协议读取文件</h3>
-<p><a href="http://127.0.0.1/php/csrf/ssrftest.php?url=file://D://anquan//localtest//WWW//php//csrf//1.txt">http://127.0.0.1/php/csrf/ssrftest.php?url=file://D://anquan//localtest//WWW//php//csrf//1.txt</a>
+<p><a href="http://127.0.0.1/php/csrf/ssrftest.php?url=file://D://anquan//localtest//WWW//php//csrf//1.txt">http://127.0.0.1/php/csrf/ssrftest.php?url=file://D://anquan//localtest//WWW//php//csrf//1.txt</a><br />
 <img alt="image.png" src="../img/551828_vkergaw8vu94ykvf/1565317900120-484af87c-18cb-414f-8691-540b669f5510-525389.png" /></p>
 <h2 id="_3">函数</h2>
 <h3 id="file_get_contents">file_get_contents（）</h3>
@@ -7911,7 +7911,7 @@ else
 }
 ?&gt;
 </code></pre>
-<p>用phpstudy请求https的图片可能会出问题
+<p>用phpstudy请求https的图片可能会出问题<br />
 解决：打开你的php.ini配置文件，定位到下图蓝色所示的位置，把extension=php_openssl.dll 前面的; 分号去掉。</p>
 <p><img alt="image.png" src="../img/551828_vkergaw8vu94ykvf/1565235172299-a4a70ca8-b574-4235-8268-be299765cff4-043403.png" /></p>
 <h3 id="fsockopen">fsockopen()</h3>
@@ -7940,14 +7940,14 @@ function GetFile($host,$port,$link) {
 <h3 id="_4">添加端口</h3>
 <h3 id="_5">短网址</h3>
 <h3 id="ip_1">指向任意IP的域名</h3>
-<p><strong>xip.io</strong>
+<p><strong>xip.io</strong><br />
 127.0.0.1.xip.io就会跳转到127.0.0.1</p>
 <h3 id="_6">进制转换</h3>
-<p>0177.0.0.1 -&gt; 127.0.0.1（八进制）
-0x7f.0.0.1 -&gt; 127.0.01（十六进制）
-0x7f000001 -&gt; 127.0.0.1（十六进制整数）
+<p>0177.0.0.1 -&gt; 127.0.0.1（八进制）<br />
+0x7f.0.0.1 -&gt; 127.0.01（十六进制）<br />
+0x7f000001 -&gt; 127.0.0.1（十六进制整数）<br />
 2130706433 -&gt; 127.0.0.1（十进制整数）</p>
-<p>www.baidu.com@127.0.0.1会以www.baidu.com的身份访问127.0.0.1
+<p>www.baidu.com@127.0.0.1会以www.baidu.com的身份访问127.0.0.1<br />
 <img alt="image.png" src="../img/551828_vkergaw8vu94ykvf/1565344973968-f21bb096-b733-49dc-b224-036cf53f6d10-466028.png" /></p>
 <h3 id="gopher">gopher协议</h3>
 <p>懵了，再说吧</p>

@@ -7539,9 +7539,9 @@
   <h1>jtagulator探测JTAG接口</h1>
 
 <h2 id="jtagulatorjtag">jtagulator探测JTAG接口</h2>
-<p>首先测出目标 GND，将目标 GND 与 JTAGULATOR 的 GND 连接好（<a href="https://www.yuque.com/hxfqg9/iot/czhqlu#pmXmF">测试方法</a>）
-这里以 esp32 的开发板为例，引脚后面已经标好了，就看看 jtagulator 能不能探测出来了
-<img alt="image.png" src="../img/KG17p1I_WZs_p77O/1656750881001-56487ecc-2018-4361-993c-4a2d57d4eeab-103340.png" />
+<p>首先测出目标 GND，将目标 GND 与 JTAGULATOR 的 GND 连接好（<a href="https://www.yuque.com/hxfqg9/iot/czhqlu#pmXmF">测试方法</a>）<br />
+这里以 esp32 的开发板为例，引脚后面已经标好了，就看看 jtagulator 能不能探测出来了<br />
+<img alt="image.png" src="../img/KG17p1I_WZs_p77O/1656750881001-56487ecc-2018-4361-993c-4a2d57d4eeab-103340.png" /><br />
 <img alt="image.png" src="../img/KG17p1I_WZs_p77O/1656812377336-2d42eac1-389a-49a9-9c83-0e2493d3d69c-711019.png" /></p>
 <table>
 <thead>
@@ -7573,15 +7573,15 @@
 </tr>
 </tbody>
 </table>
-<p>然后把 jtagulator 其他接口依次连接到板子的可疑接口上，我这边线不多，就接了这么几个
-<img alt="image.png" src="../img/KG17p1I_WZs_p77O/1656750949291-1b4d2dad-96c1-4f0c-b00e-266fd3503738-611208.png" />
-然后打开串口收发工具（putty）设置波特率 115200，选择好端口，因为已经在运行了，所以进去之后回车一下即可，会展示出 jtagulator 的 logo
-<img alt="image.png" src="../img/KG17p1I_WZs_p77O/1656751079480-853e8c07-66ee-42c0-965a-3185ca1df115-678964.png" />
-输入 h 获取帮助，我们想要探测的是 jtag 的接口，所以输入 j，进入后前面的尖括号就是 JTAG 开头的了，同样是输入 h 查看帮助
-<img alt="image.png" src="../img/KG17p1I_WZs_p77O/1656751160545-a2472e6b-3c22-44d0-b0a7-6b42307c1fe9-280012.png" />
-然后设置电压，这步好像没啥用，应该是 jtagulator 板子上的 vadj 用的给设备供电的？总之不设置不能继续反正我也没插这个接头，随便设置
-<img alt="image.png" src="../img/KG17p1I_WZs_p77O/1656751492463-8ff7ee1c-c852-4497-8436-efd73ebc1cde-764980.png" />
-再次输入 j 开始进入探测流程，要设置好你插入了哪几根线，就是 jtagulator 板子上的 CHxx 通道，我这里是从 0 到 5，不输入回车就是按照中括号里面的值使用，然后摁下空格开始自动探测，这时候 jtagulator 板子上的绿灯会闪烁，探测完成会展示出结果
+<p>然后把 jtagulator 其他接口依次连接到板子的可疑接口上，我这边线不多，就接了这么几个<br />
+<img alt="image.png" src="../img/KG17p1I_WZs_p77O/1656750949291-1b4d2dad-96c1-4f0c-b00e-266fd3503738-611208.png" /><br />
+然后打开串口收发工具（putty）设置波特率 115200，选择好端口，因为已经在运行了，所以进去之后回车一下即可，会展示出 jtagulator 的 logo<br />
+<img alt="image.png" src="../img/KG17p1I_WZs_p77O/1656751079480-853e8c07-66ee-42c0-965a-3185ca1df115-678964.png" /><br />
+输入 h 获取帮助，我们想要探测的是 jtag 的接口，所以输入 j，进入后前面的尖括号就是 JTAG 开头的了，同样是输入 h 查看帮助<br />
+<img alt="image.png" src="../img/KG17p1I_WZs_p77O/1656751160545-a2472e6b-3c22-44d0-b0a7-6b42307c1fe9-280012.png" /><br />
+然后设置电压，这步好像没啥用，应该是 jtagulator 板子上的 vadj 用的给设备供电的？总之不设置不能继续反正我也没插这个接头，随便设置<br />
+<img alt="image.png" src="../img/KG17p1I_WZs_p77O/1656751492463-8ff7ee1c-c852-4497-8436-efd73ebc1cde-764980.png" /><br />
+再次输入 j 开始进入探测流程，要设置好你插入了哪几根线，就是 jtagulator 板子上的 CHxx 通道，我这里是从 0 到 5，不输入回车就是按照中括号里面的值使用，然后摁下空格开始自动探测，这时候 jtagulator 板子上的绿灯会闪烁，探测完成会展示出结果<br />
 <img alt="image.png" src="../img/KG17p1I_WZs_p77O/1656751246460-8a940abb-859b-433f-a3d8-4ee068b810ba-418261.png" /></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/xozk7x">https://www.yuque.com/hxfqg9/iot/xozk7x</a></p>

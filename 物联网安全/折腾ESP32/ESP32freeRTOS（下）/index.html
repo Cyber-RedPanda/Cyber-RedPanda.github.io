@@ -7560,8 +7560,8 @@
 
 <h2 id="esp32-freertos">ESP32 freeRTOS（下）</h2>
 <h2 id="_1">软件定时器</h2>
-<p>定时器就像一个闹钟，在一定的时间后会执行响应的程序，硬件定时器是有数量限制的，软件定时器就没有这个限制了
-对于 freeRTOS 来说，软件定时器是基于 Daemon Timer Service Task 的任务来实现的，通过 Timer Command Queue 对任务发送命令，然后任务调用相应的定时器回调函数
+<p>定时器就像一个闹钟，在一定的时间后会执行响应的程序，硬件定时器是有数量限制的，软件定时器就没有这个限制了<br />
+对于 freeRTOS 来说，软件定时器是基于 Daemon Timer Service Task 的任务来实现的，通过 Timer Command Queue 对任务发送命令，然后任务调用相应的定时器回调函数<br />
 要用定时器首先要包含头文件 freertos/timers.h</p>
 <pre><code class="language-c">#include &lt;stdio.h&gt;
 #include &quot;freertos/FreeRTOS.h&quot;

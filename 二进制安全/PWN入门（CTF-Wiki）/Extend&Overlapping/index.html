@@ -7786,7 +7786,7 @@ int main(void)
 <p>free 操作</p>
 <p><img alt="image.png" src="../img/HlR1IwY9IXldRNQj/1592385445847-37332f55-3fcb-49a5-8453-fa25d3485216-408380.png" /></p>
 <h2 id="hitcon-trainging-lab13">HITCON Trainging lab13</h2>
-<p>实现了增删改查的功能，index 是从 0 开始的，结构是这样的：
+<p>实现了增删改查的功能，index 是从 0 开始的，结构是这样的：<br />
 一开始先会申请一个 0x10 的 chunk，用来存放申请的 heap 的大小和指针，然后后面才会申请要申请的 heap 的 chunk</p>
 <p><img alt="image.png" src="../img/HlR1IwY9IXldRNQj/1593068531789-54bda6a0-99b1-4c03-ba60-b2e7ef3a0ade-622813.png" /></p>
 <p>有一个 off by one 的漏洞，heaparray[a1] 本来就是存的 size，加上了个 1，可不就是多写了一位</p>

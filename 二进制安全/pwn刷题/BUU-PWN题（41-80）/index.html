@@ -8403,12 +8403,12 @@ libc_base = address - 0x58 - 0x3c4b20
 <p><img alt="image.png" src="../img/RQ01MpajXa7ZV5MX/1593248200097-e55fd64c-11fc-4dc4-84be-73ea37b0c866-538448.png" /></p>
 <p>然后通过编辑第 5 个来修改他的 fd 的内容为 main_arean - 0x33 在 malloc_hook 附近，这个偏移是为了通过 size 的检查，这样能让他有个 0x7f 的 size</p>
 <p><img alt="image.png" src="../img/RQ01MpajXa7ZV5MX/1593248958371-46d7011d-db28-4eb5-a782-4cb23939c7ab-480767.png" /></p>
-<p>然后申请两次，就会申请到 fake_chunk（第 6 个），这时候编辑第六个的内容为
+<p>然后申请两次，就会申请到 fake_chunk（第 6 个），这时候编辑第六个的内容为<br />
 '\x00'*11 + p64(one + libc_base) + p64(realloc+2)</p>
 <p>前面的 11 个 '\x00' 有 3 个是为了把错位给纠正过来，然后一个 0x10 是为了占空，再往后写就是覆写 relloc_hook 了，然后是 malloc_hook 的内容</p>
 <p>这样写的原因是，one_gadget 的执行有时候需要一些条件</p>
 <p><img alt="image.png" src="../img/RQ01MpajXa7ZV5MX/1593251088902-6ec00440-78e8-4937-9ecb-7a3d3d219e35-599974.png" /></p>
-<p>当不满足这些条件的时候，可以通过调用 realloc 函数调整 rsp
+<p>当不满足这些条件的时候，可以通过调用 realloc 函数调整 rsp<br />
 （可以试一下哪些可以正常用，比如这道题就是 realloc_addr+2）</p>
 <p><img alt="image.png" src="../img/RQ01MpajXa7ZV5MX/1593251254882-2e133ab5-75ef-43c7-aa67-dc08e83b46e1-100064.png" /></p>
 <p>所以上面意思是，先把 one_gadget 写到 realloc_hook 中，然后把 realloc_hook 写到 malloc_hook 中，当去 malloc 的时候会先去执行 malloc_hook（这里就是 realloc_hook），然后执行 realloc_hook 里的 one_gadget 从而拿到 shell</p>
@@ -8500,7 +8500,7 @@ create(0x60,payload)
 </code></pre>
 <p>然后再去 malloc 一下就行了，但因为我们改掉了 malloc_hook，不会返回 'content:' 了，如果用上面定义的 create 会一直等待，所以单独拿出来去申请一下就行了</p>
 <h2 id="jarvisoj_test_your_memory">jarvisoj_test_your_memory</h2>
-<p>程序有一个 system 函数，可以找到 cat flag 的字符串
+<p>程序有一个 system 函数，可以找到 cat flag 的字符串<br />
 0x080485BD     0x80487E0</p>
 <p><img alt="image.png" src="../img/RQ01MpajXa7ZV5MX/1593390636362-d967aea7-2270-4769-8957-29e79552fe3d-508299.png" /></p>
 <pre><code class="language-python">#coding:utf-8
@@ -8535,7 +8535,7 @@ create(0x60,'cccc') #2
 <p><img alt="image.png" src="../img/RQ01MpajXa7ZV5MX/1593611332624-ab96bca8-0b6f-4ca1-aa3d-6f6edd7e4f16-544305.png" /></p>
 <p>希望通过错位来有一个 0x7f 的 size</p>
 <p><img alt="image.png" src="../img/RQ01MpajXa7ZV5MX/1593611531415-56af6659-d3b2-46d8-af4c-394928dcd3e0-537458.png" /></p>
-<p>下面，先加上 3 把错位对齐，然后四个 p64(0) 是为了占位，再写 p64(elf.got['free']) 就是 heaparray 数组了
+<p>下面，先加上 3 把错位对齐，然后四个 p64(0) 是为了占位，再写 p64(elf.got['free']) 就是 heaparray 数组了<br />
 把他给覆盖掉，现在 heaparray 指向的是 free 的 got 表了（本来指向第 0 个 chunk 的地址），这时候修改第 0 个，就能改掉 free 的 got 表</p>
 <p><img alt="image.png" src="../img/RQ01MpajXa7ZV5MX/1593612410034-9d6a574d-7566-4137-8d72-900cf166b1fd-794616.png" /></p>
 <p>改掉！改成 system</p>
@@ -8595,7 +8595,7 @@ p.interactive()
 <p><img alt="image.png" src="../img/RQ01MpajXa7ZV5MX/1594377235122-07931066-e4b2-4979-a354-17373ae6f044-925187.png" /></p>
 <p>那么问题来了 /bin/sh 的地址在哪里？，bss 段是可读可写的，那就用 read 函数写到里面去</p>
 <p><img alt="image.png" src="../img/RQ01MpajXa7ZV5MX/1594377580624-ad94ffe6-5850-460c-8bbd-c450ff7a2b16-200574.png" /></p>
-<p>exp：
+<p>exp：<br />
 ret2shellcode（修改 mprotect）</p>
 <pre><code class="language-python">from pwn import *
 p = process('./simplerop')
@@ -8669,7 +8669,7 @@ p.interactive()
 </code></pre>
 <h2 id="bjdctf_2020_babyrop2">bjdctf_2020_babyrop2</h2>
 <p>通过格式化字符串泄漏 canary，然后 rop（还是第一次做这样的）</p>
-<p>通过 AA%n$p 来测试出我们的 格式化字符串是在哪个位置
+<p>通过 AA%n$p 来测试出我们的 格式化字符串是在哪个位置<br />
 AA%6$p 的时候输出了 4141，所以第六个参数可以被解析成格式化字符串</p>
 <p><img alt="image.png" src="../img/RQ01MpajXa7ZV5MX/1594689172976-c99723ce-5d6c-4ca5-96d6-80c69ff9ba36-296392.png" /></p>
 <p>canary 的位置是 rbp-8</p>
@@ -8954,7 +8954,7 @@ p.sendline(payload)
 p.interactive()
 </code></pre>
 <h2 id="picoctf_2018_buffer-overflow-2">picoctf_2018_buffer overflow 2</h2>
-<p>需要检查的那两个参数分别是：0xDEADBEEF 和 0xDEADC0DE
+<p>需要检查的那两个参数分别是：0xDEADBEEF 和 0xDEADC0DE<br />
 那么稍微改一下：</p>
 <pre><code class="language-python">#coding:utf8
 from pwn import *
@@ -9031,13 +9031,13 @@ hack()
 s.interactive()
 </code></pre>
 <h2 id="hitcontraining_magicheap">hitcontraining_magicheap</h2>
-<p>相关知识：<a href="https://www.yuque.com/hxfqg9/bin/tubv6q">https://www.yuque.com/hxfqg9/bin/tubv6q</a>
+<p>相关知识：<a href="https://www.yuque.com/hxfqg9/bin/tubv6q">https://www.yuque.com/hxfqg9/bin/tubv6q</a><br />
 程序有一个后门</p>
 <p><img alt="image.png" src="../img/RQ01MpajXa7ZV5MX/1596091427153-2612d0c9-c31e-4c80-b5be-b8156216a748-849444.png" /></p>
 <p>而且只要满足这样的条件程序就会调用它</p>
 <p><img alt="image.png" src="../img/RQ01MpajXa7ZV5MX/1596091660001-a2879eea-aa29-4387-80a8-80c105038269-650017.png" /></p>
-<p>magic 的地址是 0x6020A0
-首先 create 3 个 chunk（为了防止与 top chunk 合并）
+<p>magic 的地址是 0x6020A0<br />
+首先 create 3 个 chunk（为了防止与 top chunk 合并）<br />
 释放掉中间那个，通过编辑第一个 chunk，堆溢出把中间那个 chunk 的 bk 改成 magic-0x10 的地址，然后再申请回来，这时候因为 unlink 就会把 magic 写入 unsorted bin 的链表头部地址，就大于要求的那个数了</p>
 <p><img alt="image.png" src="../img/RQ01MpajXa7ZV5MX/1596092377791-6a9130b6-1f0b-497c-932c-ee186e3ef2c8-555523.png" /></p>
 <p>改写一下</p>
@@ -9089,7 +9089,7 @@ p.interactive()
 <p><img alt="image.png" src="../img/RQ01MpajXa7ZV5MX/1596161510611-93efaf5d-6c18-4e12-a96a-ddfc8826deb9-594748.png" /></p>
 <p>程序运行的时候会直接给出 puts 函数的地址，同时后面调用了 15 号也就是 sigreturn</p>
 <p><img alt="image.png" src="../img/RQ01MpajXa7ZV5MX/1596161597239-52aecc5c-7bd2-4aa3-acac-677a5b542848-918799.png" /></p>
-<p>要用 SROP，然而我又忘了这是个什么东西了
+<p>要用 SROP，然而我又忘了这是个什么东西了<br />
 <a href="https://www.yuque.com/hxfqg9/bin/erh0l7?inner=cS7rH&amp;view=doc_embed">语雀内容</a></p>
 <pre><code class="language-python"># coding=utf-8
 from pwn import *
@@ -9150,7 +9150,7 @@ p.interactive()
 <p><img alt="image.png" src="../img/RQ01MpajXa7ZV5MX/1596330304220-1474b4ee-cc68-4727-a8ba-9122b0608835-300358.png" /></p>
 <p>给了系统调用号 15 和 59</p>
 <p><img alt="image.png" src="../img/RQ01MpajXa7ZV5MX/1596330448619-731d4361-c4dc-48ec-bbb0-bfab13d676a8-822250.png" /></p>
-<p>程序的流程是先往 esp-0x10 读入内容，然后输出 esp-0x10 往后 0x30大小的内容
+<p>程序的流程是先往 esp-0x10 读入内容，然后输出 esp-0x10 往后 0x30大小的内容<br />
 我们拿到栈上的一个地址 0x7fffcfec1478-0x7fffcfec1360 = 0x118 = 280</p>
 <p><img alt="image.png" src="../img/RQ01MpajXa7ZV5MX/1596332641732-1f098f12-9912-4b47-98a5-99224ddadac9-927570.png" /></p>
 <p>那么拿到这个之后根据偏移就可以算出我们输入的内容的地址（leak_addr-0x118）</p>
@@ -9182,14 +9182,14 @@ p.sendline(payload)
 p.interactive()
 </code></pre>
 <h2 id="bjdctf-2ndsnake_dyn">[BJDCTF 2nd]snake_dyn</h2>
-<p>卧槽？怎么还要密码？还有，我这不显示二维码呀！？
+<p>卧槽？怎么还要密码？还有，我这不显示二维码呀！？<br />
 emmm，wsl 可以正常显示，扫码得到密码 sNaKes</p>
 <p><img alt="image.png" src="../img/RQ01MpajXa7ZV5MX/1596334149314-878bf7ff-fabc-4385-b70a-852f7db4c803-323244.png" /></p>
 <p>连接之后输入 0x100 的名字就能出 flag</p>
 <p><img alt="image.png" src="../img/RQ01MpajXa7ZV5MX/1596335041067-c31cdb01-e4f5-41c8-ba4f-b13386fa8530-031192.png" /></p>
 <p>漏洞在于 strcpy 的时候如果没有 \x00 是不会截断的，而同时 flag 与 name 相距只有 0x100，所以只要输入 0x100 的内容，就会连带着 flag 一起输出来</p>
 <h2 id="ciscn_2019_s_4">ciscn_2019_s_4</h2>
-<p>后门地址：0x804854B，然而 echo flag 只能输出 "flag"，只能拿个 system 的地址
+<p>后门地址：0x804854B，然而 echo flag 只能输出 "flag"，只能拿个 system 的地址<br />
 还有栈空间不够大，要栈迁移</p>
 <p><img alt="image.png" src="../img/RQ01MpajXa7ZV5MX/1602074135856-ef53af38-f54e-482a-811b-4ed51c9919c9-480734.png" /></p>
 <p>leave;ret 的地址：0x080484b8</p>
@@ -9241,7 +9241,7 @@ p.interactive()
 <p><img alt="image.png" src="../img/RQ01MpajXa7ZV5MX/1602250365635-e43a955e-bf83-42f9-a1d2-cb7957a72eb3-403607.png" /></p>
 <p>call 的时候实际上 free 了，同时没有置为 0</p>
 <p><img alt="image.png" src="../img/RQ01MpajXa7ZV5MX/1602248483722-d5f951e3-6360-485e-b8ff-d7484d3ef71d-086532.png" /></p>
-<p>申请一个大于 0x410 大小的泄漏 unsorted bin 地址，从而拿到 libc 基址，然后利用 tcache 的 double free 来改 free_hook 为 system 的地址
+<p>申请一个大于 0x410 大小的泄漏 unsorted bin 地址，从而拿到 libc 基址，然后利用 tcache 的 double free 来改 free_hook 为 system 的地址<br />
 exp</p>
 <pre><code class="language-python">from pwn import *
 p=process('./ciscn')
@@ -9282,9 +9282,9 @@ p.interactive()
 <h2 id="mrctf2020_shellcode">mrctf2020_shellcode</h2>
 <p>emmm，IDA 不能用 F5 了，直接传 shellcode 就可以</p>
 <h2 id="pwnable_hacknote">pwnable_hacknote</h2>
-<p>在 free 之后没有置为 0，存在 UAF
+<p>在 free 之后没有置为 0，存在 UAF<br />
 每次用户 malloc 的时候会先申请 0x8 大小的 chunk 来存放 puts 函数的指针和给用户分配的 chunk 的地址</p>
-<p>思路：
+<p>思路：<br />
 fastbin 是后进先出的，把用户申请的两个 chunk 给 free 之后也有两个程序自己申请的存放指针的 chunk，用户再去 malloc 0x8 的时候会用到这俩，把这俩给改掉</p>
 <p>一开始申请了两个 chunk</p>
 <p><img alt="image.png" src="../img/RQ01MpajXa7ZV5MX/1602332301089-febc5a68-d8d4-4b64-8c67-c66a492574ed-492064.png" /></p>

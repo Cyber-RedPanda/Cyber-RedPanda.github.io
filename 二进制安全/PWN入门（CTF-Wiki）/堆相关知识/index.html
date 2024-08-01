@@ -7849,16 +7849,16 @@
 <h2 id="_1">堆相关知识</h2>
 <h2 id="_2">什么是堆</h2>
 <p>在程序运行过程中，堆可以提供动态分配的内存，允许程序申请未知的内存。堆其实就是程序虚拟地址空间的一块连续线性区域，它由低地址往高地址增长。我们称管理堆的那部分程序为：堆管理器</p>
-<p>堆管理器位于程序与内核之间，主要做：
-1、响应用户申请内存的请求
+<p>堆管理器位于程序与内核之间，主要做：<br />
+1、响应用户申请内存的请求<br />
 2、管理用户所释放的内存</p>
-<p>目前 Linux 标准发行版中使用的堆分配器是 glibc 的堆分配器：ptmalloc2，主要通过 mallo/free 来分配和释放内存块
-不同的线程维护不同的堆称为：per thread arena
+<p>目前 Linux 标准发行版中使用的堆分配器是 glibc 的堆分配器：ptmalloc2，主要通过 mallo/free 来分配和释放内存块<br />
+不同的线程维护不同的堆称为：per thread arena<br />
 主线程创建的堆称为：main arena</p>
-<p><strong>glibc 的堆管理实现：</strong>
-<strong>arena</strong> 指的是堆内存区域本身，并不是结构；主线程的 main arena 通过 sbrk 创建；其他线程的 arena 通过 mmap 创建
-<strong>malloc_state</strong> 管理 arena 的核心结构，包含堆的状态信息、bins 链表等；main arena 对应的 malloc state 结构存储在 glibc 全局变量中；其他线程 arena 对应的 malloc_state 存储在 arena 本身中
-<strong>bins</strong> 用来管理空闲内存块，通常用链表的结构来进行组织
+<p><strong>glibc 的堆管理实现：</strong><br />
+<strong>arena</strong> 指的是堆内存区域本身，并不是结构；主线程的 main arena 通过 sbrk 创建；其他线程的 arena 通过 mmap 创建<br />
+<strong>malloc_state</strong> 管理 arena 的核心结构，包含堆的状态信息、bins 链表等；main arena 对应的 malloc state 结构存储在 glibc 全局变量中；其他线程 arena 对应的 malloc_state 存储在 arena 本身中<br />
+<strong>bins</strong> 用来管理空闲内存块，通常用链表的结构来进行组织<br />
 <strong>chunks</strong> 内存块结构</p>
 <p>在内存分配与使用中只有当真正去访问一个地址的时候，系统才会建立虚拟页面与物理内存的映射关系</p>
 <p><img alt="image.png" src="../img/5dqNkyvQkUt3-wd9/1586942736698-780546ef-bdbd-45b8-b1ff-3b0c5fb4f315-594219.png" /></p>
@@ -7888,9 +7888,9 @@
   INTERNAL_SIZE_T max_system_mem;
 };
 </code></pre>
-<p>主要关心这么几个：
-<strong>mfastbinptr fastbinsY[NFASTBINS]</strong>，保存了 fastbins 各个链表的数组的头，大小为10 记录的是fast bin链
-<strong>mchunkptr top</strong>，指向了 top chunk
+<p>主要关心这么几个：<br />
+<strong>mfastbinptr fastbinsY[NFASTBINS]</strong>，保存了 fastbins 各个链表的数组的头，大小为10 记录的是fast bin链<br />
+<strong>mchunkptr top</strong>，指向了 top chunk<br />
 <strong>mchunkptr bins[NBINS * 2 - 2]</strong>，大小为129。记录的是unsorted bin（1）、small bin（2~63）、large bin链（64~126）</p>
 <h2 id="chunk">chunk的结构</h2>
 <p>我们称由 malloc 申请的内存为 chunk，这块内存在 ptmalloc 中被称为 malloc_chunk 结构体表示</p>
@@ -7911,7 +7911,7 @@ struct malloc_chunk {
   struct malloc_chunk* bk_nextsize;
 };
 </code></pre>
-<p>prev_size：如果前一个 chunk 是空闲的话，记录物理相邻前一个 chunk 的大小；否则存储前一个的数据
+<p>prev_size：如果前一个 chunk 是空闲的话，记录物理相邻前一个 chunk 的大小；否则存储前一个的数据<br />
 size：该 chunk 的大小，必须是 2*SIZE_SZ 的整数倍，后三位分别是：</p>
 <ul>
 <li>NON_MAIN_ARENA（A）：表示该 chunk 属于主分配区（1）或者非主分配区（0）</li>
@@ -7933,17 +7933,17 @@ size：该 chunk 的大小，必须是 2*SIZE_SZ 的整数倍，后三位分别�
 <h3 id="chunk_1">使用中的 chunk 结构</h3>
 <p>一个已经分配的 chunk 的样子如下。我们称前两个字段称为 chunk header，后面的部分称为 user data。每次 malloc 申请得到的内存指针，其实指向 user data 的起始处</p>
 <p>chunk 指针指向一个 chunk 的开始，一个 chunk 中包含了用户请求的内存区域和相关的控制信息，图中 mem 指针才是真正返回给用户的内存指针。</p>
-<p><img alt="image.png" src="../img/5dqNkyvQkUt3-wd9/1587362868741-7c71aa7f-6a81-413f-be45-e8d9c70200ac-740461.png" />
+<p><img alt="image.png" src="../img/5dqNkyvQkUt3-wd9/1587362868741-7c71aa7f-6a81-413f-be45-e8d9c70200ac-740461.png" /><br />
 <img alt="image.png" src="../img/5dqNkyvQkUt3-wd9/1631621060729-508e5aa9-3a34-457c-b004-7f9e149831cd-052856.png" /></p>
 <h3 id="chunk_2">空闲中的 chunk 结构</h3>
 <p><img alt="image.png" src="../img/5dqNkyvQkUt3-wd9/1587623626922-24734695-032f-48eb-8ea0-7a615ee1cc3b-021382.png" /></p>
-<p>当 chunk 空闲时，其 M 状态不存在，只有 A P 原本是数据区的地方存储四个指针
-指针 fd 指向前一个空闲的 chunk，而 bk 指向后一个空闲的 chunk，plmalloc 通过这两个指针将大小相近的 chunk 连成一个双向链表。
+<p>当 chunk 空闲时，其 M 状态不存在，只有 A P 原本是数据区的地方存储四个指针<br />
+指针 fd 指向前一个空闲的 chunk，而 bk 指向后一个空闲的 chunk，plmalloc 通过这两个指针将大小相近的 chunk 连成一个双向链表。<br />
 对于 large bin 中的空闲 chunk，还有两个指针 fd_nextsize 和 bk_nextsize，这两个指针用于加快 large bin 中查找最近匹配的空闲 chunk 。不同的 chunk 链表又是通过 bins 或者 fastbins 来组织</p>
 <p>一般情况下，物理相邻的两个空闲 chunk 会被合并为一个 chunk 。堆管理器会通过 prev_size 字段以及 size 字段合并两个物理相邻的空闲 chunk 块</p>
-<p>如果前一个 chunk 处于使用状态，那么不需要去通过链表串起来，所以当前 chunk 也就不需要 prev_size，当申请的内存大小对 2*size_t 取余之后比 size_t 小于等于的话就可以用它的下一个 chunk 的 prev_size
-比如：64位下 malloc(0x45)，那 0x45 mod 0x10 还差 0x5，那他就可以用后面一个 chunk 的 prev_size，最后加上 chunk header 大小是 0x50
-还是 64 位下，如果大小是 0x49 的话取余之后还差 0x5，那就没法用了，只能多申请一块，最后加上 chunk header 用了 0x60
+<p>如果前一个 chunk 处于使用状态，那么不需要去通过链表串起来，所以当前 chunk 也就不需要 prev_size，当申请的内存大小对 2*size_t 取余之后比 size_t 小于等于的话就可以用它的下一个 chunk 的 prev_size<br />
+比如：64位下 malloc(0x45)，那 0x45 mod 0x10 还差 0x5，那他就可以用后面一个 chunk 的 prev_size，最后加上 chunk header 大小是 0x50<br />
+还是 64 位下，如果大小是 0x49 的话取余之后还差 0x5，那就没法用了，只能多申请一块，最后加上 chunk header 用了 0x60<br />
 <img alt="image.png" src="../img/5dqNkyvQkUt3-wd9/1631757414175-5b283e0d-3c5f-42ad-8efb-5035689c30a2-219853.png" /></p>
 <h2 id="_3">内存对齐</h2>
 <p>直接整理个表格</p>
@@ -7969,11 +7969,11 @@ size：该 chunk 的大小，必须是 2*SIZE_SZ 的整数倍，后三位分别�
 </tbody>
 </table>
 <h2 id="bin">bin</h2>
-<p><strong>bin链表中指向的是 chunk header</strong>
-ptmalloc 采用分箱式方法对空闲的 chunk 进行管理。首先，它会根据空闲的 chunk 的大小以及使用状态将 chunk 初步分为 4 类：
-fast bins，用于管理较小的 chunk，在之前说的那个 fastbinY 数组里面
-small bins，用于管理中等大小的 chunk
-large bins，用于管理较大的 chunk
+<p><strong>bin链表中指向的是 chunk header</strong><br />
+ptmalloc 采用分箱式方法对空闲的 chunk 进行管理。首先，它会根据空闲的 chunk 的大小以及使用状态将 chunk 初步分为 4 类：<br />
+fast bins，用于管理较小的 chunk，在之前说的那个 fastbinY 数组里面<br />
+small bins，用于管理中等大小的 chunk<br />
+large bins，用于管理较大的 chunk<br />
 unsorted bin，用于存放未整理的 chunk</p>
 <p>bin 对应的数据结构</p>
 <pre><code class="language-c">#define NBINS 128
@@ -7981,7 +7981,7 @@ unsorted bin，用于存放未整理的 chunk</p>
 mchunkptr bins[ NBINS * 2 - 2 ];
 </code></pre>
 <h3 id="fastbin">fastbin</h3>
-<p>单向链表后进先出，同时 p 位被保留防止合并，同一大小的 chunk 会在同一条链上，不同大小的 chunk 在不同的链上
+<p>单向链表后进先出，同时 p 位被保留防止合并，同一大小的 chunk 会在同一条链上，不同大小的 chunk 在不同的链上<br />
 不同平台大小不同，列一个索引，当 malloc 的大小在这个范围内的时候会首先去 fastbin 中找</p>
 <table>
 <thead>
@@ -8030,18 +8030,18 @@ mchunkptr bins[ NBINS * 2 - 2 ];
 </tbody>
 </table>
 <h3 id="unsortedbin">unsortedbin</h3>
-<p>双向循环链表，先进先出，存放所有不满足 fastbin，未被整理的 chunk
+<p>双向循环链表，先进先出，存放所有不满足 fastbin，未被整理的 chunk<br />
 malloc 的时候在其他 bin 没找到合适的就会遍历 unsortedbin 同时根据大小放到对应的 bin 里</p>
 <h3 id="smallbin">smallbin</h3>
-<p>双向链表，先进先出
-释放的时候会检查相邻的是不是 free 的，如果是进行合并然后放到 unsortedbin
+<p>双向链表，先进先出<br />
+释放的时候会检查相邻的是不是 free 的，如果是进行合并然后放到 unsortedbin<br />
 <img alt="image.png" src="../img/5dqNkyvQkUt3-wd9/1631761509278-062fa5e9-f474-4c92-976d-769d9c3f77ac-542103.png" /></p>
 <h3 id="largebin">largebin</h3>
-<p>双向链表，先进先出
+<p>双向链表，先进先出<br />
 需要根据 fd_nextsize 和 bk_nextsize 指针从大到小排序</p>
 <h3 id="tcache">tcache</h3>
-<p>libc2.26 及以后有，先进后出，最大为0x410
-每个 tcache bin 最多只能有 7 个，prev_inuse 不会置零，也就是不会进行合并，七个填满之后就跟之前一样了
+<p>libc2.26 及以后有，先进后出，最大为0x410<br />
+每个 tcache bin 最多只能有 7 个，prev_inuse 不会置零，也就是不会进行合并，七个填满之后就跟之前一样了<br />
 指针直接指向 chunk 的 userdata 部分</p>
 <h2 id="malloc_consolidate">malloc_consolidate功能</h2>
 <ol>
@@ -8049,8 +8049,8 @@ malloc 的时候在其他 bin 没找到合适的就会遍历 unsortedbin 同时�
 <li>malloc_state 的初始化操作由函数 malloc_init_state(av) 完成，该函数先初始化除 fastbins 之外的所有的bins，再初始化 fastbins，清空 fastbins</li>
 </ol>
 <h3 id="consolidate">consolidate情景</h3>
-<p>1、当去 malloc 一个大于 smallbin 的 chunk 时
-将 fastbin 中的 chunk 都整理到 unsortedbin 中，遇到相邻的就合并了，与 topchunk 相邻的就与 topchunk 合并
+<p>1、当去 malloc 一个大于 smallbin 的 chunk 时<br />
+将 fastbin 中的 chunk 都整理到 unsortedbin 中，遇到相邻的就合并了，与 topchunk 相邻的就与 topchunk 合并<br />
 判断 unsortedbin 中有没有能直接拿来用的，如果有就拿来用，没有就看看有没有能切割的，有的话就切出来拿来用产生 last remainder，同时把 unsortedbin 中的 chunk 整理到对应的 bins 中去，都没有的话就从 topchunk 中找</p>
 <p><strong>以下内容复制自：</strong><a href="https://blog.csdn.net/sinat_19596835/article/details/81665095"><strong>https://blog.csdn.net/sinat_19596835/article/details/81665095</strong></a></p>
 <h2 id="_4">分配过程：</h2>

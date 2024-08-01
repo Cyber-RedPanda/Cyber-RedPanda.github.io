@@ -7597,12 +7597,12 @@
   <h1>2019 深思杯</h1>
 
 <h2 id="2019-">2019-深思杯</h2>
-<p><strong>把之前比赛的题目做做</strong>
-当时放弃拯救的我，把所有能保存的题目都保存了下来
+<p><strong>把之前比赛的题目做做</strong><br />
+当时放弃拯救的我，把所有能保存的题目都保存了下来<br />
 <a href="../attachments/R1yGjjU5xekxQkrA/%E6%B7%B1%E6%80%9D%E6%9D%AF2019%E5%B1%B1%E4%B8%9C%E7%9C%81%E5%A4%A7%E5%AD%A6%E7%94%9F%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%8A%80%E8%83%BD%E5%A4%A7%E8%B5%9B.zip">附件: 深思杯2019山东省大学生网络安全技能大赛.zip</a></p>
 <h2 id="minzhu">MinZhu</h2>
-<p>首先有一个检测，要把 key 找出来才能进入，使用 angr 就可以
-<a href="https://www.yuque.com/hxfqg9/bin/vprnxg?inner=d2Ruo&amp;view=doc_embed">语雀内容</a>
+<p>首先有一个检测，要把 key 找出来才能进入，使用 angr 就可以<br />
+<a href="https://www.yuque.com/hxfqg9/bin/vprnxg?inner=d2Ruo&amp;view=doc_embed">语雀内容</a><br />
 找出来 key 是 xNd9y6</p>
 <p>然后看一下位置，第四个</p>
 <p><img alt="image.png" src="../img/R1yGjjU5xekxQkrA/1593006419656-9da39620-8890-4e02-b194-83808db6e702-213753.png" /></p>
@@ -7688,11 +7688,11 @@ p.recvuntil(&quot;Input the length of data:\n&quot;)
 p.sendline(&quot;21&quot;)
 p.interactive()
 </code></pre>
-<p>申请堆块的时候会在 0x06020C8（bss 段）维护一个表
+<p>申请堆块的时候会在 0x06020C8（bss 段）维护一个表<br />
 分别是第几个申请的、大小、指针、1</p>
 <p><img alt="image.png" src="../img/R1yGjjU5xekxQkrA/1602676440419-79e97195-7d5a-46d9-893d-86a15a4d72aa-588793.png" /></p>
 <p>不过没用上这里</p>
-<p>free 的时候只是把存放的堆指针的地方给置为 0 了，没有把 chunk 给置为 0
+<p>free 的时候只是把存放的堆指针的地方给置为 0 了，没有把 chunk 给置为 0<br />
 fastbin double free 的时候是这么一个指针</p>
 <p><img alt="image.png" src="../img/R1yGjjU5xekxQkrA/1602762174648-693a8a47-f58c-43ab-953d-9b58b7b41760-228504.png" /></p>
 <p><img alt="image.png" src="../img/R1yGjjU5xekxQkrA/1602764804761-6fe8af4f-f5e6-43b0-8a24-a37729222b45-456654.png" /></p>
@@ -7724,8 +7724,8 @@ libc_base = unsortedbin -0x100 - 0x3c4b20#这个使用main_arena算出来的
 one_gadget = libc_base + 0xf1207
 malloc_addr = malloc_hook - 0x30 + 0xd
 </code></pre>
-<p>在我电脑上 one_gadget 中的 0xf1207 可以用
-这个 malloc_addr 是算了个偏移,为了后面申请到 malloc_hook 的时候能有个 size 位绕过检查
+<p>在我电脑上 one_gadget 中的 0xf1207 可以用<br />
+这个 malloc_addr 是算了个偏移,为了后面申请到 malloc_hook 的时候能有个 size 位绕过检查<br />
 然后还是上面的套路，fastbin double free 把 malloc_hook 的地址改为 one_gadget</p>
 <pre><code class="language-python">add(0x60,&quot;1212&quot;)#12
 add(0x60,&quot;1313&quot;)#13
@@ -7829,11 +7829,11 @@ p.sendline(&quot;30&quot;)
 
 p.interactive()
 </code></pre>
-<p>这个题目配了个 libc 2.27 的，所以应该是在 ubuntu 18 下的
+<p>这个题目配了个 libc 2.27 的，所以应该是在 ubuntu 18 下的<br />
 限制了 size 的大小要小于等于 0x78，存在 off by null</p>
 <p><img alt="image.png" src="../img/R1yGjjU5xekxQkrA/1602985542994-67dd5e86-2e61-4dd6-91b9-9572b61d4d6d-320543.png" /></p>
 <p>首先把 tcache 填满，接下来 free 的那些就会放到 fastbin 中了</p>
-<p>如果 scanf 读入的是一个很大的数的话他就会去申请一块空间，如果这个空间申请的足够大就能触发 malloc_consolidate，从而合并 fastbin 放到 unsorted bin 中去
+<p>如果 scanf 读入的是一个很大的数的话他就会去申请一块空间，如果这个空间申请的足够大就能触发 malloc_consolidate，从而合并 fastbin 放到 unsorted bin 中去<br />
 所以，我们在 scanf 的时候去发送很大的一个数比如 '1'*600 就能让前面那些 fastbin 合并</p>
 <p><img alt="image.png" src="../img/R1yGjjU5xekxQkrA/1603074352821-640b97e0-d0e1-419b-855c-83d8500c8a91-608019.png" /></p>
 <p>再把之前放在 tcache 中的申请回来，然后去申请一个 chunk，正常情况应该是：把 unsorted bin 中那块 0x300 分成 0x80 与 0x280，但是如果全部写上加上后面那个 off by null 就会把 0x280 的 size 给改掉，改为 0x200</p>

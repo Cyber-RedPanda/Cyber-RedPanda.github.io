@@ -7619,7 +7619,7 @@
   <h1>Crackle学习</h1>
 
 <h2 id="crackle">crackle学习</h2>
-<p><a href="https://github.com/mikeryan/crackle">GitHub - mikeryan/crackle: Crack and decrypt BLE encryption</a>
+<p><a href="https://github.com/mikeryan/crackle">GitHub - mikeryan/crackle: Crack and decrypt BLE encryption</a><br />
 <a href="https://github.com/mikeryan/crackle">crackle</a> 是研究蓝牙安全的 <a href="https://github.com/mikeryan">mikeryan </a>大佬写的一款能够解密 BLE 传统配对（legacy pairing）后的流量包的工具，本文将通过 crackle 源码的阅读，学习 SMP 协议、学习如何解密传统配对的流量</p>
 <h4 id="tk-stk">通过 TK 计算 STK</h4>
 <p>这里用到了几个函数，copy_reverse 是用来逆序的</p>
@@ -7637,12 +7637,12 @@
     copy_reverse(state-&gt;ivs, state-&gt;iv + 4, 4);
 }
 </code></pre>
-<p>iv 是在数据包中直接能找到的，在 LL_ENC_REQ 报文中是 ivm，意思是 master 的 iv
-<img alt="image.png" src="../img/Zo346pRNPSGZaqxP/1663663800841-ff4eccdd-8b38-4944-8fb2-ebd70a8d8541-039570.png" />
-在 LL_ENC_RSP 报文中是 ivs，意思是 slave 的 iv
-<img alt="image.png" src="../img/Zo346pRNPSGZaqxP/1663664210061-c32db721-5a0b-46ef-80ec-9f4dbe503bf0-653163.png" />
-计算 iv 这里只需要把他们反转一下即可，因为在内存里放着的是逆序的，看一下 GDB 调试的
-GDB 调试的方法，<code>gdb crackle</code>
+<p>iv 是在数据包中直接能找到的，在 LL_ENC_REQ 报文中是 ivm，意思是 master 的 iv<br />
+<img alt="image.png" src="../img/Zo346pRNPSGZaqxP/1663663800841-ff4eccdd-8b38-4944-8fb2-ebd70a8d8541-039570.png" /><br />
+在 LL_ENC_RSP 报文中是 ivs，意思是 slave 的 iv<br />
+<img alt="image.png" src="../img/Zo346pRNPSGZaqxP/1663664210061-c32db721-5a0b-46ef-80ec-9f4dbe503bf0-653163.png" /><br />
+计算 iv 这里只需要把他们反转一下即可，因为在内存里放着的是逆序的，看一下 GDB 调试的<br />
+GDB 调试的方法，<code>gdb crackle</code><br />
 然后 <code>b 源码第几行</code>，比如<code>b 608</code>下个断点，<code>set args -i Legacy_pairing.pcapng</code>，然后点击运行即可</p>
 <pre><code class="language-c">gdb-peda$ p &amp;state-&gt;ivm
 $1 = (uint8_t (*)[4]) 0x55555555f7c0
@@ -7680,7 +7680,7 @@ gdb-peda$ x/gx 0x55555555f800
     aes_block(state-&gt;tk, rand, state-&gt;stk);
 }
 </code></pre>
-<p>s1 这个函数需要 TK 的值和两个 random 的值，TK 需要转成小端序放在内存里，用 htobe32(numeric_key) 即可
+<p>s1 这个函数需要 TK 的值和两个 random 的值，TK 需要转成小端序放在内存里，用 htobe32(numeric_key) 即可<br />
 <img alt="image.png" src="../img/Zo346pRNPSGZaqxP/1663722963069-620848cd-fe90-4a03-bea6-0485531a52b0-664903.png" /></p>
 <pre><code>gdb-peda$ p &amp;numeric_key
 $1 = (uint32_t *) 0x7fffffffe174
@@ -7699,10 +7699,10 @@ gdb-peda$ x/gx 0x5555555607dc
 gdb-peda$ x/gx 0x5555555607dc
 0x5555555607dc: 0x00000000161b0300
 </code></pre>
-<p>两个 random 分别取高 8 字节拼接起来
-<img alt="image.png" src="../img/Zo346pRNPSGZaqxP/1663723311412-280c3809-01c1-40ef-907e-1e7df72477cb-029641.png" />
-<img alt="image.png" src="../img/Zo346pRNPSGZaqxP/1663723390273-1cc1ee7c-595c-4768-9444-12d112e46af6-163868.png" />
-看一下标准里咋说：For example if the 128-bit value r1 is 0x000F0E0D0C0B0A091122334455667788 then r1’is 0x1122334455667788. If the 128-bit value r2 is 0x010203040506070899AABBCCDDEEFF00 then r2’is 0x99AABBCCDDEEFF00。（r1 为 Srand，r2 为 Mrand，最后 r' = r1' || r2'）
+<p>两个 random 分别取高 8 字节拼接起来<br />
+<img alt="image.png" src="../img/Zo346pRNPSGZaqxP/1663723311412-280c3809-01c1-40ef-907e-1e7df72477cb-029641.png" /><br />
+<img alt="image.png" src="../img/Zo346pRNPSGZaqxP/1663723390273-1cc1ee7c-595c-4768-9444-12d112e46af6-163868.png" /><br />
+看一下标准里咋说：For example if the 128-bit value r1 is 0x000F0E0D0C0B0A091122334455667788 then r1’is 0x1122334455667788. If the 128-bit value r2 is 0x010203040506070899AABBCCDDEEFF00 then r2’is 0x99AABBCCDDEEFF00。（r1 为 Srand，r2 为 Mrand，最后 r' = r1' || r2'）<br />
 这明显是拿低位拼起来的啊，为啥代码这里是拿高位拼起来？还是说 wireshark 显示的是小端序？我理解不了了</p>
 <pre><code class="language-c">gdb-peda$ p &amp;state-&gt;mrand
 $5 = (uint8_t (*)[16]) 0x55555555f76e     

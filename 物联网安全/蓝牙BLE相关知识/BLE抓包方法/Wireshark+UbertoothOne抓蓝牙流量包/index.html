@@ -7732,8 +7732,8 @@ sudo make install
 sudo ldconfig
 </code></pre>
 <h2 id="ubertooth">给ubertooth升级固件</h2>
-<p>在 <a href="https://github.com/greatscottgadgets/ubertooth">github</a> 上找到 release 里面的的压缩包，在里面找到 bluetooth_rxtx.dfu 以后拷贝出来
-<img alt="image.png" src="../img/Fmrx3KIbMY3HRVfy/1649234580681-7fb4bd5f-f13b-470f-a5a6-9249bee5cbff-943232.png" />
+<p>在 <a href="https://github.com/greatscottgadgets/ubertooth">github</a> 上找到 release 里面的的压缩包，在里面找到 bluetooth_rxtx.dfu 以后拷贝出来<br />
+<img alt="image.png" src="../img/Fmrx3KIbMY3HRVfy/1649234580681-7fb4bd5f-f13b-470f-a5a6-9249bee5cbff-943232.png" /><br />
 运行命令就自动升级了，在虚拟机里面会断开连接，问题不大再连接就行了</p>
 <pre><code class="language-html">ubertooth-dfu -d bluetooth_rxtx.dfu -r
 </code></pre>
@@ -7763,18 +7763,18 @@ make
 make install
 </code></pre>
 <h2 id="ble">抓BLE流量</h2>
-<p>创建通信管道
+<p>创建通信管道<br />
 <code>mkfifo /tmp/pipe</code></p>
-<p>在命令行输入 wireshark 打开 wireshark，然后点击 <strong>捕获</strong> -&gt; <strong>选项</strong>
+<p>在命令行输入 wireshark 打开 wireshark，然后点击 <strong>捕获</strong> -&gt; <strong>选项</strong><br />
 <img alt="image.png" src="../img/Fmrx3KIbMY3HRVfy/1644472910172-06553ed0-7c5e-45fd-aaed-ef67df15c2b2-625867.png" /></p>
-<p>管理接口
-<img alt="image.png" src="../img/Fmrx3KIbMY3HRVfy/1644472965622-8be0f67a-7786-42af-9713-41666bcad9ab-962130.png" />
-新建一个管道 <code>/tmp/pipe</code>
-<img alt="image.png" src="../img/Fmrx3KIbMY3HRVfy/1644472991922-86eee068-5afb-4686-ac9f-488404f15dd3-119051.png" />
-点击开始抓包，新开一个终端，插入 ubertooth one 后输入 <code>ubertooth-btle -f -c /tmp/pipe</code>
+<p>管理接口<br />
+<img alt="image.png" src="../img/Fmrx3KIbMY3HRVfy/1644472965622-8be0f67a-7786-42af-9713-41666bcad9ab-962130.png" /><br />
+新建一个管道 <code>/tmp/pipe</code><br />
+<img alt="image.png" src="../img/Fmrx3KIbMY3HRVfy/1644472991922-86eee068-5afb-4686-ac9f-488404f15dd3-119051.png" /><br />
+点击开始抓包，新开一个终端，插入 ubertooth one 后输入 <code>ubertooth-btle -f -c /tmp/pipe</code><br />
 就可以看到流量在终端里显示了，同时 wireshark 里也会捕获到流量</p>
 <h2 id="_2">抓经典蓝牙流量</h2>
-<p>用这个 ubertooth-rx -r test.pcapng 是可以抓到少量经典蓝牙流量的，但是，没啥用展示的东西相当少，在 <a href="https://github.com/greatscottgadgets/ubertooth/issues/433#issuecomment-741940669">github 上项目贡献者说</a>真想抓经典蓝牙还得是 Ellisys 或者 Frontline 这类专业工具
+<p>用这个 ubertooth-rx -r test.pcapng 是可以抓到少量经典蓝牙流量的，但是，没啥用展示的东西相当少，在 <a href="https://github.com/greatscottgadgets/ubertooth/issues/433#issuecomment-741940669">github 上项目贡献者说</a>真想抓经典蓝牙还得是 Ellisys 或者 Frontline 这类专业工具<br />
 <img alt="image.png" src="../img/Fmrx3KIbMY3HRVfy/1649238141628-7e7c9382-ae77-488e-859c-1f62ac0090d9-067587.png" /></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/kgs8ut">https://www.yuque.com/hxfqg9/iot/kgs8ut</a></p>

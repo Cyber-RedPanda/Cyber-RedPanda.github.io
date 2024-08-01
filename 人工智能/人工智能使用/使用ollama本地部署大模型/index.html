@@ -7542,29 +7542,29 @@
 
 <h2 id="ollama">使用ollama本地部署大模型</h2>
 <p>chatGPT 刚出来没多久的时候，openai 时不时的限制使用频率，当时我想要是能本地部署一个大模型，无限制的使用该多好哇。后来有很多团队/公司陆陆续续在 github 开源了他们自己训练的大模型，但是部署使用的操作门槛比较高，曾经试图部署过一个，报了几个错也没时间折腾就放弃了</p>
-<p>前几天我发现了一个叫 ollama 的项目，根据介绍，一条命令就能跑起来一个大模型，因此实际体验了一下，项目地址：<a href="https://github.com/ollama/ollama">https://github.com/ollama/ollama</a>
+<p>前几天我发现了一个叫 ollama 的项目，根据介绍，一条命令就能跑起来一个大模型，因此实际体验了一下，项目地址：<a href="https://github.com/ollama/ollama">https://github.com/ollama/ollama</a><br />
 先说一下使用体验，极其丝滑，完全没有报错，感觉就像是刚开始学 web 安全，需要自己搭漏洞复现环境的我，遇到了 vulhub 哈哈哈哈（而且模型下载速度也蛮快的）</p>
-<p>接下来是部署指南：
-首先去 github 的 release 页面下载一个编译好的程序并安装
-<a href="https://github.com/ollama/ollama/releases">https://github.com/ollama/ollama/releases</a>
-安装好之后直接在命令行执行<code>ollama run llama2</code>就会自动去下载并运行 llama2 这个模型，下载甚至不需要挂代理，很舒适：
-<img alt="image.png" src="../img/sIMK7Eq90DcZZely/1709130386888-9e40a141-9589-4f43-956c-7ea888b25fe7-515333.png" />
-等模型下载结束后会自动进入命令行的交互模式，此时就已经部署结束了
-<img alt="image.png" src="../img/sIMK7Eq90DcZZely/1709132063197-6b86961a-cd89-49d8-a5f5-665497bf5dd6-607722.png" />
-但是在命令行中直接交互很多格式解析不出来，看起来怪怪的，可以使用 chatbot-ollama 这个项目部署一个 webUI，这样就可以在聊天框里面调用模型对话了
-<a href="https://github.com/ivanfioravanti/chatbot-ollama">https://github.com/ivanfioravanti/chatbot-ollama</a>
+<p>接下来是部署指南：<br />
+首先去 github 的 release 页面下载一个编译好的程序并安装<br />
+<a href="https://github.com/ollama/ollama/releases">https://github.com/ollama/ollama/releases</a><br />
+安装好之后直接在命令行执行<code>ollama run llama2</code>就会自动去下载并运行 llama2 这个模型，下载甚至不需要挂代理，很舒适：<br />
+<img alt="image.png" src="../img/sIMK7Eq90DcZZely/1709130386888-9e40a141-9589-4f43-956c-7ea888b25fe7-515333.png" /><br />
+等模型下载结束后会自动进入命令行的交互模式，此时就已经部署结束了<br />
+<img alt="image.png" src="../img/sIMK7Eq90DcZZely/1709132063197-6b86961a-cd89-49d8-a5f5-665497bf5dd6-607722.png" /><br />
+但是在命令行中直接交互很多格式解析不出来，看起来怪怪的，可以使用 chatbot-ollama 这个项目部署一个 webUI，这样就可以在聊天框里面调用模型对话了<br />
+<a href="https://github.com/ivanfioravanti/chatbot-ollama">https://github.com/ivanfioravanti/chatbot-ollama</a><br />
 这个项目部署起来也很简单，需要电脑上带有 npm（直接安装 nodejs，会附带安装 npm），然后 clone chatbot-ollama 项目到本地，在文件夹中依次执行：</p>
 <pre><code class="language-python">npm ci
 npm run dev
 </code></pre>
-<p>此时会自动打开一个 127.0.0.1:3000 的网页，愉快的使用吧！
-<img alt="image.png" src="../img/sIMK7Eq90DcZZely/1709127819334-c5095d20-36ca-4ad2-9481-21833459646a-832540.png" />
-此外，你还可以配合翻译插件进行本地AI翻译，这个项目本来是使用在线模型的 API 进行翻译的，但目前也支持了 ollama
-<a href="https://github.com/openai-translator/openai-translator">https://github.com/openai-translator/openai-translator</a>
-直接去 release 下载安装包后，在设置中选择本地大模型，并选择 API 模型为你已经下载好的本地模型保存即可
-<img alt="image.png" src="../img/sIMK7Eq90DcZZely/1709131444838-cec3ebae-84cc-4d03-a7d7-18d99e918de8-005313.png" />
-使用效果：
-<img alt="image.png" src="../img/sIMK7Eq90DcZZely/1709127809594-1fd6e9f9-a7da-4db8-a85b-16522de14dee-093208.png" />
+<p>此时会自动打开一个 127.0.0.1:3000 的网页，愉快的使用吧！<br />
+<img alt="image.png" src="../img/sIMK7Eq90DcZZely/1709127819334-c5095d20-36ca-4ad2-9481-21833459646a-832540.png" /><br />
+此外，你还可以配合翻译插件进行本地AI翻译，这个项目本来是使用在线模型的 API 进行翻译的，但目前也支持了 ollama<br />
+<a href="https://github.com/openai-translator/openai-translator">https://github.com/openai-translator/openai-translator</a><br />
+直接去 release 下载安装包后，在设置中选择本地大模型，并选择 API 模型为你已经下载好的本地模型保存即可<br />
+<img alt="image.png" src="../img/sIMK7Eq90DcZZely/1709131444838-cec3ebae-84cc-4d03-a7d7-18d99e918de8-005313.png" /><br />
+使用效果：<br />
+<img alt="image.png" src="../img/sIMK7Eq90DcZZely/1709127809594-1fd6e9f9-a7da-4db8-a85b-16522de14dee-093208.png" /><br />
 那么，接下来就可以注册一个公司并宣布开发 yichenGPT 了</p>
 <p><img alt="打拳.gif" src="../img/sIMK7Eq90DcZZely/1709131647258-1dd82bec-45e5-4644-ac55-ca23b9f17051-079494.gif" /></p>
 <blockquote>

@@ -7613,33 +7613,33 @@
   <h1>Ssh配置与使用</h1>
 
 <h2 id="ssh">ssh配置与使用</h2>
-<p>我的环境：
-<strong>parrot</strong>：用户名：chen，ip：192.168.149.132
+<p>我的环境：<br />
+<strong>parrot</strong>：用户名：chen，ip：192.168.149.132<br />
 <strong>ubuntu</strong>：用户名：yichen，ip：192.168.149.138</p>
 <p><img alt="image.png" src="../img/551833_tpm7uwn0vm5w1wh3/1576758862716-5a5d1648-bece-4a97-8e6c-bc3cc1fdf69b-930331.png" /></p>
 <h2 id="ssh_1">ssh安装</h2>
-<p>一般都自带了
-<code>sudo apt-get install openssh-client</code>
+<p>一般都自带了<br />
+<code>sudo apt-get install openssh-client</code><br />
 <code>sudo apt-get install openssh-server</code></p>
 <h2 id="_1">开启服务</h2>
 <p><code>sudo /etc/init.d/ssh start</code></p>
-<p><strong>相关：</strong>
-<code>sudo /etc/init.d/ssh stop</code>       <strong>server停止ssh服务  **
+<p><strong>相关：</strong><br />
+<code>sudo /etc/init.d/ssh stop</code>       <strong>server停止ssh服务  **<br />
 <code>sudo /etc/init.d/ssh restart</code>       </strong>server重启ssh服务**</p>
 <h2 id="_2">密码连接</h2>
-<p><code>ssh chen@192.168.149.132</code>   默认端口：22
+<p><code>ssh chen@192.168.149.132</code>   默认端口：22<br />
 如果需要指定端口可以使用：<code>ssh -p 9527 chen@192.168.149.132</code></p>
-<p>第一次连接会出现：
+<p>第一次连接会出现：<br />
 意思是，该远程主机的真实性无法确定，其公钥指纹为 cxt65U8MP/XOzyxCsBSR7/kwxvsYmOl/Hgr/Mjs0FZ4，确定想要继续连接吗？</p>
 <p><img alt="image.png" src="../img/551833_tpm7uwn0vm5w1wh3/1576758481718-ef61a024-4f0a-417e-9e52-dab6bc1e6080-303575.png" /></p>
-<p>输入：yes 继续，同意之后远程主机的公钥会保存在 $HOME/.ssh/known_hosts 中，当下次连接的时候就可以直接跳过确认部分，直接输入密码
+<p>输入：yes 继续，同意之后远程主机的公钥会保存在 $HOME/.ssh/known_hosts 中，当下次连接的时候就可以直接跳过确认部分，直接输入密码<br />
 再输入想要链接的主机的 password</p>
 <p><img alt="image.png" src="../img/551833_tpm7uwn0vm5w1wh3/1576758517324-9b527c5b-5a67-45e6-a706-55a5345c002e-416225.png" /></p>
 <p>连接成功，可以操作了</p>
 <p><img alt="image.png" src="../img/551833_tpm7uwn0vm5w1wh3/1576758624699-70622167-c5ed-4322-b166-beb83215e9a8-187225.png" /></p>
 <h2 id="_3">密钥连接</h2>
 <p>每次输入密码很麻烦，所以可以使用公钥登录，用户将自己的公钥存储在远程主机上面，登陆的时候远程主机会向用户发送一段随机字符串，用户用私钥加密之后再将加密后的发送给主机，如果主机能够用公钥解密成功则可以连接</p>
-<p>使用 <code>ssh-keygen</code> 生成公钥和私钥，第一次要求输入的是生成在什么地方，默认：/root/.ssh/ 目录下生成 id_rsa.pub 和 id_rsa，分别是公钥和私钥，输入想要给的名字的话会在当前目录生成输入的名字
+<p>使用 <code>ssh-keygen</code> 生成公钥和私钥，第一次要求输入的是生成在什么地方，默认：/root/.ssh/ 目录下生成 id_rsa.pub 和 id_rsa，分别是公钥和私钥，输入想要给的名字的话会在当前目录生成输入的名字<br />
 第二次和第三次等待输入的时候设置的是密钥的密码，可以直接回车就没有密码了，有密码双重保险</p>
 <p><img alt="image.png" src="../img/551833_tpm7uwn0vm5w1wh3/1582026891725-7488ca4b-f615-4768-b6fc-3f52e19e8298-239866.png" /></p>
 <p>生成的</p>
@@ -7648,8 +7648,8 @@
 <p>使用 <code>ssh-copy-id user@host</code> 就可以把公钥发送到 host 主机，这样就可以使用密钥登陆了，连接的时候就不用输入密码了</p>
 <p>如果还是不行，就打开远程主机的/etc/ssh/sshd_config这个文件，检查下面几行前面"#"注释是否取掉，改完重启 ssh 服务</p>
 <blockquote>
-<p>RSAAuthentication yes
-PubkeyAuthentication yes
+<p>RSAAuthentication yes<br />
+PubkeyAuthentication yes<br />
 AuthorizedKeysFile .ssh/authorized_keys</p>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/misc/vmf5m3">https://www.yuque.com/hxfqg9/misc/vmf5m3</a></p>
 </blockquote>

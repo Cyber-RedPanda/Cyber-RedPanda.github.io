@@ -7688,12 +7688,12 @@
 <p>感觉看 wiki 说的这东西算是涉及到 fastbin 的一类利用方式，不能算新的，了解一下 fastbin 的特点然后后面统一整理一下吧</p>
 <p><img alt="image.png" src="../img/WHenAVrPYMqedsuv/1596803861548-16e9f845-23f1-45ba-be30-7b3b8a5c750d-148956.png" /></p>
 <h2 id="fastbin">fastbin</h2>
-<p>大小：
-32位：16-64字节 0x10-0x40
-64位：32-128字节 0x20-0x80
+<p>大小：<br />
+32位：16-64字节 0x10-0x40<br />
+64位：32-128字节 0x20-0x80<br />
 chunk 的大小而不是申请的内存的大小（申请的内存加上 chunk 头）</p>
-<p>fastbinsY 是一个数组，相同大小的 chunk 放在一个数组元素指向的链表里面
-单向链表后进先出，fastbinsY 数组中每一个元素指向该链表的尾结点，尾结点在通过 fd 指针指向前一个节点
+<p>fastbinsY 是一个数组，相同大小的 chunk 放在一个数组元素指向的链表里面<br />
+单向链表后进先出，fastbinsY 数组中每一个元素指向该链表的尾结点，尾结点在通过 fd 指针指向前一个节点<br />
 例如：</p>
 <pre><code class="language-c">free(ptr1);
 free(ptr2);
@@ -7729,14 +7729,14 @@ void main(){
 <p>wiki 上的描述，可以看到 chunk1 的 fd 会指向 chunk2 那么如果 chunk1 是我们可控的那么就可以申请任意地址的 fastbin</p>
 <p><img alt="image.png" src="../img/WHenAVrPYMqedsuv/1596853024244-ac6e239c-4769-41da-a82f-dc7046ce18d6-984378.png" /></p>
 <h2 id="house-of-spirit">House Of Spirit</h2>
-<p>又是全新的知识 Orz
-在目标地址伪造 fastbin chunk，然后释放掉，从而达到分配指定地址的 chunk 的目的
+<p>又是全新的知识 Orz<br />
+在目标地址伪造 fastbin chunk，然后释放掉，从而达到分配指定地址的 chunk 的目的<br />
 有一些条件：</p>
 <blockquote>
-<p>fake chunk 的 ISMMAP 位不能为 1，因为 free 时，如果是 mmap 的 chunk，会单独处理
-fake chunk 地址需要对齐， MALLOC_ALIGN_MASK
-fake chunk 的 size 大小需要满足对应的 fastbin 的需求，同时也得对齐
-fake chunk 的 next chunk 的大小不能小于 2 * SIZE_SZ，同时也不能大于av-&gt;system_mem
+<p>fake chunk 的 ISMMAP 位不能为 1，因为 free 时，如果是 mmap 的 chunk，会单独处理<br />
+fake chunk 地址需要对齐， MALLOC_ALIGN_MASK<br />
+fake chunk 的 size 大小需要满足对应的 fastbin 的需求，同时也得对齐<br />
+fake chunk 的 next chunk 的大小不能小于 2 * SIZE_SZ，同时也不能大于av-&gt;system_mem<br />
 fake chunk 对应的 fastbin 链表头部不能是该 fake chunk，即不能构成 double free 的情况</p>
 </blockquote>
 <p><a href="https://www.yuque.com/hxfqg9/bin/ape5up?inner=COci2&amp;view=doc_embed">语雀内容</a></p>
@@ -7756,7 +7756,7 @@ add('2'*20,'b'*20)
 </code></pre>
 <p><img alt="image.png" src="../img/WHenAVrPYMqedsuv/1597195024066-af41b827-b37b-44be-915d-b8991b8e45de-320350.png" /></p>
 <p>这时候再去 show 就能拿到 puts 的真实地址了，拿到之后就可以计算出 libc 的地址，进而拿到 system 和 '/bin/sh' 的地址</p>
-<p>接下来需要伪造一个 chunk，因为枪支的 chunk 大小是 0x40的，而那个计数的东西在 bss 段中 0x804A2A4 的位置，每 add 一个就会 +1，可以用来作为 fake chunk 的 size，只需要多申请几个就可以
+<p>接下来需要伪造一个 chunk，因为枪支的 chunk 大小是 0x40的，而那个计数的东西在 bss 段中 0x804A2A4 的位置，每 add 一个就会 +1，可以用来作为 fake chunk 的 size，只需要多申请几个就可以<br />
 这时候可以同时把最后一个的指针改为 fake chunk 的地址（0x804A2A4 + 0x4）</p>
 <p><img alt="image.png" src="../img/WHenAVrPYMqedsuv/1597196854426-694495fe-905c-4f6d-a0f3-a22086c14d2f-102824.png" /></p>
 <pre><code class="language-python">count=1
@@ -7768,7 +7768,7 @@ add(payload,25 * 'a')
 </code></pre>
 <p>这样 fake chunk 的 size 位就构造好了，同时最后一个 chunk 的指向了 fake chunk</p>
 <p><img alt="image.png" src="../img/WHenAVrPYMqedsuv/1597215662130-a4b03b46-9599-4b04-a5b5-fee2acb8c9c4-099665.png" /></p>
-<p>还需要绕过一些检测：对齐、fake chunk 的 size 的大小、next chunk 的 size 大小、标记位检查
+<p>还需要绕过一些检测：对齐、fake chunk 的 size 的大小、next chunk 的 size 大小、标记位检查<br />
 来看一下那个 Leave a Message 功能，他会往 0x804A2A8 指向的地方也就是 0x804A2C0 读取内容</p>
 <p><img alt="image.png" src="../img/WHenAVrPYMqedsuv/1597214996588-f7c4203d-3275-4ea2-a9a0-7a94a31a6929-621814.png" /></p>
 <p>我么可以通过 Leave a Message 往那个地方去写来帮助 fake chunk 绕过检查，比如：</p>
@@ -7778,10 +7778,10 @@ payload += p32(0)
 payload = payload.ljust(128, 'c')
 leave(payload)
 </code></pre>
-<p>首先是 0x20 的占位留给 fake chunk，然后是 fake chunk 的 size，接下来是 next chunk 的 size
+<p>首先是 0x20 的占位留给 fake chunk，然后是 fake chunk 的 size，接下来是 next chunk 的 size<br />
 此时内存布局：</p>
 <p><img alt="image.png" src="../img/WHenAVrPYMqedsuv/1597216266606-034bb205-d61d-41e4-8c04-614273f1ab1c-491698.png" /></p>
-<p>释放的时候会把之前修改的指针指向的那个给释放掉，然后再去申请的时候就可以申请到伪造的那个 chunk
+<p>释放的时候会把之前修改的指针指向的那个给释放掉，然后再去申请的时候就可以申请到伪造的那个 chunk<br />
 然后通过把 0x0x804A2A8 的地方改成某个函数的 got 表项再通过 Leave a Message 功能往改掉的那个地址上写内容以此来覆盖 got 表项的内容</p>
 <pre><code class="language-python">payload = p32(elf.got['strlen']).ljust(20, 'a')
 add('b' * 20,payload)
@@ -7789,7 +7789,7 @@ leave(p32(sys_addr) + ';/bin/sh\x00')
 </code></pre>
 <p>这里覆盖的是 strlen 的 got 表的内容为 system 的地址</p>
 <p><img alt="image.png" src="../img/WHenAVrPYMqedsuv/1597217359854-0799ba38-5fc5-4f26-b41f-55390a2b2d32-537649.png" /></p>
-<p>Leave a Message 功能里面调用了一个函数，其中有 strlen
+<p>Leave a Message 功能里面调用了一个函数，其中有 strlen<br />
 相当于 system(p32(sys_addr) + ";/bin/sh")</p>
 <p><img alt="image.png" src="../img/WHenAVrPYMqedsuv/1597217483839-5ce416c6-8139-4ace-bd6b-2a4e82de82fc-284889.png" /></p>
 <p>exp：</p>

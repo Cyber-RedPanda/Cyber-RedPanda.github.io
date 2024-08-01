@@ -7621,7 +7621,7 @@
 <p>ulink 有一个保护检查机制，他会检查这个 chunk 的前一个 chunk 的 bk 指针是不是指向这个 chunk（后一个也一样）我们需要绕过他的检查</p>
 <p><a href="https://www.yuque.com/hxfqg9/bin/ape5up?inner=G0M19&amp;view=doc_embed">语雀内容</a></p>
 <h2 id="2014-hitcon-stkof">2014 HITCON stkof</h2>
-<p>这个师傅注释很详细，帮了大忙，下面也是根据这个 exp 复现的
+<p>这个师傅注释很详细，帮了大忙，下面也是根据这个 exp 复现的<br />
 <a href="https://blog.csdn.net/weixin_42151611/article/details/97016767">https://blog.csdn.net/weixin_42151611/article/details/97016767</a></p>
 <p>完整 exp：</p>
 <pre><code class="language-python">#coding:utf-8
@@ -7694,7 +7694,7 @@ payload = '/bin/sh\x00'
 p.sendline(payload)
 p.interactive()
 </code></pre>
-<p>运行连个菜单都不给...
+<p>运行连个菜单都不给...<br />
 把名字改一下</p>
 <p><img alt="image.png" src="../img/41F7SoZk_OSfbc1t/1593348758179-2d99196f-3061-49e4-b869-56c1da441569-855832.png" /></p>
 <p>create 功能，输入一个 size，然后申请 size 大小的堆块</p>
@@ -7703,11 +7703,11 @@ p.interactive()
 <p><img alt="image.png" src="../img/41F7SoZk_OSfbc1t/1595595855198-2dcc7f01-eb52-42d1-9bac-9d04006186e4-872985.png" /></p>
 <p>edit 功能，编辑已经创建好的堆块，但是没有对长度进行检查，所以存在堆溢出</p>
 <p><img alt="image.png" src="../img/41F7SoZk_OSfbc1t/1593349348844-fa6909e3-9b81-436d-8c84-560eb02bcefd-403787.png" /></p>
-<p>~~wp 说没有 setbuf，会先申请 1024 的堆空间？？~~
-~~要先提前申请个 chunk 来防止他们干扰？？~~
-~~怎么就能防止干扰了？？~~
-其实只要先申请一个，让程序把两个缓冲区分配好了，别后面插在我们申请的两个之间就可以吧
-黄色指的是提前申请的一个用来占空的
+<p>~~wp 说没有 setbuf，会先申请 1024 的堆空间？？~~<br />
+~~要先提前申请个 chunk 来防止他们干扰？？~~<br />
+~~怎么就能防止干扰了？？~~<br />
+其实只要先申请一个，让程序把两个缓冲区分配好了，别后面插在我们申请的两个之间就可以吧<br />
+黄色指的是提前申请的一个用来占空的<br />
 两个白色是缓冲区占用的，这样后面再申请就连起来了</p>
 <p><img alt="image.png" src="../img/41F7SoZk_OSfbc1t/1596288681749-309e4a47-1eb8-4c28-8fcf-6edcb52d5ff7-455322.png" /></p>
 <p>这时候来改写第 2 个（从 1 开始计数）伪造一个 free 的 chunk（黄线分割了第 2 和第 3 个）</p>
@@ -7719,14 +7719,14 @@ payload += p64(0x30)+p64(0x90)
 </code></pre>
 <p>这样填充完了就是这样的，在原本第 2 个 chunk 里面伪造了一个 free 的 chunk，大小是 0x20，然后把 fd 跟 bk 指针写为了 p64(head+16-0x18) 和 p64(head+16-0x10)。同时把下一个堆块的 prev_size 位写成了 0x30（前一个 chunk 加上开头的大小），以及 size 位的 prev_inuse 为 0</p>
 <p><img alt="image.png" src="../img/41F7SoZk_OSfbc1t/1596289260342-4d535b58-2bf0-48ac-a81c-8fad41768c35-267474.png" /></p>
-<p>这样，对第 3 个进行 free 的时候会发生 unlink，head + 16 与 head +16 -0x18
+<p>这样，对第 3 个进行 free 的时候会发生 unlink，head + 16 与 head +16 -0x18<br />
 那么最终的效果就是我们编辑第二个的时候就是编辑的 head + 16 - 0x18，也就是 0x602138</p>
 <p><img alt="image.png" src="../img/41F7SoZk_OSfbc1t/1596338929619-bfb458bb-4b1b-4d7c-8e35-f54d9104fd48-928365.png" /></p>
 <p>那么</p>
 <pre><code class="language-python">payload = p64(0)+p64(free_got)+p64(puts_got)+p64(atoi_got)
 edit(2,len(payload),payload)
 </code></pre>
-<p>因为此时的第二块指的是head-8，所以首先要填充8位，然后修改 s[0]=free_got，s[1]=puts_got，s[2]=atoi_got
+<p>因为此时的第二块指的是head-8，所以首先要填充8位，然后修改 s[0]=free_got，s[1]=puts_got，s[2]=atoi_got<br />
 修改完之后（虽然程序用的是 s[1] 开始记录指针的，但是 0 也是能用的啊）</p>
 <p><img alt="image.png" src="../img/41F7SoZk_OSfbc1t/1596338974970-ca8df6ff-c55d-4c78-bb05-5bd4425784db-681446.png" /></p>
 <p>这时候去修改第 0 个，修改的就是 0x602018 也就是 free 的 got 表项，改成 puts_plt，之后再调用 free 函数的时候就会调用 puts 了</p>
@@ -7817,7 +7817,7 @@ p.interactive()
 <p><img alt="image.png" src="../img/41F7SoZk_OSfbc1t/1596362822931-5f4cb4e6-fd71-4fb3-9b1d-9d8af8da13f2-012727.png" /></p>
 <p>申请的内容会放到 &amp;ptr+dword_602160 这里，总共只能申请 3 个</p>
 <p><img alt="image.png" src="../img/41F7SoZk_OSfbc1t/1596363020394-4db03633-88a9-4ddd-a447-d1598a7ab444-351831.png" /></p>
-<p>首先，申请的时候有一个 0x0 的，但是要有个 chunk 头和记录 fd、bk 的地方，所以实际分配的是 0x20
+<p>首先，申请的时候有一个 0x0 的，但是要有个 chunk 头和记录 fd、bk 的地方，所以实际分配的是 0x20<br />
 第 0 个写入的内容中构造了一个 fake chunk，大小是 0x50，它的 fd、bk 是 ptr - 0x18 和 ptr - 0x10</p>
 <p><img alt="image.png" src="../img/41F7SoZk_OSfbc1t/1596361894606-f5af4b23-5748-401d-9f18-580f66b3e58f-841406.png" /></p>
 <p>但是下一个的 chunk 的 prev_size 我们没法改变，那么之前申请的那个 0x0 的第 1 个就派上用场了，首先把申请的第 1 个给释放掉，因为是 fastbin 所以我们再次申请 0x0 大小的时候还是会申请到这个地方，而同时，因为 i 是一个无符号型的，我们输入的 0-1 就会变成一个很大的数，所以我们可以写很多的内容，从而覆盖掉后一个 chunk 给他改写掉</p>
@@ -7825,21 +7825,21 @@ p.interactive()
 <p>其中 i 是 unsigned 类型，a2 为 int 类型，所以两者在 for 循环相比较的时候，a2-1 的结果 - 1 会被视为 unsigned 类型，此时，即最大的整数。所以说可以读取任意长度的数据，这里也就是后面我们溢出所使用的办法。</p>
 </blockquote>
 <p><img alt="image.png" src="../img/41F7SoZk_OSfbc1t/1596373162666-820271ee-52ff-441e-8469-371296c84870-923732.png" /></p>
-<p>这里我想在开始就改写，但是不行，原因大概是一开始下面的那个 chunk 没有申请，溢出的那块地址没法写入？
+<p>这里我想在开始就改写，但是不行，原因大概是一开始下面的那个 chunk 没有申请，溢出的那块地址没法写入？<br />
 所以先把第 1 个释放掉，在申请回来</p>
 <pre><code class="language-python">delete(1)
 content='a'*16+p64(0xa0)+p64(0x90)
 create(0,content)
 </code></pre>
 <p><img alt="image.png" src="../img/41F7SoZk_OSfbc1t/1596373419563-baf4afb0-ecb2-4054-862b-9e97270e34eb-557739.png" /></p>
-<p>之后再去释放第 2 个，就会把第 0 个构造的 fake chunk 给 unlink
+<p>之后再去释放第 2 个，就会把第 0 个构造的 fake chunk 给 unlink<br />
 unlink 之后的结果就是 ptr = ptr-0x18</p>
 <p>现在修改第 0 个就是修改的 ptr-0x18，所以我们先写上 0x18 个 a 占空，然后写上 atoi 的 got 表项，这样使用 show 功能的时候就会 show atoi 的 got 表项的内容</p>
 <pre><code class="language-python">atoi_got = note2.got['atoi']
 content = 'a' * 0x18 + p64(atoi_got)
 editnote(0, 1, content)
 </code></pre>
-<p>然后根据得到的 atoi 的地址来算出 system 的地址
+<p>然后根据得到的 atoi 的地址来算出 system 的地址<br />
 因为此时 ptr 指向的是 atoi 的 got 表项，所以我们直接编辑第 0 个就可以把 atoi 的 got 表项改成 system 的地址</p>
 <p>至于为啥是 atoi他接收 option 输入的时候用的是 atoi 函数</p>
 <p><img alt="image.png" src="../img/41F7SoZk_OSfbc1t/1596375348143-80078b3e-ba95-4467-b459-a37b4d0c2d29-486008.png" /></p>
@@ -7853,8 +7853,8 @@ editnote(0, 1, content)
 <p><img alt="image.png" src="../img/41F7SoZk_OSfbc1t/1596631077506-6050752e-0b31-4dd2-9e5a-3e41549a8f5f-572880.png" /></p>
 <p>一开始申请三个 chunk（index 从 0 开始），第一个里面直接构造一个 fake chunk</p>
 <p><img alt="image.png" src="../img/41F7SoZk_OSfbc1t/1596632840192-5ad58efc-f204-448c-8d55-65e759f566b1-065659.png" /></p>
-<p>然后先把第 1 个 delete，然后在申请回来就能通过负数来获得一个很大的 size
-把第 2 个给改掉，这样当 delete 的时候就能进行 unlink，这样 ptr 就等于 ptr-0x18 了
+<p>然后先把第 1 个 delete，然后在申请回来就能通过负数来获得一个很大的 size<br />
+把第 2 个给改掉，这样当 delete 的时候就能进行 unlink，这样 ptr 就等于 ptr-0x18 了<br />
 然后就能通过写第 0 个来改变 ptr-0x18 处的内容</p>
 <pre><code class="language-python">payload3 = 'a'*0x18 + p64(free_got) + p64(puts_got)
 edit(0,payload3)
@@ -7862,7 +7862,7 @@ edit(0,p64(puts_plt)[:-1])
 delete(1)
 </code></pre>
 <blockquote>
-<p>注意这里的 [:-1] 由于 p64 总共 8 个字节，如果不加上 [:-1] 会由于 sendline 最后的 \n 覆盖掉与它紧邻位置的数据。而为什么能使用 [:-1]? 可以输出 hex(p64(puts_plt)) 试一下，会发现它是 0x0000xxxxxxxxxx 的形式，前面会有至少 2 个 00，再加上小端序的问题，我们就相当于丢掉了开头的 2 个 00，这样并不会产生太大影响，最主要的是我们保护了与它紧邻的数据。
+<p>注意这里的 [:-1] 由于 p64 总共 8 个字节，如果不加上 [:-1] 会由于 sendline 最后的 \n 覆盖掉与它紧邻位置的数据。而为什么能使用 [:-1]? 可以输出 hex(p64(puts_plt)) 试一下，会发现它是 0x0000xxxxxxxxxx 的形式，前面会有至少 2 个 00，再加上小端序的问题，我们就相当于丢掉了开头的 2 个 00，这样并不会产生太大影响，最主要的是我们保护了与它紧邻的数据。<br />
 http://liul14n.top/2020/02/06/Unlink-ZCTF-2016-note3/</p>
 </blockquote>
 <p>这样就能泄露出 puts 的真实地址，然后计算出 system 的地址，这时候再去申请一个，会发现他是第 1 个</p>

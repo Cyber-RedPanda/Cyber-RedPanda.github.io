@@ -7995,29 +7995,29 @@
 <h3 id="_2">硬件</h3>
 <p>esp32、micro-usb、杜邦线、usb-&gt;ttl、支持嗅探的无线网卡</p>
 <h3 id="_3">软件</h3>
-<p>这是源码：<a href="https://github.com/xuanxuanblingbling/esp32ctf_thu">GitHub - xuanxuanblingbling/esp32ctf_thu</a>
-esp32的windows烧录环境：<a href="https://docs.espressif.com/projects/esp-idf/zh_CN/latest/esp32/get-started/windows-setup.html">Windows 平台工具链的标准设置 - ESP32 - — ESP-IDF 编程指南 latest 文档</a>，直接点进来下载离线安装包
-<a href="https://dl.espressif.com/dl/esp-idf/?idf=4.4"><img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663401939422-92048e0d-64e1-4672-8e71-5fc4562289c9-512919.png" /></a>
-我下载的是这个，无脑安装
-<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663401961582-a5a645d1-4c58-4b25-93d6-aae72bcb94d6-499602.png" />
-完事之后出来了两个快捷方式
-<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663402036469-21523c33-b291-43f4-a5cf-8b255b41da21-741765.png" />
-这俩用哪个都行，打开之后切换目录到源码的文件夹，cd esp32ctf_thu/thuctf/
-输入命令：<code>idf.py menuconfig</code>，稍等片刻会打开一个新界面，设置 Serial flasher config 的 Flash size 为 4MB
-<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663402294888-caf41bc4-481f-439a-95c5-21ca9c949f04-179640.png" />
-设置 Partition Table 的 Partition Table 为 Custom partition table CSV
-<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663402370898-3eed033c-1e8b-4151-8aeb-329cc5b97174-271758.png" />
-选完之后 Q 保存退出
-然后<code>idf.py build</code>编译代码
-<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663402432662-1bb995b5-25a9-4615-9330-b03932686ade-417847.png" />
-等它编译一阵，完事之后就可以<code>idf.py flash</code>了，出现 Connecting..... 的时候要摁住板子上的 BOOT 键
-<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663402583249-266c8ec6-d36d-44c5-80e2-1aa415357bcf-265048.png" />
-烧写完成之就可以关掉了，随便找个串口工具，选择波特率 115200 就能看到 log 了
+<p>这是源码：<a href="https://github.com/xuanxuanblingbling/esp32ctf_thu">GitHub - xuanxuanblingbling/esp32ctf_thu</a><br />
+esp32的windows烧录环境：<a href="https://docs.espressif.com/projects/esp-idf/zh_CN/latest/esp32/get-started/windows-setup.html">Windows 平台工具链的标准设置 - ESP32 - — ESP-IDF 编程指南 latest 文档</a>，直接点进来下载离线安装包<br />
+<a href="https://dl.espressif.com/dl/esp-idf/?idf=4.4"><img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663401939422-92048e0d-64e1-4672-8e71-5fc4562289c9-512919.png" /></a><br />
+我下载的是这个，无脑安装<br />
+<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663401961582-a5a645d1-4c58-4b25-93d6-aae72bcb94d6-499602.png" /><br />
+完事之后出来了两个快捷方式<br />
+<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663402036469-21523c33-b291-43f4-a5cf-8b255b41da21-741765.png" /><br />
+这俩用哪个都行，打开之后切换目录到源码的文件夹，cd esp32ctf_thu/thuctf/<br />
+输入命令：<code>idf.py menuconfig</code>，稍等片刻会打开一个新界面，设置 Serial flasher config 的 Flash size 为 4MB<br />
+<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663402294888-caf41bc4-481f-439a-95c5-21ca9c949f04-179640.png" /><br />
+设置 Partition Table 的 Partition Table 为 Custom partition table CSV<br />
+<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663402370898-3eed033c-1e8b-4151-8aeb-329cc5b97174-271758.png" /><br />
+选完之后 Q 保存退出<br />
+然后<code>idf.py build</code>编译代码<br />
+<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663402432662-1bb995b5-25a9-4615-9330-b03932686ade-417847.png" /><br />
+等它编译一阵，完事之后就可以<code>idf.py flash</code>了，出现 Connecting..... 的时候要摁住板子上的 BOOT 键<br />
+<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663402583249-266c8ec6-d36d-44c5-80e2-1aa415357bcf-265048.png" /><br />
+烧写完成之就可以关掉了，随便找个串口工具，选择波特率 115200 就能看到 log 了<br />
 <img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663402993713-7632bd14-b14b-4b96-bf4e-fedb58296b73-366742.png" /></p>
 <h3 id="_4">注意</h3>
 <p>题目其实是这里<a href="https://github.com/xuanxuanblingbling/esp32ctf_thu/tree/main/attachment">esp32ctf_thu/attachment at main · xuanxuanblingbling/esp32ctf_thu</a>，烧录好之后拿着这个文件夹里的内容做题，里面有个 tar 包，是删掉了真实 flag 的源码，有些关卡需要分析源码才知道咋做，源码按照不同的题目方向分开了，很友好！</p>
 <h2 id="_5">开搞</h2>
-<p>咱从头开始，先把 GND 和 23 号引脚连起来，如果前面已经供电了在连 GND 和 23 引脚需要断电重新供电，或者摁一下板子上的 EN 摁扭才能切换到硬件的题目这一方向
+<p>咱从头开始，先把 GND 和 23 号引脚连起来，如果前面已经供电了在连 GND 和 23 引脚需要断电重新供电，或者摁一下板子上的 EN 摁扭才能切换到硬件的题目这一方向<br />
 <img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663422356545-ded8b28f-9077-42fd-8162-2a3977d4728a-903199.png" /></p>
 <h3 id="_6">硬件题目</h3>
 <h4 id="task1">task1</h4>
@@ -8041,10 +8041,10 @@ void hardware_task1(){
     }
 }
 </code></pre>
-<p>此时日志如下
-<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663422439837-27234f7a-a502-485d-bae9-74120af6b489-410355.png" />
-GPIO 是指板子上的一组引脚。这些引脚可以发送或接收电信号，但它们不是为任何特定目的而设计的，可以由我们通过编程来实现任意功能。这就是为什么它们被称为通用 IO（General-purpose input/output）
-抬高就是给它供电，把板子上的 3.3V 或 5V 与他接起来就行了
+<p>此时日志如下<br />
+<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663422439837-27234f7a-a502-485d-bae9-74120af6b489-410355.png" /><br />
+GPIO 是指板子上的一组引脚。这些引脚可以发送或接收电信号，但它们不是为任何特定目的而设计的，可以由我们通过编程来实现任意功能。这就是为什么它们被称为通用 IO（General-purpose input/output）<br />
+抬高就是给它供电，把板子上的 3.3V 或 5V 与他接起来就行了<br />
 <img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663423088413-9806b8b3-cf2d-44bb-9758-60662c9c7749-855997.png" /></p>
 <h4 id="task2">task2</h4>
 <p><strong>题目：在GPIO18处构造出1w个上升沿</strong></p>
@@ -8079,10 +8079,10 @@ void hardware_task2(){
     }
 }
 </code></pre>
-<p>上升沿指的是数字电路中数字电平从低电平（数字0）到高电平（数字1）的一瞬间，下降沿同理
-借助一个 TX 的引脚会一直输出这一特点来与 GPIO18 连起来，这样就可以啦
-<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663424431142-ac0514c9-56ba-49a9-8921-25ec638ce677-450752.png" />
-补充：上下拉是给 IO 一个默认的状态，上拉和下拉是指 GPIO 输出高电位(上拉)还是低电位(下拉)，从程序设计的角度讲，上拉就是如果没有输入信号则此时 I/O 状态为 1，下拉相反
+<p>上升沿指的是数字电路中数字电平从低电平（数字0）到高电平（数字1）的一瞬间，下降沿同理<br />
+借助一个 TX 的引脚会一直输出这一特点来与 GPIO18 连起来，这样就可以啦<br />
+<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663424431142-ac0514c9-56ba-49a9-8921-25ec638ce677-450752.png" /><br />
+补充：上下拉是给 IO 一个默认的状态，上拉和下拉是指 GPIO 输出高电位(上拉)还是低电位(下拉)，从程序设计的角度讲，上拉就是如果没有输入信号则此时 I/O 状态为 1，下拉相反<br />
 <a href="">关于上下拉电阻看一下这个</a></p>
 <p>试着理解一下代码的意思，给 GPIO18 注册了一个上升沿中断处理函数，函数的功能是 trigger+1，同时把 GPIO18 的上拉关掉，这样没有输入时候的 I/O 状态就不是 1，有输入的时候就会触发上升沿，这样 trigger 就会增加了</p>
 <h4 id="task3">task3</h4>
@@ -8114,8 +8114,8 @@ void hardware_task3(){
     }
 }
 </code></pre>
-<p>被晃了呜呜呜，这个板子上有个TX2 我以为是这个呐，结果等了半天啥也没有，这个是让你分析代码，看一下用的哪一个 GPIO 作为 TX，通过 define 可以看到，TXD 是 GPIO4，那就把 GPIO4 接到 USB-&gt;TTL 的 RX 上就可以看到了
-<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663464167141-2542de13-242f-4e65-9e8a-9b32caf1c3c1-811631.png" />
+<p>被晃了呜呜呜，这个板子上有个TX2 我以为是这个呐，结果等了半天啥也没有，这个是让你分析代码，看一下用的哪一个 GPIO 作为 TX，通过 define 可以看到，TXD 是 GPIO4，那就把 GPIO4 接到 USB-&gt;TTL 的 RX 上就可以看到了<br />
+<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663464167141-2542de13-242f-4e65-9e8a-9b32caf1c3c1-811631.png" /><br />
 <img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663464321221-1b358f19-fddc-47b9-8b5c-89564481dc14-510276.png" /></p>
 <h3 id="_7">网络题目</h3>
 <h4 id="task1_1">task1</h4>
@@ -8171,60 +8171,60 @@ static void network_tcp()
     }
 }
 </code></pre>
-<p>这里得往上翻日志了，他随机指定了一个 wifi 名和密码，会去连接那个密码，用手机开个热点即可
-ssid: kbmxet , password svtujgjb
-<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663468246528-b7658834-cd5c-4f3a-a095-5e77c4bba78f-146583.png" />
-<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663468313965-ffdc9a21-bc2c-4d4a-9a65-e76b825ce593-027176.png" />
-日志里给出了 IP 和端口，用电脑也连接上开的热点
-<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663468509188-0bc598ff-f205-45b7-8c28-cc55d347644b-902164.png" />
-nc 一下，连上之后根据源码里的逻辑，发送 getflag 即可
+<p>这里得往上翻日志了，他随机指定了一个 wifi 名和密码，会去连接那个密码，用手机开个热点即可<br />
+ssid: kbmxet , password svtujgjb<br />
+<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663468246528-b7658834-cd5c-4f3a-a095-5e77c4bba78f-146583.png" /><br />
+<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663468313965-ffdc9a21-bc2c-4d4a-9a65-e76b825ce593-027176.png" /><br />
+日志里给出了 IP 和端口，用电脑也连接上开的热点<br />
+<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663468509188-0bc598ff-f205-45b7-8c28-cc55d347644b-902164.png" /><br />
+nc 一下，连上之后根据源码里的逻辑，发送 getflag 即可<br />
 <img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663468674689-64674887-08ac-473f-889f-421499447354-291098.png" /></p>
 <h4 id="task2_1">task2</h4>
 <p><strong>题目：你知道他发给百度的 flag 么</strong></p>
 <blockquote>
 <p>此部分代码不完善，可能会因死循环爆栈导致重启，请见谅...（确实容易重启🤣）</p>
 </blockquote>
-<p>改为用电脑开这个热点，然后直接抓取网卡的流量，嗯，，他好像不会切换，得重新做一遍
-<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663469043873-d25f2250-0618-4456-8c39-855556eb1593-221153.png" />
-电脑开启热点后会有一个新的网卡，就抓这个网卡即可
-<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663469130367-202f4c8c-6b5c-4ec9-bc62-41b45b28c461-985433.png" />
-追踪 HTTP 流发现 flag
+<p>改为用电脑开这个热点，然后直接抓取网卡的流量，嗯，，他好像不会切换，得重新做一遍<br />
+<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663469043873-d25f2250-0618-4456-8c39-855556eb1593-221153.png" /><br />
+电脑开启热点后会有一个新的网卡，就抓这个网卡即可<br />
+<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663469130367-202f4c8c-6b5c-4ec9-bc62-41b45b28c461-985433.png" /><br />
+追踪 HTTP 流发现 flag<br />
 <img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663469182870-f53830fb-a789-4c0d-b323-aadcc23789a0-960632.png" /></p>
 <h4 id="task3_1">task3</h4>
-<p><strong>题目：flag在空中</strong>
-同时日志如下：
-<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663469414936-904aa8a7-418e-44d1-9908-f4091aea9dd3-440318.png" />
+<p><strong>题目：flag在空中</strong><br />
+同时日志如下：<br />
+<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663469414936-904aa8a7-418e-44d1-9908-f4091aea9dd3-440318.png" /><br />
 把无线网卡插到 kali 里面，把无线网卡设置为监听模式，然后开启抓包</p>
 <pre><code>airmon-ng start wlan0
 airodump-ng wlan0mon
 </code></pre>
-<p>然后打开 wireshark 选择网卡为 wlan0mon 进行抓包
+<p>然后打开 wireshark 选择网卡为 wlan0mon 进行抓包<br />
 <img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1678027749145-7acde137-a82b-4dc0-8f33-dbb5f82d21a9-056334.png" /></p>
 <h3 id="_8">蓝牙题目</h3>
 <h4 id="task1_2">task1</h4>
-<p><strong>题目：修改蓝牙名称并设置可被发现即可获得flag</strong>
-也是刚开始的日志中随机指定了蓝牙设备的名字
-<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663471371588-bd267804-0dc5-45da-a875-1b80fc966eff-338035.png" />
-直接改手机的名字就行了，现在手机好像默认不被发现？在手机上点击扫描周围设备就可以了
-<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663471536239-76f1b565-aaf4-44c2-bdc3-637effd17748-828625.png" />
+<p><strong>题目：修改蓝牙名称并设置可被发现即可获得flag</strong><br />
+也是刚开始的日志中随机指定了蓝牙设备的名字<br />
+<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663471371588-bd267804-0dc5-45da-a875-1b80fc966eff-338035.png" /><br />
+直接改手机的名字就行了，现在手机好像默认不被发现？在手机上点击扫描周围设备就可以了<br />
+<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663471536239-76f1b565-aaf4-44c2-bdc3-637effd17748-828625.png" /><br />
 <img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663471496530-e47c613b-7194-4cbd-b11c-ad09575bac65-476145.png" /></p>
 <h4 id="task2_2">task2</h4>
-<p><strong>题目：flag在空中</strong>
-那就抓包吧，开启 Hollong，直接全选广播包中就有，同时也确定了他的 MAC 地址和设备名
-<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663471771481-66cee620-36a1-4ae4-9f07-fdfce90abba2-937085.png" />
-也可以用 nRF Connect 直接看到广播包
+<p><strong>题目：flag在空中</strong><br />
+那就抓包吧，开启 Hollong，直接全选广播包中就有，同时也确定了他的 MAC 地址和设备名<br />
+<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663471771481-66cee620-36a1-4ae4-9f07-fdfce90abba2-937085.png" /><br />
+也可以用 nRF Connect 直接看到广播包<br />
 <img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1669170878486-406afd07-13cd-436c-a3e7-53d7ad3c9ac9-506221.png" /></p>
 <h4 id="task3_2">task3</h4>
-<p><strong>题目：分析GATT业务并获得flag</strong>
-用 nRF Connect 连接，一开始读，只有DEEDBEEF
-<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663472681416-6ca6f906-9e63-44b0-ad41-0f5a5d59b6d4-041264.png" />
-搜索源码里的 [+] bluetooth task III 定位到这里，我们写入的值与 flag2 进行了对比，通过则 open_task3 = 1
-<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663472758689-93f20f90-6f37-4edc-b93d-fc1929d0874f-069503.png" />
-只有当 open_task3 = 1 时才会把真正的 flag 拷贝过去
-<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663472824539-fe259d58-8b23-49d4-b77f-857a6735103d-233667.png" />
-发送 task2 的 flag
-<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663472524087-2f203cb1-b446-4466-808a-a8e2156e8535-439904.png" />
-再次读取，转成 ASCII码即可 THUCTF{WrItE_4_gA7T}
+<p><strong>题目：分析GATT业务并获得flag</strong><br />
+用 nRF Connect 连接，一开始读，只有DEEDBEEF<br />
+<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663472681416-6ca6f906-9e63-44b0-ad41-0f5a5d59b6d4-041264.png" /><br />
+搜索源码里的 [+] bluetooth task III 定位到这里，我们写入的值与 flag2 进行了对比，通过则 open_task3 = 1<br />
+<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663472758689-93f20f90-6f37-4edc-b93d-fc1929d0874f-069503.png" /><br />
+只有当 open_task3 = 1 时才会把真正的 flag 拷贝过去<br />
+<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663472824539-fe259d58-8b23-49d4-b77f-857a6735103d-233667.png" /><br />
+发送 task2 的 flag<br />
+<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663472524087-2f203cb1-b446-4466-808a-a8e2156e8535-439904.png" /><br />
+再次读取，转成 ASCII码即可 THUCTF{WrItE_4_gA7T}<br />
 <img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1663472536660-885fccaa-01f1-4b7a-83fc-396256a37f79-589693.png" /></p>
 <h3 id="mqtt">MQTT题目</h3>
 <p>这里有些问题，原版的域名到期了，你需要在自己的服务器上拉起来一个 Docker</p>
@@ -8238,15 +8238,15 @@ airodump-ng wlan0mon
 改为
 mqtt_app_start(&quot;mqtt://192.168.50.132&quot;);
 </code></pre>
-<p>然后需要开一个热点：名称：THUCTFIOT；密码：mqttwifi@123
+<p>然后需要开一个热点：名称：THUCTFIOT；密码：mqttwifi@123<br />
 设备连接上之后 esp32 会连接我们搭建的 MQTT broker</p>
 <h4 id="task1_3">task1</h4>
-<p><strong>题目：你知道MQTT的上帝是谁么</strong>
-MQTT 中有通配符 # 表示所有的主题，只需要订阅 # 就会收到所有的主题的消息，使用 MQTTX 订阅 #
-<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1669194495711-d7b7d5f2-da07-4e60-bd52-906de352d67a-495586.png" />
+<p><strong>题目：你知道MQTT的上帝是谁么</strong><br />
+MQTT 中有通配符 # 表示所有的主题，只需要订阅 # 就会收到所有的主题的消息，使用 MQTTX 订阅 #<br />
+<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1669194495711-d7b7d5f2-da07-4e60-bd52-906de352d67a-495586.png" /><br />
 也可以参考这个用 python 调用 <a href="https://www.yuque.com/hxfqg9/iot/pqfymw#r2zRT">https://www.yuque.com/hxfqg9/iot/pqfymw#r2zRT</a></p>
 <h4 id="task2_3">task2</h4>
-<p><strong>题目：你能欺骗订阅者么</strong>
+<p><strong>题目：你能欺骗订阅者么</strong><br />
 当 esp32 接收到数据时，会进入到 MQTT_EVENT_DATA 中，在代码中看到会去调用 mqtt_data_hander</p>
 <pre><code class="language-c">case MQTT_EVENT_DATA:
     ESP_LOGI(&quot;mqtt&quot;, &quot;MQTT_EVENT_DATA&quot;);
@@ -8289,14 +8289,14 @@ MQTT 中有通配符 # 表示所有的主题，只需要订阅 # 就会收到所
     }
 }
 </code></pre>
-<p>在 MQTTX 中给主题 /topic/flag2/bayyqa 发送 ip 后 esp32 就会按照 a 的长度从 flagdata 中取出值来请求 ip
-<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1669194579526-109ac397-c377-4ebb-bef5-bee9bccf090d-905899.png" />
-在远程服务器上监听一个 80 端口，得到了 task2 的 flag
+<p>在 MQTTX 中给主题 /topic/flag2/bayyqa 发送 ip 后 esp32 就会按照 a 的长度从 flagdata 中取出值来请求 ip<br />
+<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1669194579526-109ac397-c377-4ebb-bef5-bee9bccf090d-905899.png" /><br />
+在远程服务器上监听一个 80 端口，得到了 task2 的 flag<br />
 <img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1669193639985-46244871-a34e-47bf-8a29-27b28a8d52dd-069333.png" /></p>
 <h4 id="task3_3">task3</h4>
-<p><strong>题目：这是个内存破坏的前戏</strong>
-如果想要得到 task3 的 flag 需要使 a 的足够大，这样 memcpy 的时候才会把 flagdata 全部包括进来，但是前面有个判断，只有当 ( a &lt; (int)(sizeof(mqtt_flag_2) + sizeof(tag3) - 1 ) ) 时才可以，这里判断长度时有符号，但下面使用时和 0xff 进行了与运算 memcpy(out,flagdata,a &amp; 0xff)，如果设置长度为 -1 ，与 0xff 与运算将会得到一个很大的数，这样既可以绕过大小限制，又可以完整的拷贝 flagdata 带出位于 flag2 后的 flag3
-<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1669195008238-0ef5c66b-000e-43f6-9779-958e456a5373-818106.png" />
+<p><strong>题目：这是个内存破坏的前戏</strong><br />
+如果想要得到 task3 的 flag 需要使 a 的足够大，这样 memcpy 的时候才会把 flagdata 全部包括进来，但是前面有个判断，只有当 ( a &lt; (int)(sizeof(mqtt_flag_2) + sizeof(tag3) - 1 ) ) 时才可以，这里判断长度时有符号，但下面使用时和 0xff 进行了与运算 memcpy(out,flagdata,a &amp; 0xff)，如果设置长度为 -1 ，与 0xff 与运算将会得到一个很大的数，这样既可以绕过大小限制，又可以完整的拷贝 flagdata 带出位于 flag2 后的 flag3<br />
+<img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1669195008238-0ef5c66b-000e-43f6-9779-958e456a5373-818106.png" /><br />
 <img alt="image.png" src="../img/uipj0GlYXI9Bld-6/1669193666814-8d06a945-9467-4711-811b-30db48a7be54-240700.png" /></p>
 <blockquote>
 <p>原文: <a href="https://www.yuque.com/hxfqg9/iot/oqmpwi">https://www.yuque.com/hxfqg9/iot/oqmpwi</a></p>

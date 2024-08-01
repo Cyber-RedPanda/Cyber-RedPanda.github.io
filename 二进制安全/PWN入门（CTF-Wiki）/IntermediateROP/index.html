@@ -7813,7 +7813,7 @@
 <h2 id="intermediate-rop">Intermediate ROP</h2>
 <h2 id="ret2csu">ret2csu</h2>
 <h3 id="x86-x64">x86 与 x64 的区别：</h3>
-<p>x86 都是保存在栈上面的， 而 x64 中的前六个参数依次保存在 RDI, RSI, RDX, RCX, R8 和 R9 中，如果还有更多的参数的话才会保存在栈上
+<p>x86 都是保存在栈上面的， 而 x64 中的前六个参数依次保存在 RDI, RSI, RDX, RCX, R8 和 R9 中，如果还有更多的参数的话才会保存在栈上<br />
 详细的例子去看蒸米ROP x64篇</p>
 <h3 id="ret2csu_1">ret2csu</h3>
 <p>x64 下面有一些万能的 gadget：<code>objdump -d ./level5</code> 显示特定的汇编（-D 显示全部的）</p>
@@ -7839,16 +7839,16 @@
 </code></pre>
 <p>通过构造栈上的数据，调用 1 然后返回到 2 就可以控制寄存器</p>
 <p><img alt="image.png" src="../img/551835_ntrqpa0hll5ar3bs/1575199937493-61042764-4d11-4e0c-87cc-5901916d4cdd-047456.png" /></p>
-<p>临时参考：<a href="https://blog.csdn.net/weixin_43467772/article/details/89131527">https://blog.csdn.net/weixin_43467772/article/details/89131527</a>
+<p>临时参考：<a href="https://blog.csdn.net/weixin_43467772/article/details/89131527">https://blog.csdn.net/weixin_43467772/article/details/89131527</a><br />
 首先通过溢出把一堆数据写在栈上，此时返回地址覆盖为 gadgets1，调用 gaegets1 的时候 rsp+8 通过 gadgets1 把栈上的数据写在寄存器里面，同时把 rsp 再加一下让程序返回到 gadgets2</p>
-<p>gadgets2 会把之前寄存器上存的数据放在需要的寄存器上（参数存放顺序：RDI, RSI, RDX, RCX, R8 和 R9）
+<p>gadgets2 会把之前寄存器上存的数据放在需要的寄存器上（参数存放顺序：RDI, RSI, RDX, RCX, R8 和 R9）<br />
 把 write 函数需要的参数部署好之后通过 call (r12+rbx*8) 之前把 rbx 设置成了 0，当程序执行完 write 函数以后会自己回到这里（因为是 call，正常调用）所以不用管返回地址，继续执行，此时还会执行 gadgets1 上面那张图那样子，gadgets1 里面有一段 add rsp,38h 所以还要填充 38h 个字节把这一段填充掉，使得程序返回的时候是我们写在栈上的 main_addr</p>
 <p>write 函数原型是 write(1,address,len) ，1表示标准输出流 ，address 是 write 函数要输出信息的地址 ，而 len 表示输出长度</p>
-<p>第一发payload
+<p>第一发payload<br />
 <img alt="image.png" src="../img/551835_ntrqpa0hll5ar3bs/1580967841096-349ed8e3-2445-4cf2-adfa-97d0fb3a3f5d-450292.png" /></p>
-<p>第二发payload
+<p>第二发payload<br />
 <img alt="image.png" src="../img/551835_ntrqpa0hll5ar3bs/1580967895864-e998b4fc-f357-41ed-b59c-186e01694327-913154.png" /></p>
-<p>第三发payload
+<p>第三发payload<br />
 <img alt="image.png" src="../img/551835_ntrqpa0hll5ar3bs/1580967918246-1655d9a7-3e5b-49e0-9ab8-fb1bdf80c852-811608.png" /></p>
 <p>剩下的同理，只是 read 从标准输入流（0，即控制台）读取 0x100 放到 .bss 段里面</p>
 <pre><code class="language-python">#!python
@@ -7950,23 +7950,23 @@ p.interactive()
 <h2 id="brop">BROP</h2>
 <p>BROP是在没有给出题目的情况下，只能通过尝试来确定</p>
 <h3 id="_1">攻击条件</h3>
-<p>程序必须存在溢出漏洞，以便攻击者可以控制程序流程
+<p>程序必须存在溢出漏洞，以便攻击者可以控制程序流程<br />
 进程崩溃以后可以重启，而且重启之后的地址与先前的地址一样</p>
 <h3 id="_2">基本思路</h3>
-<p>首先通过枚举，判断栈溢出长度，然后通过 Stack Reading 获取栈上的数据来获取canary以及ebp和返回地址
+<p>首先通过枚举，判断栈溢出长度，然后通过 Stack Reading 获取栈上的数据来获取canary以及ebp和返回地址<br />
 再找到足够多的 gadget 来控制输出函数的参数并进行调用，利用输出函数来dump出程序来找到更多的gadget</p>
 <h4 id="_3">栈溢出</h4>
 <p>从 1 开始暴力枚举，直到程序崩溃</p>
 <h4 id="stack-reading">Stack Reading</h4>
-<p>通过按照字节爆破比枚举数值更快
-每个字节最多有256种可能，所以在32位的情况下，我们最多需要爆破1024次，64位最多爆破2048次
+<p>通过按照字节爆破比枚举数值更快<br />
+每个字节最多有256种可能，所以在32位的情况下，我们最多需要爆破1024次，64位最多爆破2048次<br />
 找到canary的值</p>
 <h4 id="blind-rop">Blind ROP</h4>
 <p>调用write函数最方便的方法是系统调用号，然后syscall，然而syscall几乎不可能</p>
 <p>所以可以使用 libc_csu_init 结尾的一段 gadgets 来实现，同时可以使用 plt 来获取write地址，在write的参数里面，rdx是用来限制输出长度的，一般不会为0，但是保险起见，可以同时设置一下，但是几乎没有 pop rdx 这样的指令</p>
 <p>可以通过 strcmp 来实现，在执行 strcmp 的时候，rdx会被设置为字符串的长度，所以只要找到 strcmp 就可以实现控制rdx</p>
-<p>接下来要做的就是：
-1、找gadgets 
+<p>接下来要做的就是：<br />
+1、找gadgets <br />
 2、找 plt 表，比如 write、strcmp</p>
 <h4 id="gadget">找gadget</h4>
 <p>为了能够找到 gadget，可以分为两步：1、stop gadget，当执行这一段代码时，程序陷入循环，使攻击者一直保持连接状态，其根本目的在于告诉攻击者，其所测试的地址是一段gadget</p>
@@ -7985,17 +7985,17 @@ p.interactive()
 <li>Trap</li>
 </ul>
 <p>可以导致程序崩溃的地址，直接写 p64(0) 就可以</p>
-<p>通过不同顺序构造一串 payload 就可以达到找到识别正在执行的指令的效果
-比如：probe + trap + stop + trap + trap... 可以找到一个 pop xxx;ret 这样的
-probe + trap + trap + trap + trap + trap + trap + stop + trap + trap...  这样的就可以找到：
+<p>通过不同顺序构造一串 payload 就可以达到找到识别正在执行的指令的效果<br />
+比如：probe + trap + stop + trap + trap... 可以找到一个 pop xxx;ret 这样的<br />
+probe + trap + trap + trap + trap + trap + trap + stop + trap + trap...  这样的就可以找到：<br />
 pop xxx; pop xxx; pop xxx; pop xxx; pop xxx; pop xxx; ret</p>
 <p>ps. 在每个布局后面都放上 trap 是为了保证崩溃 probe 返回如果不是 stop 能够立即崩溃</p>
 <p>当然，我们还是很难确定它弹的哪一个寄存器，但是，一下子连续弹 6 次的很大可能性就是 brop_gadgets</p>
 <p>这里说的 brop_gadgets 就是上面 ret2csu 的那个</p>
 <p>同时找到的哪一个可能是一个 stop_gadgets，可以把后面原本的 stop_gadgets 改一下，如果程序没崩溃那就是又找了一个 stop_gadgets</p>
 <h4 id="plt">找某些 plt</h4>
-<p>找到了 gadgets 以后，只需要根据功能，再去遍历地址，找到能够实现这个功能的地址就找到了这个函数的 plt
-比如：payload = 'A'*72 +p64(pop_rdi_ret)+p64(0x400000)+p64(addr)+p64(stop_gadget)
+<p>找到了 gadgets 以后，只需要根据功能，再去遍历地址，找到能够实现这个功能的地址就找到了这个函数的 plt<br />
+比如：payload = 'A'*72 +p64(pop_rdi_ret)+p64(0x400000)+p64(addr)+p64(stop_gadget)<br />
 如果能过把 0x400000 的内容给输出来就可以找到 put@plt 了</p>
 <h3 id="hctf">HCTF 出题人失踪了</h3>
 <pre><code class="language-python">from pwn import *
@@ -8171,7 +8171,7 @@ with open('code', 'wb') as f:
 </code></pre>
 <p>把 dump 下来的文件用 IDA 的二进制模式打开</p>
 <p><img alt="image.png" src="../img/551835_ntrqpa0hll5ar3bs/1582370700359-3d912929-62a5-4396-a5ac-51443081e42a-575723.png" /></p>
-<p>然后把基址改成 0x400000：
+<p>然后把基址改成 0x400000：<br />
 编辑 -&gt; 段 -&gt; 重新设置基址</p>
 <p><img alt="image.png" src="../img/551835_ntrqpa0hll5ar3bs/1582370758601-6c9309c1-5d31-48a8-b5f4-3eddcf6b86a0-121998.png" /></p>
 <p>设置为 0x400000</p>

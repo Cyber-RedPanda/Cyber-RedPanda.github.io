@@ -7553,12 +7553,12 @@
 <p><img alt="image.png" src="../img/Ymetjy4ev3qPvIU0/1601900993915-2cea97a4-0bde-4672-8af4-38e5eb14412e-926849.png" /></p>
 <p>访问浏览器 33447 端口，有个图片，没啥用</p>
 <p><img alt="image.png" src="../img/Ymetjy4ev3qPvIU0/1601902933930-abd8f3d4-9b3e-4879-aaab-a209d3605cb6-409334.png" /></p>
-<p><code>nikto -host 192.168.17.134 -port 33447</code>
+<p><code>nikto -host 192.168.17.134 -port 33447</code><br />
 扫描一下，看看有啥东西</p>
 <p><img alt="image.png" src="../img/Ymetjy4ev3qPvIU0/1601903004800-095cf382-a5ae-4386-bf66-d78bd59c955b-308214.png" /></p>
 <p>访问那个 /bin/ 目录，当访问 http://192.168.17.134:33447/bin/dashboard.php 的时候提示了没有权限访问</p>
 <p><img alt="image.png" src="../img/Ymetjy4ev3qPvIU0/1601906055219-9ccdd396-549f-4a13-8720-14b295f355ca-275501.png" /></p>
-<p>在访问的时候 burp 抓包，改 referer 为 /bin/includes/validation.php
+<p>在访问的时候 burp 抓包，改 referer 为 /bin/includes/validation.php<br />
 <code>Referer: http://192.168.17.134:33447/bin/includes/validation.php</code></p>
 <p><img alt="image.png" src="../img/Ymetjy4ev3qPvIU0/1601906033037-22205ca0-c151-4b4b-b5c4-e43c6cf8ca19-884950.png" /></p>
 <p>这样放过去就可以访问到 /bin/dashboard.php</p>
@@ -7570,11 +7570,11 @@
 <p>然后扫出来一个 UB3R/strcpy.exe</p>
 <p><img alt="image.png" src="../img/Ymetjy4ev3qPvIU0/1601907038454-f7bbb5f8-2ae4-4b7d-8206-8b3cdaf330df-398471.png" /></p>
 <p>下下来实际是 pdf，foremost 分离一下，可以分离出来一个 rar，里面有张图片，再次分离，又有一个 rar，里面有个 Avinash.contact</p>
-<p>把里面那些东西做成一个字典
+<p>把里面那些东西做成一个字典<br />
 Avinash&gt; Makke</p>
 <blockquote>
-<p>avinash
-makke
+<p>avinash<br />
+makke<br />
 acid.exploit</p>
 <p>acid</p>
 <p>exploit</p>

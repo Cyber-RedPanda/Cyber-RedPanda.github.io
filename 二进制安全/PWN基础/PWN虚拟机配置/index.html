@@ -7798,7 +7798,7 @@
 <p>虚拟机选好直接 vmware 简易安装先</p>
 <p><img alt="image.png" src="../img/kBqPOzZ2A6Y37ezO/1592555961718-3d130aea-c913-483e-83b1-8a48bb0d17cf-485594.png" /></p>
 <h2 id="vm-tools">安装 VM-tools</h2>
-<p>（全选y）（安装完成重启生效）
+<p>（全选y）（安装完成重启生效）<br />
 sudo apt-get install open-vm-tools-desktop fuse</p>
 <h2 id="_2">虚拟机挂起恢复后，无法联网</h2>
 <p>sudo service network-manager restart</p>
@@ -7824,11 +7824,11 @@ deb-src http://mirrors.aliyun.com/ubuntu/ xenial-security universe
 <p><img alt="image.png" src="../img/kBqPOzZ2A6Y37ezO/1592559739435-2846f6d6-737b-49e0-87a9-be8945076696-667576.png" /></p>
 <p>这个选项也是，然后重启，打开之后跟换名称随意</p>
 <p><img alt="image.png" src="../img/kBqPOzZ2A6Y37ezO/1592559816694-ba4dff42-dc13-4923-b237-281a1294146a-433610.png" /></p>
-<p>如果文字变成楷体之类的很难看
-sudo apt-get remove fonts-arphic-ukai
+<p>如果文字变成楷体之类的很难看<br />
+sudo apt-get remove fonts-arphic-ukai<br />
 sudo apt-get remove fonts-arphic-uming</p>
 <h2 id="pip">安装 pip</h2>
-<p>sudo apt-get install python-pip
+<p>sudo apt-get install python-pip<br />
 sudo apt-get install python3-pip</p>
 <h2 id="pip_1">pip 换源</h2>
 <p>vim ~/.pip/pip.conf</p>
@@ -7839,10 +7839,10 @@ index-url = https://pypi.tuna.tsinghua.edu.cn/simple
 <p>pip install pwntools</p>
 <h2 id="gdb">GDB 插件</h2>
 <p><code>git clone https://github.com/yichen115/GDB-Plugins</code></p>
-<p>在 pwndbg 文件夹中 <code>git init</code> 初始化一下，然后运行 <code>./setup.sh</code> 安装
-想用 peda：<code>echo "source ~/GDB-Plugins/peda/peda.py" &gt; ~/.gdbinit</code>
-想用 peda-heap：<code>echo "source ~/GDB-Plugins/peda-heap/peda.py" &gt; ~/.gdbinit</code>（感觉这个挺好用的，扩展了 heap 的功能，还保留了 peda 的）
-想用 gef：<code>echo "source ~/GDB-Plugins/gef/gef.py" &gt; ~/.gdbinit</code>
+<p>在 pwndbg 文件夹中 <code>git init</code> 初始化一下，然后运行 <code>./setup.sh</code> 安装<br />
+想用 peda：<code>echo "source ~/GDB-Plugins/peda/peda.py" &gt; ~/.gdbinit</code><br />
+想用 peda-heap：<code>echo "source ~/GDB-Plugins/peda-heap/peda.py" &gt; ~/.gdbinit</code>（感觉这个挺好用的，扩展了 heap 的功能，还保留了 peda 的）<br />
+想用 gef：<code>echo "source ~/GDB-Plugins/gef/gef.py" &gt; ~/.gdbinit</code><br />
 想用 pwndbg：<code>echo "source ~/GDB-Plugins/pwndbg/gdbinit.py" &gt; ~/.gdbinit</code></p>
 <h2 id="one_gadget">安装 one_gadget</h2>
 <pre><code>sudo apt-get install ruby -y
@@ -7859,7 +7859,7 @@ cd LibcSearcher
 python setup.py develop
 </code></pre>
 <h2 id="main_arena_offset">main_arena_offset</h2>
-<p>用来计算 main_arena 的偏移
+<p>用来计算 main_arena 的偏移<br />
 git clone <a href="https://github.com/bash-c/main_arena_offset">https://github.com/bash-c/main_arena_offset</a></p>
 <h2 id="seccomp-tools">安装seccomp-tools</h2>
 <p>用来读取 seccomp 沙箱规则</p>
